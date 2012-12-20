@@ -1,0 +1,140 @@
+module org.ptolemy.XActor
+
+import org.eclipse.emf.mwe.utils.*
+import org.eclipse.xtext.generator.*
+import org.eclipse.xtext.ui.generator.*
+
+var grammarURI = "classpath:/org/ptolemy/xtext/XActor.xtext"
+var file.extensions = "xactor"
+var projectName = "org.ptolemy.xtext"
+var runtimeProject = "../${projectName}"
+
+Workflow {
+	bean = StandaloneSetup {
+		scanClassPath  = true
+		platformUri = "${runtimeProject}/.."
+		registerGeneratedEPackage = "org.ptolemy.ecore.kernel.KernelPackage"
+		registerGeneratedEPackage = "org.ptolemy.ecore.actor.ActorPackage"
+		registerGeneratedEPackage = "org.ptolemy.ecore.caltrop.CaltropPackage"
+		registerGeneratedEPackage = "org.ptolemy.ecore.xactor.XactorPackage"
+
+		registerGenModelFile = "platform:/resource/org.ptolemy.ecore/model/kernel.genmodel"
+		registerGenModelFile = "platform:/resource/org.ptolemy.ecore/model/actor.genmodel"
+		registerGenModelFile = "platform:/resource/org.ptolemy.ecore/model/caltrop.genmodel"
+		registerGenModelFile = "platform:/resource/org.ptolemy.ecore/model/xactor.genmodel"
+		registerGenModelFile = "platform:/resource/org.eclipse.xtext.common.types/model/JavaVMTypes.genmodel"
+		registerGenModelFile = "platform:/resource/org.eclipse.xtext.xbase/model/Xbase.genmodel"
+	}
+
+	component = DirectoryCleaner {
+		directory = "${runtimeProject}/src-gen"
+	}
+
+	component = DirectoryCleaner {
+		directory = "${runtimeProject}.ui/src-gen"
+	}
+
+	component = Generator {
+		pathRtProject = runtimeProject
+		pathUiProject = "${runtimeProject}.ui"
+		projectNameRt = projectName
+		projectNameUi = "${projectName}.ui"
+		language = {
+			uri = grammarURI
+			fileExtensions = file.extensions
+
+			// Java API to access grammar elements (required by several other fragments)
+			fragment = grammarAccess.GrammarAccessFragment {}
+
+			// the serialization component
+//			fragment = parseTreeConstructor.ParseTreeConstructorFragment {}
+			fragment = serializer.SerializerFragment {}
+
+			// a custom ResourceFactory for use with EMF 
+			fragment = resourceFactory.ResourceFactoryFragment {
+				fileExtensions = file.extensions
+			}
+
+			// the Antlr parser
+			fragment = parser.antlr.XtextAntlrGeneratorFragment {
+		        antlrParam = "-Xconversiontimeout" antlrParam = "10000"
+				options = {
+					classSplitting = true
+				}
+			}
+			// the Ecore2Xtext specific terminal converter
+			fragment = ecore2xtext.Ecore2XtextValueConverterServiceFragment {}
+
+			// java-based API for validation 
+			fragment = validation.JavaValidatorFragment {
+			// composedCheck = "org.eclipse.xtext.validation.ImportUriValidator"
+			// composedCheck = "org.eclipse.xtext.validation.NamesAreUniqueValidator"
+			}
+
+			// scoping and exporting API
+//			fragment = scoping.ImportURIScopingFragment {}
+//			fragment = exporting.SimpleNamesFragment {}
+
+			// scoping and exporting API 
+
+			 fragment = scoping.ImportNamespacesScopingFragment {}
+			 fragment = exporting.QualifiedNamesFragment {}
+
+
+			// formatter API 
+			fragment = ecore2xtext.FormatterFragment {}
+
+			// labeling API 
+			fragment = labeling.LabelProviderFragment {}
+
+			// outline API 
+            fragment = outline.OutlineTreeProviderFragment {}
+            fragment = outline.QuickOutlineFragment {}
+
+			// java-based API for content assistance 
+			fragment = contentAssist.JavaBasedContentAssistFragment {}
+
+			// antlr parser generator tailored for content assist 
+			fragment = parser.antlr.XtextAntlrUiGeneratorFragment {
+		        antlrParam = "-Xconversiontimeout" antlrParam = "10000"
+				options = {
+					classSplitting = true
+				}
+			}
+
+			// provides a compare view
+            fragment = compare.CompareFragment {
+                fileExtensions = file.extensions
+            }
+
+			fragment = builder.BuilderIntegrationFragment {}
+
+			fragment = generator.GeneratorFragment {
+				generateJavaMain = false
+				generateMwe = false
+			}
+
+			// project wizard (optional) 
+
+			// fragment = projectWizard.SimpleProjectWizardFragment {
+			//		generatorProjectName = "${projectName}.generator" 
+			//		modelFileExtension = file.extensions
+			// }
+
+			// quickfix API 
+			fragment = quickfix.QuickfixProviderFragment {}
+			
+			// rename refactoring
+			fragment = refactoring.RefactorElementNameFragment {
+				useJdtRefactoring = true
+			}
+			
+			fragment = types.TypesGeneratorFragment {}
+			// Xbase support
+			fragment = xbase.XbaseGeneratorFragment {
+				useInferredJvmModel = true
+				generateXtendInferrer = false
+			}
+		}
+	}
+}

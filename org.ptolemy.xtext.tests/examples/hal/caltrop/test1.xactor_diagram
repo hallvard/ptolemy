@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="ASCII"?>
+<actordiagram:EntityContainerDiagram xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:actordiagram="org.ptolemy.graphiti.actordiagram" xmlns:al="http://eclipse.org/graphiti/mm/algorithms" xmlns:pi="http://eclipse.org/graphiti/mm/pictograms" visible="true" gridUnit="10" diagramTypeId="xactor" name="test1" snapToGrid="true" pictogramLinks="//@children.0/@link //@children.0/@children.0/@link" version="0.9.0">
+  <graphicsAlgorithm xsi:type="al:Rectangle" background="//@colors.1" foreground="//@colors.0" lineWidth="1" transparency="0.0" width="1000" height="1000"/>
+  <link>
+    <businessObjects href="test1.xactor#/0"/>
+  </link>
+  <children xsi:type="actordiagram:EntityShape" visible="true" active="true" label="//@children.0/@graphicsAlgorithm/@graphicsAlgorithmChildren.1">
+    <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="94" height="76" x="160" y="160">
+      <graphicsAlgorithmChildren xsi:type="al:Rectangle" background="//@colors.3" foreground="//@colors.2" lineWidth="2" transparency="0.0" width="70" height="50" x="12" y="14"/>
+      <graphicsAlgorithmChildren xsi:type="al:Text" foreground="//@colors.2" lineWidth="1" filled="false" transparency="0.0" width="70" height="14" x="12" font="//@fonts.0" value="ramp1"/>
+    </graphicsAlgorithm>
+    <link>
+      <businessObjects href="test1.xactor#/0/@entities[name='ramp1']"/>
+    </link>
+    <anchors xsi:type="pi:ChopboxAnchor" referencedGraphicsAlgorithm="//@children.0/@graphicsAlgorithm/@graphicsAlgorithmChildren.0"/>
+    <children xsi:type="actordiagram:PortShape" visible="true" active="true" alignment="ALIGNMENT_RIGHT" orientation="ALIGNMENT_RIGHT" outsideAnchor="//@children.0/@children.0/@anchors.0" size="12" filled="true" locked="true">
+      <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="12" height="12" x="82" y="33">
+        <graphicsAlgorithmChildren xsi:type="al:Polygon" background="//@colors.5" foreground="//@colors.4" lineStyle="UNSPECIFIED" width="12" height="12">
+          <points/>
+          <points x="12" y="6"/>
+          <points y="12"/>
+        </graphicsAlgorithmChildren>
+      </graphicsAlgorithm>
+      <link>
+        <businessObjects href="test1.xactor#/0/@entities[name='ramp1']/@inheritedPorts[name='output']"/>
+      </link>
+      <anchors xsi:type="actordiagram:PortAnchor" visible="true" active="true" referencedGraphicsAlgorithm="//@children.0/@children.0/@graphicsAlgorithm" relativeWidth="1.0" relativeHeight="0.5" alignment="ALIGNMENT_RIGHT">
+        <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="1" height="1"/>
+      </anchors>
+      <anchors xsi:type="pi:ChopboxAnchor" referencedGraphicsAlgorithm="//@children.0/@children.0/@graphicsAlgorithm"/>
+    </children>
+  </children>
+  <colors red="227" green="238" blue="249"/>
+  <colors red="255" green="255" blue="255"/>
+  <colors red="98" green="131" blue="167"/>
+  <colors red="187" green="218" blue="247"/>
+  <colors red="132" green="132" blue="132"/>
+  <colors red="217" green="217" blue="217"/>
+  <fonts name="Arial" size="8" bold="true"/>
+</actordiagram:EntityContainerDiagram>

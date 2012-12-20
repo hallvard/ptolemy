@@ -1,6 +1,7 @@
-*.class
+# Eclipse build directory #
+bin/
 
-# Package Files #
-*.jar
-*.war
-*.ear
+# Xtend directory and files #
+xtend-gen/
+*.smap
+*._trace

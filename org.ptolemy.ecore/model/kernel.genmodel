@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<genmodel:GenModel xmi:version="2.0"
+    xmlns:xmi="http://www.omg.org/XMI" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore"
+    xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel" modelDirectory="/org.ptolemy.ecore/src"
+    modelPluginID="org.ptolemy.ecore" modelName="Kernel" importerID="org.eclipse.emf.importer.ecore"
+    complianceLevel="6.0" copyrightFields="false">
+  <foreignModel>kernel.ecore</foreignModel>
+  <genPackages prefix="Kernel" basePackage="org.ptolemy.ecore" resource="XMI" disposableProviderFactory="true"
+      ecorePackage="kernel.ecore#/">
+    <genDataTypes ecoreDataType="kernel.ecore#//JavaClassRef"/>
+    <genClasses image="false" ecoreClass="kernel.ecore#//Nameable">
+      <genOperations ecoreOperation="kernel.ecore#//Nameable/getContainer"/>
+      <genOperations ecoreOperation="kernel.ecore#//Nameable/getName"/>
+      <genOperations ecoreOperation="kernel.ecore#//Nameable/setName">
+        <genParameters ecoreParameter="kernel.ecore#//Nameable/setName/name"/>
+      </genOperations>
+      <genOperations ecoreOperation="kernel.ecore#//Nameable/getDisplayName"/>
+      <genOperations ecoreOperation="kernel.ecore#//Nameable/getFullName"/>
+      <genOperations ecoreOperation="kernel.ecore#//Nameable/getName.1">
+        <genParameters ecoreParameter="kernel.ecore#//Nameable/getName.1/container"/>
+      </genOperations>
+    </genClasses>
+    <genClasses image="false" ecoreClass="kernel.ecore#//NamedObj">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute kernel.ecore#//NamedObj/name"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute kernel.ecore#//NamedObj/displayName"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference kernel.ecore#//NamedObj/attributes"/>
+      <genOperations ecoreOperation="kernel.ecore#//NamedObj/getAttribute">
+        <genParameters ecoreParameter="kernel.ecore#//NamedObj/getAttribute/name"/>
+      </genOperations>
+    </genClasses>
+    <genClasses ecoreClass="kernel.ecore#//Attribute"/>
+    <genClasses ecoreClass="kernel.ecore#//InstanceAttribute">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute kernel.ecore#//InstanceAttribute/javaClassRef"/>
+    </genClasses>
+    <genClasses image="false" ecoreClass="kernel.ecore#//Entity">
+      <genTypeParameters ecoreTypeParameter="kernel.ecore#//Entity/P"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference kernel.ecore#//Entity/ports"/>
+      <genFeatures property="Readonly" notify="false" createChild="false" ecoreFeature="ecore:EReference kernel.ecore#//Entity/sourceEntities"/>
+      <genFeatures property="Readonly" notify="false" createChild="false" ecoreFeature="ecore:EReference kernel.ecore#//Entity/targetEntities"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute kernel.ecore#//Entity/abstract"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference kernel.ecore#//Entity/superEntity"/>
+      <genFeatures property="None" children="true" createChild="false" ecoreFeature="ecore:EReference kernel.ecore#//Entity/mergedAttributes"/>
+      <genFeatures property="None" children="true" createChild="false" ecoreFeature="ecore:EReference kernel.ecore#//Entity/mergedPorts"/>
+      <genFeatures property="Readonly" notify="false" createChild="false" ecoreFeature="ecore:EReference kernel.ecore#//Entity/allAttributes"/>
+      <genFeatures property="Readonly" notify="false" createChild="false" ecoreFeature="ecore:EReference kernel.ecore#//Entity/allPorts"/>
+      <genOperations ecoreOperation="kernel.ecore#//Entity/getContainer"/>
+      <genOperations ecoreOperation="kernel.ecore#//Entity/getPort">
+        <genParameters ecoreParameter="kernel.ecore#//Entity/getPort/name"/>
+      </genOperations>
+      <genOperations ecoreOperation="kernel.ecore#//Entity/resolveSuperEntity">
+        <genParameters ecoreParameter="kernel.ecore#//Entity/resolveSuperEntity/force"/>
+      </genOperations>
+    </genClasses>
+    <genClasses image="false" ecoreClass="kernel.ecore#//EntityRefOwner">
+      <genOperations ecoreOperation="kernel.ecore#//EntityRefOwner/entityResolved">
+        <genParameters ecoreParameter="kernel.ecore#//EntityRefOwner/entityResolved/feature"/>
+      </genOperations>
+    </genClasses>
+    <genClasses ecoreClass="kernel.ecore#//EntityRef">
+      <genTypeParameters ecoreTypeParameter="kernel.ecore#//EntityRef/P"/>
+      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference kernel.ecore#//EntityRef/owner"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference kernel.ecore#//EntityRef/ref"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference kernel.ecore#//EntityRef/resolved"/>
+      <genOperations ecoreOperation="kernel.ecore#//EntityRef/resolve">
+        <genParameters ecoreParameter="kernel.ecore#//EntityRef/resolve/force"/>
+      </genOperations>
+    </genClasses>
+    <genClasses ecoreClass="kernel.ecore#//Port">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference kernel.ecore#//Port/outgoingLinks"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference kernel.ecore#//Port/incomingLinks"/>
+      <genFeatures property="Readonly" notify="false" createChild="false" ecoreFeature="ecore:EReference kernel.ecore#//Port/targetPorts"/>
+      <genFeatures property="Readonly" notify="false" createChild="false" ecoreFeature="ecore:EReference kernel.ecore#//Port/sourcePorts"/>
+      <genOperations ecoreOperation="kernel.ecore#//Port/getContainer"/>
+    </genClasses>
+    <genClasses ecoreClass="kernel.ecore#//Relation">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference kernel.ecore#//Relation/container"/>
+      <genFeatures property="Readonly" notify="false" createChild="false" ecoreFeature="ecore:EReference kernel.ecore#//Relation/sourcePort"/>
+      <genFeatures property="Readonly" notify="false" createChild="false" ecoreFeature="ecore:EReference kernel.ecore#//Relation/targetPorts"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference kernel.ecore#//Relation/sourceComponentPort"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference kernel.ecore#//Relation/targetComponentPorts"/>
+    </genClasses>
+    <genClasses ecoreClass="kernel.ecore#//ComponentEntity">
+      <genTypeParameters ecoreTypeParameter="kernel.ecore#//ComponentEntity/P"/>
+      <genOperations ecoreOperation="kernel.ecore#//ComponentEntity/isAtomic"/>
+      <genOperations ecoreOperation="kernel.ecore#//ComponentEntity/isOpaque"/>
+    </genClasses>
+    <genClasses ecoreClass="kernel.ecore#//ComponentPort">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference kernel.ecore#//ComponentPort/innerOutgoingLinks"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference kernel.ecore#//ComponentPort/innerIncomingLinks"/>
+    </genClasses>
+    <genClasses ecoreClass="kernel.ecore#//CompositeEntity">
+      <genTypeParameters ecoreTypeParameter="kernel.ecore#//CompositeEntity/P"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference kernel.ecore#//CompositeEntity/entities"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference kernel.ecore#//CompositeEntity/relations"/>
+      <genFeatures property="None" children="true" createChild="false" ecoreFeature="ecore:EReference kernel.ecore#//CompositeEntity/mergedEntities"/>
+      <genFeatures property="None" children="true" createChild="false" ecoreFeature="ecore:EReference kernel.ecore#//CompositeEntity/mergedRelations"/>
+      <genFeatures property="Readonly" notify="false" createChild="false" ecoreFeature="ecore:EReference kernel.ecore#//CompositeEntity/allEntities"/>
+      <genFeatures property="Readonly" notify="false" createChild="false" ecoreFeature="ecore:EReference kernel.ecore#//CompositeEntity/allRelations"/>
+      <genOperations ecoreOperation="kernel.ecore#//CompositeEntity/getEntity">
+        <genParameters ecoreParameter="kernel.ecore#//CompositeEntity/getEntity/name"/>
+      </genOperations>
+    </genClasses>
+  </genPackages>
+</genmodel:GenModel>

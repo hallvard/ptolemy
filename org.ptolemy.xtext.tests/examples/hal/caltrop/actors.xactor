@@ -1,0 +1,168 @@
+model hal.caltrop.actors.library
+
+import java.util.*
+import ptolemy.^actor.*
+import com.google.common.collect.*
+
+container sources {
+
+	container generic {
+		actor StringConst(String value="value", int fireLimit=-1)
+		==> String output
+		action ==> [value] guard step < fireLimit
+	}
+
+	container timed {
+	
+		actor CurrentTime(boolean useLocalTime=false)
+		==> double output
+		action ==> [time]
+		do {
+			val double time = if (useLocalTime)
+                director.modelTime.doubleValue
+            else
+                director.globalTime.doubleValue
+        };
+
+		actor CurrentMicrostep
+		==> int output
+		action ==> [(director as ptolemy.^actor.SuperdenseTimeDirector).index]
+	}
+
+	container sequence {
+	
+		actor Ramp (int init=0, int step=1, int end=10)
+		==> int output
+		var int state = init;
+		action ==> [old_state] guard state < end
+		do state = state + step;
+		
+		actor Values(Iterable<?> values = Arrays::asList(1, 2, 3), boolean rep = false)
+		==> Object output
+		var Iterator<?> iter = values.iterator();
+		action ==> [value] guard iter.hasNext() || rep
+		do {
+			val Object value = iter.next();
+			if (rep && (! iter.hasNext()))
+				iter = values.iterator()
+		};
+	}
+}
+
+container sinks {
+
+	container generic {
+
+		actor Discard
+		Object input ==>
+		action [ignore] ==>
+		
+		actor Recorder(int capacity=-1)
+		Object* input ==>
+		val Collection<Object> values = new LinkedList<Object>();
+		val Collection<Double> times  = new LinkedList<Double>();
+		action [input] any ==>
+		do {
+			while (capacity >= 0 && ( values.size() >= capacity ) ) {
+				values.remove(0)
+				times.remove(0)
+			}
+			values += input.values().toIterable()
+			times += director.modelTime.doubleValue
+		};
+	}
+}
+
+container logic {
+
+	actor LogicFunction(String function = "and")
+	boolean* input  ==> boolean output
+	// index of function represents the truth table, as shown below
+	// see http://www.cs.cmu.edu/Groups/AI/html/cltl/clm/node131.html#SECTION001670000000000000000
+	val List<String> optable = Arrays::asList(
+		"clr", "nor", "andc2", "c2", "andc1", "c1", "xor", "nand",
+		"and", "eqv", "1", "orc2", "2", "orc1", "ior", "set"
+	);
+	action [input] any ==> [integer1 == 1] guard optable.indexOf(function) >= 0
+	do {
+		val int op = optable.indexOf(function)
+		var int integer1 = (if (input # (input.head)) 1 else 0)
+		for (channel : input) {
+			val int integer2 = (if (input # channel) 2 else 0)
+			integer1 = (op >> (integer1 + integer2)) % 1
+		}
+	};
+	
+//	----------------------------------------------------------------
+//	integer1  0       1       0       1 
+//	integer2  0       0       1       1       Operation Performed 
+//	----------------------------------------------------------------
+//	clr       0       0       0       0       always 0 
+//	nor       1       0       0       0       not-or 
+//	andc2     0       1       0       0       and integer1 with complement of integer2 
+//	c2        1       1       0       0       complement of integer2 
+//	andc1     0       0       1       0       and complement of integer1 with integer2 
+//	c1        1       0       1       0       complement of integer1 
+//	xor       0       1       1       0       exclusive or 
+//	nand      1       1       1       0       not-and 
+//	and       0       0       0       1       and 
+//	eqv       1       0       0       1       equivalence (exclusive nor) 
+//	1         0       1       0       1       integer1 
+//	orc2      1       1       0       1       or integer1 with complement of integer2 
+//	2         0       0       1       1       integer2 
+//	orc1      1       0       1       1       or complement of integer1 with integer2 
+//	ior       0       1       1       1       inclusive or 
+//	set       1       1       1       1       always 1 
+
+}
+
+container misc {
+	
+	actor ReduceChannels<T>((T, T) => T function)
+	T* input ==> T output
+	action [input] any ==> [output]
+	do {
+		var T output = (input # (input.head))
+		for (channel : input.tail) {
+			output = function.apply(output, (input # channel))
+		}
+	};
+	
+	actor FoldChannels<S,T>((S, T) => S function, S init)
+	T* input ==> S output
+	action [input] any ==> [output]
+	do {
+		var S output = init
+		for (channel : input) {
+			val T channelValue = (input # channel)
+			output = function.apply(output, channelValue)
+		}
+	};
+
+	actor ApplyInput1<T,R>((T) => R function)
+	T input ==> R output
+	action [input] ==> [value]
+	do {
+		val R value = function.apply(input)
+	};
+
+	actor ApplyInput2<T,R>((T, T) => R function)
+	T input ==> R output
+	action [input1, input2] ==> [value]
+	do {
+		val R value = function.apply(input1, input2)
+	};
+	
+	actor SelectChannel<T>
+	int channel, T* input ==> T output
+	var int currentChannel = 0;
+	action [channel],[input] at {channel} ==> [value]
+	do {
+		currentChannel = channel
+		val T value = input # currentChannel
+	};
+		
+	actor copier<T>
+	T input ==> T output
+	action [input] ==> [input]
+}

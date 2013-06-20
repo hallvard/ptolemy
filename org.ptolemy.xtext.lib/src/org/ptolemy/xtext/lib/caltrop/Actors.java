@@ -1,5 +1,7 @@
 package org.ptolemy.xtext.lib.caltrop;
 
+import org.ptolemy.xtext.lib.caltrop.tokens.Token;
+
 public class Actors {
 
 	public interface Actor01<O1> extends Actor {

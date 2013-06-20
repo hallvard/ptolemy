@@ -3,8 +3,10 @@ package org.ptolemy.xtext.lib.caltrop;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 import org.eclipse.xtext.xbase.lib.Functions.Function1;
 
@@ -34,6 +36,7 @@ public class ChannelMap<T> implements Iterable<Integer> {
 			this.channels[pos++] = channel;
 		}
 	}
+
 	private ChannelMap(Integer[] channels) {
 		this(Arrays.asList(channels), channels[channels.length - 1] + 1);
 	}
@@ -107,24 +110,34 @@ public class ChannelMap<T> implements Iterable<Integer> {
 
 	//
 	
-	static Integer[] channels(IOPort ioPort, int tokenCount, boolean any, int width) throws IllegalActionException {
-		Integer[] channels = new Integer[width];
-		for (int channel = 0; channel < width; channel++) {
-			if (ioPort.hasToken(channel, tokenCount)) {
-				channels[channel] = channel;
-			} else if (! any) {
-				return null;
-			} else {
-				channels[channel] = -1;
+	private static Map<Integer, int[]> channelArrays = new HashMap<Integer, int[]>();
+	static {
+		for (int i = 0; i < 10; i++) {
+			channels(i);
+		}
+	}
+
+	private static int[] channels(int width) {
+		Integer key = Integer.valueOf(width);
+		int[] channels = channelArrays.get(key);
+		if (channels == null) {
+			channels = new int[width];
+			for (int i = 0; i < width; i++) {
+				channels[i] = i;
 			}
+			channelArrays.put(key, channels);
 		}
 		return channels;
+	}
+
+	static Integer[] channels(IOPort ioPort, int tokenCount, boolean any, int width) throws IllegalActionException {
+		return channels(ioPort, tokenCount, any, channels(width), true);
 	}
 	static <T> ChannelMap<T> create(IOPort ioPort, int tokenCount, boolean any, int width) throws IllegalActionException {
 		return new ChannelMap<T>(channels(ioPort, tokenCount, any, width));
 	}
 
-	static Integer[] channels(IOPort ioPort, int tokenCount, boolean any, int[] channelIds) throws IllegalActionException {
+	static Integer[] channels(IOPort ioPort, int tokenCount, boolean any, int[] channelIds, boolean sorted) throws IllegalActionException {
 		List<Integer> channels = new ArrayList<Integer>(channelIds.length);
 		for (int i = 0; i < channelIds.length; i++) {
 			int channel = channelIds[i];
@@ -134,8 +147,13 @@ public class ChannelMap<T> implements Iterable<Integer> {
 				return null;
 			}
 		}
-		Collections.sort(channels);
+		if (! sorted) {
+			Collections.sort(channels);
+		}
 		return channels.toArray(new Integer[channels.size()]);
+	}	
+	static Integer[] channels(IOPort ioPort, int tokenCount, boolean any, int[] channelIds) throws IllegalActionException {
+		return channels(ioPort, tokenCount, any, channelIds, false);
 	}	
 	static <T> ChannelMap<T> create(IOPort ioPort, int tokenCount, boolean any, int[] channels) throws IllegalActionException {
 		return new ChannelMap<T>(channels(ioPort, tokenCount, any, channels));

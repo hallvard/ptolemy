@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+
+	<extension point="org.eclipse.graphiti.ui.diagramTypes">
+    	<diagramType
+      		description="Diagram type for Ptolemy actor diagram"
+      		id="org.caltoopia.graphiti.diagram.type"
+      		name="Caltoopia actor diagram type"
+      		type="cal">
+    	</diagramType>
+	</extension>
+
+	<extension point="org.eclipse.graphiti.ui.diagramTypeProviders">
+    	<diagramTypeProvider
+ 	     	class="org.caltoopia.graphiti.CalActorDiagramEditorExecutableExtensionFactory:org.eclipse.graphiti.dt.IDiagramTypeProvider"
+    	  	description="This is my editor for Cal actor diagrams"
+      		id="org.caltoopia.graphiti.diagram"
+      		name="Cal actor diagrams">
+			<diagramType id="org.caltoopia.graphiti.diagram.type"/>
+	      	<imageProvider id="org.caltoopia.graphiti.editor.ActorDiagramImageProvider"/>
+    	</diagramTypeProvider>
+  	</extension>
+
+	<extension
+	      point="org.eclipse.graphiti.ui.imageProviders">
+	   <imageProvider
+	         class="org.caltoopia.graphiti.CalActorDiagramEditorExecutableExtensionFactory:org.eclipse.graphiti.ui.platform.IImageProvider"
+	         id="org.caltoopia.graphiti.editor.ActorDiagramImageProvider">
+	   </imageProvider>
+	</extension>
+	
+	<extension point="org.eclipse.ui.views.properties.tabbed.propertyContributor">
+	    <propertyContributor contributorId="cal.PropertyContributor">
+	        <propertyCategory category="Graphiti"/>
+	    </propertyContributor>
+	</extension>
+	      
+	<extension point="org.eclipse.ui.views.properties.tabbed.propertyTabs">
+	   	<propertyTabs
+	       	contributorId="cal.PropertyContributor">
+	   	<propertyTab
+	      	category="Graphiti"
+	      	id="graphiti.main.tab"
+	    	label="Main"/>
+	   </propertyTabs>
+	</extension>
+	    
+	<extension
+	      point="org.eclipse.ui.views.properties.tabbed.propertySections">
+		<propertySections
+	          contributorId="cal.PropertyContributor">
+	 		<propertySection
+	        	class="org.caltoopia.graphiti.CalActorDiagramEditorExecutableExtensionFactory:org.ptolemy.graphiti.diagram.properties.ActorDiagramEntitySection"
+	           	filter="org.caltoopia.graphiti.CalActorDiagramEditorExecutableExtensionFactory:org.ptolemy.graphiti.diagram.properties.ActorDiagramEntityFilter"
+	            id="graphiti.main.tab.actor"
+	            tab="graphiti.main.tab"/>
+	 		<propertySection
+	        	class="org.caltoopia.graphiti.CalActorDiagramEditorExecutableExtensionFactory:org.ptolemy.graphiti.diagram.properties.ActorDiagramPortSection"
+	           	filter="org.caltoopia.graphiti.CalActorDiagramEditorExecutableExtensionFactory:org.ptolemy.graphiti.diagram.properties.ActorDiagramPortFilter"
+	            id="graphiti.main.tab.port"
+	            tab="graphiti.main.tab"/>
+	    </propertySections>
+	</extension>
+
+ <extension
+       point="org.eclipse.ui.editors">
+    <editor
+          class="org.caltoopia.graphiti.CalActorDiagramEditorExecutableExtensionFactory:org.eclipse.ui.IEditorPart"
+          contributorClass="org.caltoopia.graphiti.CalActorDiagramEditorExecutableExtensionFactory:org.eclipse.graphiti.ui.editor.DiagramEditorActionBarContributor"
+          default="false"
+          extensions="cal_diagram,cal"
+          id="org.caltoopia.graphiti.cal"
+          name="cal Actor Diagram Editor">
+    </editor>
+ </extension>
+
+   <extension point="org.eclipse.ui.newWizards">
+      <category
+            id="org.caltoopia.graphiti"
+            name="Cal Graphiti"/>
+      <wizard
+            id="org.caltoopia.graphiti.editor.CreateDiagramWizard"
+            name="Create Cal Actor Diagram Wizard"
+            class="org.caltoopia.graphiti.CalActorDiagramEditorExecutableExtensionFactory:org.eclipse.ui.INewWizard"
+            category="org.caltoopia.graphiti"
+            icon="resources/icons/single_in.gif">
+         <description>Create Cal Actor Diagram Wizard</description>
+         <selection class="org.eclipse.core.resources.IResource"/>
+      </wizard>
+   </extension>
+
+</plugin>

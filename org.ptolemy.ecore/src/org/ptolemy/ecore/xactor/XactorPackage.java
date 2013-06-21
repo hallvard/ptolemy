@@ -42,7 +42,7 @@ public interface XactorPackage extends EPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	String eNS_URI = "org.ptolemy.ecore.xactor";
+	String eNS_URI = "http://www.ptolemy.org/xactor";
 
 	/**
 	 * The package namespace name.
@@ -134,104 +134,22 @@ public interface XactorPackage extends EPackage {
 	int ENTITY_FOLDER__ENTITY_CONTAINERS = KernelPackage.ENTITY_CONTAINER_FEATURE_COUNT + 0;
 
 	/**
-	 * The number of structural features of the '<em>Entity Folder</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int ENTITY_FOLDER_FEATURE_COUNT = KernelPackage.ENTITY_CONTAINER_FEATURE_COUNT + 1;
-
-	/**
-	 * The meta object id for the '{@link org.ptolemy.ecore.xactor.impl.ActorModelImpl <em>Actor Model</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.ptolemy.ecore.xactor.impl.ActorModelImpl
-	 * @see org.ptolemy.ecore.xactor.impl.XactorPackageImpl#getActorModel()
-	 * @generated
-	 */
-	int ACTOR_MODEL = 1;
-
-	/**
-	 * The feature id for the '<em><b>Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int ACTOR_MODEL__NAME = ENTITY_FOLDER__NAME;
-
-	/**
-	 * The feature id for the '<em><b>Display Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int ACTOR_MODEL__DISPLAY_NAME = ENTITY_FOLDER__DISPLAY_NAME;
-
-	/**
-	 * The feature id for the '<em><b>Attributes</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int ACTOR_MODEL__ATTRIBUTES = ENTITY_FOLDER__ATTRIBUTES;
-
-	/**
-	 * The feature id for the '<em><b>Inherits From</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int ACTOR_MODEL__INHERITS_FROM = ENTITY_FOLDER__INHERITS_FROM;
-
-	/**
-	 * The feature id for the '<em><b>Entities</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int ACTOR_MODEL__ENTITIES = ENTITY_FOLDER__ENTITIES;
-
-	/**
-	 * The feature id for the '<em><b>Relations</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int ACTOR_MODEL__RELATIONS = ENTITY_FOLDER__RELATIONS;
-
-	/**
-	 * The feature id for the '<em><b>Entity Containers</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int ACTOR_MODEL__ENTITY_CONTAINERS = ENTITY_FOLDER__ENTITY_CONTAINERS;
-
-	/**
 	 * The feature id for the '<em><b>Imports</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int ACTOR_MODEL__IMPORTS = ENTITY_FOLDER_FEATURE_COUNT + 0;
+	int ENTITY_FOLDER__IMPORTS = KernelPackage.ENTITY_CONTAINER_FEATURE_COUNT + 1;
 
 	/**
-	 * The number of structural features of the '<em>Actor Model</em>' class.
+	 * The number of structural features of the '<em>Entity Folder</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int ACTOR_MODEL_FEATURE_COUNT = ENTITY_FOLDER_FEATURE_COUNT + 1;
+	int ENTITY_FOLDER_FEATURE_COUNT = KernelPackage.ENTITY_CONTAINER_FEATURE_COUNT + 2;
 
 	/**
 	 * The meta object id for the '{@link org.ptolemy.ecore.xactor.impl.ImportDirectiveImpl <em>Import Directive</em>}' class.
@@ -241,7 +159,7 @@ public interface XactorPackage extends EPackage {
 	 * @see org.ptolemy.ecore.xactor.impl.XactorPackageImpl#getImportDirective()
 	 * @generated
 	 */
-	int IMPORT_DIRECTIVE = 2;
+	int IMPORT_DIRECTIVE = 1;
 
 	/**
 	 * The feature id for the '<em><b>Imported Namespace</b></em>' attribute.
@@ -284,25 +202,15 @@ public interface XactorPackage extends EPackage {
 	EReference getEntityFolder_EntityContainers();
 
 	/**
-	 * Returns the meta object for class '{@link org.ptolemy.ecore.xactor.ActorModel <em>Actor Model</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for class '<em>Actor Model</em>'.
-	 * @see org.ptolemy.ecore.xactor.ActorModel
-	 * @generated
-	 */
-	EClass getActorModel();
-
-	/**
-	 * Returns the meta object for the containment reference list '{@link org.ptolemy.ecore.xactor.ActorModel#getImports <em>Imports</em>}'.
+	 * Returns the meta object for the containment reference list '{@link org.ptolemy.ecore.xactor.EntityFolder#getImports <em>Imports</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the containment reference list '<em>Imports</em>'.
-	 * @see org.ptolemy.ecore.xactor.ActorModel#getImports()
-	 * @see #getActorModel()
+	 * @see org.ptolemy.ecore.xactor.EntityFolder#getImports()
+	 * @see #getEntityFolder()
 	 * @generated
 	 */
-	EReference getActorModel_Imports();
+	EReference getEntityFolder_Imports();
 
 	/**
 	 * Returns the meta object for class '{@link org.ptolemy.ecore.xactor.ImportDirective <em>Import Directive</em>}'.
@@ -366,22 +274,12 @@ public interface XactorPackage extends EPackage {
 		EReference ENTITY_FOLDER__ENTITY_CONTAINERS = eINSTANCE.getEntityFolder_EntityContainers();
 
 		/**
-		 * The meta object literal for the '{@link org.ptolemy.ecore.xactor.impl.ActorModelImpl <em>Actor Model</em>}' class.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @see org.ptolemy.ecore.xactor.impl.ActorModelImpl
-		 * @see org.ptolemy.ecore.xactor.impl.XactorPackageImpl#getActorModel()
-		 * @generated
-		 */
-		EClass ACTOR_MODEL = eINSTANCE.getActorModel();
-
-		/**
 		 * The meta object literal for the '<em><b>Imports</b></em>' containment reference list feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EReference ACTOR_MODEL__IMPORTS = eINSTANCE.getActorModel_Imports();
+		EReference ENTITY_FOLDER__IMPORTS = eINSTANCE.getEntityFolder_Imports();
 
 		/**
 		 * The meta object literal for the '{@link org.ptolemy.ecore.xactor.impl.ImportDirectiveImpl <em>Import Directive</em>}' class.

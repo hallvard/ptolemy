@@ -59,7 +59,7 @@ public abstract class AtomicActorImplImpl<P extends AbstractIOPort> extends EObj
 	@SuppressWarnings("unchecked")
 	public AtomicActor<P> getContainer() {
 		if (eContainerFeatureID() != ActorPackage.ATOMIC_ACTOR_IMPL__CONTAINER) return null;
-		return (AtomicActor<P>)eContainer();
+		return (AtomicActor<P>)eInternalContainer();
 	}
 
 	/**

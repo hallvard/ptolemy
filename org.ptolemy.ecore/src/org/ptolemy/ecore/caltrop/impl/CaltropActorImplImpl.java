@@ -8,18 +8,22 @@ package org.ptolemy.ecore.caltrop.impl;
 
 import java.util.Collection;
 
+import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
+import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 import org.ptolemy.ecore.actor.AbstractIOPort;
 import org.ptolemy.ecore.actor.impl.AtomicActorImplImpl;
 import org.ptolemy.ecore.caltrop.CaltropActorImpl;
 import org.ptolemy.ecore.caltrop.CaltropPackage;
-import org.ptolemy.ecore.caltrop.FireAction;
+import org.ptolemy.ecore.caltrop.FunctionDeclaration;
 import org.ptolemy.ecore.caltrop.OutputAction;
+import org.ptolemy.ecore.caltrop.ReAction;
+import org.ptolemy.ecore.caltrop.Schedule;
 import org.ptolemy.ecore.caltrop.StateVariable;
 
 /**
@@ -32,6 +36,8 @@ import org.ptolemy.ecore.caltrop.StateVariable;
  *   <li>{@link org.ptolemy.ecore.caltrop.impl.CaltropActorImplImpl#getDeclarations <em>Declarations</em>}</li>
  *   <li>{@link org.ptolemy.ecore.caltrop.impl.CaltropActorImplImpl#getActions <em>Actions</em>}</li>
  *   <li>{@link org.ptolemy.ecore.caltrop.impl.CaltropActorImplImpl#getInitActions <em>Init Actions</em>}</li>
+ *   <li>{@link org.ptolemy.ecore.caltrop.impl.CaltropActorImplImpl#getFunctions <em>Functions</em>}</li>
+ *   <li>{@link org.ptolemy.ecore.caltrop.impl.CaltropActorImplImpl#getSchedule <em>Schedule</em>}</li>
  * </ul>
  * </p>
  *
@@ -56,7 +62,7 @@ public class CaltropActorImplImpl<P extends AbstractIOPort> extends AtomicActorI
 	 * @generated
 	 * @ordered
 	 */
-	protected EList<FireAction> actions;
+	protected EList<ReAction> actions;
 
 	/**
 	 * The cached value of the '{@link #getInitActions() <em>Init Actions</em>}' containment reference list.
@@ -67,6 +73,26 @@ public class CaltropActorImplImpl<P extends AbstractIOPort> extends AtomicActorI
 	 * @ordered
 	 */
 	protected EList<OutputAction> initActions;
+
+	/**
+	 * The cached value of the '{@link #getFunctions() <em>Functions</em>}' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getFunctions()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList<FunctionDeclaration> functions;
+
+	/**
+	 * The cached value of the '{@link #getSchedule() <em>Schedule</em>}' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getSchedule()
+	 * @generated
+	 * @ordered
+	 */
+	protected Schedule schedule;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -92,9 +118,9 @@ public class CaltropActorImplImpl<P extends AbstractIOPort> extends AtomicActorI
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EList<FireAction> getActions() {
+	public EList<ReAction> getActions() {
 		if (actions == null) {
-			actions = new EObjectContainmentEList<FireAction>(FireAction.class, this, CaltropPackage.CALTROP_ACTOR_IMPL__ACTIONS);
+			actions = new EObjectContainmentEList<ReAction>(ReAction.class, this, CaltropPackage.CALTROP_ACTOR_IMPL__ACTIONS);
 		}
 		return actions;
 	}
@@ -109,6 +135,61 @@ public class CaltropActorImplImpl<P extends AbstractIOPort> extends AtomicActorI
 			initActions = new EObjectContainmentEList<OutputAction>(OutputAction.class, this, CaltropPackage.CALTROP_ACTOR_IMPL__INIT_ACTIONS);
 		}
 		return initActions;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EList<FunctionDeclaration> getFunctions() {
+		if (functions == null) {
+			functions = new EObjectContainmentEList<FunctionDeclaration>(FunctionDeclaration.class, this, CaltropPackage.CALTROP_ACTOR_IMPL__FUNCTIONS);
+		}
+		return functions;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public Schedule getSchedule() {
+		return schedule;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public NotificationChain basicSetSchedule(Schedule newSchedule, NotificationChain msgs) {
+		Schedule oldSchedule = schedule;
+		schedule = newSchedule;
+		if (eNotificationRequired()) {
+			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, CaltropPackage.CALTROP_ACTOR_IMPL__SCHEDULE, oldSchedule, newSchedule);
+			if (msgs == null) msgs = notification; else msgs.add(notification);
+		}
+		return msgs;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setSchedule(Schedule newSchedule) {
+		if (newSchedule != schedule) {
+			NotificationChain msgs = null;
+			if (schedule != null)
+				msgs = ((InternalEObject)schedule).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - CaltropPackage.CALTROP_ACTOR_IMPL__SCHEDULE, null, msgs);
+			if (newSchedule != null)
+				msgs = ((InternalEObject)newSchedule).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - CaltropPackage.CALTROP_ACTOR_IMPL__SCHEDULE, null, msgs);
+			msgs = basicSetSchedule(newSchedule, msgs);
+			if (msgs != null) msgs.dispatch();
+		}
+		else if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, CaltropPackage.CALTROP_ACTOR_IMPL__SCHEDULE, newSchedule, newSchedule));
 	}
 
 	/**
@@ -137,6 +218,10 @@ public class CaltropActorImplImpl<P extends AbstractIOPort> extends AtomicActorI
 				return ((InternalEList<?>)getActions()).basicRemove(otherEnd, msgs);
 			case CaltropPackage.CALTROP_ACTOR_IMPL__INIT_ACTIONS:
 				return ((InternalEList<?>)getInitActions()).basicRemove(otherEnd, msgs);
+			case CaltropPackage.CALTROP_ACTOR_IMPL__FUNCTIONS:
+				return ((InternalEList<?>)getFunctions()).basicRemove(otherEnd, msgs);
+			case CaltropPackage.CALTROP_ACTOR_IMPL__SCHEDULE:
+				return basicSetSchedule(null, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -155,6 +240,10 @@ public class CaltropActorImplImpl<P extends AbstractIOPort> extends AtomicActorI
 				return getActions();
 			case CaltropPackage.CALTROP_ACTOR_IMPL__INIT_ACTIONS:
 				return getInitActions();
+			case CaltropPackage.CALTROP_ACTOR_IMPL__FUNCTIONS:
+				return getFunctions();
+			case CaltropPackage.CALTROP_ACTOR_IMPL__SCHEDULE:
+				return getSchedule();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -174,11 +263,18 @@ public class CaltropActorImplImpl<P extends AbstractIOPort> extends AtomicActorI
 				return;
 			case CaltropPackage.CALTROP_ACTOR_IMPL__ACTIONS:
 				getActions().clear();
-				getActions().addAll((Collection<? extends FireAction>)newValue);
+				getActions().addAll((Collection<? extends ReAction>)newValue);
 				return;
 			case CaltropPackage.CALTROP_ACTOR_IMPL__INIT_ACTIONS:
 				getInitActions().clear();
 				getInitActions().addAll((Collection<? extends OutputAction>)newValue);
+				return;
+			case CaltropPackage.CALTROP_ACTOR_IMPL__FUNCTIONS:
+				getFunctions().clear();
+				getFunctions().addAll((Collection<? extends FunctionDeclaration>)newValue);
+				return;
+			case CaltropPackage.CALTROP_ACTOR_IMPL__SCHEDULE:
+				setSchedule((Schedule)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -201,6 +297,12 @@ public class CaltropActorImplImpl<P extends AbstractIOPort> extends AtomicActorI
 			case CaltropPackage.CALTROP_ACTOR_IMPL__INIT_ACTIONS:
 				getInitActions().clear();
 				return;
+			case CaltropPackage.CALTROP_ACTOR_IMPL__FUNCTIONS:
+				getFunctions().clear();
+				return;
+			case CaltropPackage.CALTROP_ACTOR_IMPL__SCHEDULE:
+				setSchedule((Schedule)null);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -219,6 +321,10 @@ public class CaltropActorImplImpl<P extends AbstractIOPort> extends AtomicActorI
 				return actions != null && !actions.isEmpty();
 			case CaltropPackage.CALTROP_ACTOR_IMPL__INIT_ACTIONS:
 				return initActions != null && !initActions.isEmpty();
+			case CaltropPackage.CALTROP_ACTOR_IMPL__FUNCTIONS:
+				return functions != null && !functions.isEmpty();
+			case CaltropPackage.CALTROP_ACTOR_IMPL__SCHEDULE:
+				return schedule != null;
 		}
 		return super.eIsSet(featureID);
 	}

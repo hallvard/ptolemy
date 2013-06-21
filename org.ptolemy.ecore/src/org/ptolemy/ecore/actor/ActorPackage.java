@@ -43,7 +43,7 @@ public interface ActorPackage extends EPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	String eNS_URI = "org.ptolemy.ecore.actor";
+	String eNS_URI = "http://www.ptolemy.org/actor";
 
 	/**
 	 * The package namespace name.
@@ -1355,6 +1355,43 @@ public interface ActorPackage extends EPackage {
 	int ATOMIC_ACTOR_IMPL_FEATURE_COUNT = 1;
 
 	/**
+	 * The meta object id for the '{@link org.ptolemy.ecore.actor.impl.JavaActorImplImpl <em>Java Actor Impl</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.ptolemy.ecore.actor.impl.JavaActorImplImpl
+	 * @see org.ptolemy.ecore.actor.impl.ActorPackageImpl#getJavaActorImpl()
+	 * @generated
+	 */
+	int JAVA_ACTOR_IMPL = 15;
+
+	/**
+	 * The feature id for the '<em><b>Container</b></em>' container reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int JAVA_ACTOR_IMPL__CONTAINER = ATOMIC_ACTOR_IMPL__CONTAINER;
+
+	/**
+	 * The feature id for the '<em><b>Type</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int JAVA_ACTOR_IMPL__TYPE = ATOMIC_ACTOR_IMPL_FEATURE_COUNT + 0;
+
+	/**
+	 * The number of structural features of the '<em>Java Actor Impl</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int JAVA_ACTOR_IMPL_FEATURE_COUNT = ATOMIC_ACTOR_IMPL_FEATURE_COUNT + 1;
+
+	/**
 	 * The meta object id for the '{@link org.ptolemy.ecore.actor.impl.TypeParameterizedImpl <em>Type Parameterized</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1362,7 +1399,7 @@ public interface ActorPackage extends EPackage {
 	 * @see org.ptolemy.ecore.actor.impl.ActorPackageImpl#getTypeParameterized()
 	 * @generated
 	 */
-	int TYPE_PARAMETERIZED = 15;
+	int TYPE_PARAMETERIZED = 16;
 
 	/**
 	 * The feature id for the '<em><b>Type Parameters</b></em>' containment reference list.
@@ -1390,7 +1427,7 @@ public interface ActorPackage extends EPackage {
 	 * @see org.ptolemy.ecore.actor.impl.ActorPackageImpl#getTypeParameter()
 	 * @generated
 	 */
-	int TYPE_PARAMETER = 16;
+	int TYPE_PARAMETER = 17;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -1427,7 +1464,7 @@ public interface ActorPackage extends EPackage {
 	 * @see org.ptolemy.ecore.actor.impl.ActorPackageImpl#getTypedAtomicActor()
 	 * @generated
 	 */
-	int TYPED_ATOMIC_ACTOR = 17;
+	int TYPED_ATOMIC_ACTOR = 18;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -1581,7 +1618,7 @@ public interface ActorPackage extends EPackage {
 	 * @see org.ptolemy.ecore.actor.impl.ActorPackageImpl#getCompositeActor()
 	 * @generated
 	 */
-	int COMPOSITE_ACTOR = 18;
+	int COMPOSITE_ACTOR = 19;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -1762,7 +1799,7 @@ public interface ActorPackage extends EPackage {
 	 * @see org.ptolemy.ecore.actor.impl.ActorPackageImpl#getTypedCompositeActor()
 	 * @generated
 	 */
-	int TYPED_COMPOSITE_ACTOR = 19;
+	int TYPED_COMPOSITE_ACTOR = 20;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -1945,126 +1982,6 @@ public interface ActorPackage extends EPackage {
 	int TYPED_COMPOSITE_ACTOR_FEATURE_COUNT = COMPOSITE_ACTOR_FEATURE_COUNT + 1;
 
 	/**
-	 * The meta object id for the '{@link org.ptolemy.ecore.actor.impl.AbstractEntityActorImplImpl <em>Abstract Entity Actor Impl</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.ptolemy.ecore.actor.impl.AbstractEntityActorImplImpl
-	 * @see org.ptolemy.ecore.actor.impl.ActorPackageImpl#getAbstractEntityActorImpl()
-	 * @generated
-	 */
-	int ABSTRACT_ENTITY_ACTOR_IMPL = 20;
-
-	/**
-	 * The feature id for the '<em><b>Container</b></em>' container reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int ABSTRACT_ENTITY_ACTOR_IMPL__CONTAINER = ATOMIC_ACTOR_IMPL__CONTAINER;
-
-	/**
-	 * The number of structural features of the '<em>Abstract Entity Actor Impl</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int ABSTRACT_ENTITY_ACTOR_IMPL_FEATURE_COUNT = ATOMIC_ACTOR_IMPL_FEATURE_COUNT + 0;
-
-	/**
-	 * The meta object id for the '{@link org.ptolemy.ecore.actor.impl.EntityActorImplImpl <em>Entity Actor Impl</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.ptolemy.ecore.actor.impl.EntityActorImplImpl
-	 * @see org.ptolemy.ecore.actor.impl.ActorPackageImpl#getEntityActorImpl()
-	 * @generated
-	 */
-	int ENTITY_ACTOR_IMPL = 21;
-
-	/**
-	 * The feature id for the '<em><b>Container</b></em>' container reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int ENTITY_ACTOR_IMPL__CONTAINER = ABSTRACT_ENTITY_ACTOR_IMPL__CONTAINER;
-
-	/**
-	 * The feature id for the '<em><b>Entity</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int ENTITY_ACTOR_IMPL__ENTITY = ABSTRACT_ENTITY_ACTOR_IMPL_FEATURE_COUNT + 0;
-
-	/**
-	 * The number of structural features of the '<em>Entity Actor Impl</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int ENTITY_ACTOR_IMPL_FEATURE_COUNT = ABSTRACT_ENTITY_ACTOR_IMPL_FEATURE_COUNT + 1;
-
-	/**
-	 * The meta object id for the '{@link org.ptolemy.ecore.actor.impl.EntityRefActorImplImpl <em>Entity Ref Actor Impl</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.ptolemy.ecore.actor.impl.EntityRefActorImplImpl
-	 * @see org.ptolemy.ecore.actor.impl.ActorPackageImpl#getEntityRefActorImpl()
-	 * @generated
-	 */
-	int ENTITY_REF_ACTOR_IMPL = 22;
-
-	/**
-	 * The feature id for the '<em><b>Owner</b></em>' container reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int ENTITY_REF_ACTOR_IMPL__OWNER = KernelPackage.ENTITY_REF__OWNER;
-
-	/**
-	 * The feature id for the '<em><b>Ref</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int ENTITY_REF_ACTOR_IMPL__REF = KernelPackage.ENTITY_REF__REF;
-
-	/**
-	 * The feature id for the '<em><b>Resolved</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int ENTITY_REF_ACTOR_IMPL__RESOLVED = KernelPackage.ENTITY_REF__RESOLVED;
-
-	/**
-	 * The feature id for the '<em><b>Container</b></em>' container reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int ENTITY_REF_ACTOR_IMPL__CONTAINER = KernelPackage.ENTITY_REF_FEATURE_COUNT + 0;
-
-	/**
-	 * The number of structural features of the '<em>Entity Ref Actor Impl</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int ENTITY_REF_ACTOR_IMPL_FEATURE_COUNT = KernelPackage.ENTITY_REF_FEATURE_COUNT + 1;
-
-	/**
 	 * The meta object id for the '{@link org.ptolemy.ecore.actor.IOPortKind <em>IO Port Kind</em>}' enum.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -2072,7 +1989,7 @@ public interface ActorPackage extends EPackage {
 	 * @see org.ptolemy.ecore.actor.impl.ActorPackageImpl#getIOPortKind()
 	 * @generated
 	 */
-	int IO_PORT_KIND = 23;
+	int IO_PORT_KIND = 21;
 
 
 	/**
@@ -2380,6 +2297,27 @@ public interface ActorPackage extends EPackage {
 	EReference getAtomicActorImpl_Container();
 
 	/**
+	 * Returns the meta object for class '{@link org.ptolemy.ecore.actor.JavaActorImpl <em>Java Actor Impl</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Java Actor Impl</em>'.
+	 * @see org.ptolemy.ecore.actor.JavaActorImpl
+	 * @generated
+	 */
+	EClass getJavaActorImpl();
+
+	/**
+	 * Returns the meta object for the containment reference '{@link org.ptolemy.ecore.actor.JavaActorImpl#getType <em>Type</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference '<em>Type</em>'.
+	 * @see org.ptolemy.ecore.actor.JavaActorImpl#getType()
+	 * @see #getJavaActorImpl()
+	 * @generated
+	 */
+	EReference getJavaActorImpl_Type();
+
+	/**
 	 * Returns the meta object for class '{@link org.ptolemy.ecore.actor.TypeParameterized <em>Type Parameterized</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -2461,47 +2399,6 @@ public interface ActorPackage extends EPackage {
 	 * @generated
 	 */
 	EClass getTypedCompositeActor();
-
-	/**
-	 * Returns the meta object for class '{@link org.ptolemy.ecore.actor.AbstractEntityActorImpl <em>Abstract Entity Actor Impl</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for class '<em>Abstract Entity Actor Impl</em>'.
-	 * @see org.ptolemy.ecore.actor.AbstractEntityActorImpl
-	 * @generated
-	 */
-	EClass getAbstractEntityActorImpl();
-
-	/**
-	 * Returns the meta object for class '{@link org.ptolemy.ecore.actor.EntityActorImpl <em>Entity Actor Impl</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for class '<em>Entity Actor Impl</em>'.
-	 * @see org.ptolemy.ecore.actor.EntityActorImpl
-	 * @generated
-	 */
-	EClass getEntityActorImpl();
-
-	/**
-	 * Returns the meta object for the containment reference '{@link org.ptolemy.ecore.actor.EntityActorImpl#getEntity <em>Entity</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference '<em>Entity</em>'.
-	 * @see org.ptolemy.ecore.actor.EntityActorImpl#getEntity()
-	 * @see #getEntityActorImpl()
-	 * @generated
-	 */
-	EReference getEntityActorImpl_Entity();
-
-	/**
-	 * Returns the meta object for class '{@link org.ptolemy.ecore.actor.EntityRefActorImpl <em>Entity Ref Actor Impl</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for class '<em>Entity Ref Actor Impl</em>'.
-	 * @see org.ptolemy.ecore.actor.EntityRefActorImpl
-	 * @generated
-	 */
-	EClass getEntityRefActorImpl();
 
 	/**
 	 * Returns the meta object for enum '{@link org.ptolemy.ecore.actor.IOPortKind <em>IO Port Kind</em>}'.
@@ -2798,6 +2695,24 @@ public interface ActorPackage extends EPackage {
 		EReference ATOMIC_ACTOR_IMPL__CONTAINER = eINSTANCE.getAtomicActorImpl_Container();
 
 		/**
+		 * The meta object literal for the '{@link org.ptolemy.ecore.actor.impl.JavaActorImplImpl <em>Java Actor Impl</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.ptolemy.ecore.actor.impl.JavaActorImplImpl
+		 * @see org.ptolemy.ecore.actor.impl.ActorPackageImpl#getJavaActorImpl()
+		 * @generated
+		 */
+		EClass JAVA_ACTOR_IMPL = eINSTANCE.getJavaActorImpl();
+
+		/**
+		 * The meta object literal for the '<em><b>Type</b></em>' containment reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference JAVA_ACTOR_IMPL__TYPE = eINSTANCE.getJavaActorImpl_Type();
+
+		/**
 		 * The meta object literal for the '{@link org.ptolemy.ecore.actor.impl.TypeParameterizedImpl <em>Type Parameterized</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
@@ -2870,44 +2785,6 @@ public interface ActorPackage extends EPackage {
 		 * @generated
 		 */
 		EClass TYPED_COMPOSITE_ACTOR = eINSTANCE.getTypedCompositeActor();
-
-		/**
-		 * The meta object literal for the '{@link org.ptolemy.ecore.actor.impl.AbstractEntityActorImplImpl <em>Abstract Entity Actor Impl</em>}' class.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @see org.ptolemy.ecore.actor.impl.AbstractEntityActorImplImpl
-		 * @see org.ptolemy.ecore.actor.impl.ActorPackageImpl#getAbstractEntityActorImpl()
-		 * @generated
-		 */
-		EClass ABSTRACT_ENTITY_ACTOR_IMPL = eINSTANCE.getAbstractEntityActorImpl();
-
-		/**
-		 * The meta object literal for the '{@link org.ptolemy.ecore.actor.impl.EntityActorImplImpl <em>Entity Actor Impl</em>}' class.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @see org.ptolemy.ecore.actor.impl.EntityActorImplImpl
-		 * @see org.ptolemy.ecore.actor.impl.ActorPackageImpl#getEntityActorImpl()
-		 * @generated
-		 */
-		EClass ENTITY_ACTOR_IMPL = eINSTANCE.getEntityActorImpl();
-
-		/**
-		 * The meta object literal for the '<em><b>Entity</b></em>' containment reference feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EReference ENTITY_ACTOR_IMPL__ENTITY = eINSTANCE.getEntityActorImpl_Entity();
-
-		/**
-		 * The meta object literal for the '{@link org.ptolemy.ecore.actor.impl.EntityRefActorImplImpl <em>Entity Ref Actor Impl</em>}' class.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @see org.ptolemy.ecore.actor.impl.EntityRefActorImplImpl
-		 * @see org.ptolemy.ecore.actor.impl.ActorPackageImpl#getEntityRefActorImpl()
-		 * @generated
-		 */
-		EClass ENTITY_REF_ACTOR_IMPL = eINSTANCE.getEntityRefActorImpl();
 
 		/**
 		 * The meta object literal for the '{@link org.ptolemy.ecore.actor.IOPortKind <em>IO Port Kind</em>}' enum.

@@ -10,8 +10,6 @@ import org.eclipse.emf.common.notify.Adapter;
 import org.eclipse.emf.common.notify.Notifier;
 import org.eclipse.emf.common.notify.impl.AdapterFactoryImpl;
 import org.eclipse.emf.ecore.EObject;
-import org.eclipse.xtext.xbase.XAbstractFeatureCall;
-import org.eclipse.xtext.xbase.XExpression;
 import org.ptolemy.ecore.actor.AbstractIOPort;
 import org.ptolemy.ecore.actor.AbstractTypedIOPort;
 import org.ptolemy.ecore.actor.AtomicActorImpl;
@@ -27,9 +25,9 @@ import org.ptolemy.ecore.caltrop.CaltropPackage;
 import org.ptolemy.ecore.caltrop.ChannelSelector;
 import org.ptolemy.ecore.caltrop.ExpressionChannelSelector;
 import org.ptolemy.ecore.caltrop.FireAction;
+import org.ptolemy.ecore.caltrop.FunctionDeclaration;
 import org.ptolemy.ecore.caltrop.InputPattern;
 import org.ptolemy.ecore.caltrop.KeywordChannelSelector;
-import org.ptolemy.ecore.caltrop.OldActionVariableValueRef;
 import org.ptolemy.ecore.caltrop.OutputAction;
 import org.ptolemy.ecore.caltrop.OutputPattern;
 import org.ptolemy.ecore.caltrop.PortPattern;
@@ -42,6 +40,7 @@ import org.ptolemy.ecore.kernel.Nameable;
 import org.ptolemy.ecore.kernel.Named;
 import org.ptolemy.ecore.kernel.NamedObj;
 import org.ptolemy.ecore.kernel.Port;
+import org.ptolemy.ecore.kernel.Relation;
 
 /**
  * <!-- begin-user-doc -->
@@ -124,12 +123,20 @@ public class CaltropAdapterFactory extends AdapterFactoryImpl {
 				return createFireActionAdapter();
 			}
 			@Override
+			public Adapter caseReAction(ReAction object) {
+				return createReActionAdapter();
+			}
+			@Override
 			public Adapter caseOutputAction(OutputAction object) {
 				return createOutputActionAdapter();
 			}
 			@Override
 			public Adapter casePortPattern(PortPattern object) {
 				return createPortPatternAdapter();
+			}
+			@Override
+			public Adapter caseActionPattern(ActionPattern object) {
+				return createActionPatternAdapter();
 			}
 			@Override
 			public Adapter caseInputPattern(InputPattern object) {
@@ -152,8 +159,32 @@ public class CaltropAdapterFactory extends AdapterFactoryImpl {
 				return createKeywordChannelSelectorAdapter();
 			}
 			@Override
-			public Adapter caseOldActionVariableValueRef(OldActionVariableValueRef object) {
-				return createOldActionVariableValueRefAdapter();
+			public Adapter caseFunctionDeclaration(FunctionDeclaration object) {
+				return createFunctionDeclarationAdapter();
+			}
+			@Override
+			public Adapter caseSchedule(Schedule object) {
+				return createScheduleAdapter();
+			}
+			@Override
+			public Adapter caseState(State object) {
+				return createStateAdapter();
+			}
+			@Override
+			public Adapter caseTransition(Transition object) {
+				return createTransitionAdapter();
+			}
+			@Override
+			public Adapter caseEventAction(EventAction object) {
+				return createEventActionAdapter();
+			}
+			@Override
+			public Adapter caseEventPattern(EventPattern object) {
+				return createEventPatternAdapter();
+			}
+			@Override
+			public Adapter caseConversionRelation(ConversionRelation object) {
+				return createConversionRelationAdapter();
 			}
 			@Override
 			public <P extends AbstractIOPort> Adapter caseAtomicActorImpl(AtomicActorImpl<P> object) {
@@ -212,12 +243,8 @@ public class CaltropAdapterFactory extends AdapterFactoryImpl {
 				return createAbstractTypedIOPortAdapter();
 			}
 			@Override
-			public Adapter caseXExpression(XExpression object) {
-				return createXExpressionAdapter();
-			}
-			@Override
-			public Adapter caseXAbstractFeatureCall(XAbstractFeatureCall object) {
-				return createXAbstractFeatureCallAdapter();
+			public Adapter caseRelation(Relation object) {
+				return createRelationAdapter();
 			}
 			@Override
 			public Adapter defaultCase(EObject object) {
@@ -324,6 +351,20 @@ public class CaltropAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
+	 * Creates a new adapter for an object of class '{@link org.ptolemy.ecore.caltrop.ReAction <em>Re Action</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.ptolemy.ecore.caltrop.ReAction
+	 * @generated
+	 */
+	public Adapter createReActionAdapter() {
+		return null;
+	}
+
+	/**
 	 * Creates a new adapter for an object of class '{@link org.ptolemy.ecore.caltrop.OutputAction <em>Output Action</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
@@ -348,6 +389,20 @@ public class CaltropAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createPortPatternAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.ptolemy.ecore.caltrop.ActionPattern <em>Action Pattern</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.ptolemy.ecore.caltrop.ActionPattern
+	 * @generated
+	 */
+	public Adapter createActionPatternAdapter() {
 		return null;
 	}
 
@@ -422,16 +477,100 @@ public class CaltropAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link org.ptolemy.ecore.caltrop.OldActionVariableValueRef <em>Old Action Variable Value Ref</em>}'.
+	 * Creates a new adapter for an object of class '{@link org.ptolemy.ecore.caltrop.FunctionDeclaration <em>Function Declaration</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
 	 * @return the new adapter.
-	 * @see org.ptolemy.ecore.caltrop.OldActionVariableValueRef
+	 * @see org.ptolemy.ecore.caltrop.FunctionDeclaration
 	 * @generated
 	 */
-	public Adapter createOldActionVariableValueRefAdapter() {
+	public Adapter createFunctionDeclarationAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.ptolemy.ecore.caltrop.Schedule <em>Schedule</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.ptolemy.ecore.caltrop.Schedule
+	 * @generated
+	 */
+	public Adapter createScheduleAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.ptolemy.ecore.caltrop.State <em>State</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.ptolemy.ecore.caltrop.State
+	 * @generated
+	 */
+	public Adapter createStateAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.ptolemy.ecore.caltrop.Transition <em>Transition</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.ptolemy.ecore.caltrop.Transition
+	 * @generated
+	 */
+	public Adapter createTransitionAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.ptolemy.ecore.caltrop.EventAction <em>Event Action</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.ptolemy.ecore.caltrop.EventAction
+	 * @generated
+	 */
+	public Adapter createEventActionAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.ptolemy.ecore.caltrop.EventPattern <em>Event Pattern</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.ptolemy.ecore.caltrop.EventPattern
+	 * @generated
+	 */
+	public Adapter createEventPatternAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.ptolemy.ecore.caltrop.ConversionRelation <em>Conversion Relation</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.ptolemy.ecore.caltrop.ConversionRelation
+	 * @generated
+	 */
+	public Adapter createConversionRelationAdapter() {
 		return null;
 	}
 
@@ -632,30 +771,16 @@ public class CaltropAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link org.eclipse.xtext.xbase.XExpression <em>XExpression</em>}'.
+	 * Creates a new adapter for an object of class '{@link org.ptolemy.ecore.kernel.Relation <em>Relation</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
 	 * @return the new adapter.
-	 * @see org.eclipse.xtext.xbase.XExpression
+	 * @see org.ptolemy.ecore.kernel.Relation
 	 * @generated
 	 */
-	public Adapter createXExpressionAdapter() {
-		return null;
-	}
-
-	/**
-	 * Creates a new adapter for an object of class '{@link org.eclipse.xtext.xbase.XAbstractFeatureCall <em>XAbstract Feature Call</em>}'.
-	 * <!-- begin-user-doc -->
-	 * This default implementation returns null so that we can easily ignore cases;
-	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
-	 * <!-- end-user-doc -->
-	 * @return the new adapter.
-	 * @see org.eclipse.xtext.xbase.XAbstractFeatureCall
-	 * @generated
-	 */
-	public Adapter createXAbstractFeatureCallAdapter() {
+	public Adapter createRelationAdapter() {
 		return null;
 	}
 

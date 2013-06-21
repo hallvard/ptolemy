@@ -7,7 +7,8 @@ Bundle-ClassPath: .
 Bundle-Vendor: %providerName
 Bundle-Localization: plugin
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
-Export-Package: org.ptolemy.ecore.actor,
+Export-Package: org.ptolemy.ecore,
+ org.ptolemy.ecore.actor,
  org.ptolemy.ecore.actor.impl,
  org.ptolemy.ecore.actor.util,
  org.ptolemy.ecore.caltrop,

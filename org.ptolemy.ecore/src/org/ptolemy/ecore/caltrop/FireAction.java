@@ -24,7 +24,7 @@ import org.eclipse.emf.common.util.EList;
  * @model
  * @generated
  */
-public interface FireAction extends OutputAction {
+public interface FireAction extends ReAction {
 	/**
 	 * Returns the value of the '<em><b>Input Patterns</b></em>' containment reference list.
 	 * The list contents are of type {@link org.ptolemy.ecore.caltrop.InputPattern}.

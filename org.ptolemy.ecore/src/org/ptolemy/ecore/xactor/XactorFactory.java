@@ -35,15 +35,6 @@ public interface XactorFactory extends EFactory {
 	EntityFolder createEntityFolder();
 
 	/**
-	 * Returns a new object of class '<em>Actor Model</em>'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Actor Model</em>'.
-	 * @generated
-	 */
-	ActorModel createActorModel();
-
-	/**
 	 * Returns a new object of class '<em>Import Directive</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

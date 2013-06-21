@@ -32,6 +32,7 @@ import org.ptolemy.ecore.kernel.Port;
  *   <li>{@link org.ptolemy.ecore.caltrop.impl.PortPatternImpl#getRepeatExpression <em>Repeat Expression</em>}</li>
  *   <li>{@link org.ptolemy.ecore.caltrop.impl.PortPatternImpl#getChannels <em>Channels</em>}</li>
  *   <li>{@link org.ptolemy.ecore.caltrop.impl.PortPatternImpl#getPortRef <em>Port Ref</em>}</li>
+ *   <li>{@link org.ptolemy.ecore.caltrop.impl.PortPatternImpl#getGuardExpression <em>Guard Expression</em>}</li>
  * </ul>
  * </p>
  *
@@ -67,6 +68,16 @@ public abstract class PortPatternImpl extends EObjectImpl implements PortPattern
 	 * @ordered
 	 */
 	protected Port portRef;
+
+	/**
+	 * The cached value of the '{@link #getGuardExpression() <em>Guard Expression</em>}' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getGuardExpression()
+	 * @generated
+	 * @ordered
+	 */
+	protected XExpression guardExpression;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -248,6 +259,49 @@ public abstract class PortPatternImpl extends EObjectImpl implements PortPattern
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public XExpression getGuardExpression() {
+		return guardExpression;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public NotificationChain basicSetGuardExpression(XExpression newGuardExpression, NotificationChain msgs) {
+		XExpression oldGuardExpression = guardExpression;
+		guardExpression = newGuardExpression;
+		if (eNotificationRequired()) {
+			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, CaltropPackage.PORT_PATTERN__GUARD_EXPRESSION, oldGuardExpression, newGuardExpression);
+			if (msgs == null) msgs = notification; else msgs.add(notification);
+		}
+		return msgs;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setGuardExpression(XExpression newGuardExpression) {
+		if (newGuardExpression != guardExpression) {
+			NotificationChain msgs = null;
+			if (guardExpression != null)
+				msgs = ((InternalEObject)guardExpression).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - CaltropPackage.PORT_PATTERN__GUARD_EXPRESSION, null, msgs);
+			if (newGuardExpression != null)
+				msgs = ((InternalEObject)newGuardExpression).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - CaltropPackage.PORT_PATTERN__GUARD_EXPRESSION, null, msgs);
+			msgs = basicSetGuardExpression(newGuardExpression, msgs);
+			if (msgs != null) msgs.dispatch();
+		}
+		else if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, CaltropPackage.PORT_PATTERN__GUARD_EXPRESSION, newGuardExpression, newGuardExpression));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated NOT
 	 */
 	public int size() {
@@ -266,6 +320,8 @@ public abstract class PortPatternImpl extends EObjectImpl implements PortPattern
 				return basicSetRepeatExpression(null, msgs);
 			case CaltropPackage.PORT_PATTERN__CHANNELS:
 				return basicSetChannels(null, msgs);
+			case CaltropPackage.PORT_PATTERN__GUARD_EXPRESSION:
+				return basicSetGuardExpression(null, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -285,6 +341,8 @@ public abstract class PortPatternImpl extends EObjectImpl implements PortPattern
 			case CaltropPackage.PORT_PATTERN__PORT_REF:
 				if (resolve) return getPortRef();
 				return basicGetPortRef();
+			case CaltropPackage.PORT_PATTERN__GUARD_EXPRESSION:
+				return getGuardExpression();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -305,6 +363,9 @@ public abstract class PortPatternImpl extends EObjectImpl implements PortPattern
 				return;
 			case CaltropPackage.PORT_PATTERN__PORT_REF:
 				setPortRef((Port)newValue);
+				return;
+			case CaltropPackage.PORT_PATTERN__GUARD_EXPRESSION:
+				setGuardExpression((XExpression)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -327,6 +388,9 @@ public abstract class PortPatternImpl extends EObjectImpl implements PortPattern
 			case CaltropPackage.PORT_PATTERN__PORT_REF:
 				setPortRef((Port)null);
 				return;
+			case CaltropPackage.PORT_PATTERN__GUARD_EXPRESSION:
+				setGuardExpression((XExpression)null);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -345,6 +409,8 @@ public abstract class PortPatternImpl extends EObjectImpl implements PortPattern
 				return channels != null;
 			case CaltropPackage.PORT_PATTERN__PORT_REF:
 				return portRef != null;
+			case CaltropPackage.PORT_PATTERN__GUARD_EXPRESSION:
+				return guardExpression != null;
 		}
 		return super.eIsSet(featureID);
 	}

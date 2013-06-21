@@ -8,10 +8,10 @@ package org.ptolemy.ecore.caltrop;
 
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EDataType;
 import org.eclipse.emf.ecore.EEnum;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
-import org.eclipse.xtext.xbase.XbasePackage;
 import org.ptolemy.ecore.actor.ActorPackage;
 import org.ptolemy.ecore.kernel.KernelPackage;
 
@@ -45,7 +45,7 @@ public interface CaltropPackage extends EPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	String eNS_URI = "org.ptolemy.ecore.caltrop";
+	String eNS_URI = "http://www.ptolemy.org/caltrop";
 
 	/**
 	 * The package namespace name.
@@ -110,13 +110,31 @@ public interface CaltropPackage extends EPackage {
 	int CALTROP_ACTOR_IMPL__INIT_ACTIONS = ActorPackage.ATOMIC_ACTOR_IMPL_FEATURE_COUNT + 2;
 
 	/**
+	 * The feature id for the '<em><b>Functions</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CALTROP_ACTOR_IMPL__FUNCTIONS = ActorPackage.ATOMIC_ACTOR_IMPL_FEATURE_COUNT + 3;
+
+	/**
+	 * The feature id for the '<em><b>Schedule</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CALTROP_ACTOR_IMPL__SCHEDULE = ActorPackage.ATOMIC_ACTOR_IMPL_FEATURE_COUNT + 4;
+
+	/**
 	 * The number of structural features of the '<em>Actor Impl</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int CALTROP_ACTOR_IMPL_FEATURE_COUNT = ActorPackage.ATOMIC_ACTOR_IMPL_FEATURE_COUNT + 3;
+	int CALTROP_ACTOR_IMPL_FEATURE_COUNT = ActorPackage.ATOMIC_ACTOR_IMPL_FEATURE_COUNT + 5;
 
 	/**
 	 * The meta object id for the '{@link org.ptolemy.ecore.caltrop.impl.ActorParameterImpl <em>Actor Parameter</em>}' class.
@@ -607,7 +625,7 @@ public interface CaltropPackage extends EPackage {
 	 * @see org.ptolemy.ecore.caltrop.impl.CaltropPackageImpl#getOutputAction()
 	 * @generated
 	 */
-	int OUTPUT_ACTION = 6;
+	int OUTPUT_ACTION = 7;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -673,13 +691,131 @@ public interface CaltropPackage extends EPackage {
 	int OUTPUT_ACTION__BODY_EXPRESSION = KernelPackage.NAMED_OBJ_FEATURE_COUNT + 2;
 
 	/**
+	 * The feature id for the '<em><b>Update Expression</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int OUTPUT_ACTION__UPDATE_EXPRESSION = KernelPackage.NAMED_OBJ_FEATURE_COUNT + 3;
+
+	/**
+	 * The feature id for the '<em><b>Delay Expression</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int OUTPUT_ACTION__DELAY_EXPRESSION = KernelPackage.NAMED_OBJ_FEATURE_COUNT + 4;
+
+	/**
 	 * The number of structural features of the '<em>Output Action</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int OUTPUT_ACTION_FEATURE_COUNT = KernelPackage.NAMED_OBJ_FEATURE_COUNT + 3;
+	int OUTPUT_ACTION_FEATURE_COUNT = KernelPackage.NAMED_OBJ_FEATURE_COUNT + 5;
+
+	/**
+	 * The meta object id for the '{@link org.ptolemy.ecore.caltrop.impl.ReActionImpl <em>Re Action</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.ptolemy.ecore.caltrop.impl.ReActionImpl
+	 * @see org.ptolemy.ecore.caltrop.impl.CaltropPackageImpl#getReAction()
+	 * @generated
+	 */
+	int RE_ACTION = 6;
+
+	/**
+	 * The feature id for the '<em><b>Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int RE_ACTION__NAME = OUTPUT_ACTION__NAME;
+
+	/**
+	 * The feature id for the '<em><b>Display Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int RE_ACTION__DISPLAY_NAME = OUTPUT_ACTION__DISPLAY_NAME;
+
+	/**
+	 * The feature id for the '<em><b>Attributes</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int RE_ACTION__ATTRIBUTES = OUTPUT_ACTION__ATTRIBUTES;
+
+	/**
+	 * The feature id for the '<em><b>Inherits From</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int RE_ACTION__INHERITS_FROM = OUTPUT_ACTION__INHERITS_FROM;
+
+	/**
+	 * The feature id for the '<em><b>Guard Expression</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int RE_ACTION__GUARD_EXPRESSION = OUTPUT_ACTION__GUARD_EXPRESSION;
+
+	/**
+	 * The feature id for the '<em><b>Output Patterns</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int RE_ACTION__OUTPUT_PATTERNS = OUTPUT_ACTION__OUTPUT_PATTERNS;
+
+	/**
+	 * The feature id for the '<em><b>Body Expression</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int RE_ACTION__BODY_EXPRESSION = OUTPUT_ACTION__BODY_EXPRESSION;
+
+	/**
+	 * The feature id for the '<em><b>Update Expression</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int RE_ACTION__UPDATE_EXPRESSION = OUTPUT_ACTION__UPDATE_EXPRESSION;
+
+	/**
+	 * The feature id for the '<em><b>Delay Expression</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int RE_ACTION__DELAY_EXPRESSION = OUTPUT_ACTION__DELAY_EXPRESSION;
+
+	/**
+	 * The number of structural features of the '<em>Re Action</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int RE_ACTION_FEATURE_COUNT = OUTPUT_ACTION_FEATURE_COUNT + 0;
 
 	/**
 	 * The meta object id for the '{@link org.ptolemy.ecore.caltrop.impl.FireActionImpl <em>Fire Action</em>}' class.
@@ -698,7 +834,7 @@ public interface CaltropPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int FIRE_ACTION__NAME = OUTPUT_ACTION__NAME;
+	int FIRE_ACTION__NAME = RE_ACTION__NAME;
 
 	/**
 	 * The feature id for the '<em><b>Display Name</b></em>' attribute.
@@ -707,7 +843,7 @@ public interface CaltropPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int FIRE_ACTION__DISPLAY_NAME = OUTPUT_ACTION__DISPLAY_NAME;
+	int FIRE_ACTION__DISPLAY_NAME = RE_ACTION__DISPLAY_NAME;
 
 	/**
 	 * The feature id for the '<em><b>Attributes</b></em>' containment reference list.
@@ -716,7 +852,7 @@ public interface CaltropPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int FIRE_ACTION__ATTRIBUTES = OUTPUT_ACTION__ATTRIBUTES;
+	int FIRE_ACTION__ATTRIBUTES = RE_ACTION__ATTRIBUTES;
 
 	/**
 	 * The feature id for the '<em><b>Inherits From</b></em>' reference.
@@ -725,7 +861,7 @@ public interface CaltropPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int FIRE_ACTION__INHERITS_FROM = OUTPUT_ACTION__INHERITS_FROM;
+	int FIRE_ACTION__INHERITS_FROM = RE_ACTION__INHERITS_FROM;
 
 	/**
 	 * The feature id for the '<em><b>Guard Expression</b></em>' containment reference.
@@ -734,7 +870,7 @@ public interface CaltropPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int FIRE_ACTION__GUARD_EXPRESSION = OUTPUT_ACTION__GUARD_EXPRESSION;
+	int FIRE_ACTION__GUARD_EXPRESSION = RE_ACTION__GUARD_EXPRESSION;
 
 	/**
 	 * The feature id for the '<em><b>Output Patterns</b></em>' containment reference list.
@@ -743,7 +879,7 @@ public interface CaltropPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int FIRE_ACTION__OUTPUT_PATTERNS = OUTPUT_ACTION__OUTPUT_PATTERNS;
+	int FIRE_ACTION__OUTPUT_PATTERNS = RE_ACTION__OUTPUT_PATTERNS;
 
 	/**
 	 * The feature id for the '<em><b>Body Expression</b></em>' containment reference.
@@ -752,7 +888,25 @@ public interface CaltropPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int FIRE_ACTION__BODY_EXPRESSION = OUTPUT_ACTION__BODY_EXPRESSION;
+	int FIRE_ACTION__BODY_EXPRESSION = RE_ACTION__BODY_EXPRESSION;
+
+	/**
+	 * The feature id for the '<em><b>Update Expression</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FIRE_ACTION__UPDATE_EXPRESSION = RE_ACTION__UPDATE_EXPRESSION;
+
+	/**
+	 * The feature id for the '<em><b>Delay Expression</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FIRE_ACTION__DELAY_EXPRESSION = RE_ACTION__DELAY_EXPRESSION;
 
 	/**
 	 * The feature id for the '<em><b>Input Patterns</b></em>' containment reference list.
@@ -761,7 +915,7 @@ public interface CaltropPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int FIRE_ACTION__INPUT_PATTERNS = OUTPUT_ACTION_FEATURE_COUNT + 0;
+	int FIRE_ACTION__INPUT_PATTERNS = RE_ACTION_FEATURE_COUNT + 0;
 
 	/**
 	 * The number of structural features of the '<em>Fire Action</em>' class.
@@ -770,7 +924,7 @@ public interface CaltropPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int FIRE_ACTION_FEATURE_COUNT = OUTPUT_ACTION_FEATURE_COUNT + 1;
+	int FIRE_ACTION_FEATURE_COUNT = RE_ACTION_FEATURE_COUNT + 1;
 
 	/**
 	 * The meta object id for the '{@link org.ptolemy.ecore.caltrop.impl.PortPatternImpl <em>Port Pattern</em>}' class.
@@ -780,7 +934,7 @@ public interface CaltropPackage extends EPackage {
 	 * @see org.ptolemy.ecore.caltrop.impl.CaltropPackageImpl#getPortPattern()
 	 * @generated
 	 */
-	int PORT_PATTERN = 7;
+	int PORT_PATTERN = 8;
 
 	/**
 	 * The feature id for the '<em><b>Repeat Expression</b></em>' containment reference.
@@ -810,13 +964,41 @@ public interface CaltropPackage extends EPackage {
 	int PORT_PATTERN__PORT_REF = 2;
 
 	/**
+	 * The feature id for the '<em><b>Guard Expression</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PORT_PATTERN__GUARD_EXPRESSION = 3;
+
+	/**
 	 * The number of structural features of the '<em>Port Pattern</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int PORT_PATTERN_FEATURE_COUNT = 3;
+	int PORT_PATTERN_FEATURE_COUNT = 4;
+
+	/**
+	 * The meta object id for the '{@link org.ptolemy.ecore.caltrop.impl.ActionPatternImpl <em>Action Pattern</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.ptolemy.ecore.caltrop.impl.ActionPatternImpl
+	 * @see org.ptolemy.ecore.caltrop.impl.CaltropPackageImpl#getActionPattern()
+	 * @generated
+	 */
+	int ACTION_PATTERN = 9;
+
+	/**
+	 * The number of structural features of the '<em>Action Pattern</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ACTION_PATTERN_FEATURE_COUNT = 0;
 
 	/**
 	 * The meta object id for the '{@link org.ptolemy.ecore.caltrop.impl.InputPatternImpl <em>Input Pattern</em>}' class.
@@ -826,7 +1008,7 @@ public interface CaltropPackage extends EPackage {
 	 * @see org.ptolemy.ecore.caltrop.impl.CaltropPackageImpl#getInputPattern()
 	 * @generated
 	 */
-	int INPUT_PATTERN = 8;
+	int INPUT_PATTERN = 10;
 
 	/**
 	 * The feature id for the '<em><b>Repeat Expression</b></em>' containment reference.
@@ -856,6 +1038,15 @@ public interface CaltropPackage extends EPackage {
 	int INPUT_PATTERN__PORT_REF = PORT_PATTERN__PORT_REF;
 
 	/**
+	 * The feature id for the '<em><b>Guard Expression</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int INPUT_PATTERN__GUARD_EXPRESSION = PORT_PATTERN__GUARD_EXPRESSION;
+
+	/**
 	 * The feature id for the '<em><b>Variables</b></em>' attribute list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -881,7 +1072,7 @@ public interface CaltropPackage extends EPackage {
 	 * @see org.ptolemy.ecore.caltrop.impl.CaltropPackageImpl#getOutputPattern()
 	 * @generated
 	 */
-	int OUTPUT_PATTERN = 9;
+	int OUTPUT_PATTERN = 11;
 
 	/**
 	 * The feature id for the '<em><b>Repeat Expression</b></em>' containment reference.
@@ -911,6 +1102,15 @@ public interface CaltropPackage extends EPackage {
 	int OUTPUT_PATTERN__PORT_REF = PORT_PATTERN__PORT_REF;
 
 	/**
+	 * The feature id for the '<em><b>Guard Expression</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int OUTPUT_PATTERN__GUARD_EXPRESSION = PORT_PATTERN__GUARD_EXPRESSION;
+
+	/**
 	 * The feature id for the '<em><b>Value Expressions</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -936,7 +1136,7 @@ public interface CaltropPackage extends EPackage {
 	 * @see org.ptolemy.ecore.caltrop.impl.CaltropPackageImpl#getChannelSelector()
 	 * @generated
 	 */
-	int CHANNEL_SELECTOR = 10;
+	int CHANNEL_SELECTOR = 12;
 
 	/**
 	 * The number of structural features of the '<em>Channel Selector</em>' class.
@@ -955,7 +1155,7 @@ public interface CaltropPackage extends EPackage {
 	 * @see org.ptolemy.ecore.caltrop.impl.CaltropPackageImpl#getExpressionChannelSelector()
 	 * @generated
 	 */
-	int EXPRESSION_CHANNEL_SELECTOR = 11;
+	int EXPRESSION_CHANNEL_SELECTOR = 13;
 
 	/**
 	 * The feature id for the '<em><b>Many</b></em>' attribute.
@@ -992,7 +1192,7 @@ public interface CaltropPackage extends EPackage {
 	 * @see org.ptolemy.ecore.caltrop.impl.CaltropPackageImpl#getKeywordChannelSelector()
 	 * @generated
 	 */
-	int KEYWORD_CHANNEL_SELECTOR = 12;
+	int KEYWORD_CHANNEL_SELECTOR = 14;
 
 	/**
 	 * The feature id for the '<em><b>Keyword</b></em>' attribute.
@@ -1013,86 +1213,551 @@ public interface CaltropPackage extends EPackage {
 	int KEYWORD_CHANNEL_SELECTOR_FEATURE_COUNT = CHANNEL_SELECTOR_FEATURE_COUNT + 1;
 
 	/**
-	 * The meta object id for the '{@link org.ptolemy.ecore.caltrop.impl.OldActionVariableValueRefImpl <em>Old Action Variable Value Ref</em>}' class.
+	 * The meta object id for the '{@link org.ptolemy.ecore.caltrop.impl.FunctionDeclarationImpl <em>Function Declaration</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see org.ptolemy.ecore.caltrop.impl.OldActionVariableValueRefImpl
-	 * @see org.ptolemy.ecore.caltrop.impl.CaltropPackageImpl#getOldActionVariableValueRef()
+	 * @see org.ptolemy.ecore.caltrop.impl.FunctionDeclarationImpl
+	 * @see org.ptolemy.ecore.caltrop.impl.CaltropPackageImpl#getFunctionDeclaration()
 	 * @generated
 	 */
-	int OLD_ACTION_VARIABLE_VALUE_REF = 13;
+	int FUNCTION_DECLARATION = 15;
 
 	/**
-	 * The feature id for the '<em><b>Feature</b></em>' reference.
+	 * The feature id for the '<em><b>Name</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int OLD_ACTION_VARIABLE_VALUE_REF__FEATURE = XbasePackage.XABSTRACT_FEATURE_CALL__FEATURE;
+	int FUNCTION_DECLARATION__NAME = ActorPackage.JVM_TYPED_OBJ__NAME;
 
 	/**
-	 * The feature id for the '<em><b>Type Arguments</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Display Name</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int OLD_ACTION_VARIABLE_VALUE_REF__TYPE_ARGUMENTS = XbasePackage.XABSTRACT_FEATURE_CALL__TYPE_ARGUMENTS;
+	int FUNCTION_DECLARATION__DISPLAY_NAME = ActorPackage.JVM_TYPED_OBJ__DISPLAY_NAME;
 
 	/**
-	 * The feature id for the '<em><b>Implicit Receiver</b></em>' containment reference.
+	 * The feature id for the '<em><b>Attributes</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int OLD_ACTION_VARIABLE_VALUE_REF__IMPLICIT_RECEIVER = XbasePackage.XABSTRACT_FEATURE_CALL__IMPLICIT_RECEIVER;
+	int FUNCTION_DECLARATION__ATTRIBUTES = ActorPackage.JVM_TYPED_OBJ__ATTRIBUTES;
 
 	/**
-	 * The feature id for the '<em><b>Invalid Feature Issue Code</b></em>' attribute.
+	 * The feature id for the '<em><b>Inherits From</b></em>' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int OLD_ACTION_VARIABLE_VALUE_REF__INVALID_FEATURE_ISSUE_CODE = XbasePackage.XABSTRACT_FEATURE_CALL__INVALID_FEATURE_ISSUE_CODE;
+	int FUNCTION_DECLARATION__INHERITS_FROM = ActorPackage.JVM_TYPED_OBJ__INHERITS_FROM;
 
 	/**
-	 * The feature id for the '<em><b>Valid Feature</b></em>' attribute.
+	 * The feature id for the '<em><b>Type</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int OLD_ACTION_VARIABLE_VALUE_REF__VALID_FEATURE = XbasePackage.XABSTRACT_FEATURE_CALL__VALID_FEATURE;
+	int FUNCTION_DECLARATION__TYPE = ActorPackage.JVM_TYPED_OBJ__TYPE;
 
 	/**
-	 * The feature id for the '<em><b>Implicit First Argument</b></em>' containment reference.
+	 * The feature id for the '<em><b>Inferred Type</b></em>' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int OLD_ACTION_VARIABLE_VALUE_REF__IMPLICIT_FIRST_ARGUMENT = XbasePackage.XABSTRACT_FEATURE_CALL__IMPLICIT_FIRST_ARGUMENT;
+	int FUNCTION_DECLARATION__INFERRED_TYPE = ActorPackage.JVM_TYPED_OBJ__INFERRED_TYPE;
 
 	/**
-	 * The feature id for the '<em><b>Actual Type Arguments</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Parameters</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int OLD_ACTION_VARIABLE_VALUE_REF__ACTUAL_TYPE_ARGUMENTS = XbasePackage.XABSTRACT_FEATURE_CALL__ACTUAL_TYPE_ARGUMENTS;
+	int FUNCTION_DECLARATION__PARAMETERS = ActorPackage.JVM_TYPED_OBJ_FEATURE_COUNT + 0;
 
 	/**
-	 * The number of structural features of the '<em>Old Action Variable Value Ref</em>' class.
+	 * The feature id for the '<em><b>Body Expression</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int OLD_ACTION_VARIABLE_VALUE_REF_FEATURE_COUNT = XbasePackage.XABSTRACT_FEATURE_CALL_FEATURE_COUNT + 0;
+	int FUNCTION_DECLARATION__BODY_EXPRESSION = ActorPackage.JVM_TYPED_OBJ_FEATURE_COUNT + 1;
+
+	/**
+	 * The feature id for the '<em><b>Throwables</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FUNCTION_DECLARATION__THROWABLES = ActorPackage.JVM_TYPED_OBJ_FEATURE_COUNT + 2;
+
+	/**
+	 * The number of structural features of the '<em>Function Declaration</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FUNCTION_DECLARATION_FEATURE_COUNT = ActorPackage.JVM_TYPED_OBJ_FEATURE_COUNT + 3;
+
+	/**
+	 * The meta object id for the '{@link org.ptolemy.ecore.caltrop.impl.ScheduleImpl <em>Schedule</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.ptolemy.ecore.caltrop.impl.ScheduleImpl
+	 * @see org.ptolemy.ecore.caltrop.impl.CaltropPackageImpl#getSchedule()
+	 * @generated
+	 */
+	int SCHEDULE = 16;
+
+	/**
+	 * The feature id for the '<em><b>Initial</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SCHEDULE__INITIAL = 0;
+
+	/**
+	 * The feature id for the '<em><b>States</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SCHEDULE__STATES = 1;
+
+	/**
+	 * The number of structural features of the '<em>Schedule</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SCHEDULE_FEATURE_COUNT = 2;
+
+	/**
+	 * The meta object id for the '{@link org.ptolemy.ecore.caltrop.impl.StateImpl <em>State</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.ptolemy.ecore.caltrop.impl.StateImpl
+	 * @see org.ptolemy.ecore.caltrop.impl.CaltropPackageImpl#getState()
+	 * @generated
+	 */
+	int STATE = 17;
+
+	/**
+	 * The feature id for the '<em><b>Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int STATE__NAME = KernelPackage.NAMED_OBJ__NAME;
+
+	/**
+	 * The feature id for the '<em><b>Display Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int STATE__DISPLAY_NAME = KernelPackage.NAMED_OBJ__DISPLAY_NAME;
+
+	/**
+	 * The feature id for the '<em><b>Attributes</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int STATE__ATTRIBUTES = KernelPackage.NAMED_OBJ__ATTRIBUTES;
+
+	/**
+	 * The feature id for the '<em><b>Inherits From</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int STATE__INHERITS_FROM = KernelPackage.NAMED_OBJ__INHERITS_FROM;
+
+	/**
+	 * The feature id for the '<em><b>Transitions</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int STATE__TRANSITIONS = KernelPackage.NAMED_OBJ_FEATURE_COUNT + 0;
+
+	/**
+	 * The feature id for the '<em><b>Schedule</b></em>' container reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int STATE__SCHEDULE = KernelPackage.NAMED_OBJ_FEATURE_COUNT + 1;
+
+	/**
+	 * The number of structural features of the '<em>State</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int STATE_FEATURE_COUNT = KernelPackage.NAMED_OBJ_FEATURE_COUNT + 2;
+
+	/**
+	 * The meta object id for the '{@link org.ptolemy.ecore.caltrop.impl.TransitionImpl <em>Transition</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.ptolemy.ecore.caltrop.impl.TransitionImpl
+	 * @see org.ptolemy.ecore.caltrop.impl.CaltropPackageImpl#getTransition()
+	 * @generated
+	 */
+	int TRANSITION = 18;
+
+	/**
+	 * The feature id for the '<em><b>Source</b></em>' container reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TRANSITION__SOURCE = 0;
+
+	/**
+	 * The feature id for the '<em><b>Target</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TRANSITION__TARGET = 1;
+
+	/**
+	 * The feature id for the '<em><b>Tags</b></em>' attribute list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TRANSITION__TAGS = 2;
+
+	/**
+	 * The number of structural features of the '<em>Transition</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TRANSITION_FEATURE_COUNT = 3;
+
+	/**
+	 * The meta object id for the '{@link org.ptolemy.ecore.caltrop.impl.EventActionImpl <em>Event Action</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.ptolemy.ecore.caltrop.impl.EventActionImpl
+	 * @see org.ptolemy.ecore.caltrop.impl.CaltropPackageImpl#getEventAction()
+	 * @generated
+	 */
+	int EVENT_ACTION = 19;
+
+	/**
+	 * The feature id for the '<em><b>Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int EVENT_ACTION__NAME = RE_ACTION__NAME;
+
+	/**
+	 * The feature id for the '<em><b>Display Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int EVENT_ACTION__DISPLAY_NAME = RE_ACTION__DISPLAY_NAME;
+
+	/**
+	 * The feature id for the '<em><b>Attributes</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int EVENT_ACTION__ATTRIBUTES = RE_ACTION__ATTRIBUTES;
+
+	/**
+	 * The feature id for the '<em><b>Inherits From</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int EVENT_ACTION__INHERITS_FROM = RE_ACTION__INHERITS_FROM;
+
+	/**
+	 * The feature id for the '<em><b>Guard Expression</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int EVENT_ACTION__GUARD_EXPRESSION = RE_ACTION__GUARD_EXPRESSION;
+
+	/**
+	 * The feature id for the '<em><b>Output Patterns</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int EVENT_ACTION__OUTPUT_PATTERNS = RE_ACTION__OUTPUT_PATTERNS;
+
+	/**
+	 * The feature id for the '<em><b>Body Expression</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int EVENT_ACTION__BODY_EXPRESSION = RE_ACTION__BODY_EXPRESSION;
+
+	/**
+	 * The feature id for the '<em><b>Update Expression</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int EVENT_ACTION__UPDATE_EXPRESSION = RE_ACTION__UPDATE_EXPRESSION;
+
+	/**
+	 * The feature id for the '<em><b>Delay Expression</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int EVENT_ACTION__DELAY_EXPRESSION = RE_ACTION__DELAY_EXPRESSION;
+
+	/**
+	 * The feature id for the '<em><b>Event Patterns</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int EVENT_ACTION__EVENT_PATTERNS = RE_ACTION_FEATURE_COUNT + 0;
+
+	/**
+	 * The number of structural features of the '<em>Event Action</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int EVENT_ACTION_FEATURE_COUNT = RE_ACTION_FEATURE_COUNT + 1;
+
+	/**
+	 * The meta object id for the '{@link org.ptolemy.ecore.caltrop.impl.EventPatternImpl <em>Event Pattern</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.ptolemy.ecore.caltrop.impl.EventPatternImpl
+	 * @see org.ptolemy.ecore.caltrop.impl.CaltropPackageImpl#getEventPattern()
+	 * @generated
+	 */
+	int EVENT_PATTERN = 20;
+
+	/**
+	 * The feature id for the '<em><b>Var Ref</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int EVENT_PATTERN__VAR_REF = ACTION_PATTERN_FEATURE_COUNT + 0;
+
+	/**
+	 * The feature id for the '<em><b>Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int EVENT_PATTERN__NAME = ACTION_PATTERN_FEATURE_COUNT + 1;
+
+	/**
+	 * The feature id for the '<em><b>Qualifier</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int EVENT_PATTERN__QUALIFIER = ACTION_PATTERN_FEATURE_COUNT + 2;
+
+	/**
+	 * The feature id for the '<em><b>Variables</b></em>' attribute list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int EVENT_PATTERN__VARIABLES = ACTION_PATTERN_FEATURE_COUNT + 3;
+
+	/**
+	 * The feature id for the '<em><b>Property</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int EVENT_PATTERN__PROPERTY = ACTION_PATTERN_FEATURE_COUNT + 4;
+
+	/**
+	 * The feature id for the '<em><b>Time Expression</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int EVENT_PATTERN__TIME_EXPRESSION = ACTION_PATTERN_FEATURE_COUNT + 5;
+
+	/**
+	 * The feature id for the '<em><b>Guard Expression</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int EVENT_PATTERN__GUARD_EXPRESSION = ACTION_PATTERN_FEATURE_COUNT + 6;
+
+	/**
+	 * The number of structural features of the '<em>Event Pattern</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int EVENT_PATTERN_FEATURE_COUNT = ACTION_PATTERN_FEATURE_COUNT + 7;
+
+	/**
+	 * The meta object id for the '{@link org.ptolemy.ecore.caltrop.impl.ConversionRelationImpl <em>Conversion Relation</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.ptolemy.ecore.caltrop.impl.ConversionRelationImpl
+	 * @see org.ptolemy.ecore.caltrop.impl.CaltropPackageImpl#getConversionRelation()
+	 * @generated
+	 */
+	int CONVERSION_RELATION = 21;
+
+	/**
+	 * The feature id for the '<em><b>Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CONVERSION_RELATION__NAME = KernelPackage.RELATION__NAME;
+
+	/**
+	 * The feature id for the '<em><b>Display Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CONVERSION_RELATION__DISPLAY_NAME = KernelPackage.RELATION__DISPLAY_NAME;
+
+	/**
+	 * The feature id for the '<em><b>Attributes</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CONVERSION_RELATION__ATTRIBUTES = KernelPackage.RELATION__ATTRIBUTES;
+
+	/**
+	 * The feature id for the '<em><b>Inherits From</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CONVERSION_RELATION__INHERITS_FROM = KernelPackage.RELATION__INHERITS_FROM;
+
+	/**
+	 * The feature id for the '<em><b>Source Port</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CONVERSION_RELATION__SOURCE_PORT = KernelPackage.RELATION__SOURCE_PORT;
+
+	/**
+	 * The feature id for the '<em><b>Target Ports</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CONVERSION_RELATION__TARGET_PORTS = KernelPackage.RELATION__TARGET_PORTS;
+
+	/**
+	 * The feature id for the '<em><b>Value Var</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CONVERSION_RELATION__VALUE_VAR = KernelPackage.RELATION_FEATURE_COUNT + 0;
+
+	/**
+	 * The feature id for the '<em><b>Conversion Expression</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CONVERSION_RELATION__CONVERSION_EXPRESSION = KernelPackage.RELATION_FEATURE_COUNT + 1;
+
+	/**
+	 * The feature id for the '<em><b>Guard Expression</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CONVERSION_RELATION__GUARD_EXPRESSION = KernelPackage.RELATION_FEATURE_COUNT + 2;
+
+	/**
+	 * The number of structural features of the '<em>Conversion Relation</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CONVERSION_RELATION_FEATURE_COUNT = KernelPackage.RELATION_FEATURE_COUNT + 3;
 
 	/**
 	 * The meta object id for the '{@link org.ptolemy.ecore.caltrop.ChannelSelectorKeyword <em>Channel Selector Keyword</em>}' enum.
@@ -1102,7 +1767,7 @@ public interface CaltropPackage extends EPackage {
 	 * @see org.ptolemy.ecore.caltrop.impl.CaltropPackageImpl#getChannelSelectorKeyword()
 	 * @generated
 	 */
-	int CHANNEL_SELECTOR_KEYWORD = 14;
+	int CHANNEL_SELECTOR_KEYWORD = 22;
 
 	/**
 	 * Returns the meta object for class '{@link org.ptolemy.ecore.caltrop.CaltropActorImpl <em>Actor Impl</em>}'.
@@ -1135,6 +1800,28 @@ public interface CaltropPackage extends EPackage {
 	 * @generated
 	 */
 	EReference getCaltropActorImpl_InitActions();
+
+	/**
+	 * Returns the meta object for the containment reference list '{@link org.ptolemy.ecore.caltrop.CaltropActorImpl#getFunctions <em>Functions</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference list '<em>Functions</em>'.
+	 * @see org.ptolemy.ecore.caltrop.CaltropActorImpl#getFunctions()
+	 * @see #getCaltropActorImpl()
+	 * @generated
+	 */
+	EReference getCaltropActorImpl_Functions();
+
+	/**
+	 * Returns the meta object for the containment reference '{@link org.ptolemy.ecore.caltrop.CaltropActorImpl#getSchedule <em>Schedule</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference '<em>Schedule</em>'.
+	 * @see org.ptolemy.ecore.caltrop.CaltropActorImpl#getSchedule()
+	 * @see #getCaltropActorImpl()
+	 * @generated
+	 */
+	EReference getCaltropActorImpl_Schedule();
 
 	/**
 	 * Returns the meta object for class '{@link org.ptolemy.ecore.caltrop.ActorParameter <em>Actor Parameter</em>}'.
@@ -1220,6 +1907,16 @@ public interface CaltropPackage extends EPackage {
 	EReference getFireAction_InputPatterns();
 
 	/**
+	 * Returns the meta object for class '{@link org.ptolemy.ecore.caltrop.ReAction <em>Re Action</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Re Action</em>'.
+	 * @see org.ptolemy.ecore.caltrop.ReAction
+	 * @generated
+	 */
+	EClass getReAction();
+
+	/**
 	 * Returns the meta object for class '{@link org.ptolemy.ecore.caltrop.OutputAction <em>Output Action</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1263,6 +1960,28 @@ public interface CaltropPackage extends EPackage {
 	EReference getOutputAction_BodyExpression();
 
 	/**
+	 * Returns the meta object for the containment reference '{@link org.ptolemy.ecore.caltrop.OutputAction#getUpdateExpression <em>Update Expression</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference '<em>Update Expression</em>'.
+	 * @see org.ptolemy.ecore.caltrop.OutputAction#getUpdateExpression()
+	 * @see #getOutputAction()
+	 * @generated
+	 */
+	EReference getOutputAction_UpdateExpression();
+
+	/**
+	 * Returns the meta object for the containment reference '{@link org.ptolemy.ecore.caltrop.OutputAction#getDelayExpression <em>Delay Expression</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference '<em>Delay Expression</em>'.
+	 * @see org.ptolemy.ecore.caltrop.OutputAction#getDelayExpression()
+	 * @see #getOutputAction()
+	 * @generated
+	 */
+	EReference getOutputAction_DelayExpression();
+
+	/**
 	 * Returns the meta object for class '{@link org.ptolemy.ecore.caltrop.PortPattern <em>Port Pattern</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1304,6 +2023,27 @@ public interface CaltropPackage extends EPackage {
 	 * @generated
 	 */
 	EReference getPortPattern_PortRef();
+
+	/**
+	 * Returns the meta object for the containment reference '{@link org.ptolemy.ecore.caltrop.PortPattern#getGuardExpression <em>Guard Expression</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference '<em>Guard Expression</em>'.
+	 * @see org.ptolemy.ecore.caltrop.PortPattern#getGuardExpression()
+	 * @see #getPortPattern()
+	 * @generated
+	 */
+	EReference getPortPattern_GuardExpression();
+
+	/**
+	 * Returns the meta object for class '{@link org.ptolemy.ecore.caltrop.ActionPattern <em>Action Pattern</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Action Pattern</em>'.
+	 * @see org.ptolemy.ecore.caltrop.ActionPattern
+	 * @generated
+	 */
+	EClass getActionPattern();
 
 	/**
 	 * Returns the meta object for class '{@link org.ptolemy.ecore.caltrop.InputPattern <em>Input Pattern</em>}'.
@@ -1411,14 +2151,305 @@ public interface CaltropPackage extends EPackage {
 	EAttribute getKeywordChannelSelector_Keyword();
 
 	/**
-	 * Returns the meta object for class '{@link org.ptolemy.ecore.caltrop.OldActionVariableValueRef <em>Old Action Variable Value Ref</em>}'.
+	 * Returns the meta object for class '{@link org.ptolemy.ecore.caltrop.FunctionDeclaration <em>Function Declaration</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for class '<em>Old Action Variable Value Ref</em>'.
-	 * @see org.ptolemy.ecore.caltrop.OldActionVariableValueRef
+	 * @return the meta object for class '<em>Function Declaration</em>'.
+	 * @see org.ptolemy.ecore.caltrop.FunctionDeclaration
 	 * @generated
 	 */
-	EClass getOldActionVariableValueRef();
+	EClass getFunctionDeclaration();
+
+	/**
+	 * Returns the meta object for the containment reference list '{@link org.ptolemy.ecore.caltrop.FunctionDeclaration#getParameters <em>Parameters</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference list '<em>Parameters</em>'.
+	 * @see org.ptolemy.ecore.caltrop.FunctionDeclaration#getParameters()
+	 * @see #getFunctionDeclaration()
+	 * @generated
+	 */
+	EReference getFunctionDeclaration_Parameters();
+
+	/**
+	 * Returns the meta object for the containment reference '{@link org.ptolemy.ecore.caltrop.FunctionDeclaration#getBodyExpression <em>Body Expression</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference '<em>Body Expression</em>'.
+	 * @see org.ptolemy.ecore.caltrop.FunctionDeclaration#getBodyExpression()
+	 * @see #getFunctionDeclaration()
+	 * @generated
+	 */
+	EReference getFunctionDeclaration_BodyExpression();
+
+	/**
+	 * Returns the meta object for the containment reference list '{@link org.ptolemy.ecore.caltrop.FunctionDeclaration#getThrowables <em>Throwables</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference list '<em>Throwables</em>'.
+	 * @see org.ptolemy.ecore.caltrop.FunctionDeclaration#getThrowables()
+	 * @see #getFunctionDeclaration()
+	 * @generated
+	 */
+	EReference getFunctionDeclaration_Throwables();
+
+	/**
+	 * Returns the meta object for class '{@link org.ptolemy.ecore.caltrop.Schedule <em>Schedule</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Schedule</em>'.
+	 * @see org.ptolemy.ecore.caltrop.Schedule
+	 * @generated
+	 */
+	EClass getSchedule();
+
+	/**
+	 * Returns the meta object for the reference '{@link org.ptolemy.ecore.caltrop.Schedule#getInitial <em>Initial</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference '<em>Initial</em>'.
+	 * @see org.ptolemy.ecore.caltrop.Schedule#getInitial()
+	 * @see #getSchedule()
+	 * @generated
+	 */
+	EReference getSchedule_Initial();
+
+	/**
+	 * Returns the meta object for the containment reference list '{@link org.ptolemy.ecore.caltrop.Schedule#getStates <em>States</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference list '<em>States</em>'.
+	 * @see org.ptolemy.ecore.caltrop.Schedule#getStates()
+	 * @see #getSchedule()
+	 * @generated
+	 */
+	EReference getSchedule_States();
+
+	/**
+	 * Returns the meta object for class '{@link org.ptolemy.ecore.caltrop.State <em>State</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>State</em>'.
+	 * @see org.ptolemy.ecore.caltrop.State
+	 * @generated
+	 */
+	EClass getState();
+
+	/**
+	 * Returns the meta object for the containment reference list '{@link org.ptolemy.ecore.caltrop.State#getTransitions <em>Transitions</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference list '<em>Transitions</em>'.
+	 * @see org.ptolemy.ecore.caltrop.State#getTransitions()
+	 * @see #getState()
+	 * @generated
+	 */
+	EReference getState_Transitions();
+
+	/**
+	 * Returns the meta object for the container reference '{@link org.ptolemy.ecore.caltrop.State#getSchedule <em>Schedule</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the container reference '<em>Schedule</em>'.
+	 * @see org.ptolemy.ecore.caltrop.State#getSchedule()
+	 * @see #getState()
+	 * @generated
+	 */
+	EReference getState_Schedule();
+
+	/**
+	 * Returns the meta object for class '{@link org.ptolemy.ecore.caltrop.Transition <em>Transition</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Transition</em>'.
+	 * @see org.ptolemy.ecore.caltrop.Transition
+	 * @generated
+	 */
+	EClass getTransition();
+
+	/**
+	 * Returns the meta object for the container reference '{@link org.ptolemy.ecore.caltrop.Transition#getSource <em>Source</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the container reference '<em>Source</em>'.
+	 * @see org.ptolemy.ecore.caltrop.Transition#getSource()
+	 * @see #getTransition()
+	 * @generated
+	 */
+	EReference getTransition_Source();
+
+	/**
+	 * Returns the meta object for the reference '{@link org.ptolemy.ecore.caltrop.Transition#getTarget <em>Target</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference '<em>Target</em>'.
+	 * @see org.ptolemy.ecore.caltrop.Transition#getTarget()
+	 * @see #getTransition()
+	 * @generated
+	 */
+	EReference getTransition_Target();
+
+	/**
+	 * Returns the meta object for the attribute list '{@link org.ptolemy.ecore.caltrop.Transition#getTags <em>Tags</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute list '<em>Tags</em>'.
+	 * @see org.ptolemy.ecore.caltrop.Transition#getTags()
+	 * @see #getTransition()
+	 * @generated
+	 */
+	EAttribute getTransition_Tags();
+
+	/**
+	 * Returns the meta object for class '{@link org.ptolemy.ecore.caltrop.EventAction <em>Event Action</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Event Action</em>'.
+	 * @see org.ptolemy.ecore.caltrop.EventAction
+	 * @generated
+	 */
+	EClass getEventAction();
+
+	/**
+	 * Returns the meta object for the containment reference list '{@link org.ptolemy.ecore.caltrop.EventAction#getEventPatterns <em>Event Patterns</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference list '<em>Event Patterns</em>'.
+	 * @see org.ptolemy.ecore.caltrop.EventAction#getEventPatterns()
+	 * @see #getEventAction()
+	 * @generated
+	 */
+	EReference getEventAction_EventPatterns();
+
+	/**
+	 * Returns the meta object for class '{@link org.ptolemy.ecore.caltrop.EventPattern <em>Event Pattern</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Event Pattern</em>'.
+	 * @see org.ptolemy.ecore.caltrop.EventPattern
+	 * @generated
+	 */
+	EClass getEventPattern();
+
+	/**
+	 * Returns the meta object for the reference '{@link org.ptolemy.ecore.caltrop.EventPattern#getVarRef <em>Var Ref</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference '<em>Var Ref</em>'.
+	 * @see org.ptolemy.ecore.caltrop.EventPattern#getVarRef()
+	 * @see #getEventPattern()
+	 * @generated
+	 */
+	EReference getEventPattern_VarRef();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.ptolemy.ecore.caltrop.EventPattern#getName <em>Name</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Name</em>'.
+	 * @see org.ptolemy.ecore.caltrop.EventPattern#getName()
+	 * @see #getEventPattern()
+	 * @generated
+	 */
+	EAttribute getEventPattern_Name();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.ptolemy.ecore.caltrop.EventPattern#getQualifier <em>Qualifier</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Qualifier</em>'.
+	 * @see org.ptolemy.ecore.caltrop.EventPattern#getQualifier()
+	 * @see #getEventPattern()
+	 * @generated
+	 */
+	EAttribute getEventPattern_Qualifier();
+
+	/**
+	 * Returns the meta object for the attribute list '{@link org.ptolemy.ecore.caltrop.EventPattern#getVariables <em>Variables</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute list '<em>Variables</em>'.
+	 * @see org.ptolemy.ecore.caltrop.EventPattern#getVariables()
+	 * @see #getEventPattern()
+	 * @generated
+	 */
+	EAttribute getEventPattern_Variables();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.ptolemy.ecore.caltrop.EventPattern#isProperty <em>Property</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Property</em>'.
+	 * @see org.ptolemy.ecore.caltrop.EventPattern#isProperty()
+	 * @see #getEventPattern()
+	 * @generated
+	 */
+	EAttribute getEventPattern_Property();
+
+	/**
+	 * Returns the meta object for the containment reference '{@link org.ptolemy.ecore.caltrop.EventPattern#getTimeExpression <em>Time Expression</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference '<em>Time Expression</em>'.
+	 * @see org.ptolemy.ecore.caltrop.EventPattern#getTimeExpression()
+	 * @see #getEventPattern()
+	 * @generated
+	 */
+	EReference getEventPattern_TimeExpression();
+
+	/**
+	 * Returns the meta object for the containment reference '{@link org.ptolemy.ecore.caltrop.EventPattern#getGuardExpression <em>Guard Expression</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference '<em>Guard Expression</em>'.
+	 * @see org.ptolemy.ecore.caltrop.EventPattern#getGuardExpression()
+	 * @see #getEventPattern()
+	 * @generated
+	 */
+	EReference getEventPattern_GuardExpression();
+
+	/**
+	 * Returns the meta object for class '{@link org.ptolemy.ecore.caltrop.ConversionRelation <em>Conversion Relation</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Conversion Relation</em>'.
+	 * @see org.ptolemy.ecore.caltrop.ConversionRelation
+	 * @generated
+	 */
+	EClass getConversionRelation();
+
+	/**
+	 * Returns the meta object for the containment reference '{@link org.ptolemy.ecore.caltrop.ConversionRelation#getConversionExpression <em>Conversion Expression</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference '<em>Conversion Expression</em>'.
+	 * @see org.ptolemy.ecore.caltrop.ConversionRelation#getConversionExpression()
+	 * @see #getConversionRelation()
+	 * @generated
+	 */
+	EReference getConversionRelation_ConversionExpression();
+
+	/**
+	 * Returns the meta object for the containment reference '{@link org.ptolemy.ecore.caltrop.ConversionRelation#getGuardExpression <em>Guard Expression</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference '<em>Guard Expression</em>'.
+	 * @see org.ptolemy.ecore.caltrop.ConversionRelation#getGuardExpression()
+	 * @see #getConversionRelation()
+	 * @generated
+	 */
+	EReference getConversionRelation_GuardExpression();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.ptolemy.ecore.caltrop.ConversionRelation#getValueVar <em>Value Var</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Value Var</em>'.
+	 * @see org.ptolemy.ecore.caltrop.ConversionRelation#getValueVar()
+	 * @see #getConversionRelation()
+	 * @generated
+	 */
+	EAttribute getConversionRelation_ValueVar();
 
 	/**
 	 * Returns the meta object for enum '{@link org.ptolemy.ecore.caltrop.ChannelSelectorKeyword <em>Channel Selector Keyword</em>}'.
@@ -1477,6 +2508,22 @@ public interface CaltropPackage extends EPackage {
 		 * @generated
 		 */
 		EReference CALTROP_ACTOR_IMPL__INIT_ACTIONS = eINSTANCE.getCaltropActorImpl_InitActions();
+
+		/**
+		 * The meta object literal for the '<em><b>Functions</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference CALTROP_ACTOR_IMPL__FUNCTIONS = eINSTANCE.getCaltropActorImpl_Functions();
+
+		/**
+		 * The meta object literal for the '<em><b>Schedule</b></em>' containment reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference CALTROP_ACTOR_IMPL__SCHEDULE = eINSTANCE.getCaltropActorImpl_Schedule();
 
 		/**
 		 * The meta object literal for the '{@link org.ptolemy.ecore.caltrop.impl.ActorParameterImpl <em>Actor Parameter</em>}' class.
@@ -1553,6 +2600,16 @@ public interface CaltropPackage extends EPackage {
 		EReference FIRE_ACTION__INPUT_PATTERNS = eINSTANCE.getFireAction_InputPatterns();
 
 		/**
+		 * The meta object literal for the '{@link org.ptolemy.ecore.caltrop.impl.ReActionImpl <em>Re Action</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.ptolemy.ecore.caltrop.impl.ReActionImpl
+		 * @see org.ptolemy.ecore.caltrop.impl.CaltropPackageImpl#getReAction()
+		 * @generated
+		 */
+		EClass RE_ACTION = eINSTANCE.getReAction();
+
+		/**
 		 * The meta object literal for the '{@link org.ptolemy.ecore.caltrop.impl.OutputActionImpl <em>Output Action</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
@@ -1587,6 +2644,22 @@ public interface CaltropPackage extends EPackage {
 		EReference OUTPUT_ACTION__BODY_EXPRESSION = eINSTANCE.getOutputAction_BodyExpression();
 
 		/**
+		 * The meta object literal for the '<em><b>Update Expression</b></em>' containment reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference OUTPUT_ACTION__UPDATE_EXPRESSION = eINSTANCE.getOutputAction_UpdateExpression();
+
+		/**
+		 * The meta object literal for the '<em><b>Delay Expression</b></em>' containment reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference OUTPUT_ACTION__DELAY_EXPRESSION = eINSTANCE.getOutputAction_DelayExpression();
+
+		/**
 		 * The meta object literal for the '{@link org.ptolemy.ecore.caltrop.impl.PortPatternImpl <em>Port Pattern</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
@@ -1619,6 +2692,24 @@ public interface CaltropPackage extends EPackage {
 		 * @generated
 		 */
 		EReference PORT_PATTERN__PORT_REF = eINSTANCE.getPortPattern_PortRef();
+
+		/**
+		 * The meta object literal for the '<em><b>Guard Expression</b></em>' containment reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference PORT_PATTERN__GUARD_EXPRESSION = eINSTANCE.getPortPattern_GuardExpression();
+
+		/**
+		 * The meta object literal for the '{@link org.ptolemy.ecore.caltrop.impl.ActionPatternImpl <em>Action Pattern</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.ptolemy.ecore.caltrop.impl.ActionPatternImpl
+		 * @see org.ptolemy.ecore.caltrop.impl.CaltropPackageImpl#getActionPattern()
+		 * @generated
+		 */
+		EClass ACTION_PATTERN = eINSTANCE.getActionPattern();
 
 		/**
 		 * The meta object literal for the '{@link org.ptolemy.ecore.caltrop.impl.InputPatternImpl <em>Input Pattern</em>}' class.
@@ -1711,14 +2802,242 @@ public interface CaltropPackage extends EPackage {
 		EAttribute KEYWORD_CHANNEL_SELECTOR__KEYWORD = eINSTANCE.getKeywordChannelSelector_Keyword();
 
 		/**
-		 * The meta object literal for the '{@link org.ptolemy.ecore.caltrop.impl.OldActionVariableValueRefImpl <em>Old Action Variable Value Ref</em>}' class.
+		 * The meta object literal for the '{@link org.ptolemy.ecore.caltrop.impl.FunctionDeclarationImpl <em>Function Declaration</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
-		 * @see org.ptolemy.ecore.caltrop.impl.OldActionVariableValueRefImpl
-		 * @see org.ptolemy.ecore.caltrop.impl.CaltropPackageImpl#getOldActionVariableValueRef()
+		 * @see org.ptolemy.ecore.caltrop.impl.FunctionDeclarationImpl
+		 * @see org.ptolemy.ecore.caltrop.impl.CaltropPackageImpl#getFunctionDeclaration()
 		 * @generated
 		 */
-		EClass OLD_ACTION_VARIABLE_VALUE_REF = eINSTANCE.getOldActionVariableValueRef();
+		EClass FUNCTION_DECLARATION = eINSTANCE.getFunctionDeclaration();
+
+		/**
+		 * The meta object literal for the '<em><b>Parameters</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference FUNCTION_DECLARATION__PARAMETERS = eINSTANCE.getFunctionDeclaration_Parameters();
+
+		/**
+		 * The meta object literal for the '<em><b>Body Expression</b></em>' containment reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference FUNCTION_DECLARATION__BODY_EXPRESSION = eINSTANCE.getFunctionDeclaration_BodyExpression();
+
+		/**
+		 * The meta object literal for the '<em><b>Throwables</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference FUNCTION_DECLARATION__THROWABLES = eINSTANCE.getFunctionDeclaration_Throwables();
+
+		/**
+		 * The meta object literal for the '{@link org.ptolemy.ecore.caltrop.impl.ScheduleImpl <em>Schedule</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.ptolemy.ecore.caltrop.impl.ScheduleImpl
+		 * @see org.ptolemy.ecore.caltrop.impl.CaltropPackageImpl#getSchedule()
+		 * @generated
+		 */
+		EClass SCHEDULE = eINSTANCE.getSchedule();
+
+		/**
+		 * The meta object literal for the '<em><b>Initial</b></em>' reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference SCHEDULE__INITIAL = eINSTANCE.getSchedule_Initial();
+
+		/**
+		 * The meta object literal for the '<em><b>States</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference SCHEDULE__STATES = eINSTANCE.getSchedule_States();
+
+		/**
+		 * The meta object literal for the '{@link org.ptolemy.ecore.caltrop.impl.StateImpl <em>State</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.ptolemy.ecore.caltrop.impl.StateImpl
+		 * @see org.ptolemy.ecore.caltrop.impl.CaltropPackageImpl#getState()
+		 * @generated
+		 */
+		EClass STATE = eINSTANCE.getState();
+
+		/**
+		 * The meta object literal for the '<em><b>Transitions</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference STATE__TRANSITIONS = eINSTANCE.getState_Transitions();
+
+		/**
+		 * The meta object literal for the '<em><b>Schedule</b></em>' container reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference STATE__SCHEDULE = eINSTANCE.getState_Schedule();
+
+		/**
+		 * The meta object literal for the '{@link org.ptolemy.ecore.caltrop.impl.TransitionImpl <em>Transition</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.ptolemy.ecore.caltrop.impl.TransitionImpl
+		 * @see org.ptolemy.ecore.caltrop.impl.CaltropPackageImpl#getTransition()
+		 * @generated
+		 */
+		EClass TRANSITION = eINSTANCE.getTransition();
+
+		/**
+		 * The meta object literal for the '<em><b>Source</b></em>' container reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference TRANSITION__SOURCE = eINSTANCE.getTransition_Source();
+
+		/**
+		 * The meta object literal for the '<em><b>Target</b></em>' reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference TRANSITION__TARGET = eINSTANCE.getTransition_Target();
+
+		/**
+		 * The meta object literal for the '<em><b>Tags</b></em>' attribute list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute TRANSITION__TAGS = eINSTANCE.getTransition_Tags();
+
+		/**
+		 * The meta object literal for the '{@link org.ptolemy.ecore.caltrop.impl.EventActionImpl <em>Event Action</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.ptolemy.ecore.caltrop.impl.EventActionImpl
+		 * @see org.ptolemy.ecore.caltrop.impl.CaltropPackageImpl#getEventAction()
+		 * @generated
+		 */
+		EClass EVENT_ACTION = eINSTANCE.getEventAction();
+
+		/**
+		 * The meta object literal for the '<em><b>Event Patterns</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference EVENT_ACTION__EVENT_PATTERNS = eINSTANCE.getEventAction_EventPatterns();
+
+		/**
+		 * The meta object literal for the '{@link org.ptolemy.ecore.caltrop.impl.EventPatternImpl <em>Event Pattern</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.ptolemy.ecore.caltrop.impl.EventPatternImpl
+		 * @see org.ptolemy.ecore.caltrop.impl.CaltropPackageImpl#getEventPattern()
+		 * @generated
+		 */
+		EClass EVENT_PATTERN = eINSTANCE.getEventPattern();
+
+		/**
+		 * The meta object literal for the '<em><b>Var Ref</b></em>' reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference EVENT_PATTERN__VAR_REF = eINSTANCE.getEventPattern_VarRef();
+
+		/**
+		 * The meta object literal for the '<em><b>Name</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute EVENT_PATTERN__NAME = eINSTANCE.getEventPattern_Name();
+
+		/**
+		 * The meta object literal for the '<em><b>Qualifier</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute EVENT_PATTERN__QUALIFIER = eINSTANCE.getEventPattern_Qualifier();
+
+		/**
+		 * The meta object literal for the '<em><b>Variables</b></em>' attribute list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute EVENT_PATTERN__VARIABLES = eINSTANCE.getEventPattern_Variables();
+
+		/**
+		 * The meta object literal for the '<em><b>Property</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute EVENT_PATTERN__PROPERTY = eINSTANCE.getEventPattern_Property();
+
+		/**
+		 * The meta object literal for the '<em><b>Time Expression</b></em>' containment reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference EVENT_PATTERN__TIME_EXPRESSION = eINSTANCE.getEventPattern_TimeExpression();
+
+		/**
+		 * The meta object literal for the '<em><b>Guard Expression</b></em>' containment reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference EVENT_PATTERN__GUARD_EXPRESSION = eINSTANCE.getEventPattern_GuardExpression();
+
+		/**
+		 * The meta object literal for the '{@link org.ptolemy.ecore.caltrop.impl.ConversionRelationImpl <em>Conversion Relation</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.ptolemy.ecore.caltrop.impl.ConversionRelationImpl
+		 * @see org.ptolemy.ecore.caltrop.impl.CaltropPackageImpl#getConversionRelation()
+		 * @generated
+		 */
+		EClass CONVERSION_RELATION = eINSTANCE.getConversionRelation();
+
+		/**
+		 * The meta object literal for the '<em><b>Conversion Expression</b></em>' containment reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference CONVERSION_RELATION__CONVERSION_EXPRESSION = eINSTANCE.getConversionRelation_ConversionExpression();
+
+		/**
+		 * The meta object literal for the '<em><b>Guard Expression</b></em>' containment reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference CONVERSION_RELATION__GUARD_EXPRESSION = eINSTANCE.getConversionRelation_GuardExpression();
+
+		/**
+		 * The meta object literal for the '<em><b>Value Var</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute CONVERSION_RELATION__VALUE_VAR = eINSTANCE.getConversionRelation_ValueVar();
 
 		/**
 		 * The meta object literal for the '{@link org.ptolemy.ecore.caltrop.ChannelSelectorKeyword <em>Channel Selector Keyword</em>}' enum.

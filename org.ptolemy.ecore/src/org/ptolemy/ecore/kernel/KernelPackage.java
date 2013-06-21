@@ -42,7 +42,7 @@ public interface KernelPackage extends EPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	String eNS_URI = "org.ptolemy.ecore.kernel";
+	String eNS_URI = "http://www.ptolemy.org/kernel";
 
 	/**
 	 * The package namespace name.

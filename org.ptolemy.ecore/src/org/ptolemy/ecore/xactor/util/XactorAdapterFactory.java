@@ -17,7 +17,6 @@ import org.ptolemy.ecore.kernel.Named;
 import org.ptolemy.ecore.kernel.NamedObj;
 import org.ptolemy.ecore.kernel.Port;
 import org.ptolemy.ecore.xactor.*;
-import org.ptolemy.ecore.xactor.ActorModel;
 import org.ptolemy.ecore.xactor.EntityFolder;
 import org.ptolemy.ecore.xactor.ImportDirective;
 import org.ptolemy.ecore.xactor.XactorPackage;
@@ -81,10 +80,6 @@ public class XactorAdapterFactory extends AdapterFactoryImpl {
 			@Override
 			public Adapter caseEntityFolder(EntityFolder object) {
 				return createEntityFolderAdapter();
-			}
-			@Override
-			public Adapter caseActorModel(ActorModel object) {
-				return createActorModelAdapter();
 			}
 			@Override
 			public Adapter caseImportDirective(ImportDirective object) {
@@ -155,20 +150,6 @@ public class XactorAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createEntityContainerAdapter() {
-		return null;
-	}
-
-	/**
-	 * Creates a new adapter for an object of class '{@link org.ptolemy.ecore.xactor.ActorModel <em>Actor Model</em>}'.
-	 * <!-- begin-user-doc -->
-	 * This default implementation returns null so that we can easily ignore cases;
-	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
-	 * <!-- end-user-doc -->
-	 * @return the new adapter.
-	 * @see org.ptolemy.ecore.xactor.ActorModel
-	 * @generated
-	 */
-	public Adapter createActorModelAdapter() {
 		return null;
 	}
 

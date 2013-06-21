@@ -107,6 +107,15 @@ public interface ActorFactory extends EFactory {
 	<P extends AbstractIOPort> AtomicActor<P> createAtomicActor();
 
 	/**
+	 * Returns a new object of class '<em>Java Actor Impl</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Java Actor Impl</em>'.
+	 * @generated
+	 */
+	JavaActorImpl createJavaActorImpl();
+
+	/**
 	 * Returns a new object of class '<em>Type Parameterized</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -150,24 +159,6 @@ public interface ActorFactory extends EFactory {
 	 * @generated
 	 */
 	TypedCompositeActor createTypedCompositeActor();
-
-	/**
-	 * Returns a new object of class '<em>Entity Actor Impl</em>'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Entity Actor Impl</em>'.
-	 * @generated
-	 */
-	<P extends AbstractIOPort> EntityActorImpl<P> createEntityActorImpl();
-
-	/**
-	 * Returns a new object of class '<em>Entity Ref Actor Impl</em>'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Entity Ref Actor Impl</em>'.
-	 * @generated
-	 */
-	<P extends AbstractIOPort> EntityRefActorImpl<P> createEntityRefActorImpl();
 
 	/**
 	 * Returns the package supported by this factory.

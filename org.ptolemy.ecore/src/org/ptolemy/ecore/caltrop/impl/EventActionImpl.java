@@ -1,10 +1,6 @@
 /**
- * <copyright>
- * </copyright>
- *
- * $Id$
  */
-package org.ptolemy.ecore.xactor.impl;
+package org.ptolemy.ecore.caltrop.impl;
 
 import java.util.Collection;
 
@@ -14,40 +10,39 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.InternalEList;
-import org.ptolemy.ecore.xactor.ActorModel;
-import org.ptolemy.ecore.xactor.ImportDirective;
-import org.ptolemy.ecore.xactor.XactorPackage;
+import org.ptolemy.ecore.caltrop.CaltropPackage;
+import org.ptolemy.ecore.caltrop.EventAction;
+import org.ptolemy.ecore.caltrop.EventPattern;
 
 /**
  * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>Actor Model</b></em>'.
+ * An implementation of the model object '<em><b>Event Action</b></em>'.
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link org.ptolemy.ecore.xactor.impl.ActorModelImpl#getImports <em>Imports</em>}</li>
+ *   <li>{@link org.ptolemy.ecore.caltrop.impl.EventActionImpl#getEventPatterns <em>Event Patterns</em>}</li>
  * </ul>
  * </p>
  *
  * @generated
  */
-public class ActorModelImpl extends EntityFolderImpl implements ActorModel {
+public class EventActionImpl extends ReActionImpl implements EventAction {
 	/**
-	 * The cached value of the '{@link #getImports() <em>Imports</em>}' containment reference list.
+	 * The cached value of the '{@link #getEventPatterns() <em>Event Patterns</em>}' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getImports()
+	 * @see #getEventPatterns()
 	 * @generated
 	 * @ordered
 	 */
-	protected EList<ImportDirective> imports;
-
+	protected EList<EventPattern> eventPatterns;
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected ActorModelImpl() {
+	protected EventActionImpl() {
 		super();
 	}
 
@@ -58,7 +53,7 @@ public class ActorModelImpl extends EntityFolderImpl implements ActorModel {
 	 */
 	@Override
 	protected EClass eStaticClass() {
-		return XactorPackage.Literals.ACTOR_MODEL;
+		return CaltropPackage.Literals.EVENT_ACTION;
 	}
 
 	/**
@@ -66,11 +61,11 @@ public class ActorModelImpl extends EntityFolderImpl implements ActorModel {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EList<ImportDirective> getImports() {
-		if (imports == null) {
-			imports = new EObjectContainmentEList<ImportDirective>(ImportDirective.class, this, XactorPackage.ACTOR_MODEL__IMPORTS);
+	public EList<EventPattern> getEventPatterns() {
+		if (eventPatterns == null) {
+			eventPatterns = new EObjectContainmentEList<EventPattern>(EventPattern.class, this, CaltropPackage.EVENT_ACTION__EVENT_PATTERNS);
 		}
-		return imports;
+		return eventPatterns;
 	}
 
 	/**
@@ -81,8 +76,8 @@ public class ActorModelImpl extends EntityFolderImpl implements ActorModel {
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
-			case XactorPackage.ACTOR_MODEL__IMPORTS:
-				return ((InternalEList<?>)getImports()).basicRemove(otherEnd, msgs);
+			case CaltropPackage.EVENT_ACTION__EVENT_PATTERNS:
+				return ((InternalEList<?>)getEventPatterns()).basicRemove(otherEnd, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -95,8 +90,8 @@ public class ActorModelImpl extends EntityFolderImpl implements ActorModel {
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-			case XactorPackage.ACTOR_MODEL__IMPORTS:
-				return getImports();
+			case CaltropPackage.EVENT_ACTION__EVENT_PATTERNS:
+				return getEventPatterns();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -110,9 +105,9 @@ public class ActorModelImpl extends EntityFolderImpl implements ActorModel {
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-			case XactorPackage.ACTOR_MODEL__IMPORTS:
-				getImports().clear();
-				getImports().addAll((Collection<? extends ImportDirective>)newValue);
+			case CaltropPackage.EVENT_ACTION__EVENT_PATTERNS:
+				getEventPatterns().clear();
+				getEventPatterns().addAll((Collection<? extends EventPattern>)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -126,8 +121,8 @@ public class ActorModelImpl extends EntityFolderImpl implements ActorModel {
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
-			case XactorPackage.ACTOR_MODEL__IMPORTS:
-				getImports().clear();
+			case CaltropPackage.EVENT_ACTION__EVENT_PATTERNS:
+				getEventPatterns().clear();
 				return;
 		}
 		super.eUnset(featureID);
@@ -141,10 +136,10 @@ public class ActorModelImpl extends EntityFolderImpl implements ActorModel {
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-			case XactorPackage.ACTOR_MODEL__IMPORTS:
-				return imports != null && !imports.isEmpty();
+			case CaltropPackage.EVENT_ACTION__EVENT_PATTERNS:
+				return eventPatterns != null && !eventPatterns.isEmpty();
 		}
 		return super.eIsSet(featureID);
 	}
 
-} //ActorModelImpl
+} //EventActionImpl

@@ -84,7 +84,7 @@ public class EntityRefImpl<P extends Port> extends EObjectImpl implements Entity
 	@SuppressWarnings("unchecked")
 	public Entity<P> getOwner() {
 		if (eContainerFeatureID() != KernelPackage.ENTITY_REF__OWNER) return null;
-		return (Entity<P>)eContainer();
+		return (Entity<P>)eInternalContainer();
 	}
 
 	/**

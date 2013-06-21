@@ -39,7 +39,7 @@ public class KernelFactoryImpl extends EFactoryImpl implements KernelFactory {
 	 */
 	public static KernelFactory init() {
 		try {
-			KernelFactory theKernelFactory = (KernelFactory)EPackage.Registry.INSTANCE.getEFactory("org.ptolemy.ecore.kernel"); 
+			KernelFactory theKernelFactory = (KernelFactory)EPackage.Registry.INSTANCE.getEFactory(KernelPackage.eNS_URI);
 			if (theKernelFactory != null) {
 				return theKernelFactory;
 			}

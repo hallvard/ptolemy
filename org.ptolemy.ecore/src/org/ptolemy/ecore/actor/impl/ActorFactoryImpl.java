@@ -19,11 +19,10 @@ import org.ptolemy.ecore.actor.ActorPackage;
 import org.ptolemy.ecore.actor.ActorRef;
 import org.ptolemy.ecore.actor.AtomicActor;
 import org.ptolemy.ecore.actor.CompositeActor;
-import org.ptolemy.ecore.actor.EntityActorImpl;
-import org.ptolemy.ecore.actor.EntityRefActorImpl;
 import org.ptolemy.ecore.actor.IOPort;
 import org.ptolemy.ecore.actor.IOPortKind;
 import org.ptolemy.ecore.actor.InjectableAttribute;
+import org.ptolemy.ecore.actor.JavaActorImpl;
 import org.ptolemy.ecore.actor.JvmTypedObj;
 import org.ptolemy.ecore.actor.Parameter;
 import org.ptolemy.ecore.actor.ParameterBinding;
@@ -49,7 +48,7 @@ public class ActorFactoryImpl extends EFactoryImpl implements ActorFactory {
 	 */
 	public static ActorFactory init() {
 		try {
-			ActorFactory theActorFactory = (ActorFactory)EPackage.Registry.INSTANCE.getEFactory("org.ptolemy.ecore.actor"); 
+			ActorFactory theActorFactory = (ActorFactory)EPackage.Registry.INSTANCE.getEFactory(ActorPackage.eNS_URI);
 			if (theActorFactory != null) {
 				return theActorFactory;
 			}
@@ -87,13 +86,12 @@ public class ActorFactoryImpl extends EFactoryImpl implements ActorFactory {
 			case ActorPackage.IO_PORT: return createIOPort();
 			case ActorPackage.TYPED_IO_PORT: return createTypedIOPort();
 			case ActorPackage.ATOMIC_ACTOR: return createAtomicActor();
+			case ActorPackage.JAVA_ACTOR_IMPL: return createJavaActorImpl();
 			case ActorPackage.TYPE_PARAMETERIZED: return createTypeParameterized();
 			case ActorPackage.TYPE_PARAMETER: return createTypeParameter();
 			case ActorPackage.TYPED_ATOMIC_ACTOR: return createTypedAtomicActor();
 			case ActorPackage.COMPOSITE_ACTOR: return createCompositeActor();
 			case ActorPackage.TYPED_COMPOSITE_ACTOR: return createTypedCompositeActor();
-			case ActorPackage.ENTITY_ACTOR_IMPL: return createEntityActorImpl();
-			case ActorPackage.ENTITY_REF_ACTOR_IMPL: return createEntityRefActorImpl();
 			default:
 				throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
 		}
@@ -224,6 +222,16 @@ public class ActorFactoryImpl extends EFactoryImpl implements ActorFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public JavaActorImpl createJavaActorImpl() {
+		JavaActorImplImpl javaActorImpl = new JavaActorImplImpl();
+		return javaActorImpl;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public TypeParameterized createTypeParameterized() {
 		TypeParameterizedImpl typeParameterized = new TypeParameterizedImpl();
 		return typeParameterized;
@@ -267,26 +275,6 @@ public class ActorFactoryImpl extends EFactoryImpl implements ActorFactory {
 	public TypedCompositeActor createTypedCompositeActor() {
 		TypedCompositeActorImpl typedCompositeActor = new TypedCompositeActorImpl();
 		return typedCompositeActor;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public <P extends AbstractIOPort> EntityActorImpl<P> createEntityActorImpl() {
-		EntityActorImplImpl<P> entityActorImpl = new EntityActorImplImpl<P>();
-		return entityActorImpl;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public <P extends AbstractIOPort> EntityRefActorImpl<P> createEntityRefActorImpl() {
-		EntityRefActorImplImpl<P> entityRefActorImpl = new EntityRefActorImplImpl<P>();
-		return entityRefActorImpl;
 	}
 
 	/**

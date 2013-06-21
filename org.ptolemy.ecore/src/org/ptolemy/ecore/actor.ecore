@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<ecore:EPackage xmi:version="2.0"
-    xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="actor"
-    nsURI="org.ptolemy.ecore.actor" nsPrefix="actor">
+<ecore:EPackage xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="actor" nsURI="http://www.ptolemy.org/actor" nsPrefix="actor">
   <eClassifiers xsi:type="ecore:EClass" name="Typeable" abstract="true" interface="true">
     <eOperations name="getType" eType="ecore:EClass http://www.eclipse.org/xtext/common/JavaVMTypes#//JvmTypeReference"/>
     <eOperations name="getInferredType" eType="ecore:EClass http://www.eclipse.org/xtext/common/JavaVMTypes#//JvmTypeReference"/>
@@ -101,6 +99,13 @@
       </eGenericType>
     </eStructuralFeatures>
   </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="JavaActorImpl">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="type" eType="ecore:EClass http://www.eclipse.org/xtext/common/JavaVMTypes#//JvmParameterizedTypeReference"
+        containment="true"/>
+    <eGenericSuperTypes eClassifier="#//AtomicActorImpl">
+      <eTypeArguments eClassifier="#//AbstractIOPort"/>
+    </eGenericSuperTypes>
+  </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="TypeParameterized">
     <eStructuralFeatures xsi:type="ecore:EReference" name="typeParameters" upperBound="-1"
         eType="#//TypeParameter" containment="true"/>
@@ -132,42 +137,5 @@
       <eTypeArguments eClassifier="#//AbstractTypedIOPort"/>
     </eGenericSuperTypes>
     <eGenericSuperTypes eClassifier="#//TypeParameterized"/>
-  </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="AbstractEntityActorImpl" abstract="true">
-    <eTypeParameters name="P">
-      <eBounds eClassifier="#//AbstractIOPort"/>
-    </eTypeParameters>
-    <eOperations name="getEntity">
-      <eGenericType eClassifier="ecore:EClass kernel.ecore#//Entity">
-        <eTypeArguments eTypeParameter="#//AbstractEntityActorImpl/P"/>
-      </eGenericType>
-    </eOperations>
-    <eGenericSuperTypes eClassifier="#//AtomicActorImpl">
-      <eTypeArguments eTypeParameter="#//AbstractEntityActorImpl/P"/>
-    </eGenericSuperTypes>
-  </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="EntityActorImpl">
-    <eTypeParameters name="P">
-      <eBounds eClassifier="#//AbstractIOPort"/>
-    </eTypeParameters>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="entity" containment="true">
-      <eGenericType eClassifier="ecore:EClass kernel.ecore#//Entity">
-        <eTypeArguments eTypeParameter="#//EntityActorImpl/P"/>
-      </eGenericType>
-    </eStructuralFeatures>
-    <eGenericSuperTypes eClassifier="#//AbstractEntityActorImpl">
-      <eTypeArguments eTypeParameter="#//EntityActorImpl/P"/>
-    </eGenericSuperTypes>
-  </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="EntityRefActorImpl">
-    <eTypeParameters name="P">
-      <eBounds eClassifier="#//AbstractIOPort"/>
-    </eTypeParameters>
-    <eGenericSuperTypes eClassifier="ecore:EClass kernel.ecore#//EntityRef">
-      <eTypeArguments eTypeParameter="#//EntityRefActorImpl/P"/>
-    </eGenericSuperTypes>
-    <eGenericSuperTypes eClassifier="#//AbstractEntityActorImpl">
-      <eTypeArguments eTypeParameter="#//EntityRefActorImpl/P"/>
-    </eGenericSuperTypes>
   </eClassifiers>
 </ecore:EPackage>

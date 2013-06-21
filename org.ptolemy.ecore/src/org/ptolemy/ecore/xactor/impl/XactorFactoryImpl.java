@@ -12,7 +12,6 @@ import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.impl.EFactoryImpl;
 import org.eclipse.emf.ecore.plugin.EcorePlugin;
 import org.ptolemy.ecore.xactor.*;
-import org.ptolemy.ecore.xactor.ActorModel;
 import org.ptolemy.ecore.xactor.EntityFolder;
 import org.ptolemy.ecore.xactor.ImportDirective;
 import org.ptolemy.ecore.xactor.XactorFactory;
@@ -33,7 +32,7 @@ public class XactorFactoryImpl extends EFactoryImpl implements XactorFactory {
 	 */
 	public static XactorFactory init() {
 		try {
-			XactorFactory theXactorFactory = (XactorFactory)EPackage.Registry.INSTANCE.getEFactory("org.ptolemy.ecore.xactor"); 
+			XactorFactory theXactorFactory = (XactorFactory)EPackage.Registry.INSTANCE.getEFactory(XactorPackage.eNS_URI);
 			if (theXactorFactory != null) {
 				return theXactorFactory;
 			}
@@ -63,7 +62,6 @@ public class XactorFactoryImpl extends EFactoryImpl implements XactorFactory {
 	public EObject create(EClass eClass) {
 		switch (eClass.getClassifierID()) {
 			case XactorPackage.ENTITY_FOLDER: return createEntityFolder();
-			case XactorPackage.ACTOR_MODEL: return createActorModel();
 			case XactorPackage.IMPORT_DIRECTIVE: return createImportDirective();
 			default:
 				throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
@@ -78,16 +76,6 @@ public class XactorFactoryImpl extends EFactoryImpl implements XactorFactory {
 	public EntityFolder createEntityFolder() {
 		EntityFolderImpl entityFolder = new EntityFolderImpl();
 		return entityFolder;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public ActorModel createActorModel() {
-		ActorModelImpl actorModel = new ActorModelImpl();
-		return actorModel;
 	}
 
 	/**

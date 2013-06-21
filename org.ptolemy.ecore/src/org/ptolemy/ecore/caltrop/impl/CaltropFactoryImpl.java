@@ -14,19 +14,26 @@ import org.eclipse.emf.ecore.impl.EFactoryImpl;
 import org.eclipse.emf.ecore.plugin.EcorePlugin;
 import org.ptolemy.ecore.actor.AbstractIOPort;
 import org.ptolemy.ecore.caltrop.*;
+import org.ptolemy.ecore.caltrop.ActionPattern;
 import org.ptolemy.ecore.caltrop.ActorParameter;
 import org.ptolemy.ecore.caltrop.CaltropActorImpl;
 import org.ptolemy.ecore.caltrop.CaltropFactory;
 import org.ptolemy.ecore.caltrop.CaltropPackage;
 import org.ptolemy.ecore.caltrop.ChannelSelectorKeyword;
+import org.ptolemy.ecore.caltrop.EventAction;
+import org.ptolemy.ecore.caltrop.EventPattern;
 import org.ptolemy.ecore.caltrop.ExpressionChannelSelector;
 import org.ptolemy.ecore.caltrop.FireAction;
+import org.ptolemy.ecore.caltrop.FunctionDeclaration;
 import org.ptolemy.ecore.caltrop.InputPattern;
 import org.ptolemy.ecore.caltrop.KeywordChannelSelector;
-import org.ptolemy.ecore.caltrop.OldActionVariableValueRef;
 import org.ptolemy.ecore.caltrop.OutputAction;
 import org.ptolemy.ecore.caltrop.OutputPattern;
+import org.ptolemy.ecore.caltrop.ReAction;
+import org.ptolemy.ecore.caltrop.Schedule;
+import org.ptolemy.ecore.caltrop.State;
 import org.ptolemy.ecore.caltrop.StateVariable;
+import org.ptolemy.ecore.caltrop.Transition;
 import org.ptolemy.ecore.caltrop.TypedInputPort;
 import org.ptolemy.ecore.caltrop.TypedOutputPort;
 
@@ -45,7 +52,7 @@ public class CaltropFactoryImpl extends EFactoryImpl implements CaltropFactory {
 	 */
 	public static CaltropFactory init() {
 		try {
-			CaltropFactory theCaltropFactory = (CaltropFactory)EPackage.Registry.INSTANCE.getEFactory("org.ptolemy.ecore.caltrop"); 
+			CaltropFactory theCaltropFactory = (CaltropFactory)EPackage.Registry.INSTANCE.getEFactory(CaltropPackage.eNS_URI);
 			if (theCaltropFactory != null) {
 				return theCaltropFactory;
 			}
@@ -80,12 +87,20 @@ public class CaltropFactoryImpl extends EFactoryImpl implements CaltropFactory {
 			case CaltropPackage.TYPED_OUTPUT_PORT: return createTypedOutputPort();
 			case CaltropPackage.STATE_VARIABLE: return createStateVariable();
 			case CaltropPackage.FIRE_ACTION: return createFireAction();
+			case CaltropPackage.RE_ACTION: return createReAction();
 			case CaltropPackage.OUTPUT_ACTION: return createOutputAction();
+			case CaltropPackage.ACTION_PATTERN: return createActionPattern();
 			case CaltropPackage.INPUT_PATTERN: return createInputPattern();
 			case CaltropPackage.OUTPUT_PATTERN: return createOutputPattern();
 			case CaltropPackage.EXPRESSION_CHANNEL_SELECTOR: return createExpressionChannelSelector();
 			case CaltropPackage.KEYWORD_CHANNEL_SELECTOR: return createKeywordChannelSelector();
-			case CaltropPackage.OLD_ACTION_VARIABLE_VALUE_REF: return createOldActionVariableValueRef();
+			case CaltropPackage.FUNCTION_DECLARATION: return createFunctionDeclaration();
+			case CaltropPackage.SCHEDULE: return createSchedule();
+			case CaltropPackage.STATE: return createState();
+			case CaltropPackage.TRANSITION: return createTransition();
+			case CaltropPackage.EVENT_ACTION: return createEventAction();
+			case CaltropPackage.EVENT_PATTERN: return createEventPattern();
+			case CaltropPackage.CONVERSION_RELATION: return createConversionRelation();
 			default:
 				throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
 		}
@@ -186,9 +201,29 @@ public class CaltropFactoryImpl extends EFactoryImpl implements CaltropFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public ReAction createReAction() {
+		ReActionImpl reAction = new ReActionImpl();
+		return reAction;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public OutputAction createOutputAction() {
 		OutputActionImpl outputAction = new OutputActionImpl();
 		return outputAction;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public ActionPattern createActionPattern() {
+		ActionPatternImpl actionPattern = new ActionPatternImpl();
+		return actionPattern;
 	}
 
 	/**
@@ -236,9 +271,69 @@ public class CaltropFactoryImpl extends EFactoryImpl implements CaltropFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public OldActionVariableValueRef createOldActionVariableValueRef() {
-		OldActionVariableValueRefImpl oldActionVariableValueRef = new OldActionVariableValueRefImpl();
-		return oldActionVariableValueRef;
+	public FunctionDeclaration createFunctionDeclaration() {
+		FunctionDeclarationImpl functionDeclaration = new FunctionDeclarationImpl();
+		return functionDeclaration;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public Schedule createSchedule() {
+		ScheduleImpl schedule = new ScheduleImpl();
+		return schedule;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public State createState() {
+		StateImpl state = new StateImpl();
+		return state;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public Transition createTransition() {
+		TransitionImpl transition = new TransitionImpl();
+		return transition;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EventAction createEventAction() {
+		EventActionImpl eventAction = new EventActionImpl();
+		return eventAction;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EventPattern createEventPattern() {
+		EventPatternImpl eventPattern = new EventPatternImpl();
+		return eventPattern;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public ConversionRelation createConversionRelation() {
+		ConversionRelationImpl conversionRelation = new ConversionRelationImpl();
+		return conversionRelation;
 	}
 
 	/**

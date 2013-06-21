@@ -6,7 +6,6 @@
  */
 package org.ptolemy.ecore.actor;
 
-import org.eclipse.xtext.common.types.JvmTypeParameterDeclarator;
 
 
 /**

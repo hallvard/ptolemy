@@ -72,6 +72,15 @@ public class InputPatternImpl extends PortPatternImpl implements InputPattern {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * @generated NOT
+	 */
+	public EList<String> getPatternVariables() {
+		return getVariables();
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override

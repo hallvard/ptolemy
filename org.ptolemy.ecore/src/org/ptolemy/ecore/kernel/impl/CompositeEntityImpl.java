@@ -17,7 +17,6 @@ import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.emf.ecore.util.InternalEList;
-import org.ptolemy.ecore.kernel.Attribute;
 import org.ptolemy.ecore.kernel.ComponentPort;
 import org.ptolemy.ecore.kernel.CompositeEntity;
 import org.ptolemy.ecore.kernel.Entity;
@@ -431,7 +430,7 @@ public class CompositeEntityImpl<P extends ComponentPort> extends ComponentEntit
 	}
 
 	protected void toName(StringBuffer result, EObject eObject, EntityContainer container) {
-		if (eObject instanceof Nameable) {
+		if (eObject instanceof Nameable && (! eObject.eIsProxy())) {
 			Nameable named = (Nameable) eObject;
 			result.append(" ");
 			if (named.eContainer() != container) {

@@ -34,6 +34,8 @@ import org.ptolemy.ecore.kernel.impl.NamedObjImpl;
  *   <li>{@link org.ptolemy.ecore.caltrop.impl.OutputActionImpl#getGuardExpression <em>Guard Expression</em>}</li>
  *   <li>{@link org.ptolemy.ecore.caltrop.impl.OutputActionImpl#getOutputPatterns <em>Output Patterns</em>}</li>
  *   <li>{@link org.ptolemy.ecore.caltrop.impl.OutputActionImpl#getBodyExpression <em>Body Expression</em>}</li>
+ *   <li>{@link org.ptolemy.ecore.caltrop.impl.OutputActionImpl#getUpdateExpression <em>Update Expression</em>}</li>
+ *   <li>{@link org.ptolemy.ecore.caltrop.impl.OutputActionImpl#getDelayExpression <em>Delay Expression</em>}</li>
  * </ul>
  * </p>
  *
@@ -69,6 +71,26 @@ public class OutputActionImpl extends NamedObjImpl implements OutputAction {
 	 * @ordered
 	 */
 	protected XExpression bodyExpression;
+
+	/**
+	 * The cached value of the '{@link #getUpdateExpression() <em>Update Expression</em>}' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getUpdateExpression()
+	 * @generated
+	 * @ordered
+	 */
+	protected XExpression updateExpression;
+
+	/**
+	 * The cached value of the '{@link #getDelayExpression() <em>Delay Expression</em>}' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getDelayExpression()
+	 * @generated
+	 * @ordered
+	 */
+	protected XExpression delayExpression;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -190,6 +212,92 @@ public class OutputActionImpl extends NamedObjImpl implements OutputAction {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public XExpression getUpdateExpression() {
+		return updateExpression;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public NotificationChain basicSetUpdateExpression(XExpression newUpdateExpression, NotificationChain msgs) {
+		XExpression oldUpdateExpression = updateExpression;
+		updateExpression = newUpdateExpression;
+		if (eNotificationRequired()) {
+			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, CaltropPackage.OUTPUT_ACTION__UPDATE_EXPRESSION, oldUpdateExpression, newUpdateExpression);
+			if (msgs == null) msgs = notification; else msgs.add(notification);
+		}
+		return msgs;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setUpdateExpression(XExpression newUpdateExpression) {
+		if (newUpdateExpression != updateExpression) {
+			NotificationChain msgs = null;
+			if (updateExpression != null)
+				msgs = ((InternalEObject)updateExpression).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - CaltropPackage.OUTPUT_ACTION__UPDATE_EXPRESSION, null, msgs);
+			if (newUpdateExpression != null)
+				msgs = ((InternalEObject)newUpdateExpression).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - CaltropPackage.OUTPUT_ACTION__UPDATE_EXPRESSION, null, msgs);
+			msgs = basicSetUpdateExpression(newUpdateExpression, msgs);
+			if (msgs != null) msgs.dispatch();
+		}
+		else if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, CaltropPackage.OUTPUT_ACTION__UPDATE_EXPRESSION, newUpdateExpression, newUpdateExpression));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public XExpression getDelayExpression() {
+		return delayExpression;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public NotificationChain basicSetDelayExpression(XExpression newDelayExpression, NotificationChain msgs) {
+		XExpression oldDelayExpression = delayExpression;
+		delayExpression = newDelayExpression;
+		if (eNotificationRequired()) {
+			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, CaltropPackage.OUTPUT_ACTION__DELAY_EXPRESSION, oldDelayExpression, newDelayExpression);
+			if (msgs == null) msgs = notification; else msgs.add(notification);
+		}
+		return msgs;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setDelayExpression(XExpression newDelayExpression) {
+		if (newDelayExpression != delayExpression) {
+			NotificationChain msgs = null;
+			if (delayExpression != null)
+				msgs = ((InternalEObject)delayExpression).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - CaltropPackage.OUTPUT_ACTION__DELAY_EXPRESSION, null, msgs);
+			if (newDelayExpression != null)
+				msgs = ((InternalEObject)newDelayExpression).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - CaltropPackage.OUTPUT_ACTION__DELAY_EXPRESSION, null, msgs);
+			msgs = basicSetDelayExpression(newDelayExpression, msgs);
+			if (msgs != null) msgs.dispatch();
+		}
+		else if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, CaltropPackage.OUTPUT_ACTION__DELAY_EXPRESSION, newDelayExpression, newDelayExpression));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated NOT
 	 */
 	public EList<InputPattern> getInputPatterns() {
@@ -210,6 +318,10 @@ public class OutputActionImpl extends NamedObjImpl implements OutputAction {
 				return ((InternalEList<?>)getOutputPatterns()).basicRemove(otherEnd, msgs);
 			case CaltropPackage.OUTPUT_ACTION__BODY_EXPRESSION:
 				return basicSetBodyExpression(null, msgs);
+			case CaltropPackage.OUTPUT_ACTION__UPDATE_EXPRESSION:
+				return basicSetUpdateExpression(null, msgs);
+			case CaltropPackage.OUTPUT_ACTION__DELAY_EXPRESSION:
+				return basicSetDelayExpression(null, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -228,6 +340,10 @@ public class OutputActionImpl extends NamedObjImpl implements OutputAction {
 				return getOutputPatterns();
 			case CaltropPackage.OUTPUT_ACTION__BODY_EXPRESSION:
 				return getBodyExpression();
+			case CaltropPackage.OUTPUT_ACTION__UPDATE_EXPRESSION:
+				return getUpdateExpression();
+			case CaltropPackage.OUTPUT_ACTION__DELAY_EXPRESSION:
+				return getDelayExpression();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -251,6 +367,12 @@ public class OutputActionImpl extends NamedObjImpl implements OutputAction {
 			case CaltropPackage.OUTPUT_ACTION__BODY_EXPRESSION:
 				setBodyExpression((XExpression)newValue);
 				return;
+			case CaltropPackage.OUTPUT_ACTION__UPDATE_EXPRESSION:
+				setUpdateExpression((XExpression)newValue);
+				return;
+			case CaltropPackage.OUTPUT_ACTION__DELAY_EXPRESSION:
+				setDelayExpression((XExpression)newValue);
+				return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -272,6 +394,12 @@ public class OutputActionImpl extends NamedObjImpl implements OutputAction {
 			case CaltropPackage.OUTPUT_ACTION__BODY_EXPRESSION:
 				setBodyExpression((XExpression)null);
 				return;
+			case CaltropPackage.OUTPUT_ACTION__UPDATE_EXPRESSION:
+				setUpdateExpression((XExpression)null);
+				return;
+			case CaltropPackage.OUTPUT_ACTION__DELAY_EXPRESSION:
+				setDelayExpression((XExpression)null);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -290,6 +418,10 @@ public class OutputActionImpl extends NamedObjImpl implements OutputAction {
 				return outputPatterns != null && !outputPatterns.isEmpty();
 			case CaltropPackage.OUTPUT_ACTION__BODY_EXPRESSION:
 				return bodyExpression != null;
+			case CaltropPackage.OUTPUT_ACTION__UPDATE_EXPRESSION:
+				return updateExpression != null;
+			case CaltropPackage.OUTPUT_ACTION__DELAY_EXPRESSION:
+				return delayExpression != null;
 		}
 		return super.eIsSet(featureID);
 	}

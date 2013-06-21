@@ -10,9 +10,7 @@ import org.eclipse.emf.common.notify.Adapter;
 import org.eclipse.emf.common.notify.Notifier;
 import org.eclipse.emf.common.notify.impl.AdapterFactoryImpl;
 import org.eclipse.emf.ecore.EObject;
-import org.eclipse.xtext.common.types.JvmTypeParameterDeclarator;
 import org.ptolemy.ecore.actor.*;
-import org.ptolemy.ecore.actor.AbstractEntityActorImpl;
 import org.ptolemy.ecore.actor.AbstractIOPort;
 import org.ptolemy.ecore.actor.AbstractTypedIOPort;
 import org.ptolemy.ecore.actor.Actor;
@@ -21,14 +19,14 @@ import org.ptolemy.ecore.actor.ActorRef;
 import org.ptolemy.ecore.actor.AtomicActor;
 import org.ptolemy.ecore.actor.AtomicActorImpl;
 import org.ptolemy.ecore.actor.CompositeActor;
-import org.ptolemy.ecore.actor.EntityActorImpl;
-import org.ptolemy.ecore.actor.EntityRefActorImpl;
 import org.ptolemy.ecore.actor.IOPort;
 import org.ptolemy.ecore.actor.InjectableAttribute;
 import org.ptolemy.ecore.actor.JvmTypedAttribute;
 import org.ptolemy.ecore.actor.JvmTypedObj;
 import org.ptolemy.ecore.actor.Parameter;
 import org.ptolemy.ecore.actor.ParameterBinding;
+import org.ptolemy.ecore.actor.TypeParameter;
+import org.ptolemy.ecore.actor.TypeParameterized;
 import org.ptolemy.ecore.actor.Typeable;
 import org.ptolemy.ecore.actor.TypedAtomicActor;
 import org.ptolemy.ecore.actor.TypedCompositeActor;
@@ -165,6 +163,10 @@ public class ActorAdapterFactory extends AdapterFactoryImpl {
 				return createAtomicActorImplAdapter();
 			}
 			@Override
+			public Adapter caseJavaActorImpl(JavaActorImpl object) {
+				return createJavaActorImplAdapter();
+			}
+			@Override
 			public Adapter caseTypeParameterized(TypeParameterized object) {
 				return createTypeParameterizedAdapter();
 			}
@@ -183,18 +185,6 @@ public class ActorAdapterFactory extends AdapterFactoryImpl {
 			@Override
 			public Adapter caseTypedCompositeActor(TypedCompositeActor object) {
 				return createTypedCompositeActorAdapter();
-			}
-			@Override
-			public <P extends AbstractIOPort> Adapter caseAbstractEntityActorImpl(AbstractEntityActorImpl<P> object) {
-				return createAbstractEntityActorImplAdapter();
-			}
-			@Override
-			public <P extends AbstractIOPort> Adapter caseEntityActorImpl(EntityActorImpl<P> object) {
-				return createEntityActorImplAdapter();
-			}
-			@Override
-			public <P extends AbstractIOPort> Adapter caseEntityRefActorImpl(EntityRefActorImpl<P> object) {
-				return createEntityRefActorImplAdapter();
 			}
 			@Override
 			public Adapter caseNamed(Named object) {
@@ -479,6 +469,20 @@ public class ActorAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
+	 * Creates a new adapter for an object of class '{@link org.ptolemy.ecore.actor.JavaActorImpl <em>Java Actor Impl</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.ptolemy.ecore.actor.JavaActorImpl
+	 * @generated
+	 */
+	public Adapter createJavaActorImplAdapter() {
+		return null;
+	}
+
+	/**
 	 * Creates a new adapter for an object of class '{@link org.ptolemy.ecore.actor.TypeParameterized <em>Type Parameterized</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
@@ -545,48 +549,6 @@ public class ActorAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createTypedCompositeActorAdapter() {
-		return null;
-	}
-
-	/**
-	 * Creates a new adapter for an object of class '{@link org.ptolemy.ecore.actor.AbstractEntityActorImpl <em>Abstract Entity Actor Impl</em>}'.
-	 * <!-- begin-user-doc -->
-	 * This default implementation returns null so that we can easily ignore cases;
-	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
-	 * <!-- end-user-doc -->
-	 * @return the new adapter.
-	 * @see org.ptolemy.ecore.actor.AbstractEntityActorImpl
-	 * @generated
-	 */
-	public Adapter createAbstractEntityActorImplAdapter() {
-		return null;
-	}
-
-	/**
-	 * Creates a new adapter for an object of class '{@link org.ptolemy.ecore.actor.EntityActorImpl <em>Entity Actor Impl</em>}'.
-	 * <!-- begin-user-doc -->
-	 * This default implementation returns null so that we can easily ignore cases;
-	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
-	 * <!-- end-user-doc -->
-	 * @return the new adapter.
-	 * @see org.ptolemy.ecore.actor.EntityActorImpl
-	 * @generated
-	 */
-	public Adapter createEntityActorImplAdapter() {
-		return null;
-	}
-
-	/**
-	 * Creates a new adapter for an object of class '{@link org.ptolemy.ecore.actor.EntityRefActorImpl <em>Entity Ref Actor Impl</em>}'.
-	 * <!-- begin-user-doc -->
-	 * This default implementation returns null so that we can easily ignore cases;
-	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
-	 * <!-- end-user-doc -->
-	 * @return the new adapter.
-	 * @see org.ptolemy.ecore.actor.EntityRefActorImpl
-	 * @generated
-	 */
-	public Adapter createEntityRefActorImplAdapter() {
 		return null;
 	}
 

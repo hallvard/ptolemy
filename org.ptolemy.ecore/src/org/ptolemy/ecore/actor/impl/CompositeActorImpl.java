@@ -6,19 +6,8 @@
  */
 package org.ptolemy.ecore.actor.impl;
 
-import java.util.Collection;
-
-import org.eclipse.emf.common.notify.NotificationChain;
-import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.InternalEObject;
-import org.eclipse.emf.ecore.util.EObjectContainmentWithInverseEList;
-import org.eclipse.emf.ecore.util.InternalEList;
-import org.eclipse.xtext.common.types.JvmTypeParameter;
-import org.eclipse.xtext.common.types.JvmTypeParameterDeclarator;
-import org.eclipse.xtext.common.types.TypesPackage;
 import org.ptolemy.ecore.actor.AbstractIOPort;
-import org.ptolemy.ecore.actor.Actor;
 import org.ptolemy.ecore.actor.ActorPackage;
 import org.ptolemy.ecore.actor.CompositeActor;
 import org.ptolemy.ecore.kernel.impl.CompositeEntityImpl;

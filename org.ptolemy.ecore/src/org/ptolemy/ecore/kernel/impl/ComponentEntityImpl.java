@@ -6,7 +6,9 @@
  */
 package org.ptolemy.ecore.kernel.impl;
 
+import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.ptolemy.ecore.kernel.ComponentEntity;
 import org.ptolemy.ecore.kernel.ComponentPort;
 import org.ptolemy.ecore.kernel.KernelPackage;
@@ -38,6 +40,34 @@ public class ComponentEntityImpl<P extends ComponentPort> extends EntityImpl<P> 
 	@Override
 	protected EClass eStaticClass() {
 		return KernelPackage.Literals.COMPONENT_ENTITY;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * This is specialized for the more specific element type known in this context.
+	 * @generated
+	 */
+	@Override
+	public EList<P> getPorts() {
+		if (ports == null) {
+			ports = new EObjectContainmentEList<P>(ComponentPort.class, this, KernelPackage.COMPONENT_ENTITY__PORTS);
+		}
+		return ports;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * This is specialized for the more specific element type known in this context.
+	 * @generated
+	 */
+	@Override
+	public EList<P> getInheritedPorts() {
+		if (inheritedPorts == null) {
+			inheritedPorts = new EObjectContainmentEList<P>(ComponentPort.class, this, KernelPackage.COMPONENT_ENTITY__INHERITED_PORTS);
+		}
+		return inheritedPorts;
 	}
 
 	/**

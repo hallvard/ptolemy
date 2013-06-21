@@ -13,7 +13,6 @@ import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
 import org.ptolemy.ecore.kernel.Entity;
 import org.ptolemy.ecore.kernel.KernelPackage;
-import org.ptolemy.ecore.kernel.Nameable;
 import org.ptolemy.ecore.kernel.Port;
 import org.ptolemy.ecore.kernel.Relation;
 

@@ -31,7 +31,7 @@ import org.ptolemy.ecore.caltrop.InputPattern;
  *
  * @generated
  */
-public class FireActionImpl extends OutputActionImpl implements FireAction {
+public class FireActionImpl extends ReActionImpl implements FireAction {
 	/**
 	 * The cached value of the '{@link #getInputPatterns() <em>Input Patterns</em>}' containment reference list.
 	 * <!-- begin-user-doc -->

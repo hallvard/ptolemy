@@ -17,7 +17,6 @@ import org.eclipse.emf.ecore.ETypeParameter;
 import org.eclipse.emf.ecore.impl.EPackageImpl;
 import org.eclipse.xtext.common.types.TypesPackage;
 import org.eclipse.xtext.xbase.XbasePackage;
-import org.ptolemy.ecore.actor.AbstractEntityActorImpl;
 import org.ptolemy.ecore.actor.AbstractIOPort;
 import org.ptolemy.ecore.actor.AbstractTypedIOPort;
 import org.ptolemy.ecore.actor.Actor;
@@ -27,11 +26,10 @@ import org.ptolemy.ecore.actor.ActorRef;
 import org.ptolemy.ecore.actor.AtomicActor;
 import org.ptolemy.ecore.actor.AtomicActorImpl;
 import org.ptolemy.ecore.actor.CompositeActor;
-import org.ptolemy.ecore.actor.EntityActorImpl;
-import org.ptolemy.ecore.actor.EntityRefActorImpl;
 import org.ptolemy.ecore.actor.IOPort;
 import org.ptolemy.ecore.actor.IOPortKind;
 import org.ptolemy.ecore.actor.InjectableAttribute;
+import org.ptolemy.ecore.actor.JavaActorImpl;
 import org.ptolemy.ecore.actor.JvmTypedAttribute;
 import org.ptolemy.ecore.actor.JvmTypedObj;
 import org.ptolemy.ecore.actor.Parameter;
@@ -162,6 +160,13 @@ public class ActorPackageImpl extends EPackageImpl implements ActorPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	private EClass javaActorImplEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	private EClass typeParameterizedEClass = null;
 
 	/**
@@ -191,27 +196,6 @@ public class ActorPackageImpl extends EPackageImpl implements ActorPackage {
 	 * @generated
 	 */
 	private EClass typedCompositeActorEClass = null;
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	private EClass abstractEntityActorImplEClass = null;
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	private EClass entityActorImplEClass = null;
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	private EClass entityRefActorImplEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -551,6 +535,24 @@ public class ActorPackageImpl extends EPackageImpl implements ActorPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EClass getJavaActorImpl() {
+		return javaActorImplEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getJavaActorImpl_Type() {
+		return (EReference)javaActorImplEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EClass getTypeParameterized() {
 		return typeParameterizedEClass;
 	}
@@ -616,42 +618,6 @@ public class ActorPackageImpl extends EPackageImpl implements ActorPackage {
 	 */
 	public EClass getTypedCompositeActor() {
 		return typedCompositeActorEClass;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EClass getAbstractEntityActorImpl() {
-		return abstractEntityActorImplEClass;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EClass getEntityActorImpl() {
-		return entityActorImplEClass;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EReference getEntityActorImpl_Entity() {
-		return (EReference)entityActorImplEClass.getEStructuralFeatures().get(0);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EClass getEntityRefActorImpl() {
-		return entityRefActorImplEClass;
 	}
 
 	/**
@@ -735,6 +701,9 @@ public class ActorPackageImpl extends EPackageImpl implements ActorPackage {
 		atomicActorImplEClass = createEClass(ATOMIC_ACTOR_IMPL);
 		createEReference(atomicActorImplEClass, ATOMIC_ACTOR_IMPL__CONTAINER);
 
+		javaActorImplEClass = createEClass(JAVA_ACTOR_IMPL);
+		createEReference(javaActorImplEClass, JAVA_ACTOR_IMPL__TYPE);
+
 		typeParameterizedEClass = createEClass(TYPE_PARAMETERIZED);
 		createEReference(typeParameterizedEClass, TYPE_PARAMETERIZED__TYPE_PARAMETERS);
 
@@ -747,13 +716,6 @@ public class ActorPackageImpl extends EPackageImpl implements ActorPackage {
 		compositeActorEClass = createEClass(COMPOSITE_ACTOR);
 
 		typedCompositeActorEClass = createEClass(TYPED_COMPOSITE_ACTOR);
-
-		abstractEntityActorImplEClass = createEClass(ABSTRACT_ENTITY_ACTOR_IMPL);
-
-		entityActorImplEClass = createEClass(ENTITY_ACTOR_IMPL);
-		createEReference(entityActorImplEClass, ENTITY_ACTOR_IMPL__ENTITY);
-
-		entityRefActorImplEClass = createEClass(ENTITY_REF_ACTOR_IMPL);
 
 		// Create enums
 		ioPortKindEEnum = createEEnum(IO_PORT_KIND);
@@ -793,9 +755,6 @@ public class ActorPackageImpl extends EPackageImpl implements ActorPackage {
 		ETypeParameter atomicActorEClass_P = addETypeParameter(atomicActorEClass, "P");
 		ETypeParameter atomicActorImplEClass_P = addETypeParameter(atomicActorImplEClass, "P");
 		ETypeParameter compositeActorEClass_P = addETypeParameter(compositeActorEClass, "P");
-		ETypeParameter abstractEntityActorImplEClass_P = addETypeParameter(abstractEntityActorImplEClass, "P");
-		ETypeParameter entityActorImplEClass_P = addETypeParameter(entityActorImplEClass, "P");
-		ETypeParameter entityRefActorImplEClass_P = addETypeParameter(entityRefActorImplEClass, "P");
 
 		// Set bounds for type parameters
 		EGenericType g1 = createEGenericType(this.getAbstractTypedIOPort());
@@ -808,12 +767,6 @@ public class ActorPackageImpl extends EPackageImpl implements ActorPackage {
 		atomicActorImplEClass_P.getEBounds().add(g1);
 		g1 = createEGenericType(this.getAbstractIOPort());
 		compositeActorEClass_P.getEBounds().add(g1);
-		g1 = createEGenericType(this.getAbstractIOPort());
-		abstractEntityActorImplEClass_P.getEBounds().add(g1);
-		g1 = createEGenericType(this.getAbstractIOPort());
-		entityActorImplEClass_P.getEBounds().add(g1);
-		g1 = createEGenericType(this.getAbstractIOPort());
-		entityRefActorImplEClass_P.getEBounds().add(g1);
 
 		// Add supertypes to classes
 		jvmTypedObjEClass.getESuperTypes().add(theKernelPackage.getNamedObj());
@@ -845,6 +798,10 @@ public class ActorPackageImpl extends EPackageImpl implements ActorPackage {
 		g2 = createEGenericType(atomicActorEClass_P);
 		g1.getETypeArguments().add(g2);
 		atomicActorEClass.getEGenericSuperTypes().add(g1);
+		g1 = createEGenericType(this.getAtomicActorImpl());
+		g2 = createEGenericType(this.getAbstractIOPort());
+		g1.getETypeArguments().add(g2);
+		javaActorImplEClass.getEGenericSuperTypes().add(g1);
 		g1 = createEGenericType(this.getAtomicActor());
 		g2 = createEGenericType(this.getAbstractTypedIOPort());
 		g1.getETypeArguments().add(g2);
@@ -865,22 +822,6 @@ public class ActorPackageImpl extends EPackageImpl implements ActorPackage {
 		typedCompositeActorEClass.getEGenericSuperTypes().add(g1);
 		g1 = createEGenericType(this.getTypeParameterized());
 		typedCompositeActorEClass.getEGenericSuperTypes().add(g1);
-		g1 = createEGenericType(this.getAtomicActorImpl());
-		g2 = createEGenericType(abstractEntityActorImplEClass_P);
-		g1.getETypeArguments().add(g2);
-		abstractEntityActorImplEClass.getEGenericSuperTypes().add(g1);
-		g1 = createEGenericType(this.getAbstractEntityActorImpl());
-		g2 = createEGenericType(entityActorImplEClass_P);
-		g1.getETypeArguments().add(g2);
-		entityActorImplEClass.getEGenericSuperTypes().add(g1);
-		g1 = createEGenericType(theKernelPackage.getEntityRef());
-		g2 = createEGenericType(entityRefActorImplEClass_P);
-		g1.getETypeArguments().add(g2);
-		entityRefActorImplEClass.getEGenericSuperTypes().add(g1);
-		g1 = createEGenericType(this.getAbstractEntityActorImpl());
-		g2 = createEGenericType(entityRefActorImplEClass_P);
-		g1.getETypeArguments().add(g2);
-		entityRefActorImplEClass.getEGenericSuperTypes().add(g1);
 
 		// Initialize classes and features; add operations and parameters
 		initEClass(typeableEClass, Typeable.class, "Typeable", IS_ABSTRACT, IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
@@ -946,6 +887,9 @@ public class ActorPackageImpl extends EPackageImpl implements ActorPackage {
 		g1.getETypeArguments().add(g2);
 		initEReference(getAtomicActorImpl_Container(), g1, this.getAtomicActor_Impl(), "container", null, 0, 1, AtomicActorImpl.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
+		initEClass(javaActorImplEClass, JavaActorImpl.class, "JavaActorImpl", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getJavaActorImpl_Type(), theTypesPackage.getJvmParameterizedTypeReference(), null, "type", null, 0, 1, JavaActorImpl.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
 		initEClass(typeParameterizedEClass, TypeParameterized.class, "TypeParameterized", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getTypeParameterized_TypeParameters(), this.getTypeParameter(), null, "typeParameters", null, 0, -1, TypeParameterized.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
@@ -958,22 +902,6 @@ public class ActorPackageImpl extends EPackageImpl implements ActorPackage {
 		initEClass(compositeActorEClass, CompositeActor.class, "CompositeActor", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
 		initEClass(typedCompositeActorEClass, TypedCompositeActor.class, "TypedCompositeActor", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-
-		initEClass(abstractEntityActorImplEClass, AbstractEntityActorImpl.class, "AbstractEntityActorImpl", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-
-		EOperation op = addEOperation(abstractEntityActorImplEClass, null, "getEntity", 0, 1, IS_UNIQUE, IS_ORDERED);
-		g1 = createEGenericType(theKernelPackage.getEntity());
-		g2 = createEGenericType(abstractEntityActorImplEClass_P);
-		g1.getETypeArguments().add(g2);
-		initEOperation(op, g1);
-
-		initEClass(entityActorImplEClass, EntityActorImpl.class, "EntityActorImpl", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		g1 = createEGenericType(theKernelPackage.getEntity());
-		g2 = createEGenericType(entityActorImplEClass_P);
-		g1.getETypeArguments().add(g2);
-		initEReference(getEntityActorImpl_Entity(), g1, null, "entity", null, 0, 1, EntityActorImpl.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-		initEClass(entityRefActorImplEClass, EntityRefActorImpl.class, "EntityRefActorImpl", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
 		// Initialize enums and add enum literals
 		initEEnum(ioPortKindEEnum, IOPortKind.class, "IOPortKind");

@@ -9,9 +9,7 @@ package org.ptolemy.ecore.actor.util;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.util.Switch;
-import org.eclipse.xtext.common.types.JvmTypeParameterDeclarator;
 import org.ptolemy.ecore.actor.*;
-import org.ptolemy.ecore.actor.AbstractEntityActorImpl;
 import org.ptolemy.ecore.actor.AbstractIOPort;
 import org.ptolemy.ecore.actor.AbstractTypedIOPort;
 import org.ptolemy.ecore.actor.Actor;
@@ -20,14 +18,14 @@ import org.ptolemy.ecore.actor.ActorRef;
 import org.ptolemy.ecore.actor.AtomicActor;
 import org.ptolemy.ecore.actor.AtomicActorImpl;
 import org.ptolemy.ecore.actor.CompositeActor;
-import org.ptolemy.ecore.actor.EntityActorImpl;
-import org.ptolemy.ecore.actor.EntityRefActorImpl;
 import org.ptolemy.ecore.actor.IOPort;
 import org.ptolemy.ecore.actor.InjectableAttribute;
 import org.ptolemy.ecore.actor.JvmTypedAttribute;
 import org.ptolemy.ecore.actor.JvmTypedObj;
 import org.ptolemy.ecore.actor.Parameter;
 import org.ptolemy.ecore.actor.ParameterBinding;
+import org.ptolemy.ecore.actor.TypeParameter;
+import org.ptolemy.ecore.actor.TypeParameterized;
 import org.ptolemy.ecore.actor.Typeable;
 import org.ptolemy.ecore.actor.TypedAtomicActor;
 import org.ptolemy.ecore.actor.TypedCompositeActor;
@@ -266,6 +264,13 @@ public class ActorSwitch<T> extends Switch<T> {
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
+			case ActorPackage.JAVA_ACTOR_IMPL: {
+				JavaActorImpl javaActorImpl = (JavaActorImpl)theEObject;
+				T result = caseJavaActorImpl(javaActorImpl);
+				if (result == null) result = caseAtomicActorImpl(javaActorImpl);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
 			case ActorPackage.TYPE_PARAMETERIZED: {
 				TypeParameterized typeParameterized = (TypeParameterized)theEObject;
 				T result = caseTypeParameterized(typeParameterized);
@@ -324,30 +329,6 @@ public class ActorSwitch<T> extends Switch<T> {
 				if (result == null) result = caseIEntity(typedCompositeActor);
 				if (result == null) result = caseNameable(typedCompositeActor);
 				if (result == null) result = caseNamed(typedCompositeActor);
-				if (result == null) result = defaultCase(theEObject);
-				return result;
-			}
-			case ActorPackage.ABSTRACT_ENTITY_ACTOR_IMPL: {
-				AbstractEntityActorImpl<?> abstractEntityActorImpl = (AbstractEntityActorImpl<?>)theEObject;
-				T result = caseAbstractEntityActorImpl(abstractEntityActorImpl);
-				if (result == null) result = caseAtomicActorImpl(abstractEntityActorImpl);
-				if (result == null) result = defaultCase(theEObject);
-				return result;
-			}
-			case ActorPackage.ENTITY_ACTOR_IMPL: {
-				EntityActorImpl<?> entityActorImpl = (EntityActorImpl<?>)theEObject;
-				T result = caseEntityActorImpl(entityActorImpl);
-				if (result == null) result = caseAbstractEntityActorImpl(entityActorImpl);
-				if (result == null) result = caseAtomicActorImpl(entityActorImpl);
-				if (result == null) result = defaultCase(theEObject);
-				return result;
-			}
-			case ActorPackage.ENTITY_REF_ACTOR_IMPL: {
-				EntityRefActorImpl<?> entityRefActorImpl = (EntityRefActorImpl<?>)theEObject;
-				T result = caseEntityRefActorImpl(entityRefActorImpl);
-				if (result == null) result = caseEntityRef(entityRefActorImpl);
-				if (result == null) result = caseAbstractEntityActorImpl(entityRefActorImpl);
-				if (result == null) result = caseAtomicActorImpl(entityRefActorImpl);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -581,6 +562,21 @@ public class ActorSwitch<T> extends Switch<T> {
 	}
 
 	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Java Actor Impl</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Java Actor Impl</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseJavaActorImpl(JavaActorImpl object) {
+		return null;
+	}
+
+	/**
 	 * Returns the result of interpreting the object as an instance of '<em>Type Parameterized</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
@@ -652,51 +648,6 @@ public class ActorSwitch<T> extends Switch<T> {
 	 * @generated
 	 */
 	public T caseTypedCompositeActor(TypedCompositeActor object) {
-		return null;
-	}
-
-	/**
-	 * Returns the result of interpreting the object as an instance of '<em>Abstract Entity Actor Impl</em>'.
-	 * <!-- begin-user-doc -->
-	 * This implementation returns null;
-	 * returning a non-null result will terminate the switch.
-	 * <!-- end-user-doc -->
-	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>Abstract Entity Actor Impl</em>'.
-	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-	 * @generated
-	 */
-	public <P extends AbstractIOPort> T caseAbstractEntityActorImpl(AbstractEntityActorImpl<P> object) {
-		return null;
-	}
-
-	/**
-	 * Returns the result of interpreting the object as an instance of '<em>Entity Actor Impl</em>'.
-	 * <!-- begin-user-doc -->
-	 * This implementation returns null;
-	 * returning a non-null result will terminate the switch.
-	 * <!-- end-user-doc -->
-	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>Entity Actor Impl</em>'.
-	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-	 * @generated
-	 */
-	public <P extends AbstractIOPort> T caseEntityActorImpl(EntityActorImpl<P> object) {
-		return null;
-	}
-
-	/**
-	 * Returns the result of interpreting the object as an instance of '<em>Entity Ref Actor Impl</em>'.
-	 * <!-- begin-user-doc -->
-	 * This implementation returns null;
-	 * returning a non-null result will terminate the switch.
-	 * <!-- end-user-doc -->
-	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>Entity Ref Actor Impl</em>'.
-	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-	 * @generated
-	 */
-	public <P extends AbstractIOPort> T caseEntityRefActorImpl(EntityRefActorImpl<P> object) {
 		return null;
 	}
 

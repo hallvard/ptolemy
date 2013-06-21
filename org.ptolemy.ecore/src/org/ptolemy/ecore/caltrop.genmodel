@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<genmodel:GenModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore"
+    xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel" modelDirectory="/org.ptolemy.ecore/src" modelPluginID="org.ptolemy.ecore"
+    modelName="Caltrop" importerID="org.eclipse.emf.importer.ecore" complianceLevel="6.0"
+    copyrightFields="false" usedGenPackages="actor.genmodel#//actor kernel.genmodel#//kernel platform:/plugin/org.eclipse.xtext.xbase/model/Xbase.genmodel#//xbase platform:/plugin/org.eclipse.xtext.common.types/model/JavaVMTypes.genmodel#//types">
+  <foreignModel>caltrop.ecore</foreignModel>
+  <genPackages prefix="Caltrop" basePackage="org.ptolemy.ecore" resource="XMI" disposableProviderFactory="true"
+      fileExtensions="" ecorePackage="caltrop.ecore#/">
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="caltrop.ecore#//ChannelSelectorKeyword">
+      <genEnumLiterals ecoreEnumLiteral="caltrop.ecore#//ChannelSelectorKeyword/ALL"/>
+      <genEnumLiterals ecoreEnumLiteral="caltrop.ecore#//ChannelSelectorKeyword/ANY"/>
+    </genEnums>
+    <genClasses ecoreClass="caltrop.ecore#//CaltropActorImpl">
+      <genTypeParameters ecoreTypeParameter="caltrop.ecore#//CaltropActorImpl/P"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference caltrop.ecore#//CaltropActorImpl/declarations"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference caltrop.ecore#//CaltropActorImpl/actions"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference caltrop.ecore#//CaltropActorImpl/initActions"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference caltrop.ecore#//CaltropActorImpl/functions"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference caltrop.ecore#//CaltropActorImpl/schedule"/>
+    </genClasses>
+    <genClasses ecoreClass="caltrop.ecore#//ActorParameter"/>
+    <genClasses ecoreClass="caltrop.ecore#//TypedInputPort"/>
+    <genClasses ecoreClass="caltrop.ecore#//TypedOutputPort"/>
+    <genClasses ecoreClass="caltrop.ecore#//StateVariable">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute caltrop.ecore#//StateVariable/constant"/>
+    </genClasses>
+    <genClasses ecoreClass="caltrop.ecore#//FireAction">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference caltrop.ecore#//FireAction/inputPatterns"/>
+    </genClasses>
+    <genClasses ecoreClass="caltrop.ecore#//ReAction"/>
+    <genClasses ecoreClass="caltrop.ecore#//OutputAction">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference caltrop.ecore#//OutputAction/guardExpression"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference caltrop.ecore#//OutputAction/outputPatterns"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference caltrop.ecore#//OutputAction/bodyExpression"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference caltrop.ecore#//OutputAction/updateExpression"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference caltrop.ecore#//OutputAction/delayExpression"/>
+      <genOperations ecoreOperation="caltrop.ecore#//OutputAction/getInputPatterns"/>
+    </genClasses>
+    <genClasses image="false" ecoreClass="caltrop.ecore#//PortPattern">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference caltrop.ecore#//PortPattern/repeatExpression"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference caltrop.ecore#//PortPattern/channels"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference caltrop.ecore#//PortPattern/portRef"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference caltrop.ecore#//PortPattern/guardExpression"/>
+      <genOperations ecoreOperation="caltrop.ecore#//PortPattern/size"/>
+    </genClasses>
+    <genClasses ecoreClass="caltrop.ecore#//ActionPattern">
+      <genOperations ecoreOperation="caltrop.ecore#//ActionPattern/getPatternVariables"/>
+      <genOperations ecoreOperation="caltrop.ecore#//ActionPattern/getGuardExpression"/>
+    </genClasses>
+    <genClasses ecoreClass="caltrop.ecore#//InputPattern">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute caltrop.ecore#//InputPattern/variables"/>
+    </genClasses>
+    <genClasses ecoreClass="caltrop.ecore#//OutputPattern">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference caltrop.ecore#//OutputPattern/valueExpressions"/>
+    </genClasses>
+    <genClasses image="false" ecoreClass="caltrop.ecore#//ChannelSelector"/>
+    <genClasses ecoreClass="caltrop.ecore#//ExpressionChannelSelector">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute caltrop.ecore#//ExpressionChannelSelector/many"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference caltrop.ecore#//ExpressionChannelSelector/keyExpressions"/>
+    </genClasses>
+    <genClasses ecoreClass="caltrop.ecore#//KeywordChannelSelector">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute caltrop.ecore#//KeywordChannelSelector/keyword"/>
+    </genClasses>
+    <genClasses ecoreClass="caltrop.ecore#//FunctionDeclaration">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference caltrop.ecore#//FunctionDeclaration/parameters"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference caltrop.ecore#//FunctionDeclaration/bodyExpression"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference caltrop.ecore#//FunctionDeclaration/throwables"/>
+    </genClasses>
+    <genClasses ecoreClass="caltrop.ecore#//Schedule">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference caltrop.ecore#//Schedule/initial"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference caltrop.ecore#//Schedule/states"/>
+    </genClasses>
+    <genClasses ecoreClass="caltrop.ecore#//State">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference caltrop.ecore#//State/transitions"/>
+      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference caltrop.ecore#//State/schedule"/>
+    </genClasses>
+    <genClasses ecoreClass="caltrop.ecore#//Transition">
+      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference caltrop.ecore#//Transition/source"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference caltrop.ecore#//Transition/target"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute caltrop.ecore#//Transition/tags"/>
+    </genClasses>
+    <genClasses ecoreClass="caltrop.ecore#//EventAction">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference caltrop.ecore#//EventAction/eventPatterns"/>
+    </genClasses>
+    <genClasses ecoreClass="caltrop.ecore#//EventPattern">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference caltrop.ecore#//EventPattern/varRef"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute caltrop.ecore#//EventPattern/name"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute caltrop.ecore#//EventPattern/qualifier"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute caltrop.ecore#//EventPattern/variables"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute caltrop.ecore#//EventPattern/property"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference caltrop.ecore#//EventPattern/timeExpression"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference caltrop.ecore#//EventPattern/guardExpression"/>
+    </genClasses>
+  </genPackages>
+</genmodel:GenModel>

@@ -12,8 +12,10 @@ import org.eclipse.emf.ecore.EGenericType;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.impl.EPackageImpl;
+import org.eclipse.xtext.common.types.TypesPackage;
+import org.eclipse.xtext.xtype.XtypePackage;
+import org.eclipse.xtext.xtype.impl.XtypePackageImpl;
 import org.ptolemy.ecore.kernel.KernelPackage;
-import org.ptolemy.ecore.xactor.ActorModel;
 import org.ptolemy.ecore.xactor.EntityFolder;
 import org.ptolemy.ecore.xactor.ImportDirective;
 import org.ptolemy.ecore.xactor.XactorFactory;
@@ -32,13 +34,6 @@ public class XactorPackageImpl extends EPackageImpl implements XactorPackage {
 	 * @generated
 	 */
 	private EClass entityFolderEClass = null;
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	private EClass actorModelEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -95,12 +90,18 @@ public class XactorPackageImpl extends EPackageImpl implements XactorPackage {
 
 		// Initialize simple dependencies
 		KernelPackage.eINSTANCE.eClass();
+		TypesPackage.eINSTANCE.eClass();
+
+		// Obtain or create and register interdependencies
+		XtypePackageImpl theXtypePackage = (XtypePackageImpl)(EPackage.Registry.INSTANCE.getEPackage(XtypePackage.eNS_URI) instanceof XtypePackageImpl ? EPackage.Registry.INSTANCE.getEPackage(XtypePackage.eNS_URI) : XtypePackage.eINSTANCE);
 
 		// Create package meta-data objects
 		theXactorPackage.createPackageContents();
+		theXtypePackage.createPackageContents();
 
 		// Initialize created meta-data
 		theXactorPackage.initializePackageContents();
+		theXtypePackage.initializePackageContents();
 
 		// Mark meta-data to indicate it can't be changed
 		theXactorPackage.freeze();
@@ -134,17 +135,8 @@ public class XactorPackageImpl extends EPackageImpl implements XactorPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EClass getActorModel() {
-		return actorModelEClass;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EReference getActorModel_Imports() {
-		return (EReference)actorModelEClass.getEStructuralFeatures().get(0);
+	public EReference getEntityFolder_Imports() {
+		return (EReference)entityFolderEClass.getEStructuralFeatures().get(1);
 	}
 
 	/**
@@ -195,9 +187,7 @@ public class XactorPackageImpl extends EPackageImpl implements XactorPackage {
 		// Create classes and their features
 		entityFolderEClass = createEClass(ENTITY_FOLDER);
 		createEReference(entityFolderEClass, ENTITY_FOLDER__ENTITY_CONTAINERS);
-
-		actorModelEClass = createEClass(ACTOR_MODEL);
-		createEReference(actorModelEClass, ACTOR_MODEL__IMPORTS);
+		createEReference(entityFolderEClass, ENTITY_FOLDER__IMPORTS);
 
 		importDirectiveEClass = createEClass(IMPORT_DIRECTIVE);
 		createEAttribute(importDirectiveEClass, IMPORT_DIRECTIVE__IMPORTED_NAMESPACE);
@@ -228,6 +218,7 @@ public class XactorPackageImpl extends EPackageImpl implements XactorPackage {
 
 		// Obtain other dependent packages
 		KernelPackage theKernelPackage = (KernelPackage)EPackage.Registry.INSTANCE.getEPackage(KernelPackage.eNS_URI);
+		XtypePackage theXtypePackage = (XtypePackage)EPackage.Registry.INSTANCE.getEPackage(XtypePackage.eNS_URI);
 
 		// Create type parameters
 
@@ -238,14 +229,11 @@ public class XactorPackageImpl extends EPackageImpl implements XactorPackage {
 		EGenericType g2 = createEGenericType(theKernelPackage.getPort());
 		g1.getETypeArguments().add(g2);
 		entityFolderEClass.getEGenericSuperTypes().add(g1);
-		actorModelEClass.getESuperTypes().add(this.getEntityFolder());
 
 		// Initialize classes and features; add operations and parameters
 		initEClass(entityFolderEClass, EntityFolder.class, "EntityFolder", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getEntityFolder_EntityContainers(), this.getEntityFolder(), null, "entityContainers", null, 0, -1, EntityFolder.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-		initEClass(actorModelEClass, ActorModel.class, "ActorModel", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getActorModel_Imports(), this.getImportDirective(), null, "imports", null, 0, -1, ActorModel.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getEntityFolder_Imports(), theXtypePackage.getXImportSection(), null, "imports", null, 0, -1, EntityFolder.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(importDirectiveEClass, ImportDirective.class, "ImportDirective", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getImportDirective_ImportedNamespace(), ecorePackage.getEString(), "importedNamespace", null, 0, 1, ImportDirective.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

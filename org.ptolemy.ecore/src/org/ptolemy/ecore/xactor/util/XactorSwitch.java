@@ -16,7 +16,6 @@ import org.ptolemy.ecore.kernel.Named;
 import org.ptolemy.ecore.kernel.NamedObj;
 import org.ptolemy.ecore.kernel.Port;
 import org.ptolemy.ecore.xactor.*;
-import org.ptolemy.ecore.xactor.ActorModel;
 import org.ptolemy.ecore.xactor.EntityFolder;
 import org.ptolemy.ecore.xactor.ImportDirective;
 import org.ptolemy.ecore.xactor.XactorPackage;
@@ -89,18 +88,6 @@ public class XactorSwitch<T> extends Switch<T> {
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
-			case XactorPackage.ACTOR_MODEL: {
-				ActorModel actorModel = (ActorModel)theEObject;
-				T result = caseActorModel(actorModel);
-				if (result == null) result = caseEntityFolder(actorModel);
-				if (result == null) result = caseEntityContainer(actorModel);
-				if (result == null) result = caseNamedObj(actorModel);
-				if (result == null) result = caseIEntity(actorModel);
-				if (result == null) result = caseNameable(actorModel);
-				if (result == null) result = caseNamed(actorModel);
-				if (result == null) result = defaultCase(theEObject);
-				return result;
-			}
 			case XactorPackage.IMPORT_DIRECTIVE: {
 				ImportDirective importDirective = (ImportDirective)theEObject;
 				T result = caseImportDirective(importDirective);
@@ -138,21 +125,6 @@ public class XactorSwitch<T> extends Switch<T> {
 	 * @generated
 	 */
 	public <P extends Port> T caseEntityContainer(EntityContainer<P> object) {
-		return null;
-	}
-
-	/**
-	 * Returns the result of interpreting the object as an instance of '<em>Actor Model</em>'.
-	 * <!-- begin-user-doc -->
-	 * This implementation returns null;
-	 * returning a non-null result will terminate the switch.
-	 * <!-- end-user-doc -->
-	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>Actor Model</em>'.
-	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-	 * @generated
-	 */
-	public T caseActorModel(ActorModel object) {
 		return null;
 	}
 

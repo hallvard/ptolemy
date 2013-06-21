@@ -11,28 +11,57 @@
 <plugin>
 
    <extension point="org.eclipse.emf.ecore.generated_package">
+      <!-- @generated xactor -->
       <package
-            uri="org.ptolemy.ecore.kernel"
-            class="org.ptolemy.ecore.kernel.KernelPackage"
-            genModel="model/kernel.genmodel"/>
-      <package
-            uri="org.ptolemy.ecore.actor"
-            class="org.ptolemy.ecore.actor.ActorPackage"
-            genModel="model/actor.genmodel"/>
-      <package
-            uri="org.ptolemy.ecore.caltrop"
-            class="org.ptolemy.ecore.caltrop.CaltropPackage"
-            genModel="model/caltrop.genmodel"/>
-      <package
-            uri="org.ptolemy.ecore.xactor"
+            uri="http://www.ptolemy.org/xactor"
             class="org.ptolemy.ecore.xactor.XactorPackage"
-            genModel="model/xactor.genmodel"/>
+            genModel="src/org/ptolemy/ecore/xactor.genmodel"/>
    </extension>
 
    <extension point="org.eclipse.emf.ecore.extension_parser">
+      <!-- @generated xactor -->
       <parser
-            type="eactor"
+            type=""
             class="org.ptolemy.ecore.xactor.util.XactorResourceFactoryImpl"/>
+   </extension>
+
+   <extension point="org.eclipse.emf.ecore.generated_package">
+      <!-- @generated xactor -->
+      <package
+            uri="http://www.eclipse.org/xtext/xbase/Xtype"
+            class="xtype.XtypePackage"
+            genModel="src/org/ptolemy/ecore/xactor.genmodel"/>
+   </extension>
+
+   <extension point="org.eclipse.emf.ecore.generated_package">
+      <!-- @generated caltrop -->
+      <package
+            uri="http://www.ptolemy.org/caltrop"
+            class="org.ptolemy.ecore.caltrop.CaltropPackage"
+            genModel="src/org/ptolemy/ecore/caltrop.genmodel"/>
+   </extension>
+
+   <extension point="org.eclipse.emf.ecore.extension_parser">
+      <!-- @generated caltrop -->
+      <parser
+            type=""
+            class="org.ptolemy.ecore.caltrop.util.CaltropResourceFactoryImpl"/>
+   </extension>
+
+   <extension point="org.eclipse.emf.ecore.generated_package">
+      <!-- @generated actor -->
+      <package
+            uri="http://www.ptolemy.org/actor"
+            class="org.ptolemy.ecore.actor.ActorPackage"
+            genModel="src/org/ptolemy/ecore/actor.genmodel"/>
+   </extension>
+
+   <extension point="org.eclipse.emf.ecore.generated_package">
+      <!-- @generated kernel -->
+      <package
+            uri="http://www.ptolemy.org/kernel"
+            class="org.ptolemy.ecore.kernel.KernelPackage"
+            genModel="src/org/ptolemy/ecore/kernel.genmodel"/>
    </extension>
 
 </plugin>

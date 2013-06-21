@@ -11,20 +11,14 @@ import java.util.Collection;
 import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.InternalEList;
-import org.eclipse.xtext.common.types.JvmTypeParameter;
-import org.eclipse.xtext.common.types.JvmTypeParameterDeclarator;
 import org.eclipse.xtext.common.types.JvmTypeReference;
 import org.ptolemy.ecore.actor.AbstractTypedIOPort;
 import org.ptolemy.ecore.actor.ActorPackage;
 import org.ptolemy.ecore.actor.ActorRef;
 import org.ptolemy.ecore.actor.ParameterBinding;
-import org.ptolemy.ecore.actor.TypeParameter;
-import org.ptolemy.ecore.actor.TypeParameterized;
-import org.ptolemy.ecore.kernel.EntityRef;
 import org.ptolemy.ecore.kernel.impl.EntityRefImpl;
 
 /**

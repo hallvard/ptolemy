@@ -21,6 +21,7 @@ import org.ptolemy.ecore.kernel.Port;
  *   <li>{@link org.ptolemy.ecore.caltrop.PortPattern#getRepeatExpression <em>Repeat Expression</em>}</li>
  *   <li>{@link org.ptolemy.ecore.caltrop.PortPattern#getChannels <em>Channels</em>}</li>
  *   <li>{@link org.ptolemy.ecore.caltrop.PortPattern#getPortRef <em>Port Ref</em>}</li>
+ *   <li>{@link org.ptolemy.ecore.caltrop.PortPattern#getGuardExpression <em>Guard Expression</em>}</li>
  * </ul>
  * </p>
  *
@@ -106,6 +107,32 @@ public interface PortPattern extends EObject {
 	 * @generated
 	 */
 	void setPortRef(Port value);
+
+	/**
+	 * Returns the value of the '<em><b>Guard Expression</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Guard Expression</em>' containment reference isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Guard Expression</em>' containment reference.
+	 * @see #setGuardExpression(XExpression)
+	 * @see org.ptolemy.ecore.caltrop.CaltropPackage#getPortPattern_GuardExpression()
+	 * @model containment="true"
+	 * @generated
+	 */
+	XExpression getGuardExpression();
+
+	/**
+	 * Sets the value of the '{@link org.ptolemy.ecore.caltrop.PortPattern#getGuardExpression <em>Guard Expression</em>}' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Guard Expression</em>' containment reference.
+	 * @see #getGuardExpression()
+	 * @generated
+	 */
+	void setGuardExpression(XExpression value);
 
 	/**
 	 * <!-- begin-user-doc -->

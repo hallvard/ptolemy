@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<genmodel:GenModel xmi:version="2.0"
-    xmlns:xmi="http://www.omg.org/XMI" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore"
-    xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel" modelDirectory="/org.ptolemy.ecore/src"
-    modelPluginID="org.ptolemy.ecore" modelName="Actor" importerID="org.eclipse.emf.importer.ecore"
-    complianceLevel="6.0" copyrightFields="false" usedGenPackages="kernel.genmodel#//kernel platform:/plugin/org.eclipse.xtext.xbase/model/Xbase.genmodel#//xbase platform:/plugin/org.eclipse.xtext.common.types/model/JavaVMTypes.genmodel#//types">
+<genmodel:GenModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore"
+    xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel" modelDirectory="/org.ptolemy.ecore/src" modelPluginID="org.ptolemy.ecore"
+    modelName="Actor" importerID="org.eclipse.emf.importer.ecore" complianceLevel="6.0"
+    copyrightFields="false" usedGenPackages="kernel.genmodel#//kernel platform:/plugin/org.eclipse.xtext.xbase/model/Xbase.genmodel#//xbase platform:/plugin/org.eclipse.xtext.common.types/model/JavaVMTypes.genmodel#//types">
   <foreignModel>actor.ecore</foreignModel>
   <genPackages prefix="Actor" basePackage="org.ptolemy.ecore" resource="XMI" disposableProviderFactory="true"
-      fileExtensions="eactor" ecorePackage="actor.ecore#/">
+      fileExtensions="" ecorePackage="actor.ecore#/">
     <genEnums typeSafeEnumCompatible="false" ecoreEnum="actor.ecore#//IOPortKind">
       <genEnumLiterals ecoreEnumLiteral="actor.ecore#//IOPortKind/UNSPECIFIED"/>
       <genEnumLiterals ecoreEnumLiteral="actor.ecore#//IOPortKind/INPUT"/>
@@ -22,22 +21,25 @@
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference actor.ecore#//JvmTypedObj/inferredType"/>
       <genOperations ecoreOperation="actor.ecore#//JvmTypedObj/inferType"/>
     </genClasses>
+    <genClasses image="false" ecoreClass="actor.ecore#//JvmTypedAttribute"/>
+    <genClasses ecoreClass="actor.ecore#//InjectableAttribute"/>
     <genClasses ecoreClass="actor.ecore#//Variable">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference actor.ecore#//Variable/valueExpression"/>
     </genClasses>
     <genClasses ecoreClass="actor.ecore#//Parameter"/>
-    <genClasses image="false" ecoreClass="actor.ecore#//Executable">
-      <genOperations ecoreOperation="actor.ecore#//Executable/fire"/>
-      <genOperations ecoreOperation="actor.ecore#//Executable/initialize"/>
-      <genOperations ecoreOperation="actor.ecore#//Executable/preinitialize"/>
-      <genOperations ecoreOperation="actor.ecore#//Executable/prefire"/>
-      <genOperations ecoreOperation="actor.ecore#//Executable/postfire"/>
-      <genOperations ecoreOperation="actor.ecore#//Executable/wrapup"/>
+    <genClasses ecoreClass="actor.ecore#//ActorRef">
+      <genTypeParameters ecoreTypeParameter="actor.ecore#//ActorRef/P"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference actor.ecore#//ActorRef/parameterBindings"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference actor.ecore#//ActorRef/typeArguments"/>
     </genClasses>
-    <genClasses ecoreClass="actor.ecore#//Director"/>
+    <genClasses ecoreClass="actor.ecore#//ParameterBinding">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference actor.ecore#//ParameterBinding/parameterRef"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference actor.ecore#//ParameterBinding/valueExpression"/>
+    </genClasses>
     <genClasses image="false" ecoreClass="actor.ecore#//AbstractIOPort">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute actor.ecore#//AbstractIOPort/multiport"/>
       <genFeatures property="Readonly" createChild="false" ecoreFeature="ecore:EAttribute actor.ecore#//AbstractIOPort/width"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute actor.ecore#//AbstractIOPort/rate"/>
       <genOperations ecoreOperation="actor.ecore#//AbstractIOPort/isInput"/>
       <genOperations ecoreOperation="actor.ecore#//AbstractIOPort/isOutput"/>
     </genClasses>
@@ -46,30 +48,32 @@
     </genClasses>
     <genClasses image="false" ecoreClass="actor.ecore#//AbstractTypedIOPort"/>
     <genClasses ecoreClass="actor.ecore#//TypedIOPort"/>
-    <genClasses image="false" ecoreClass="actor.ecore#//Actor"/>
+    <genClasses image="false" ecoreClass="actor.ecore#//Actor">
+      <genTypeParameters ecoreTypeParameter="actor.ecore#//Actor/P"/>
+    </genClasses>
     <genClasses ecoreClass="actor.ecore#//AtomicActor">
       <genTypeParameters ecoreTypeParameter="actor.ecore#//AtomicActor/P"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference actor.ecore#//AtomicActor/impl"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference actor.ecore#//AtomicActor/inheritedImpl"/>
     </genClasses>
     <genClasses image="false" ecoreClass="actor.ecore#//AtomicActorImpl">
       <genTypeParameters ecoreTypeParameter="actor.ecore#//AtomicActorImpl/P"/>
       <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference actor.ecore#//AtomicActorImpl/container"/>
+    </genClasses>
+    <genClasses ecoreClass="actor.ecore#//JavaActorImpl">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference actor.ecore#//JavaActorImpl/type"/>
+    </genClasses>
+    <genClasses ecoreClass="actor.ecore#//TypeParameterized">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference actor.ecore#//TypeParameterized/typeParameters"/>
+    </genClasses>
+    <genClasses ecoreClass="actor.ecore#//TypeParameter">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute actor.ecore#//TypeParameter/name"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference actor.ecore#//TypeParameter/type"/>
     </genClasses>
     <genClasses ecoreClass="actor.ecore#//TypedAtomicActor"/>
     <genClasses ecoreClass="actor.ecore#//CompositeActor">
       <genTypeParameters ecoreTypeParameter="actor.ecore#//CompositeActor/P"/>
     </genClasses>
     <genClasses ecoreClass="actor.ecore#//TypedCompositeActor"/>
-    <genClasses image="false" ecoreClass="actor.ecore#//AbstractEntityActorImpl">
-      <genTypeParameters ecoreTypeParameter="actor.ecore#//AbstractEntityActorImpl/P"/>
-      <genOperations ecoreOperation="actor.ecore#//AbstractEntityActorImpl/getEntity"/>
-    </genClasses>
-    <genClasses ecoreClass="actor.ecore#//EntityActorImpl">
-      <genTypeParameters ecoreTypeParameter="actor.ecore#//EntityActorImpl/P"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference actor.ecore#//EntityActorImpl/entity"/>
-    </genClasses>
-    <genClasses ecoreClass="actor.ecore#//EntityRefActorImpl">
-      <genTypeParameters ecoreTypeParameter="actor.ecore#//EntityRefActorImpl/P"/>
-    </genClasses>
   </genPackages>
 </genmodel:GenModel>

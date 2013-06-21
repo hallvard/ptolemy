@@ -14,11 +14,13 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.InternalEList;
+import org.eclipse.xtext.xtype.XImportSection;
 import org.ptolemy.ecore.kernel.EntityContainer;
 import org.ptolemy.ecore.kernel.NamedObj;
 import org.ptolemy.ecore.kernel.Port;
 import org.ptolemy.ecore.kernel.impl.EntityContainerImpl;
 import org.ptolemy.ecore.xactor.EntityFolder;
+import org.ptolemy.ecore.xactor.ImportDirective;
 import org.ptolemy.ecore.xactor.XactorPackage;
 
 /**
@@ -29,6 +31,7 @@ import org.ptolemy.ecore.xactor.XactorPackage;
  * The following features are implemented:
  * <ul>
  *   <li>{@link org.ptolemy.ecore.xactor.impl.EntityFolderImpl#getEntityContainers <em>Entity Containers</em>}</li>
+ *   <li>{@link org.ptolemy.ecore.xactor.impl.EntityFolderImpl#getImports <em>Imports</em>}</li>
  * </ul>
  * </p>
  *
@@ -44,6 +47,16 @@ public class EntityFolderImpl extends EntityContainerImpl<Port> implements Entit
 	 * @ordered
 	 */
 	protected EList<EntityFolder> entityContainers;
+
+	/**
+	 * The cached value of the '{@link #getImports() <em>Imports</em>}' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getImports()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList<XImportSection> imports;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -81,11 +94,25 @@ public class EntityFolderImpl extends EntityContainerImpl<Port> implements Entit
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EList<XImportSection> getImports() {
+		if (imports == null) {
+			imports = new EObjectContainmentEList<XImportSection>(XImportSection.class, this, XactorPackage.ENTITY_FOLDER__IMPORTS);
+		}
+		return imports;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case XactorPackage.ENTITY_FOLDER__ENTITY_CONTAINERS:
 				return ((InternalEList<?>)getEntityContainers()).basicRemove(otherEnd, msgs);
+			case XactorPackage.ENTITY_FOLDER__IMPORTS:
+				return ((InternalEList<?>)getImports()).basicRemove(otherEnd, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -100,6 +127,8 @@ public class EntityFolderImpl extends EntityContainerImpl<Port> implements Entit
 		switch (featureID) {
 			case XactorPackage.ENTITY_FOLDER__ENTITY_CONTAINERS:
 				return getEntityContainers();
+			case XactorPackage.ENTITY_FOLDER__IMPORTS:
+				return getImports();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -117,6 +146,10 @@ public class EntityFolderImpl extends EntityContainerImpl<Port> implements Entit
 				getEntityContainers().clear();
 				getEntityContainers().addAll((Collection<? extends EntityFolder>)newValue);
 				return;
+			case XactorPackage.ENTITY_FOLDER__IMPORTS:
+				getImports().clear();
+				getImports().addAll((Collection<? extends XImportSection>)newValue);
+				return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -132,6 +165,9 @@ public class EntityFolderImpl extends EntityContainerImpl<Port> implements Entit
 			case XactorPackage.ENTITY_FOLDER__ENTITY_CONTAINERS:
 				getEntityContainers().clear();
 				return;
+			case XactorPackage.ENTITY_FOLDER__IMPORTS:
+				getImports().clear();
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -146,6 +182,8 @@ public class EntityFolderImpl extends EntityContainerImpl<Port> implements Entit
 		switch (featureID) {
 			case XactorPackage.ENTITY_FOLDER__ENTITY_CONTAINERS:
 				return entityContainers != null && !entityContainers.isEmpty();
+			case XactorPackage.ENTITY_FOLDER__IMPORTS:
+				return imports != null && !imports.isEmpty();
 		}
 		return super.eIsSet(featureID);
 	}

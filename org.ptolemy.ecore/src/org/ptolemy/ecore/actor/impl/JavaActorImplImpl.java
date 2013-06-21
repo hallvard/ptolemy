@@ -1,51 +1,51 @@
 /**
- * <copyright>
- * </copyright>
- *
- * $Id$
  */
 package org.ptolemy.ecore.actor.impl;
 
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
+
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
+
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
+
+import org.eclipse.xtext.common.types.JvmParameterizedTypeReference;
+
 import org.ptolemy.ecore.actor.AbstractIOPort;
 import org.ptolemy.ecore.actor.ActorPackage;
-import org.ptolemy.ecore.actor.EntityActorImpl;
-import org.ptolemy.ecore.kernel.Entity;
+import org.ptolemy.ecore.actor.JavaActorImpl;
 
 /**
  * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>Entity Actor Impl</b></em>'.
+ * An implementation of the model object '<em><b>Java Actor Impl</b></em>'.
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link org.ptolemy.ecore.actor.impl.EntityActorImplImpl#getEntity <em>Entity</em>}</li>
+ *   <li>{@link org.ptolemy.ecore.actor.impl.JavaActorImplImpl#getType <em>Type</em>}</li>
  * </ul>
  * </p>
  *
  * @generated
  */
-public class EntityActorImplImpl<P extends AbstractIOPort> extends AbstractEntityActorImplImpl<P> implements EntityActorImpl<P> {
+public class JavaActorImplImpl extends AtomicActorImplImpl<AbstractIOPort> implements JavaActorImpl {
 	/**
-	 * The cached value of the '{@link #getEntity() <em>Entity</em>}' containment reference.
+	 * The cached value of the '{@link #getType() <em>Type</em>}' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getEntity()
+	 * @see #getType()
 	 * @generated
 	 * @ordered
 	 */
-	protected Entity<P> entity;
+	protected JvmParameterizedTypeReference type;
 
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected EntityActorImplImpl() {
+	protected JavaActorImplImpl() {
 		super();
 	}
 
@@ -56,7 +56,7 @@ public class EntityActorImplImpl<P extends AbstractIOPort> extends AbstractEntit
 	 */
 	@Override
 	protected EClass eStaticClass() {
-		return ActorPackage.Literals.ENTITY_ACTOR_IMPL;
+		return ActorPackage.Literals.JAVA_ACTOR_IMPL;
 	}
 
 	/**
@@ -64,8 +64,8 @@ public class EntityActorImplImpl<P extends AbstractIOPort> extends AbstractEntit
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public Entity<P> getEntity() {
-		return entity;
+	public JvmParameterizedTypeReference getType() {
+		return type;
 	}
 
 	/**
@@ -73,11 +73,11 @@ public class EntityActorImplImpl<P extends AbstractIOPort> extends AbstractEntit
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public NotificationChain basicSetEntity(Entity<P> newEntity, NotificationChain msgs) {
-		Entity<P> oldEntity = entity;
-		entity = newEntity;
+	public NotificationChain basicSetType(JvmParameterizedTypeReference newType, NotificationChain msgs) {
+		JvmParameterizedTypeReference oldType = type;
+		type = newType;
 		if (eNotificationRequired()) {
-			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, ActorPackage.ENTITY_ACTOR_IMPL__ENTITY, oldEntity, newEntity);
+			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, ActorPackage.JAVA_ACTOR_IMPL__TYPE, oldType, newType);
 			if (msgs == null) msgs = notification; else msgs.add(notification);
 		}
 		return msgs;
@@ -88,18 +88,18 @@ public class EntityActorImplImpl<P extends AbstractIOPort> extends AbstractEntit
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setEntity(Entity<P> newEntity) {
-		if (newEntity != entity) {
+	public void setType(JvmParameterizedTypeReference newType) {
+		if (newType != type) {
 			NotificationChain msgs = null;
-			if (entity != null)
-				msgs = ((InternalEObject)entity).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - ActorPackage.ENTITY_ACTOR_IMPL__ENTITY, null, msgs);
-			if (newEntity != null)
-				msgs = ((InternalEObject)newEntity).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - ActorPackage.ENTITY_ACTOR_IMPL__ENTITY, null, msgs);
-			msgs = basicSetEntity(newEntity, msgs);
+			if (type != null)
+				msgs = ((InternalEObject)type).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - ActorPackage.JAVA_ACTOR_IMPL__TYPE, null, msgs);
+			if (newType != null)
+				msgs = ((InternalEObject)newType).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - ActorPackage.JAVA_ACTOR_IMPL__TYPE, null, msgs);
+			msgs = basicSetType(newType, msgs);
 			if (msgs != null) msgs.dispatch();
 		}
 		else if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, ActorPackage.ENTITY_ACTOR_IMPL__ENTITY, newEntity, newEntity));
+			eNotify(new ENotificationImpl(this, Notification.SET, ActorPackage.JAVA_ACTOR_IMPL__TYPE, newType, newType));
 	}
 
 	/**
@@ -110,8 +110,8 @@ public class EntityActorImplImpl<P extends AbstractIOPort> extends AbstractEntit
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
-			case ActorPackage.ENTITY_ACTOR_IMPL__ENTITY:
-				return basicSetEntity(null, msgs);
+			case ActorPackage.JAVA_ACTOR_IMPL__TYPE:
+				return basicSetType(null, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -124,8 +124,8 @@ public class EntityActorImplImpl<P extends AbstractIOPort> extends AbstractEntit
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-			case ActorPackage.ENTITY_ACTOR_IMPL__ENTITY:
-				return getEntity();
+			case ActorPackage.JAVA_ACTOR_IMPL__TYPE:
+				return getType();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -135,12 +135,11 @@ public class EntityActorImplImpl<P extends AbstractIOPort> extends AbstractEntit
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@SuppressWarnings("unchecked")
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-			case ActorPackage.ENTITY_ACTOR_IMPL__ENTITY:
-				setEntity((Entity<P>)newValue);
+			case ActorPackage.JAVA_ACTOR_IMPL__TYPE:
+				setType((JvmParameterizedTypeReference)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -154,8 +153,8 @@ public class EntityActorImplImpl<P extends AbstractIOPort> extends AbstractEntit
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
-			case ActorPackage.ENTITY_ACTOR_IMPL__ENTITY:
-				setEntity((Entity<P>)null);
+			case ActorPackage.JAVA_ACTOR_IMPL__TYPE:
+				setType((JvmParameterizedTypeReference)null);
 				return;
 		}
 		super.eUnset(featureID);
@@ -169,10 +168,10 @@ public class EntityActorImplImpl<P extends AbstractIOPort> extends AbstractEntit
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-			case ActorPackage.ENTITY_ACTOR_IMPL__ENTITY:
-				return entity != null;
+			case ActorPackage.JAVA_ACTOR_IMPL__TYPE:
+				return type != null;
 		}
 		return super.eIsSet(featureID);
 	}
 
-} //EntityActorImplImpl
+} //JavaActorImplImpl

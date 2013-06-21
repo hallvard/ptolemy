@@ -9,8 +9,6 @@ package org.ptolemy.ecore.caltrop.util;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.util.Switch;
-import org.eclipse.xtext.xbase.XAbstractFeatureCall;
-import org.eclipse.xtext.xbase.XExpression;
 import org.ptolemy.ecore.actor.AbstractIOPort;
 import org.ptolemy.ecore.actor.AbstractTypedIOPort;
 import org.ptolemy.ecore.actor.AtomicActorImpl;
@@ -26,9 +24,9 @@ import org.ptolemy.ecore.caltrop.CaltropPackage;
 import org.ptolemy.ecore.caltrop.ChannelSelector;
 import org.ptolemy.ecore.caltrop.ExpressionChannelSelector;
 import org.ptolemy.ecore.caltrop.FireAction;
+import org.ptolemy.ecore.caltrop.FunctionDeclaration;
 import org.ptolemy.ecore.caltrop.InputPattern;
 import org.ptolemy.ecore.caltrop.KeywordChannelSelector;
-import org.ptolemy.ecore.caltrop.OldActionVariableValueRef;
 import org.ptolemy.ecore.caltrop.OutputAction;
 import org.ptolemy.ecore.caltrop.OutputPattern;
 import org.ptolemy.ecore.caltrop.PortPattern;
@@ -41,6 +39,7 @@ import org.ptolemy.ecore.kernel.Nameable;
 import org.ptolemy.ecore.kernel.Named;
 import org.ptolemy.ecore.kernel.NamedObj;
 import org.ptolemy.ecore.kernel.Port;
+import org.ptolemy.ecore.kernel.Relation;
 
 /**
  * <!-- begin-user-doc -->
@@ -168,10 +167,21 @@ public class CaltropSwitch<T> extends Switch<T> {
 			case CaltropPackage.FIRE_ACTION: {
 				FireAction fireAction = (FireAction)theEObject;
 				T result = caseFireAction(fireAction);
+				if (result == null) result = caseReAction(fireAction);
 				if (result == null) result = caseOutputAction(fireAction);
 				if (result == null) result = caseNamedObj(fireAction);
 				if (result == null) result = caseNameable(fireAction);
 				if (result == null) result = caseNamed(fireAction);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case CaltropPackage.RE_ACTION: {
+				ReAction reAction = (ReAction)theEObject;
+				T result = caseReAction(reAction);
+				if (result == null) result = caseOutputAction(reAction);
+				if (result == null) result = caseNamedObj(reAction);
+				if (result == null) result = caseNameable(reAction);
+				if (result == null) result = caseNamed(reAction);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -190,10 +200,17 @@ public class CaltropSwitch<T> extends Switch<T> {
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
+			case CaltropPackage.ACTION_PATTERN: {
+				ActionPattern actionPattern = (ActionPattern)theEObject;
+				T result = caseActionPattern(actionPattern);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
 			case CaltropPackage.INPUT_PATTERN: {
 				InputPattern inputPattern = (InputPattern)theEObject;
 				T result = caseInputPattern(inputPattern);
 				if (result == null) result = casePortPattern(inputPattern);
+				if (result == null) result = caseActionPattern(inputPattern);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -224,11 +241,63 @@ public class CaltropSwitch<T> extends Switch<T> {
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
-			case CaltropPackage.OLD_ACTION_VARIABLE_VALUE_REF: {
-				OldActionVariableValueRef oldActionVariableValueRef = (OldActionVariableValueRef)theEObject;
-				T result = caseOldActionVariableValueRef(oldActionVariableValueRef);
-				if (result == null) result = caseXAbstractFeatureCall(oldActionVariableValueRef);
-				if (result == null) result = caseXExpression(oldActionVariableValueRef);
+			case CaltropPackage.FUNCTION_DECLARATION: {
+				FunctionDeclaration functionDeclaration = (FunctionDeclaration)theEObject;
+				T result = caseFunctionDeclaration(functionDeclaration);
+				if (result == null) result = caseJvmTypedObj(functionDeclaration);
+				if (result == null) result = caseNamedObj(functionDeclaration);
+				if (result == null) result = caseTypeable(functionDeclaration);
+				if (result == null) result = caseNameable(functionDeclaration);
+				if (result == null) result = caseNamed(functionDeclaration);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case CaltropPackage.SCHEDULE: {
+				Schedule schedule = (Schedule)theEObject;
+				T result = caseSchedule(schedule);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case CaltropPackage.STATE: {
+				State state = (State)theEObject;
+				T result = caseState(state);
+				if (result == null) result = caseNamedObj(state);
+				if (result == null) result = caseNameable(state);
+				if (result == null) result = caseNamed(state);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case CaltropPackage.TRANSITION: {
+				Transition transition = (Transition)theEObject;
+				T result = caseTransition(transition);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case CaltropPackage.EVENT_ACTION: {
+				EventAction eventAction = (EventAction)theEObject;
+				T result = caseEventAction(eventAction);
+				if (result == null) result = caseReAction(eventAction);
+				if (result == null) result = caseOutputAction(eventAction);
+				if (result == null) result = caseNamedObj(eventAction);
+				if (result == null) result = caseNameable(eventAction);
+				if (result == null) result = caseNamed(eventAction);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case CaltropPackage.EVENT_PATTERN: {
+				EventPattern eventPattern = (EventPattern)theEObject;
+				T result = caseEventPattern(eventPattern);
+				if (result == null) result = caseActionPattern(eventPattern);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case CaltropPackage.CONVERSION_RELATION: {
+				ConversionRelation conversionRelation = (ConversionRelation)theEObject;
+				T result = caseConversionRelation(conversionRelation);
+				if (result == null) result = caseRelation(conversionRelation);
+				if (result == null) result = caseNamedObj(conversionRelation);
+				if (result == null) result = caseNameable(conversionRelation);
+				if (result == null) result = caseNamed(conversionRelation);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -327,6 +396,21 @@ public class CaltropSwitch<T> extends Switch<T> {
 	}
 
 	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Re Action</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Re Action</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseReAction(ReAction object) {
+		return null;
+	}
+
+	/**
 	 * Returns the result of interpreting the object as an instance of '<em>Output Action</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
@@ -353,6 +437,21 @@ public class CaltropSwitch<T> extends Switch<T> {
 	 * @generated
 	 */
 	public T casePortPattern(PortPattern object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Action Pattern</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Action Pattern</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseActionPattern(ActionPattern object) {
 		return null;
 	}
 
@@ -432,17 +531,107 @@ public class CaltropSwitch<T> extends Switch<T> {
 	}
 
 	/**
-	 * Returns the result of interpreting the object as an instance of '<em>Old Action Variable Value Ref</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>Function Declaration</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>Old Action Variable Value Ref</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>Function Declaration</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public T caseOldActionVariableValueRef(OldActionVariableValueRef object) {
+	public T caseFunctionDeclaration(FunctionDeclaration object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Schedule</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Schedule</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseSchedule(Schedule object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>State</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>State</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseState(State object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Transition</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Transition</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseTransition(Transition object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Event Action</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Event Action</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseEventAction(EventAction object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Event Pattern</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Event Pattern</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseEventPattern(EventPattern object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Conversion Relation</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Conversion Relation</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseConversionRelation(ConversionRelation object) {
 		return null;
 	}
 
@@ -657,32 +846,17 @@ public class CaltropSwitch<T> extends Switch<T> {
 	}
 
 	/**
-	 * Returns the result of interpreting the object as an instance of '<em>XExpression</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>Relation</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>XExpression</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>Relation</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public T caseXExpression(XExpression object) {
-		return null;
-	}
-
-	/**
-	 * Returns the result of interpreting the object as an instance of '<em>XAbstract Feature Call</em>'.
-	 * <!-- begin-user-doc -->
-	 * This implementation returns null;
-	 * returning a non-null result will terminate the switch.
-	 * <!-- end-user-doc -->
-	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>XAbstract Feature Call</em>'.
-	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-	 * @generated
-	 */
-	public T caseXAbstractFeatureCall(XAbstractFeatureCall object) {
+	public T caseRelation(Relation object) {
 		return null;
 	}
 

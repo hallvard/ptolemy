@@ -24,7 +24,7 @@ import org.eclipse.emf.common.util.EList;
  * @model
  * @generated
  */
-public interface InputPattern extends PortPattern {
+public interface InputPattern extends PortPattern, ActionPattern {
 	/**
 	 * Returns the value of the '<em><b>Variables</b></em>' attribute list.
 	 * The list contents are of type {@link java.lang.String}.

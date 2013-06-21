@@ -11,7 +11,6 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.ptolemy.ecore.actor.AbstractIOPort;
 import org.ptolemy.ecore.actor.ActorPackage;
-import org.ptolemy.ecore.kernel.Nameable;
 import org.ptolemy.ecore.kernel.impl.ComponentPortImpl;
 
 /**

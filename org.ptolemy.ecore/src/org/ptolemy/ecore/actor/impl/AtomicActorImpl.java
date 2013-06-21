@@ -12,13 +12,11 @@ import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
+import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.EcoreUtil.Copier;
 import org.ptolemy.ecore.actor.AbstractIOPort;
 import org.ptolemy.ecore.actor.ActorPackage;
 import org.ptolemy.ecore.actor.AtomicActor;
-import org.ptolemy.ecore.actor.EntityActorImpl;
-import org.ptolemy.ecore.actor.EntityRefActorImpl;
-import org.ptolemy.ecore.kernel.Attribute;
 import org.ptolemy.ecore.kernel.Entity;
 import org.ptolemy.ecore.kernel.impl.EntityImpl;
 
@@ -74,6 +72,34 @@ public class AtomicActorImpl<P extends AbstractIOPort> extends EntityImpl<P> imp
 	@Override
 	protected EClass eStaticClass() {
 		return ActorPackage.Literals.ATOMIC_ACTOR;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * This is specialized for the more specific element type known in this context.
+	 * @generated
+	 */
+	@Override
+	public EList<P> getPorts() {
+		if (ports == null) {
+			ports = new EObjectContainmentEList<P>(AbstractIOPort.class, this, ActorPackage.ATOMIC_ACTOR__PORTS);
+		}
+		return ports;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * This is specialized for the more specific element type known in this context.
+	 * @generated
+	 */
+	@Override
+	public EList<P> getInheritedPorts() {
+		if (inheritedPorts == null) {
+			inheritedPorts = new EObjectContainmentEList<P>(AbstractIOPort.class, this, ActorPackage.ATOMIC_ACTOR__INHERITED_PORTS);
+		}
+		return inheritedPorts;
 	}
 
 	/**

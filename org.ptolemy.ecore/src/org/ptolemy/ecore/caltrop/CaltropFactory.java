@@ -81,6 +81,15 @@ public interface CaltropFactory extends EFactory {
 	FireAction createFireAction();
 
 	/**
+	 * Returns a new object of class '<em>Re Action</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Re Action</em>'.
+	 * @generated
+	 */
+	ReAction createReAction();
+
+	/**
 	 * Returns a new object of class '<em>Output Action</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -88,6 +97,15 @@ public interface CaltropFactory extends EFactory {
 	 * @generated
 	 */
 	OutputAction createOutputAction();
+
+	/**
+	 * Returns a new object of class '<em>Action Pattern</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Action Pattern</em>'.
+	 * @generated
+	 */
+	ActionPattern createActionPattern();
 
 	/**
 	 * Returns a new object of class '<em>Input Pattern</em>'.
@@ -126,13 +144,67 @@ public interface CaltropFactory extends EFactory {
 	KeywordChannelSelector createKeywordChannelSelector();
 
 	/**
-	 * Returns a new object of class '<em>Old Action Variable Value Ref</em>'.
+	 * Returns a new object of class '<em>Function Declaration</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Old Action Variable Value Ref</em>'.
+	 * @return a new object of class '<em>Function Declaration</em>'.
 	 * @generated
 	 */
-	OldActionVariableValueRef createOldActionVariableValueRef();
+	FunctionDeclaration createFunctionDeclaration();
+
+	/**
+	 * Returns a new object of class '<em>Schedule</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Schedule</em>'.
+	 * @generated
+	 */
+	Schedule createSchedule();
+
+	/**
+	 * Returns a new object of class '<em>State</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>State</em>'.
+	 * @generated
+	 */
+	State createState();
+
+	/**
+	 * Returns a new object of class '<em>Transition</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Transition</em>'.
+	 * @generated
+	 */
+	Transition createTransition();
+
+	/**
+	 * Returns a new object of class '<em>Event Action</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Event Action</em>'.
+	 * @generated
+	 */
+	EventAction createEventAction();
+
+	/**
+	 * Returns a new object of class '<em>Event Pattern</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Event Pattern</em>'.
+	 * @generated
+	 */
+	EventPattern createEventPattern();
+
+	/**
+	 * Returns a new object of class '<em>Conversion Relation</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Conversion Relation</em>'.
+	 * @generated
+	 */
+	ConversionRelation createConversionRelation();
 
 	/**
 	 * Returns the package supported by this factory.

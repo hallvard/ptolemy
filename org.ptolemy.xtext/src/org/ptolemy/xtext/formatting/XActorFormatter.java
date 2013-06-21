@@ -45,27 +45,29 @@ public class XActorFormatter extends AbstractDeclarativeFormatter {
 		c.setLinewrap(1).before(f.getEntityFolderRule());
 		
 		c.setLinewrap(2).around(f.getEntityRule());
-		c.setLinewrap(1).before(f.getRelationRule());
+		c.setLinewrap(1).before(f.getConversionRelationRule());
 
 		c.setSpace(" ").after(f.getTypedAtomicActorAccess().getDisplayNameSTRINGTerminalRuleCall_3_0());
 		c.setNoSpace().before(f.getTypedAtomicActorAccess().getLessThanSignKeyword_4_0());
 		c.setLinewrap(1).before(f.getTypedAtomicActorAccess().getLeftParenthesisKeyword_5_0());
 		c.setLinewrap(1).before(f.getTypedAtomicActorAccess().getPortsAssignment_6_0_0());
-		c.setLinewrap(1).before(f.getTypedAtomicActorAccess().getPortsAssignment_8());
-		c.setLinewrap(1).before(f.getTypedAtomicActorAccess().getAttributesAssignment_9());
 
 		c.setSpace(" ").after(f.getTypedAtomicActorAccess().getDisplayNameSTRINGTerminalRuleCall_3_0());
 		c.setNoSpace().before(f.getTypedAtomicActorAccess().getLessThanSignKeyword_4_0());
-		c.setLinewrap(1).before(f.getCompositeEntityAccess().getLeftParenthesisKeyword_0_1_0_5_0());
-		c.setLinewrap(1).before(f.getCompositeEntityAccess().getPortsAssignment_0_1_0_6_0_0());
-		c.setLinewrap(1).before(f.getCompositeEntityAccess().getPortsAssignment_1());
-		c.setLinewrap(1).before(f.getCompositeEntityAccess().getAttributesAssignment_2());
+		c.setLinewrap(1).before(f.getCompositeEntityAccess().getLeftParenthesisKeyword_5_0());
 		
 		c.setLinewrap(1).before(f.getAtomicActorImplRule());
 		
 		c.setLinewrap(1).before(f.getFireActionAccess().getActionKeyword_2());
 		c.setLinewrap(1).before(f.getFireActionAccess().getGuardKeyword_6_0());
 //		c.setLinewrap(1).before(f.getFireActionAccess().getAttributesAssignment_7());
-		c.setLinewrap(1).before(f.getFireActionAccess().getDoKeyword_7_0());
+		c.setLinewrap(1).before(f.getFireActionAccess().getDoKeyword_8_0());
+
+		c.setLinewrap(1).before(f.getEntityFolderAccess().getEndKeyword_6());
+		c.setLinewrap(1).before(f.getTypedAtomicActorAccess().getEndKeyword_10());
+		c.setLinewrap(1).before(f.getCompositeEntityAccess().getEndKeyword_12());
+		c.setLinewrap(1).before(f.getFunctionDeclarationAccess().getEndKeyword_9());
+		c.setLinewrap(1).before(f.getInitActionAccess().getEndKeyword_7());
+		c.setLinewrap(1).before(f.getFireActionAccess().getEndKeyword_10());
 	}
 }

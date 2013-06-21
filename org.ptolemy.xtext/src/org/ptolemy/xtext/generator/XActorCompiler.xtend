@@ -18,8 +18,8 @@ class XActorCompiler extends XbaseCompiler {
 		if (feature instanceof JvmField) {
 			val field = (feature as JvmField);
 			val sourceElement = field.primarySourceElement;
-			if (sourceElement.isTokenVariable) {
-				it.append('''getActor().«(sourceElement as Nameable).methodName("get%sValue")»()''')
+			if (sourceElement.isTokenVariable || sourceElement.isInjectedValue) {
+				it.append('''«(sourceElement as Nameable).methodName("_get%sValue")»()''')
 //				tokenValueExpression('''this.«field.simpleName».getToken()''', field.type, sourceElement, it)
 				return
 			}

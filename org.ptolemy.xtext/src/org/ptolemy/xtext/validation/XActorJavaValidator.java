@@ -3,15 +3,16 @@ package org.ptolemy.xtext.validation;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
-import java.util.Set;
 import java.util.regex.Pattern;
 
-import org.eclipse.emf.ecore.EcorePackage;
+import org.eclipse.xtext.common.types.JvmTypeReference;
 import org.eclipse.xtext.validation.Check;
+import org.eclipse.xtext.xbase.XExpression;
 import org.ptolemy.ecore.actor.AbstractIOPort;
 import org.ptolemy.ecore.actor.AbstractTypedIOPort;
 import org.ptolemy.ecore.actor.ActorPackage;
 import org.ptolemy.ecore.actor.Typeable;
+import org.ptolemy.ecore.caltrop.CaltropActorImpl;
 import org.ptolemy.ecore.caltrop.CaltropPackage;
 import org.ptolemy.ecore.caltrop.PortPattern;
 import org.ptolemy.ecore.kernel.Entity;
@@ -19,9 +20,8 @@ import org.ptolemy.ecore.kernel.EntityContainer;
 import org.ptolemy.ecore.kernel.IEntity;
 import org.ptolemy.ecore.kernel.KernelPackage;
 import org.ptolemy.ecore.kernel.Nameable;
-import org.ptolemy.ecore.kernel.NamedObj;
 import org.ptolemy.ecore.kernel.Port;
-import org.ptolemy.ecore.xactor.ActorModel;
+import org.ptolemy.ecore.xactor.EntityFolder;
 
 public class XActorJavaValidator extends AbstractXActorJavaValidator {
 
@@ -57,7 +57,7 @@ public class XActorJavaValidator extends AbstractXActorJavaValidator {
 	@Check	public void checkName(Port port) 			{ checkName(port, true);}
 	@Check	public void checkName(Entity<?> entity) 	{ checkName(entity, true);}
 	@Check	public void checkName(EntityContainer<?> entityContainer) {
-		if (entityContainer instanceof ActorModel) {
+		if (entityContainer instanceof EntityFolder) {
 			String nameParts[] = entityContainer.getName().split(".");
 			for (int i = 0; i < nameParts.length; i++) {
 				checkName(nameParts[i], true);
@@ -103,6 +103,23 @@ public class XActorJavaValidator extends AbstractXActorJavaValidator {
 			if (portPattern.getChannels() != null && (! ioPort.isMultiport())) {
 				error("Cannot use multi pattern on single port.", CaltropPackage.eINSTANCE.getPortPattern_Channels());
 			}
+		}
+	}
+	
+	@Override
+	public void checkTypeParameterNotUsedInStaticContext(JvmTypeReference ref) {
+//		super.checkTypeParameterNotUsedInStaticContext(ref);
+	}
+
+	@Override
+	public void checkInnerExpressions(XExpression expr) {
+//		super.checkInnerExpressions(expr);
+	}
+	
+	@Check
+	public void checkAtMostOneInitAction(CaltropActorImpl<?> actorImpl) {
+		if (actorImpl.getInitActions().size() > 1) {
+			error("Only one init action is allowed.", actorImpl, CaltropPackage.eINSTANCE.getCaltropActorImpl_InitActions());
 		}
 	}
 }

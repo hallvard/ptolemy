@@ -3,18 +3,30 @@
  */
 package org.ptolemy.xtext;
 
-import org.eclipse.xtext.conversion.impl.AbstractIDValueConverter;
-
-import com.google.inject.Inject;
 
 /**
  * Use this class to register components to be used at runtime / without the Equinox extension registry.
  */
 public class XActorRuntimeModule extends org.ptolemy.xtext.AbstractXActorRuntimeModule {
 
+	// contributed by org.eclipse.xtext.generator.xbase.XbaseGeneratorFragment
+	public Class<? extends org.eclipse.xtext.resource.IDefaultResourceDescriptionStrategy> bindIDefaultResourceDescriptionStrategy() {
+		return org.ptolemy.xtext.scoping.XActorResourceDescriptionStrategy.class;
+	}
+
 	// originally contributed by org.eclipse.xtext.generator.xbase.XbaseGeneratorFragment
 	public Class<? extends org.eclipse.xtext.scoping.IScopeProvider> bindIScopeProvider() {
 		return org.ptolemy.xtext.scoping.XActorScopeProvider.class;
+	}
+
+	// originally contributed by org.eclipse.xtext.generator.xbase.XbaseGeneratorFragment
+	public Class<? extends org.eclipse.xtext.xbase.scoping.batch.XbaseBatchScopeProvider> bindXbaseBatchScopeProvider() {
+		return org.ptolemy.xtext.scoping.XActorBatchScopeProvider.class;
+	}
+
+	// contributed by org.eclipse.xtext.generator.xbase.XbaseGeneratorFragment
+	public void configureSerializerIScopeProvider(com.google.inject.Binder binder) {
+		binder.bind(org.eclipse.xtext.scoping.IScopeProvider.class).annotatedWith(org.eclipse.xtext.serializer.tokens.SerializerScopeProviderBinding.class).to(org.ptolemy.xtext.scoping.XActorSerializerScopeProvider.class);
 	}
 
 	// originally contributed by org.eclipse.xtext.generator.xbase.XbaseGeneratorFragment
@@ -26,8 +38,8 @@ public class XActorRuntimeModule extends org.ptolemy.xtext.AbstractXActorRuntime
 		return org.ptolemy.xtext.jvmmodel.XActorJvmModelInferrer.class;
 	}
 	
-	public Class<? extends org.eclipse.xtext.xbase.scoping.featurecalls.StaticImplicitMethodsFeatureForTypeProvider.ExtensionClassNameProvider> bindExtensionClassNameProvider() {
-		return org.ptolemy.xtext.scoping.ExtensionClassNameProvider.class;
+	public Class<? extends org.eclipse.xtext.xbase.scoping.batch.ImplicitlyImportedTypes> bindImplicitlyImportedTypes() {
+		return org.ptolemy.xtext.scoping.ImplicitlyImportedTypes.class;
 	}
 	
 	public Class<? extends org.eclipse.xtext.xbase.scoping.featurecalls.OperatorMapping> bindOperatorMapping() {
@@ -53,4 +65,5 @@ public class XActorRuntimeModule extends org.ptolemy.xtext.AbstractXActorRuntime
 	public Class<? extends org.eclipse.xtext.parsetree.reconstr.ITokenSerializer.IValueSerializer> bindIValueSerializer() {
 		return org.ptolemy.xtext.formatting.XActorValueSerializer.class;
 	}
+
 }

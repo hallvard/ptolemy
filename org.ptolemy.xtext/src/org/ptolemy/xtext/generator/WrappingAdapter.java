@@ -23,8 +23,8 @@ public class WrappingAdapter<T> extends AdapterImpl {
 
 	public static <T> T getWrapped(Notifier notifier, Class<T> c) {
 		for (Adapter adapter : notifier.eAdapters()) {
-			if (adapter instanceof WrappingAdapter && c.isInstance(((WrappingAdapter) adapter).wrapped)) {
-				return (T) ((WrappingAdapter) adapter).getWrapped();
+			if (adapter instanceof WrappingAdapter && c.isInstance(((WrappingAdapter<?>) adapter).wrapped)) {
+				return (T) ((WrappingAdapter<?>) adapter).getWrapped();
 			}
 		}
 		return null;

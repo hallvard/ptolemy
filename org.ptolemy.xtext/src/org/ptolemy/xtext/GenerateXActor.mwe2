@@ -13,17 +13,17 @@ Workflow {
 	bean = StandaloneSetup {
 		scanClassPath  = true
 		platformUri = "${runtimeProject}/.."
+		registerGenModelFile = "platform:/resource/org.ptolemy.ecore/src/org/ptolemy/ecore/kernel.genmodel"
+		registerGenModelFile = "platform:/resource/org.ptolemy.ecore/src/org/ptolemy/ecore/actor.genmodel"
+		registerGenModelFile = "platform:/resource/org.ptolemy.ecore/src/org/ptolemy/ecore/caltrop.genmodel"
+		registerGenModelFile = "platform:/resource/org.ptolemy.ecore/src/org/ptolemy/ecore/xactor.genmodel"
+		registerGenModelFile = "platform:/resource/org.eclipse.xtext.common.types/model/JavaVMTypes.genmodel"
+		registerGenModelFile = "platform:/resource/org.eclipse.xtext.xbase/model/Xbase.genmodel"
+
 		registerGeneratedEPackage = "org.ptolemy.ecore.kernel.KernelPackage"
 		registerGeneratedEPackage = "org.ptolemy.ecore.actor.ActorPackage"
 		registerGeneratedEPackage = "org.ptolemy.ecore.caltrop.CaltropPackage"
 		registerGeneratedEPackage = "org.ptolemy.ecore.xactor.XactorPackage"
-
-		registerGenModelFile = "platform:/resource/org.ptolemy.ecore/model/kernel.genmodel"
-		registerGenModelFile = "platform:/resource/org.ptolemy.ecore/model/actor.genmodel"
-		registerGenModelFile = "platform:/resource/org.ptolemy.ecore/model/caltrop.genmodel"
-		registerGenModelFile = "platform:/resource/org.ptolemy.ecore/model/xactor.genmodel"
-		registerGenModelFile = "platform:/resource/org.eclipse.xtext.common.types/model/JavaVMTypes.genmodel"
-		registerGenModelFile = "platform:/resource/org.eclipse.xtext.xbase/model/Xbase.genmodel"
 	}
 
 	component = DirectoryCleaner {

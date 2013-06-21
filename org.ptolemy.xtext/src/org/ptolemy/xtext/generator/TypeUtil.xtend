@@ -1,70 +1,25 @@
 package org.ptolemy.xtext.generator
 
-import org.eclipse.xtext.common.types.JvmTypeReference
-import org.eclipse.emf.ecore.EObject
 import com.google.inject.Inject
-import org.eclipse.xtext.xbase.jvmmodel.JvmTypesBuilder
-import org.ptolemy.ecore.actor.Typeable
-import org.eclipse.xtext.common.types.util.TypeReferences
-import org.eclipse.xtext.common.types.JvmPrimitiveType
-import org.eclipse.xtext.common.types.JvmTypeParameter
-import org.eclipse.xtext.xbase.jvmmodel.IJvmModelAssociations
-import org.eclipse.xtext.common.types.JvmType
-import org.ptolemy.ecore.actor.TypeParameterized
-import org.ptolemy.ecore.kernel.Entity
-import org.ptolemy.ecore.actor.ActorRef
+import com.google.inject.Provider
+import org.eclipse.emf.ecore.EObject
+import org.eclipse.xtext.common.types.JvmTypeReference
 import org.eclipse.xtext.common.types.util.Primitives
+import org.eclipse.xtext.common.types.util.TypeReferences
+import org.eclipse.xtext.xbase.jvmmodel.JvmTypesBuilder
 import org.eclipse.xtext.xtype.XFunctionTypeRef
-import org.eclipse.xtext.xtype.XFunctionTypeRef
-import org.eclipse.emf.ecore.InternalEObject
+import org.ptolemy.ecore.actor.Typeable
 
 class TypeUtil {
 	
     @Inject extension JvmTypesBuilder
 	@Inject extension TypeReferences
-	@Inject extension IJvmModelAssociations
 	@Inject extension Primitives primitives
-	
-	def resolveTypeParameter1(JvmTypeReference typeRef) {
-		var container = typeRef.eContainer()
-		while (container != null) {
-			if (container instanceof Entity) {
-				val entityRef = (container as Entity).superEntity
-				if (entityRef != null && entityRef.ref != null) {
-					val superEntity = entityRef.ref
-					if (entityRef instanceof ActorRef && superEntity instanceof TypeParameterized) {
-						val typeArguments = (entityRef as ActorRef).typeArguments
-						var pos = 0
-						for (typeParameter : (superEntity as TypeParameterized).typeParameters) {
-			    			val jvmType = typeParameter.jvmElements.head as JvmType
-							if (typeRef.type == jvmType) {
-								return typeArguments.get(pos)
-							}
-							pos = pos + 1
-						}
-					}
-				}
-			}
-			container = container.eContainer()
-		}
-		return null
-	}
-
-	def resolveTypeParameter(JvmTypeReference typeRefParam) {
-		var typeRef = typeRefParam
-		while (typeRef?.type instanceof JvmTypeParameter) {
-			val resolvedTypeRef = resolveTypeParameter1(typeRef)
-			if (resolvedTypeRef == null) {
-				return typeRef
-			}
-			typeRef = resolvedTypeRef
-		}
-		return typeRef
-	}
+	@Inject Provider<TypeParameterResolvingCopier> typeParameterResolvingCopierProvider
 
     def type(Typeable type) {
     	if (type != null && type.inferredType != null) {
-    		val typeRef = TypeParameterResolvingCopier::getResult(type.inferredType, this).typeRef;
+    		val typeRef = (TypeParameterResolvingCopier.getCachedResult(type.inferredType) ?: typeParameterResolvingCopierProvider.get().copyTypeReference(type.inferredType)).typeRef;
     		if (typeRef instanceof XFunctionTypeRef && typeRef.getType().eIsProxy) {
     		}
     		return typeRef
@@ -125,17 +80,9 @@ class TypeUtil {
 			context.newTypeRef(tokensTypeName)
 	}
 
-	public static val TOKEN_CONST_PREFIX = "ptolemy.data.type.BaseType."
-
-	def jvm2pType(JvmTypeReference type, EObject context) {
-		val simpleName = type.jvm2pTypeSimpleName
-		return TOKEN_CONST_PREFIX + (if (simpleName != null) simpleName else "Object").toUpperCase
-	}
+	public static val TYPE_PACKAGE_PREFIX = "ptolemy.data.type."
+	public static val TOKEN_CONST_PREFIX = TYPE_PACKAGE_PREFIX + "BaseType."
     
-	def jvm2pType(Typeable typed) {
-		return type(typed).jvm2pType(typed)
-	}
-	
 	//
 	
 	def isPrimitive(JvmTypeReference type) {
@@ -144,18 +91,6 @@ class TypeUtil {
 
     def objectType(JvmTypeReference type, EObject context) {
     	primitives.asWrapperTypeIfPrimitive(type)
-//    	if (isPrimitive(type)) createTypeRef(primitives.getWrapperType(type.type as JvmPrimitiveType)) else type
-//    	switch (type.qualifiedName) {
-//    		case "boolean": context.newTypeRef(typeof(Boolean))
-//    		case "char": 	context.newTypeRef(typeof(Character))
-//    		case "byte": 	context.newTypeRef(typeof(Byte))
-//    		case "short": 	context.newTypeRef(typeof(Short))
-//    		case "int": 	context.newTypeRef(typeof(Integer))
-//    		case "long": 	context.newTypeRef(typeof(Long))
-//    		case "float": 	context.newTypeRef(typeof(Float))
-//    		case "double": 	context.newTypeRef(typeof(Double))
-//    		default: type
-//    	}
     }
     
     //
@@ -183,6 +118,6 @@ class TypeUtil {
 	}
 
 	def isGeneric(JvmTypeReference typeRef) {
-		typeRef != null && TypeParameterResolvingCopier::getResult(typeRef, this).generic;
+		typeRef != null &&  (TypeParameterResolvingCopier.getCachedResult(typeRef) ?: typeParameterResolvingCopierProvider.get().copyTypeReference(typeRef)).generic;
 	}
 }

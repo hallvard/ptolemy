@@ -34,10 +34,12 @@ import org.eclipse.xtext.xbase.XFeatureCall;
 import org.eclipse.xtext.xbase.XForLoopExpression;
 import org.eclipse.xtext.xbase.XIfExpression;
 import org.eclipse.xtext.xbase.XInstanceOfExpression;
+import org.eclipse.xtext.xbase.XListLiteral;
 import org.eclipse.xtext.xbase.XMemberFeatureCall;
 import org.eclipse.xtext.xbase.XNullLiteral;
 import org.eclipse.xtext.xbase.XNumberLiteral;
 import org.eclipse.xtext.xbase.XReturnExpression;
+import org.eclipse.xtext.xbase.XSetLiteral;
 import org.eclipse.xtext.xbase.XStringLiteral;
 import org.eclipse.xtext.xbase.XSwitchExpression;
 import org.eclipse.xtext.xbase.XThrowExpression;
@@ -49,36 +51,38 @@ import org.eclipse.xtext.xbase.XWhileExpression;
 import org.eclipse.xtext.xbase.XbasePackage;
 import org.eclipse.xtext.xbase.serializer.XbaseSemanticSequencer;
 import org.eclipse.xtext.xtype.XFunctionTypeRef;
+import org.eclipse.xtext.xtype.XImportDeclaration;
+import org.eclipse.xtext.xtype.XImportSection;
 import org.eclipse.xtext.xtype.XtypePackage;
 import org.ptolemy.ecore.actor.ActorPackage;
 import org.ptolemy.ecore.actor.ActorRef;
-import org.ptolemy.ecore.actor.EntityActorImpl;
-import org.ptolemy.ecore.actor.EntityRefActorImpl;
 import org.ptolemy.ecore.actor.InjectableAttribute;
-import org.ptolemy.ecore.actor.Parameter;
+import org.ptolemy.ecore.actor.JavaActorImpl;
+import org.ptolemy.ecore.actor.JvmTypedObj;
 import org.ptolemy.ecore.actor.ParameterBinding;
 import org.ptolemy.ecore.actor.TypeParameter;
 import org.ptolemy.ecore.actor.TypedAtomicActor;
 import org.ptolemy.ecore.actor.TypedCompositeActor;
-import org.ptolemy.ecore.actor.TypedIOPort;
 import org.ptolemy.ecore.actor.Variable;
 import org.ptolemy.ecore.caltrop.ActorParameter;
 import org.ptolemy.ecore.caltrop.CaltropActorImpl;
 import org.ptolemy.ecore.caltrop.CaltropPackage;
+import org.ptolemy.ecore.caltrop.ConversionRelation;
+import org.ptolemy.ecore.caltrop.EventAction;
+import org.ptolemy.ecore.caltrop.EventPattern;
 import org.ptolemy.ecore.caltrop.ExpressionChannelSelector;
 import org.ptolemy.ecore.caltrop.FireAction;
+import org.ptolemy.ecore.caltrop.FunctionDeclaration;
 import org.ptolemy.ecore.caltrop.InputPattern;
 import org.ptolemy.ecore.caltrop.KeywordChannelSelector;
 import org.ptolemy.ecore.caltrop.OutputAction;
 import org.ptolemy.ecore.caltrop.OutputPattern;
+import org.ptolemy.ecore.caltrop.Schedule;
+import org.ptolemy.ecore.caltrop.State;
 import org.ptolemy.ecore.caltrop.StateVariable;
+import org.ptolemy.ecore.caltrop.Transition;
 import org.ptolemy.ecore.caltrop.TypedInputPort;
 import org.ptolemy.ecore.caltrop.TypedOutputPort;
-import org.ptolemy.ecore.kernel.CompositeEntity;
-import org.ptolemy.ecore.kernel.KernelPackage;
-import org.ptolemy.ecore.kernel.Port;
-import org.ptolemy.ecore.kernel.Relation;
-import org.ptolemy.ecore.xactor.ActorModel;
 import org.ptolemy.ecore.xactor.EntityFolder;
 import org.ptolemy.ecore.xactor.ImportDirective;
 import org.ptolemy.ecore.xactor.XactorPackage;
@@ -97,49 +101,28 @@ public abstract class AbstractXActorSemanticSequencer extends XbaseSemanticSeque
 					sequence_ActorRef(context, (ActorRef) semanticObject); 
 					return; 
 				}
-				else if(context == grammarAccess.getInstanceActorRefRule()) {
-					sequence_InstanceActorRef(context, (ActorRef) semanticObject); 
-					return; 
-				}
-				else break;
-			case ActorPackage.ENTITY_ACTOR_IMPL:
-				if(context == grammarAccess.getAbstractEntityActorImplRule() ||
-				   context == grammarAccess.getAtomicActorImplRule()) {
-					sequence_AbstractEntityActorImpl(context, (EntityActorImpl) semanticObject); 
-					return; 
-				}
-				else break;
-			case ActorPackage.ENTITY_REF_ACTOR_IMPL:
-				if(context == grammarAccess.getAbstractEntityActorImplRule() ||
-				   context == grammarAccess.getAtomicActorImplRule()) {
-					sequence_AbstractEntityActorImpl(context, (EntityRefActorImpl) semanticObject); 
-					return; 
-				}
 				else break;
 			case ActorPackage.INJECTABLE_ATTRIBUTE:
-				if(context == grammarAccess.getAttributeRule() ||
-				   context == grammarAccess.getInjectableAttributeRule()) {
+				if(context == grammarAccess.getInjectableAttributeRule()) {
 					sequence_InjectableAttribute(context, (InjectableAttribute) semanticObject); 
 					return; 
 				}
 				else break;
-			case ActorPackage.PARAMETER:
-				if(context == grammarAccess.getAnnotationAttributeRule()) {
-					sequence_AnnotationAttribute(context, (Parameter) semanticObject); 
+			case ActorPackage.JAVA_ACTOR_IMPL:
+				if(context == grammarAccess.getAtomicActorImplRule() ||
+				   context == grammarAccess.getJavaActorImplRule()) {
+					sequence_JavaActorImpl(context, (JavaActorImpl) semanticObject); 
 					return; 
 				}
-				else if(context == grammarAccess.getAttributeRule() ||
-				   context == grammarAccess.getVariableRule()) {
-					sequence_Variable(context, (Parameter) semanticObject); 
+				else break;
+			case ActorPackage.JVM_TYPED_OBJ:
+				if(context == grammarAccess.getFunctionParameterRule()) {
+					sequence_FunctionParameter(context, (JvmTypedObj) semanticObject); 
 					return; 
 				}
 				else break;
 			case ActorPackage.PARAMETER_BINDING:
-				if(context == grammarAccess.getInstanceParameterBindingRule()) {
-					sequence_InstanceParameterBinding(context, (ParameterBinding) semanticObject); 
-					return; 
-				}
-				else if(context == grammarAccess.getParameterBindingRule()) {
+				if(context == grammarAccess.getParameterBindingRule()) {
 					sequence_ParameterBinding(context, (ParameterBinding) semanticObject); 
 					return; 
 				}
@@ -151,15 +134,12 @@ public abstract class AbstractXActorSemanticSequencer extends XbaseSemanticSeque
 				}
 				else break;
 			case ActorPackage.TYPED_ATOMIC_ACTOR:
-				if(context == grammarAccess.getEntityRule()) {
-					sequence_Entity_TypedAtomicActor_TypedAtomicActorInstance(context, (TypedAtomicActor) semanticObject); 
-					return; 
-				}
-				else if(context == grammarAccess.getTypedAtomicActorInstanceRule()) {
+				if(context == grammarAccess.getTypedAtomicActorInstanceRule()) {
 					sequence_TypedAtomicActorInstance(context, (TypedAtomicActor) semanticObject); 
 					return; 
 				}
-				else if(context == grammarAccess.getTypedAtomicActorRule()) {
+				else if(context == grammarAccess.getEntityRule() ||
+				   context == grammarAccess.getTypedAtomicActorRule()) {
 					sequence_TypedAtomicActor(context, (TypedAtomicActor) semanticObject); 
 					return; 
 				}
@@ -171,19 +151,12 @@ public abstract class AbstractXActorSemanticSequencer extends XbaseSemanticSeque
 					return; 
 				}
 				else break;
-			case ActorPackage.TYPED_IO_PORT:
-				if(context == grammarAccess.getPortRule()) {
-					sequence_Port_TypedIOPort(context, (TypedIOPort) semanticObject); 
-					return; 
-				}
-				else if(context == grammarAccess.getTypedIOPortRule()) {
-					sequence_TypedIOPort(context, (TypedIOPort) semanticObject); 
-					return; 
-				}
-				else break;
 			case ActorPackage.VARIABLE:
-				if(context == grammarAccess.getAttributeRule() ||
-				   context == grammarAccess.getVariableRule()) {
+				if(context == grammarAccess.getAnnotationAttributeRule()) {
+					sequence_AnnotationAttribute(context, (Variable) semanticObject); 
+					return; 
+				}
+				else if(context == grammarAccess.getVariableRule()) {
 					sequence_Variable(context, (Variable) semanticObject); 
 					return; 
 				}
@@ -191,8 +164,8 @@ public abstract class AbstractXActorSemanticSequencer extends XbaseSemanticSeque
 			}
 		else if(semanticObject.eClass().getEPackage() == CaltropPackage.eINSTANCE) switch(semanticObject.eClass().getClassifierID()) {
 			case CaltropPackage.ACTOR_PARAMETER:
-				if(context == grammarAccess.getActorParameterRule()) {
-					sequence_ActorParameter(context, (ActorParameter) semanticObject); 
+				if(context == grammarAccess.getParameterRule()) {
+					sequence_Parameter(context, (ActorParameter) semanticObject); 
 					return; 
 				}
 				else break;
@@ -200,6 +173,25 @@ public abstract class AbstractXActorSemanticSequencer extends XbaseSemanticSeque
 				if(context == grammarAccess.getAtomicActorImplRule() ||
 				   context == grammarAccess.getCaltropActorImplRule()) {
 					sequence_CaltropActorImpl(context, (CaltropActorImpl) semanticObject); 
+					return; 
+				}
+				else break;
+			case CaltropPackage.CONVERSION_RELATION:
+				if(context == grammarAccess.getConversionRelationRule()) {
+					sequence_ConversionRelation(context, (ConversionRelation) semanticObject); 
+					return; 
+				}
+				else break;
+			case CaltropPackage.EVENT_ACTION:
+				if(context == grammarAccess.getEventActionRule() ||
+				   context == grammarAccess.getReActionRule()) {
+					sequence_EventAction(context, (EventAction) semanticObject); 
+					return; 
+				}
+				else break;
+			case CaltropPackage.EVENT_PATTERN:
+				if(context == grammarAccess.getEventPatternRule()) {
+					sequence_EventPattern(context, (EventPattern) semanticObject); 
 					return; 
 				}
 				else break;
@@ -211,8 +203,19 @@ public abstract class AbstractXActorSemanticSequencer extends XbaseSemanticSeque
 				}
 				else break;
 			case CaltropPackage.FIRE_ACTION:
-				if(context == grammarAccess.getFireActionRule()) {
+				if(context == grammarAccess.getFireActionRule() ||
+				   context == grammarAccess.getReActionRule()) {
 					sequence_FireAction(context, (FireAction) semanticObject); 
+					return; 
+				}
+				else break;
+			case CaltropPackage.FUNCTION_DECLARATION:
+				if(context == grammarAccess.getFunctionDeclarationRule()) {
+					sequence_FunctionDeclaration(context, (FunctionDeclaration) semanticObject); 
+					return; 
+				}
+				else if(context == grammarAccess.getProcedureDeclarationRule()) {
+					sequence_ProcedureDeclaration(context, (FunctionDeclaration) semanticObject); 
 					return; 
 				}
 				else break;
@@ -241,9 +244,27 @@ public abstract class AbstractXActorSemanticSequencer extends XbaseSemanticSeque
 					return; 
 				}
 				else break;
+			case CaltropPackage.SCHEDULE:
+				if(context == grammarAccess.getScheduleRule()) {
+					sequence_Schedule(context, (Schedule) semanticObject); 
+					return; 
+				}
+				else break;
+			case CaltropPackage.STATE:
+				if(context == grammarAccess.getStateRule()) {
+					sequence_State(context, (State) semanticObject); 
+					return; 
+				}
+				else break;
 			case CaltropPackage.STATE_VARIABLE:
 				if(context == grammarAccess.getStateVariableRule()) {
 					sequence_StateVariable(context, (StateVariable) semanticObject); 
+					return; 
+				}
+				else break;
+			case CaltropPackage.TRANSITION:
+				if(context == grammarAccess.getTransitionRule()) {
+					sequence_Transition(context, (Transition) semanticObject); 
 					return; 
 				}
 				else break;
@@ -256,31 +277,6 @@ public abstract class AbstractXActorSemanticSequencer extends XbaseSemanticSeque
 			case CaltropPackage.TYPED_OUTPUT_PORT:
 				if(context == grammarAccess.getTypedOutputPortRule()) {
 					sequence_TypedOutputPort(context, (TypedOutputPort) semanticObject); 
-					return; 
-				}
-				else break;
-			}
-		else if(semanticObject.eClass().getEPackage() == KernelPackage.eINSTANCE) switch(semanticObject.eClass().getClassifierID()) {
-			case KernelPackage.COMPOSITE_ENTITY:
-				if(context == grammarAccess.getCompositeEntityRule() ||
-				   context == grammarAccess.getEntityRule()) {
-					sequence_CompositeEntity(context, (CompositeEntity) semanticObject); 
-					return; 
-				}
-				else break;
-			case KernelPackage.PORT:
-				if(context == grammarAccess.getPlainPortRule()) {
-					sequence_PlainPort(context, (Port) semanticObject); 
-					return; 
-				}
-				else if(context == grammarAccess.getPortRule()) {
-					sequence_PlainPort_Port(context, (Port) semanticObject); 
-					return; 
-				}
-				else break;
-			case KernelPackage.RELATION:
-				if(context == grammarAccess.getRelationRule()) {
-					sequence_Relation(context, (Relation) semanticObject); 
 					return; 
 				}
 				else break;
@@ -314,8 +310,7 @@ public abstract class AbstractXActorSemanticSequencer extends XbaseSemanticSeque
 				if(context == grammarAccess.getJvmArgumentTypeReferenceRule() ||
 				   context == grammarAccess.getJvmParameterizedTypeReferenceRule() ||
 				   context == grammarAccess.getJvmTypeReferenceRule() ||
-				   context == grammarAccess.getJvmTypeReferenceAccess().getJvmGenericArrayTypeReferenceComponentTypeAction_0_1_0_0() ||
-				   context == grammarAccess.getPortTypeReferenceRule()) {
+				   context == grammarAccess.getJvmTypeReferenceAccess().getJvmGenericArrayTypeReferenceComponentTypeAction_0_1_0_0()) {
 					sequence_JvmParameterizedTypeReference(context, (JvmParameterizedTypeReference) semanticObject); 
 					return; 
 				}
@@ -345,14 +340,12 @@ public abstract class AbstractXActorSemanticSequencer extends XbaseSemanticSeque
 				else break;
 			}
 		else if(semanticObject.eClass().getEPackage() == XactorPackage.eINSTANCE) switch(semanticObject.eClass().getClassifierID()) {
-			case XactorPackage.ACTOR_MODEL:
+			case XactorPackage.ENTITY_FOLDER:
 				if(context == grammarAccess.getActorModelRule()) {
-					sequence_ActorModel(context, (ActorModel) semanticObject); 
+					sequence_ActorModel(context, (EntityFolder) semanticObject); 
 					return; 
 				}
-				else break;
-			case XactorPackage.ENTITY_FOLDER:
-				if(context == grammarAccess.getEntityFolderRule()) {
+				else if(context == grammarAccess.getEntityFolderRule()) {
 					sequence_EntityFolder(context, (EntityFolder) semanticObject); 
 					return; 
 				}
@@ -468,6 +461,10 @@ public abstract class AbstractXActorSemanticSequencer extends XbaseSemanticSeque
 				   context == grammarAccess.getXRelationalExpressionAccess().getXInstanceOfExpressionExpressionAction_1_0_0_0_0() ||
 				   context == grammarAccess.getXUnaryOperationRule()) {
 					sequence_XBlockExpression(context, (XBlockExpression) semanticObject); 
+					return; 
+				}
+				else if(context == grammarAccess.getXBodyExpressionRule()) {
+					sequence_XBodyExpression(context, (XBlockExpression) semanticObject); 
 					return; 
 				}
 				else if(context == grammarAccess.getXExpressionInClosureRule()) {
@@ -815,6 +812,44 @@ public abstract class AbstractXActorSemanticSequencer extends XbaseSemanticSeque
 					return; 
 				}
 				else break;
+			case XbasePackage.XLIST_LITERAL:
+				if(context == grammarAccess.getXAdditiveExpressionRule() ||
+				   context == grammarAccess.getXAdditiveExpressionAccess().getXBinaryOperationLeftOperandAction_1_0_0_0() ||
+				   context == grammarAccess.getXAndExpressionRule() ||
+				   context == grammarAccess.getXAndExpressionAccess().getXBinaryOperationLeftOperandAction_1_0_0_0() ||
+				   context == grammarAccess.getXAssignmentRule() ||
+				   context == grammarAccess.getXAssignmentAccess().getXBinaryOperationLeftOperandAction_1_1_0_0_0() ||
+				   context == grammarAccess.getXCastedExpressionRule() ||
+				   context == grammarAccess.getXCastedExpressionAccess().getXCastedExpressionTargetAction_1_0_0_0() ||
+				   context == grammarAccess.getXCollectionLiteralRule() ||
+				   context == grammarAccess.getXEqualityExpressionRule() ||
+				   context == grammarAccess.getXEqualityExpressionAccess().getXBinaryOperationLeftOperandAction_1_0_0_0() ||
+				   context == grammarAccess.getXExpressionRule() ||
+				   context == grammarAccess.getXExpressionInsideBlockRule() ||
+				   context == grammarAccess.getXInitExpressionRule() ||
+				   context == grammarAccess.getXListLiteralRule() ||
+				   context == grammarAccess.getXLiteralRule() ||
+				   context == grammarAccess.getXMemberFeatureCallRule() ||
+				   context == grammarAccess.getXMemberFeatureCallAccess().getXAssignmentAssignableAction_1_0_0_0_0() ||
+				   context == grammarAccess.getXMemberFeatureCallAccess().getXMemberFeatureCallMemberCallTargetAction_1_1_0_0_0() ||
+				   context == grammarAccess.getXMultiplicativeExpressionRule() ||
+				   context == grammarAccess.getXMultiplicativeExpressionAccess().getXBinaryOperationLeftOperandAction_1_0_0_0() ||
+				   context == grammarAccess.getXOrExpressionRule() ||
+				   context == grammarAccess.getXOrExpressionAccess().getXBinaryOperationLeftOperandAction_1_0_0_0() ||
+				   context == grammarAccess.getXOther2OperatorExpressionRule() ||
+				   context == grammarAccess.getXOther2OperatorExpressionAccess().getXBinaryOperationLeftOperandAction_1_0_0_0() ||
+				   context == grammarAccess.getXOtherOperatorExpressionRule() ||
+				   context == grammarAccess.getXOtherOperatorExpressionAccess().getXBinaryOperationLeftOperandAction_1_0_0_0() ||
+				   context == grammarAccess.getXParenthesizedExpressionRule() ||
+				   context == grammarAccess.getXPrimaryExpressionRule() ||
+				   context == grammarAccess.getXRelationalExpressionRule() ||
+				   context == grammarAccess.getXRelationalExpressionAccess().getXBinaryOperationLeftOperandAction_1_1_0_0_0() ||
+				   context == grammarAccess.getXRelationalExpressionAccess().getXInstanceOfExpressionExpressionAction_1_0_0_0_0() ||
+				   context == grammarAccess.getXUnaryOperationRule()) {
+					sequence_XListLiteral(context, (XListLiteral) semanticObject); 
+					return; 
+				}
+				else break;
 			case XbasePackage.XMEMBER_FEATURE_CALL:
 				if(context == grammarAccess.getXAdditiveExpressionRule() ||
 				   context == grammarAccess.getXAdditiveExpressionAccess().getXBinaryOperationLeftOperandAction_1_0_0_0() ||
@@ -957,6 +992,44 @@ public abstract class AbstractXActorSemanticSequencer extends XbaseSemanticSeque
 				   context == grammarAccess.getXReturnExpressionRule() ||
 				   context == grammarAccess.getXUnaryOperationRule()) {
 					sequence_XReturnExpression(context, (XReturnExpression) semanticObject); 
+					return; 
+				}
+				else break;
+			case XbasePackage.XSET_LITERAL:
+				if(context == grammarAccess.getXAdditiveExpressionRule() ||
+				   context == grammarAccess.getXAdditiveExpressionAccess().getXBinaryOperationLeftOperandAction_1_0_0_0() ||
+				   context == grammarAccess.getXAndExpressionRule() ||
+				   context == grammarAccess.getXAndExpressionAccess().getXBinaryOperationLeftOperandAction_1_0_0_0() ||
+				   context == grammarAccess.getXAssignmentRule() ||
+				   context == grammarAccess.getXAssignmentAccess().getXBinaryOperationLeftOperandAction_1_1_0_0_0() ||
+				   context == grammarAccess.getXCastedExpressionRule() ||
+				   context == grammarAccess.getXCastedExpressionAccess().getXCastedExpressionTargetAction_1_0_0_0() ||
+				   context == grammarAccess.getXCollectionLiteralRule() ||
+				   context == grammarAccess.getXEqualityExpressionRule() ||
+				   context == grammarAccess.getXEqualityExpressionAccess().getXBinaryOperationLeftOperandAction_1_0_0_0() ||
+				   context == grammarAccess.getXExpressionRule() ||
+				   context == grammarAccess.getXExpressionInsideBlockRule() ||
+				   context == grammarAccess.getXInitExpressionRule() ||
+				   context == grammarAccess.getXLiteralRule() ||
+				   context == grammarAccess.getXMemberFeatureCallRule() ||
+				   context == grammarAccess.getXMemberFeatureCallAccess().getXAssignmentAssignableAction_1_0_0_0_0() ||
+				   context == grammarAccess.getXMemberFeatureCallAccess().getXMemberFeatureCallMemberCallTargetAction_1_1_0_0_0() ||
+				   context == grammarAccess.getXMultiplicativeExpressionRule() ||
+				   context == grammarAccess.getXMultiplicativeExpressionAccess().getXBinaryOperationLeftOperandAction_1_0_0_0() ||
+				   context == grammarAccess.getXOrExpressionRule() ||
+				   context == grammarAccess.getXOrExpressionAccess().getXBinaryOperationLeftOperandAction_1_0_0_0() ||
+				   context == grammarAccess.getXOther2OperatorExpressionRule() ||
+				   context == grammarAccess.getXOther2OperatorExpressionAccess().getXBinaryOperationLeftOperandAction_1_0_0_0() ||
+				   context == grammarAccess.getXOtherOperatorExpressionRule() ||
+				   context == grammarAccess.getXOtherOperatorExpressionAccess().getXBinaryOperationLeftOperandAction_1_0_0_0() ||
+				   context == grammarAccess.getXParenthesizedExpressionRule() ||
+				   context == grammarAccess.getXPrimaryExpressionRule() ||
+				   context == grammarAccess.getXRelationalExpressionRule() ||
+				   context == grammarAccess.getXRelationalExpressionAccess().getXBinaryOperationLeftOperandAction_1_1_0_0_0() ||
+				   context == grammarAccess.getXRelationalExpressionAccess().getXInstanceOfExpressionExpressionAction_1_0_0_0_0() ||
+				   context == grammarAccess.getXSetLiteralRule() ||
+				   context == grammarAccess.getXUnaryOperationRule()) {
+					sequence_XSetLiteral(context, (XSetLiteral) semanticObject); 
 					return; 
 				}
 				else break;
@@ -1230,50 +1303,33 @@ public abstract class AbstractXActorSemanticSequencer extends XbaseSemanticSeque
 					return; 
 				}
 				else break;
+			case XtypePackage.XIMPORT_DECLARATION:
+				if(context == grammarAccess.getXImportDeclarationRule()) {
+					sequence_XImportDeclaration(context, (XImportDeclaration) semanticObject); 
+					return; 
+				}
+				else break;
+			case XtypePackage.XIMPORT_SECTION:
+				if(context == grammarAccess.getXImportSectionRule()) {
+					sequence_XImportSection(context, (XImportSection) semanticObject); 
+					return; 
+				}
+				else break;
 			}
 		if (errorAcceptor != null) errorAcceptor.accept(diagnosticProvider.createInvalidContextOrTypeDiagnostic(semanticObject, context));
 	}
 	
 	/**
 	 * Constraint:
-	 *     entity=Entity
-	 */
-	protected void sequence_AbstractEntityActorImpl(EObject context, EntityActorImpl semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
-	}
-	
-	
-	/**
-	 * Constraint:
-	 *     ref=[Entity|QualifiedName]
-	 */
-	protected void sequence_AbstractEntityActorImpl(EObject context, EntityRefActorImpl semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
-	}
-	
-	
-	/**
-	 * Constraint:
 	 *     (
 	 *         name=QualifiedName 
 	 *         displayName=STRING? 
-	 *         imports+=ImportDirective* 
-	 *         attributes+=Attribute* 
-	 *         entityContainers+=EntityFolder* 
-	 *         entities+=Entity* 
-	 *         relations+=Relation*
+	 *         imports+=XImportSection? 
+	 *         attributes+=InjectableAttribute* 
+	 *         (entityContainers+=EntityFolder | entities+=Entity)*
 	 *     )
 	 */
-	protected void sequence_ActorModel(EObject context, ActorModel semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
-	}
-	
-	
-	/**
-	 * Constraint:
-	 *     (type=JvmTypeReference name=ValidID displayName=STRING? valueExpression=XInitExpression?)
-	 */
-	protected void sequence_ActorParameter(EObject context, ActorParameter semanticObject) {
+	protected void sequence_ActorModel(EObject context, EntityFolder semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	
@@ -1293,16 +1349,19 @@ public abstract class AbstractXActorSemanticSequencer extends XbaseSemanticSeque
 	
 	/**
 	 * Constraint:
-	 *     (type=PortTypeReference? name=ValidID valueExpression=XInitExpression)
+	 *     (type=JvmParameterizedTypeReference? name=ValidID valueExpression=XInitExpression)
 	 */
-	protected void sequence_AnnotationAttribute(EObject context, Parameter semanticObject) {
+	protected void sequence_AnnotationAttribute(EObject context, Variable semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	
 	
 	/**
 	 * Constraint:
-	 *     (declarations+=StateVariable* ((initActions+=InitAction+ actions+=FireAction*) | actions+=FireAction+))
+	 *     (
+	 *         (declarations+=StateVariable | initActions+=InitAction | actions+=ReAction | functions+=FunctionDeclaration | functions+=ProcedureDeclaration)* 
+	 *         schedule=Schedule?
+	 *     )
 	 */
 	protected void sequence_CaltropActorImpl(EObject context, CaltropActorImpl semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -1314,31 +1373,13 @@ public abstract class AbstractXActorSemanticSequencer extends XbaseSemanticSeque
 	 *     (
 	 *         name=ValidID 
 	 *         displayName=STRING? 
-	 *         superEntity=ActorRef? 
-	 *         ports+=Port* 
-	 *         attributes+=Attribute* 
-	 *         entities+=Entity* 
-	 *         relations+=Relation*
-	 *     )
-	 */
-	protected void sequence_CompositeEntity(EObject context, CompositeEntity semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
-	}
-	
-	
-	/**
-	 * Constraint:
-	 *     (
-	 *         name=ValidID 
-	 *         displayName=STRING? 
 	 *         (typeParameters+=TypeParameter typeParameters+=TypeParameter*)? 
-	 *         (attributes+=ActorParameter attributes+=ActorParameter*)? 
+	 *         (attributes+=Parameter attributes+=Parameter*)? 
 	 *         ((ports+=TypedInputPort ports+=TypedInputPort*)? (ports+=TypedOutputPort ports+=TypedOutputPort*)?)? 
-	 *         superEntity=ActorRef? 
-	 *         ports+=Port* 
-	 *         attributes+=Attribute* 
-	 *         entities+=Entity* 
-	 *         relations+=Relation*
+	 *         attributes+=InjectableAttribute* 
+	 *         attributes+=Variable* 
+	 *         entities+=TypedAtomicActorInstance* 
+	 *         relations+=ConversionRelation*
 	 *     )
 	 */
 	protected void sequence_CompositeEntity(EObject context, TypedCompositeActor semanticObject) {
@@ -1348,7 +1389,23 @@ public abstract class AbstractXActorSemanticSequencer extends XbaseSemanticSeque
 	
 	/**
 	 * Constraint:
-	 *     (name=ValidID displayName=STRING? attributes+=Attribute* (entities+=Entity | entityContainers+=EntityFolder)*)
+	 *     (
+	 *         sourcePort=[Port|RPID] 
+	 *         (
+	 *             (targetPorts+=[Port|RPID] targetPorts+=[Port|RPID]*) | 
+	 *             (valueVar=ValidID? conversionExpression=XExpression? guardExpression=XExpression? targetPorts+=[Port|RPID])
+	 *         ) 
+	 *         (name=ValidID displayName=STRING?)?
+	 *     )
+	 */
+	protected void sequence_ConversionRelation(EObject context, ConversionRelation semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     (name=QualifiedName displayName=STRING? attributes+=InjectableAttribute* (entityContainers+=EntityFolder | entities+=Entity)*)
 	 */
 	protected void sequence_EntityFolder(EObject context, EntityFolder semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -1358,21 +1415,32 @@ public abstract class AbstractXActorSemanticSequencer extends XbaseSemanticSeque
 	/**
 	 * Constraint:
 	 *     (
-	 *         (
-	 *             name=ValidID 
-	 *             displayName=STRING? 
-	 *             (typeParameters+=TypeParameter typeParameters+=TypeParameter*)? 
-	 *             (attributes+=ActorParameter attributes+=ActorParameter*)? 
-	 *             ((ports+=TypedInputPort ports+=TypedInputPort*)? (ports+=TypedOutputPort ports+=TypedOutputPort*)?)? 
-	 *             superEntity=ActorRef? 
-	 *             ports+=Port* 
-	 *             attributes+=Attribute* 
-	 *             impl=AtomicActorImpl?
-	 *         ) | 
-	 *         (name=ValidID displayName=STRING? superEntity=InstanceActorRef)
+	 *         name=QualifiedName? 
+	 *         (eventPatterns+=EventPattern eventPatterns+=EventPattern*)? 
+	 *         (outputPatterns+=OutputPattern outputPatterns+=OutputPattern*)? 
+	 *         guardExpression=XExpression? 
+	 *         bodyExpression=XBodyExpression? 
+	 *         updateExpression=XBodyExpression?
 	 *     )
 	 */
-	protected void sequence_Entity_TypedAtomicActor_TypedAtomicActorInstance(EObject context, TypedAtomicActor semanticObject) {
+	protected void sequence_EventAction(EObject context, EventAction semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     (
+	 *         varRef=[StateVariable|ValidID] 
+	 *         property?='.'? 
+	 *         (name=ValidID | name=STRING) 
+	 *         (qualifier=ValidID | qualifier=STRING)? 
+	 *         (variables+=ValidID variables+=ValidID*)? 
+	 *         timeExpression=XExpression? 
+	 *         guardExpression=XExpression?
+	 *     )
+	 */
+	protected void sequence_EventPattern(EObject context, EventPattern semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	
@@ -1389,11 +1457,13 @@ public abstract class AbstractXActorSemanticSequencer extends XbaseSemanticSeque
 	/**
 	 * Constraint:
 	 *     (
-	 *         name=ValidID? 
+	 *         name=QualifiedName? 
 	 *         (inputPatterns+=InputPattern inputPatterns+=InputPattern*)? 
 	 *         (outputPatterns+=OutputPattern outputPatterns+=OutputPattern*)? 
 	 *         guardExpression=XExpression? 
-	 *         bodyExpression=XExpression?
+	 *         delayExpression=XExpression? 
+	 *         bodyExpression=XBodyExpression? 
+	 *         updateExpression=XBodyExpression?
 	 *     )
 	 */
 	protected void sequence_FireAction(EObject context, FireAction semanticObject) {
@@ -1403,7 +1473,25 @@ public abstract class AbstractXActorSemanticSequencer extends XbaseSemanticSeque
 	
 	/**
 	 * Constraint:
-	 *     importedNamespace=QualifiedNameWithWildcard
+	 *     (name=ValidID (parameters+=FunctionParameter parameters+=FunctionParameter*)? type=JvmTypeReference bodyExpression=XBodyExpression)
+	 */
+	protected void sequence_FunctionDeclaration(EObject context, FunctionDeclaration semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     (type=JvmTypeReference name=ValidID)
+	 */
+	protected void sequence_FunctionParameter(EObject context, JvmTypedObj semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     importedNamespace=QualifiedNameWithOptionalWildcard
 	 */
 	protected void sequence_ImportDirective(EObject context, ImportDirective semanticObject) {
 		if(errorAcceptor != null) {
@@ -1412,14 +1500,14 @@ public abstract class AbstractXActorSemanticSequencer extends XbaseSemanticSeque
 		}
 		INodesForEObjectProvider nodes = createNodeProvider(semanticObject);
 		SequenceFeeder feeder = createSequencerFeeder(semanticObject, nodes);
-		feeder.accept(grammarAccess.getImportDirectiveAccess().getImportedNamespaceQualifiedNameWithWildcardParserRuleCall_1_0(), semanticObject.getImportedNamespace());
+		feeder.accept(grammarAccess.getImportDirectiveAccess().getImportedNamespaceQualifiedNameWithOptionalWildcardParserRuleCall_1_0(), semanticObject.getImportedNamespace());
 		feeder.finish();
 	}
 	
 	
 	/**
 	 * Constraint:
-	 *     (name=ValidID? (outputPatterns+=OutputPattern outputPatterns+=OutputPattern*)? guardExpression=XExpression? bodyExpression=XExpression?)
+	 *     (name=ValidID? (outputPatterns+=OutputPattern outputPatterns+=OutputPattern*)? guardExpression=XExpression? bodyExpression=XBodyExpression?)
 	 */
 	protected void sequence_InitAction(EObject context, OutputAction semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -1428,7 +1516,7 @@ public abstract class AbstractXActorSemanticSequencer extends XbaseSemanticSeque
 	
 	/**
 	 * Constraint:
-	 *     (type=JvmTypeReference name=ValidID displayName=STRING?)
+	 *     (type=JvmTypeReference name=ValidID displayName=STRING? attributes+=AnnotationAttribute*)
 	 */
 	protected void sequence_InjectableAttribute(EObject context, InjectableAttribute semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -1437,7 +1525,13 @@ public abstract class AbstractXActorSemanticSequencer extends XbaseSemanticSeque
 	
 	/**
 	 * Constraint:
-	 *     (portRef=[Port|LID]? (variables+=ValidID variables+=ValidID*)? repeatExpression=XExpression? channels=ChannelSelector?)
+	 *     (
+	 *         portRef=[Port|ValidID]? 
+	 *         (variables+=ValidID variables+=ValidID*)? 
+	 *         repeatExpression=XExpression? 
+	 *         channels=ChannelSelector? 
+	 *         guardExpression=XExpression?
+	 *     )
 	 */
 	protected void sequence_InputPattern(EObject context, InputPattern semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -1446,18 +1540,9 @@ public abstract class AbstractXActorSemanticSequencer extends XbaseSemanticSeque
 	
 	/**
 	 * Constraint:
-	 *     (ref=[Entity|QualifiedName] (parameterBindings+=InstanceParameterBinding parameterBindings+=InstanceParameterBinding*)?)
+	 *     type=JvmParameterizedTypeReference
 	 */
-	protected void sequence_InstanceActorRef(EObject context, ActorRef semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
-	}
-	
-	
-	/**
-	 * Constraint:
-	 *     (parameterRef=[Parameter|ValidID]? (valueExpression=XBooleanLiteral | valueExpression=XNumberLiteral | valueExpression=XStringLiteral))
-	 */
-	protected void sequence_InstanceParameterBinding(EObject context, ParameterBinding semanticObject) {
+	protected void sequence_JavaActorImpl(EObject context, JavaActorImpl semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	
@@ -1480,7 +1565,13 @@ public abstract class AbstractXActorSemanticSequencer extends XbaseSemanticSeque
 	
 	/**
 	 * Constraint:
-	 *     (portRef=[Port|LID]? (valueExpressions+=XExpression valueExpressions+=XExpression*)? repeatExpression=XExpression? channels=ChannelSelector?)
+	 *     (
+	 *         portRef=[Port|ValidID]? 
+	 *         (valueExpressions+=XExpression valueExpressions+=XExpression*)? 
+	 *         repeatExpression=XExpression? 
+	 *         channels=ChannelSelector? 
+	 *         guardExpression=XExpression?
+	 *     )
 	 */
 	protected void sequence_OutputPattern(EObject context, OutputPattern semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -1498,51 +1589,34 @@ public abstract class AbstractXActorSemanticSequencer extends XbaseSemanticSeque
 	
 	/**
 	 * Constraint:
-	 *     (name=ValidID displayName=STRING?)
+	 *     (type=JvmTypeReference name=ValidID displayName=STRING? valueExpression=XInitExpression?)
 	 */
-	protected void sequence_PlainPort(EObject context, Port semanticObject) {
+	protected void sequence_Parameter(EObject context, ActorParameter semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	
 	
 	/**
 	 * Constraint:
-	 *     (name=ValidID displayName=STRING? attributes+=AnnotationAttribute*)
+	 *     (name=ValidID (parameters+=FunctionParameter parameters+=FunctionParameter*)? bodyExpression=XBodyExpression)
 	 */
-	protected void sequence_PlainPort_Port(EObject context, Port semanticObject) {
+	protected void sequence_ProcedureDeclaration(EObject context, FunctionDeclaration semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	
 	
 	/**
 	 * Constraint:
-	 *     (
-	 *         ioKind=IOPortKind 
-	 *         type=PortTypeReference 
-	 *         rate=INT? 
-	 *         multiport?='*'? 
-	 *         name=ValidID 
-	 *         displayName=STRING? 
-	 *         attributes+=AnnotationAttribute*
-	 *     )
+	 *     (initial=[State|ID] states+=State+)
 	 */
-	protected void sequence_Port_TypedIOPort(EObject context, TypedIOPort semanticObject) {
+	protected void sequence_Schedule(EObject context, Schedule semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	
 	
 	/**
 	 * Constraint:
-	 *     (sourcePort=[Port|RPID] targetPorts+=[Port|RPID] targetPorts+=[Port|RPID]* (name=ValidID displayName=STRING?)?)
-	 */
-	protected void sequence_Relation(EObject context, Relation semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
-	}
-	
-	
-	/**
-	 * Constraint:
-	 *     (constant?='val'? type=JvmTypeReference name=ValidID valueExpression=XInitExpression?)
+	 *     (attributes+=AnnotationAttribute* constant?='val'? type=JvmTypeReference name=ValidID valueExpression=XInitExpression?)
 	 */
 	protected void sequence_StateVariable(EObject context, StateVariable semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -1551,7 +1625,25 @@ public abstract class AbstractXActorSemanticSequencer extends XbaseSemanticSeque
 	
 	/**
 	 * Constraint:
-	 *     (name=ID type=JvmTypeReference?)
+	 *     (name=ValidID (transitions+=Transition transitions+=Transition*)?)
+	 */
+	protected void sequence_State(EObject context, State semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     (tags+=QualifiedName tags+=QualifiedName* target=[State|ValidID])
+	 */
+	protected void sequence_Transition(EObject context, Transition semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     (name=ValidID type=JvmTypeReference?)
 	 */
 	protected void sequence_TypeParameter(EObject context, TypeParameter semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -1560,7 +1652,19 @@ public abstract class AbstractXActorSemanticSequencer extends XbaseSemanticSeque
 	
 	/**
 	 * Constraint:
-	 *     (name=ValidID displayName=STRING? superEntity=InstanceActorRef)
+	 *     (
+	 *         name=ValidID 
+	 *         displayName=STRING? 
+	 *         (
+	 *             superEntity=ActorRef | 
+	 *             (
+	 *                 ((ports+=TypedInputPort ports+=TypedInputPort*)? (ports+=TypedOutputPort ports+=TypedOutputPort*)?)? 
+	 *                 superEntity=ActorRef? 
+	 *                 attributes+=InjectableAttribute* 
+	 *                 impl=AtomicActorImpl
+	 *             )
+	 *         )
+	 *     )
 	 */
 	protected void sequence_TypedAtomicActorInstance(EObject context, TypedAtomicActor semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -1573,11 +1677,10 @@ public abstract class AbstractXActorSemanticSequencer extends XbaseSemanticSeque
 	 *         name=ValidID 
 	 *         displayName=STRING? 
 	 *         (typeParameters+=TypeParameter typeParameters+=TypeParameter*)? 
-	 *         (attributes+=ActorParameter attributes+=ActorParameter*)? 
+	 *         (attributes+=Parameter attributes+=Parameter*)? 
 	 *         ((ports+=TypedInputPort ports+=TypedInputPort*)? (ports+=TypedOutputPort ports+=TypedOutputPort*)?)? 
 	 *         superEntity=ActorRef? 
-	 *         ports+=Port* 
-	 *         attributes+=Attribute* 
+	 *         attributes+=InjectableAttribute* 
 	 *         impl=AtomicActorImpl?
 	 *     )
 	 */
@@ -1589,23 +1692,7 @@ public abstract class AbstractXActorSemanticSequencer extends XbaseSemanticSeque
 	/**
 	 * Constraint:
 	 *     (
-	 *         ioKind=IOPortKind 
-	 *         type=PortTypeReference 
-	 *         rate=INT? 
-	 *         multiport?='*'? 
-	 *         name=ValidID 
-	 *         displayName=STRING?
-	 *     )
-	 */
-	protected void sequence_TypedIOPort(EObject context, TypedIOPort semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
-	}
-	
-	
-	/**
-	 * Constraint:
-	 *     (
-	 *         type=PortTypeReference 
+	 *         type=JvmParameterizedTypeReference 
 	 *         rate=INT? 
 	 *         multiport?='*'? 
 	 *         name=ValidID 
@@ -1621,7 +1708,7 @@ public abstract class AbstractXActorSemanticSequencer extends XbaseSemanticSeque
 	/**
 	 * Constraint:
 	 *     (
-	 *         type=PortTypeReference 
+	 *         type=JvmParameterizedTypeReference 
 	 *         rate=INT? 
 	 *         multiport?='*'? 
 	 *         name=ValidID 
@@ -1630,15 +1717,6 @@ public abstract class AbstractXActorSemanticSequencer extends XbaseSemanticSeque
 	 *     )
 	 */
 	protected void sequence_TypedOutputPort(EObject context, TypedOutputPort semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
-	}
-	
-	
-	/**
-	 * Constraint:
-	 *     (type=JvmTypeReference name=ValidID displayName=STRING? valueExpression=XInitExpression?)
-	 */
-	protected void sequence_Variable(EObject context, Parameter semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	
@@ -1667,6 +1745,27 @@ public abstract class AbstractXActorSemanticSequencer extends XbaseSemanticSeque
 	 *     )
 	 */
 	protected void sequence_XAdditiveExpression_XAndExpression_XAssignment_XEqualityExpression_XMultiplicativeExpression_XOrExpression_XOther2OperatorExpression_XOtherOperatorExpression_XRelationalExpression(EObject context, XBinaryOperation semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     (expressions+=XExpressionInsideBlock*)
+	 */
+	protected void sequence_XBodyExpression(EObject context, XBlockExpression semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     (
+	 *         ((declaredFormalParameters+=JvmFormalParameter declaredFormalParameters+=JvmFormalParameter*)? explicitSyntax?='|')? 
+	 *         expression=XExpressionInClosure
+	 *     )
+	 */
+	protected void sequence_XClosure(EObject context, XClosure semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	

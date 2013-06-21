@@ -3,6 +3,7 @@ package org.ptolemy.xtext.generator;
 import java.util.regex.Pattern;
 
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.xtext.common.types.JvmType;
 import org.eclipse.xtext.common.types.JvmTypeReference;
 import org.eclipse.xtext.xbase.XExpression;
 import org.eclipse.xtext.xbase.compiler.TypeReferenceSerializer;
@@ -13,6 +14,7 @@ import org.eclipse.xtext.xbase.lib.Pair;
 
 import com.google.inject.Inject;
 
+@SuppressWarnings("restriction")
 public class TreeAppendableUtil {
 
 	@Inject private XbaseCompiler xbaseCompiler;
@@ -75,7 +77,11 @@ public class TreeAppendableUtil {
 	}
 
 	public ITreeAppendable operator_doubleLessThan(ITreeAppendable appendable, XExpression expression) {
-		xbaseCompiler.toJavaExpression(expression, appendable);
+		try {
+			xbaseCompiler.toJavaExpression(expression, appendable);
+		} catch (RuntimeException e) {
+			appendable.append("<<" + e + ">>");
+		}
 		return appendable;
 	}
 	public Pair<ITreeAppendable,? extends EObject> operator_doubleLessThan(Pair<ITreeAppendable,? extends EObject> appendable, XExpression expression) {
@@ -83,8 +89,25 @@ public class TreeAppendableUtil {
 		return appendable;
 	}
 
+	public ITreeAppendable operator_doubleLessThan(ITreeAppendable appendable, JvmType type) {
+		try {
+			appendable.append(type);
+		} catch (RuntimeException e) {
+			appendable.append("<<" + e + ">>");
+		}
+		return appendable;
+	}
+	public Pair<ITreeAppendable,? extends EObject> operator_doubleLessThan(Pair<ITreeAppendable,? extends EObject> appendable, JvmType type) {
+		operator_doubleLessThan(appendable.getKey(), type);
+		return appendable;
+	}
+
 	public Pair<ITreeAppendable,? extends EObject> operator_doubleLessThan(Pair<ITreeAppendable,? extends EObject> appendable, JvmTypeReference type) {
-		typeReferenceSerializer.serialize(type, appendable.getValue(), appendable.getKey());
+		try {
+			typeReferenceSerializer.serialize(type, appendable.getValue(), appendable.getKey());
+		} catch (RuntimeException e) {
+			appendable.getKey().append("<<" + e + ">>");
+		}
 		return appendable;
 	}
 	public Pair<ITreeAppendable,? extends EObject> operator_doubleLessThan(Pair<ITreeAppendable,? extends EObject> appendable, Class<?> c) {

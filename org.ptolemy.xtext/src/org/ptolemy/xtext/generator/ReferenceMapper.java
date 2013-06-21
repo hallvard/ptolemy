@@ -17,7 +17,7 @@ public class ReferenceMapper extends EcoreUtil.Copier {
 	public EObject get(Object key) {
 		if (c.isInstance(key)) {
 			EObject wrapped = WrappingAdapter.getWrapped((EObject) key, JvmTypeParameter.class);
-			if (wrapped!= null) {
+			if (wrapped != null) {
 				return wrapped;
 			}
 			return (EObject) key;

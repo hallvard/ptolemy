@@ -1,139 +1,218 @@
 package org.ptolemy.xtext.jvmmodel
 
 import com.google.inject.Inject
-import java.util.Collection
-import org.eclipse.emf.ecore.EObject
-import org.eclipse.xtext.common.types.JvmTypeReference
-import org.eclipse.xtext.naming.IQualifiedNameProvider
-import org.eclipse.xtext.xbase.jvmmodel.AbstractModelInferrer
-import org.eclipse.xtext.xbase.jvmmodel.IJvmDeclaredTypeAcceptor
-import org.eclipse.xtext.xbase.jvmmodel.JvmTypesBuilder
-import org.ptolemy.ecore.actor.JvmTypedObj
-import org.ptolemy.ecore.actor.TypedAtomicActor
-import org.ptolemy.ecore.kernel.ComponentEntity
-import org.ptolemy.ecore.kernel.Entity
-import org.ptolemy.ecore.kernel.Port
-import org.ptolemy.ecore.caltrop.CaltropActorImpl
-import org.eclipse.xtext.common.types.JvmGenericType
 import java.util.ArrayList
-import org.ptolemy.ecore.actor.Variable
-import org.eclipse.xtext.common.types.JvmDeclaredType
-import org.eclipse.xtext.common.types.JvmOperation
-import org.ptolemy.ecore.caltrop.FireAction
-import org.eclipse.xtext.xbase.jvmmodel.IJvmModelAssociator
-import org.ptolemy.xtext.generator.XActorGenerator
-import org.eclipse.xtext.common.types.JvmExecutable
-import org.eclipse.xtext.xbase.compiler.output.ITreeAppendable
-import org.ptolemy.ecore.actor.AbstractIOPort
-import org.ptolemy.ecore.actor.AbstractEntityActorImpl
-import org.ptolemy.xtext.generator.ActionPatternHelper
-import org.ptolemy.xtext.generator.TypeUtil
-import org.ptolemy.ecore.caltrop.PortPattern
-import org.eclipse.xtext.common.types.JvmIdentifiableElement
-import org.ptolemy.ecore.caltrop.OutputPattern
-import org.ptolemy.ecore.caltrop.TypedInputPort
-import org.ptolemy.ecore.caltrop.TypedOutputPort
-import org.ptolemy.xtext.generator.TreeAppendableUtil
-import org.eclipse.xtext.common.types.JvmFormalParameter
-import org.ptolemy.ecore.caltrop.ActorParameter
-import org.ptolemy.ecore.caltrop.ExpressionChannelSelector
+import java.util.Collection
+import org.eclipse.emf.common.util.EList
+import org.eclipse.emf.ecore.EObject
 import org.eclipse.emf.ecore.util.EcoreUtil
-import org.ptolemy.ecore.actor.Typeable
-import org.ptolemy.ecore.actor.AbstractTypedIOPort
-import org.eclipse.xtext.EcoreUtil2
-import org.eclipse.xtext.common.types.JvmVisibility
-import org.eclipse.xtext.common.types.JvmTypeParameter
-import org.eclipse.xtext.common.types.TypesFactory
+import org.eclipse.xtext.common.types.JvmDeclaredType
+import org.eclipse.xtext.common.types.JvmExecutable
+import org.eclipse.xtext.common.types.JvmGenericType
+import org.eclipse.xtext.common.types.JvmIdentifiableElement
+import org.eclipse.xtext.common.types.JvmOperation
 import org.eclipse.xtext.common.types.JvmParameterizedTypeReference
+import org.eclipse.xtext.common.types.JvmTypeParameter
+import org.eclipse.xtext.common.types.JvmTypeReference
+import org.eclipse.xtext.common.types.JvmVisibility
+import org.eclipse.xtext.common.types.TypesFactory
+import org.eclipse.xtext.common.types.util.TypeReferences
+import org.eclipse.xtext.naming.IQualifiedNameProvider
+import org.eclipse.xtext.naming.QualifiedName
+import org.eclipse.xtext.xbase.XBlockExpression
 import org.eclipse.xtext.xbase.XExpression
 import org.eclipse.xtext.xbase.XVariableDeclaration
-import org.eclipse.xtext.xbase.XBlockExpression
+import org.eclipse.xtext.xbase.compiler.output.ITreeAppendable
+import org.eclipse.xtext.xbase.jvmmodel.AbstractModelInferrer
+import org.eclipse.xtext.xbase.jvmmodel.IJvmDeclaredTypeAcceptor
+import org.eclipse.xtext.xbase.jvmmodel.IJvmModelAssociator
+import org.eclipse.xtext.xbase.jvmmodel.JvmTypesBuilder
+import org.ptolemy.ecore.actor.AbstractIOPort
+import org.ptolemy.ecore.actor.AbstractTypedIOPort
+import org.ptolemy.ecore.actor.ActorRef
+import org.ptolemy.ecore.actor.AtomicActor
+import org.ptolemy.ecore.actor.AtomicActorImpl
+import org.ptolemy.ecore.actor.InjectableAttribute
+import org.ptolemy.ecore.actor.JvmTypedAttribute
+import org.ptolemy.ecore.actor.JvmTypedObj
+import org.ptolemy.ecore.actor.TypeParameterized
+import org.ptolemy.ecore.actor.Typeable
+import org.ptolemy.ecore.actor.TypedAtomicActor
+import org.ptolemy.ecore.actor.Variable
+import org.ptolemy.ecore.caltrop.ActionPattern
+import org.ptolemy.ecore.caltrop.CaltropActorImpl
+import org.ptolemy.ecore.caltrop.EventAction
+import org.ptolemy.ecore.caltrop.EventPattern
+import org.ptolemy.ecore.caltrop.ExpressionChannelSelector
+import org.ptolemy.ecore.caltrop.FireAction
+import org.ptolemy.ecore.caltrop.InputPattern
+import org.ptolemy.ecore.caltrop.OutputAction
+import org.ptolemy.ecore.caltrop.OutputPattern
+import org.ptolemy.ecore.caltrop.PortPattern
+import org.ptolemy.ecore.caltrop.ReAction
+import org.ptolemy.ecore.kernel.Attribute
+import org.ptolemy.ecore.kernel.ComponentEntity
+import org.ptolemy.ecore.kernel.Entity
 import org.ptolemy.ecore.kernel.EntityContainer
 import org.ptolemy.ecore.kernel.IEntity
 import org.ptolemy.ecore.kernel.Nameable
-import org.ptolemy.ecore.xactor.EntityFolder
-import org.ptolemy.ecore.caltrop.OutputAction
-import org.eclipse.emf.common.util.EList
-import org.ptolemy.ecore.actor.ActorRef
-import org.ptolemy.ecore.kernel.Attribute
-import org.ptolemy.ecore.actor.AtomicActor
-import org.ptolemy.ecore.actor.TypeParameterized
-import org.eclipse.xtext.xbase.jvmmodel.IJvmModelAssociations
+import org.ptolemy.ecore.kernel.Port
+import org.ptolemy.xtext.generator.ActionPatternHelper
+import org.ptolemy.xtext.generator.TreeAppendableUtil
+import org.ptolemy.xtext.generator.TypeUtil
 import org.ptolemy.xtext.generator.WrappingAdapter
-import org.eclipse.xtext.common.types.util.TypeReferences
-import org.ptolemy.ecore.actor.TypeParameterized
+import org.ptolemy.xtext.generator.XActorGenerator
 import org.ptolemy.xtext.validation.XActorJavaValidator
+import org.ptolemy.ecore.caltrop.ConversionRelation
+import org.ptolemy.ecore.kernel.Relation
+import org.ptolemy.ecore.kernel.Named
+import org.ptolemy.ecore.kernel.CompositeEntity
 
 class XActorJvmModelInferrer extends AbstractModelInferrer {
 	
-    @Inject extension TypeReferences
     @Inject extension TypesFactory
+    @Inject extension TypeReferences
     @Inject extension JvmTypesBuilder
 	@Inject extension IQualifiedNameProvider
 	@Inject extension IJvmModelAssociator
 	@Inject extension TypeUtil
 
-//	def Iterable<Entity> topologicalSortEntities(Iterable<Entity<? extends Port>> entities) {
-//		val sourceEntities = entities.filter[! allPorts.exists[! sourcePorts.empty]]
-//		val result = new ArrayList<Entity>()
-//		if (! sourceEntities.empty) {
-//			for (sourceEntity : sourceEntities) {
-//				topologicalSortEntities(sourceEntity, result)
-//			}
-//		} else if (! entities.empty) {
-//			topologicalSortEntities(entities.head, result)
-//		}
-//		return result
-//	}
-//
-//	def private topologicalSortEntities(Entity entity, Collection<Entity> result) {
-//		if (! result.contains(entity)) {
-//			result += entity
-//			for (targetEntity : entity.targetEntities) {
-//				topologicalSortEntities(targetEntity, result)
-//			}
-//		}
-//	}
-
-    def dispatch void infer(EntityFolder entityFolder, IJvmDeclaredTypeAcceptor acceptor, boolean isPrelinkingPhase) {
-    	_infer(entityFolder as EntityContainer, acceptor, isPrelinkingPhase)
-		entityFolder.entityContainers.forEach[infer(it, acceptor, isPrelinkingPhase)]
-    }
-
-    def dispatch void infer(EntityContainer entityContainer, IJvmDeclaredTypeAcceptor acceptor, boolean isPrelinkingPhase) {
-    	val entities = entityContainer.entities
-    	if (! entities.empty) {
-//    		val sortedEntities = entities.topologicalSortEntities
-	    	entities.forEach[infer(it, acceptor, isPrelinkingPhase)]
-	    	val actorClass = entityContainer.toActorClass(isPrelinkingPhase)
-	    	if (actorClass == null) {
-	    		return
-	    	}
-	    	if (! isPrelinkingPhase) {
-	    		entityContainer.addEntityContainerMembers(actorClass)
-	    	}
-	    	acceptor.accept(actorClass)
+    def dispatch void infer(IEntity<?> entity, IJvmDeclaredTypeAcceptor acceptor, boolean isPrelinkingPhase) {
+    	val Collection<IEntity<?>> entities = new EntitySorter(entity).sort();
+    	for (IEntity<?> entity2 : entities) {
+    		inferActorClass(entity2, acceptor, isPrelinkingPhase)
     	}
     }
-    
-	def addEntityContainerMembers(EntityContainer container, JvmGenericType actorClass) {
-		for (entity : container.entities) {
-			val entityTypeRef = container.newTypeRef(entity.toQualifiedClassName)
-			entity.toField(entity.name, entityTypeRef)			
-		   	actorClass.members += entity.toMethod(entity.methodName("create%sEntity"), entityTypeRef) [
-				addPtExceptions(entity, true)
-		   		body = [
-		   			generateCreateEntityMethodBody(entity, "port", entityTypeRef, false, it)
-		   		]
-		   	]
+
+    def dispatch void inferActorClass(IEntity<?> entity, IJvmDeclaredTypeAcceptor acceptor, boolean isPrelinkingPhase) {
+    }
+
+	def boolean isConversionRelation(Relation relation) {
+		relation instanceof ConversionRelation && (relation as ConversionRelation).conversionExpression != null
+	}
+
+    def dispatch void inferActorClass(CompositeEntity<? extends Port> entityContainer, IJvmDeclaredTypeAcceptor acceptor, boolean isPrelinkingPhase) {
+		for (relation : entityContainer.relations) {
+			if (relation.isConversionRelation) {
+				val relationClass = inferSyntheticConversionRelationActor(relation as ConversionRelation, acceptor, isPrelinkingPhase)
+				if (relationClass != null) {
+					acceptor.accept(relationClass)
+				}
+			}
 		}
-		val relationTypeRef = container.newTypeRef("ptolemy.kernel.Relation")
+    	val actorClass = entityContainer.toActorClass(isPrelinkingPhase)
+    	if (actorClass == null) {
+    		return
+    	}
+    	acceptor.accept(actorClass)
+    }
+
+	def entityTypeRef(String qName, EObject context, JvmTypeReference... typeArguments) {
+		var entityTypeRef = context.newTypeRef(qName, typeArguments)
+		if (entityTypeRef != null && entityTypeRef.type != null) {
+			return entityTypeRef
+		}
+		if (context.eResource != null) {
+			for (type : context.eResource.contents.filter(JvmDeclaredType)) {
+				if (qName.equals(type.qualifiedName)) {
+					return newTypeRef(type)
+				}							
+			}
+		}
+		null
+	}
+    
+	def addEntityContainerMembers(EntityContainer<?> container, JvmGenericType actorClass) {
+		for (entity : container.entities) {
+			val qName = entity.toQualifiedClassName
+			if (qName != null) {
+				val entityTypeRef = entityTypeRef(qName, container)
+				actorClass.members += entity.toField(entity.name, entityTypeRef)			
+			   	actorClass.members += entity.toMethod(entity.methodName("_create%sEntity"), entityTypeRef) [
+			   		visibility = JvmVisibility::PROTECTED
+					addPtExceptions(entity, true)
+			   		body = [
+			   			generateCreateEntityMethodBody(entity, null, null, entityTypeRef, it)
+			   		]
+			   	]
+			}
+		}
 		for (relation : container.relations) {
-			relation.toField(relation.name, relationTypeRef)
+			if (relation.isConversionRelation) {
+				val conversionRelationTypeRef = entityTypeRef(relation.toQualifiedClassName, container)
+				val name = relation.indexedFeatureName
+				actorClass.members += relation.toField(name, conversionRelationTypeRef)
+			   	actorClass.members += relation.toMethod('''_create«name.toFirstUpper»Entity''', conversionRelationTypeRef) [
+			   		visibility = JvmVisibility::PROTECTED
+					addPtExceptions(relation, true)
+			   		body = [
+			   			generateCreateEntityMethodBody(relation, name, null, conversionRelationTypeRef, it)
+			   		]
+			   	]
+			}
 		}
 	}
 
-    def dispatch void infer(TypedAtomicActor actor, IJvmDeclaredTypeAcceptor acceptor, boolean isPrelinkingPhase) {
+	def inferSyntheticConversionRelationActor(ConversionRelation relation, IJvmDeclaredTypeAcceptor acceptor, boolean isPrelinkingPhase) {
+	   	if (! (relation.sourcePort instanceof AbstractTypedIOPort && relation.targetPorts.head instanceof AbstractTypedIOPort)) {
+	   		return null;
+	   	}
+	   	val inputPort = (relation.sourcePort as AbstractTypedIOPort)
+	   	val outputPort = (relation.targetPorts.head as AbstractTypedIOPort)
+    	val actorSuperType = relation.newTypeRef("org.ptolemy.xtext.lib.caltrop.AbstractConversionRelationActor",
+			inputPort.type.cloneWithProxies.objectType(relation), outputPort.type.cloneWithProxies.objectType(relation)
+    	)
+    	val actorClass = relation.toClass(relation.toQualifiedClassName) [
+			superTypes += actorSuperType
+    	]
+    	if (isPrelinkingPhase) {
+    		return actorClass
+    	}
+		actorClass.members += relation.toConstructor [
+			simpleName = actorClass.simpleName
+			parameters += relation.toParameter("parent", relation.newTypeRef("ptolemy.kernel.CompositeEntity"))
+			parameters += relation.toParameter("name", relation.newTypeRef(String))
+			addPtExceptions(relation, true)
+			body = [
+				it << "super(parent, name);";
+			]
+		]
+	   	actorClass.members += inputPort.toSyntheticCreatePortMethod("input", "_createInputPort", relation)
+	   	actorClass.members += outputPort.toSyntheticCreatePortMethod("output", "_createOutputPort", relation)
+	   	actorClass.members += inputPort.toGetTokenValueMethod("_getInputTokenValue", true, relation)
+   		actorClass.members += outputPort.toCreateTokenMethod("_createOutputToken", true, relation)
+
+		val actionClassName = relation.container.toQualifiedClassName + indexedFeatureName(relation) + "Action"
+		val actionSuperType = (actorSuperType.type as JvmGenericType).members.filter(JvmGenericType).head
+		val actionClass = relation.toClass(actionClassName) [
+			superTypes += newTypeRef(actionSuperType)
+		]
+		val valueVar = relation.valueVar ?: "it"
+		if (relation.guardExpression != null) {
+			actionClass.members += relation.guardExpression.toMethod("_guard", relation.newTypeRef(boolean)) [
+				parameters += relation.toParameter(valueVar,  inputPort.type.cloneWithProxies.objectType(relation))
+				body = relation.guardExpression
+			]
+		}
+		val relationMethodContext = relation.conversionExpression ?: relation
+		actionClass.members += relationMethodContext.toMethod("_convert", outputPort.type.cloneWithProxies.objectType(relation)) [
+			parameters += relationMethodContext.toParameter(valueVar,  inputPort.type.cloneWithProxies.objectType(relation))
+			if (relation.conversionExpression != null) {
+				body = relation.conversionExpression
+			} else {
+				body = [ it << '''return «valueVar»;''']
+			}
+		]
+		actorClass.members += actionClass
+		actorClass.members += relationMethodContext.toMethod("_createConversionAction", newTypeRef(actionSuperType)) [
+			body = [
+				it << '''return new «actionClass.simpleName»();'''
+			]
+		]
+		actorClass 
+	}
+
+    def dispatch void inferActorClass(TypedAtomicActor actor, IJvmDeclaredTypeAcceptor acceptor, boolean isPrelinkingPhase) {
     	var JvmGenericType actorClass = null
     	if (actor.name != null) {
     		if (actor.superEntity != null) { // && (! isPrelinkingPhase)) {
@@ -142,11 +221,13 @@ class XActorJvmModelInferrer extends AbstractModelInferrer {
     		actorClass = actor.toActorClass(isPrelinkingPhase)
 	    	acceptor.accept(actorClass)
     	}
-		if (actor.impl != null) {
-    		inferImpl(actor.impl, actor, actorClass, acceptor, isPrelinkingPhase)
-    	} else if (actor.inheritedImpl != null) {
-    		inferImpl(actor.inheritedImpl, actor, actorClass, acceptor, isPrelinkingPhase)
-		}
+    	if (! isPrelinkingPhase) {
+			if (actor.impl != null) {
+	    		inferImpl(actor.impl, actor, actorClass, acceptor, isPrelinkingPhase)
+	    	} else if (actor.inheritedImpl != null) {
+	    		inferImpl(actor.inheritedImpl, actor, actorClass, acceptor, isPrelinkingPhase)
+			}
+    	}
     }
 
 	@Inject extension TreeAppendableUtil
@@ -173,15 +254,16 @@ class XActorJvmModelInferrer extends AbstractModelInferrer {
 		}
 	}
 
-	def superEntityTypeRef(IEntity<? extends Port> entity, String suffix) {
-		val superEntity = (entity as Entity).superEntity
+	def superEntityTypeRef(IEntity<? extends Port> entity) {
+		val superEntity = (entity as Entity<?>).superEntity
 		if (superEntity.ref != null) {
-			val superTypeName = superEntity.ref.toQualifiedClassName + suffix
-			if (superEntity instanceof ActorRef) {
-				val superActor = (superEntity as ActorRef)
-				entity.newTypeRef(superTypeName, superActor.typeArguments.toArray(newArrayList))
+			val superTypeName = superEntity.ref.toQualifiedClassName
+			if (superTypeName == null) {
+			} else if (superEntity instanceof ActorRef<?>) {
+				val superActor = (superEntity as ActorRef<?>)
+				entityTypeRef(superTypeName, superEntity, superActor.typeArguments.toArray(newArrayList))
 			} else {
-				entity.newTypeRef(superTypeName)
+				entityTypeRef(superTypeName, superEntity)
 			}
 		}
 	}
@@ -205,12 +287,12 @@ class XActorJvmModelInferrer extends AbstractModelInferrer {
 		actorClass.setAbstract(isAbstract)
 
 		actorClass => [
-//			annotations += entity.toAnnotation(typeof(SuppressWarnings), "serial")
+//			annotations += entity.toAnnotation(SuppressWarnings, "serial")
 			var superTypeRef = entity.newTypeRef("ptolemy.actor.TypedCompositeActor")
-			if (entity instanceof Entity && (entity as Entity).superEntity != null) {
-				superTypeRef = superEntityTypeRef(entity, "")
-			} else if (entity instanceof EntityContainer) {
-			} else if ((! (entity instanceof ComponentEntity)) || (entity as ComponentEntity).atomic) {
+			if (entity instanceof Entity<?> && (entity as Entity<?>).superEntity != null) {
+				superTypeRef = superEntityTypeRef(entity)
+			} else if (entity instanceof EntityContainer<?>) {
+			} else if ((! (entity instanceof ComponentEntity<?>)) || (entity as ComponentEntity<?>).atomic) {
 				superTypeRef = entity.newTypeRef("org.ptolemy.xtext.lib.caltrop.AbstractCaltropActor")
 			}
 			if (superTypeRef != null) {
@@ -221,7 +303,7 @@ class XActorJvmModelInferrer extends AbstractModelInferrer {
 		actorClass.members += entity.toConstructor [
 			simpleName = actorClass.simpleName
 			parameters += entity.toParameter("parent", entity.newTypeRef("ptolemy.kernel.CompositeEntity"))
-			parameters += entity.toParameter("name", entity.newTypeRef(typeof(String)))
+			parameters += entity.toParameter("name", entity.newTypeRef(String))
 			addPtExceptions(entity, true)
 			val cons = it
 			body = [
@@ -248,8 +330,8 @@ class XActorJvmModelInferrer extends AbstractModelInferrer {
     	for (attribute : entity.allAttributes) {
 			abs = isAbstract(attribute) || abs
     	}
-    	if (entity instanceof AtomicActor) {
-    		val actor = entity as AtomicActor
+    	if (entity instanceof AtomicActor<?>) {
+    		val actor = entity as AtomicActor<?>
 			if (actor.impl == null && actor.inheritedImpl == null) {
 				abs = true
 			}
@@ -264,49 +346,6 @@ class XActorJvmModelInferrer extends AbstractModelInferrer {
 			method.exceptions += context.newTypeRef("ptolemy.kernel.util.NameDuplicationException")
 		}
 		method.exceptions += context.newTypeRef("ptolemy.kernel.util.IllegalActionException")
-	}
-
-	def getActorImplConstructorParameters(IEntity<? extends Port> entity) {
-		val parameters = new ArrayList<JvmFormalParameter>();
-		for (parameter : entity.allAttributes.filter(typeof(ActorParameter))) {
-			parameters += parameter.toParameter(parameter.name, entity.newTypeRef("ptolemy.data.expr.Parameter"))
-		}
-		for (port : entity.allPorts.filter(typeof(TypedInputPort))) {
-			parameters += port.toParameter(port.name, entity.newTypeRef("ptolemy.actor.TypedIOPort"))
-		}
-		for (port : entity.allPorts.filter(typeof(TypedOutputPort))) {
-			parameters += port.toParameter(port.name, entity.newTypeRef("ptolemy.actor.TypedIOPort"))
-		}
-		parameters
-	}
-
-	public val ACTOR_VAR_NAME = "_actor"
-
-    def toActorImplClass(AtomicActor actor, JvmGenericType actorClass, boolean isPrelinkingPhase) {
-    	val implClass = actor.toClass(actor.toQualifiedClassName + "Impl")
-    	if (isPrelinkingPhase) {
-    		return implClass;
-    	}
-		implClass.setAbstract(actorClass.isAbstract)
-		(actor as TypeParameterized).addTypeParameters(implClass, actorClass)
-		var superTypeRef = actor.newTypeRef("org.ptolemy.xtext.lib.caltrop.AbstractActorImpl")
-		if (actor.superEntity != null) {
-			superTypeRef = superEntityTypeRef(actor, "Impl")
-		}
-		implClass.superTypes += superTypeRef
-		addAttributeFields(actor, implClass)
-		addPortFields(actor, implClass)
-		implClass.members += actor.toConstructor [
-			val cons = it
-			simpleName = implClass.simpleName
-			parameters += actor.toParameter(ACTOR_VAR_NAME, actorClass.createActorClassRef(implClass.typeParameters))
-			// should add parameters of superclass first
-			parameters.addAll(actor.actorImplConstructorParameters)
-			body = [
-				generateActorImplConstructorBody(actor, cons, it)
-			]
-		]
-		implClass
 	}
 
 	def createActorClassRef(JvmGenericType actorClass, Iterable<JvmTypeParameter> typeParameters) {
@@ -324,35 +363,56 @@ class XActorJvmModelInferrer extends AbstractModelInferrer {
 
 	private val overrideAnnotatons = false
 
-	def overrideMethod(EObject model, String name, JvmTypeReference typeRef, (ITreeAppendable) => void init) {
+	def sameExpressionContext(JvmOperation method, String name, JvmTypeReference returnType, EObject model, (JvmOperation) => void init) {
+		model.toMethod(name, returnType) [
+			for (exception : method.exceptions) {
+				exceptions += EcoreUtil::copy(exception)
+			}
+			for (parameter : method.parameters) {
+				val parameterCopy = EcoreUtil::copy(parameter)
+				if (parameterCopy.name == null) {
+					parameterCopy.name = "arg" + parameters.size 
+				}
+				parameters += parameterCopy
+			}
+			init.apply(it)
+		]
+	}
+
+	def overrideMethod(EObject model, JvmOperation method, (JvmOperation) => void init) {
+		sameExpressionContext(method, method.simpleName, method.returnType, model, init)
+	}
+
+	def JvmOperation overrideMethod(EObject model, String name, JvmTypeReference typeRef) {
 		if (typeRef != null && typeRef.type != null) {
 			val type = typeRef.type as JvmDeclaredType
-			val method = type.allFeatures.filter(typeof(JvmOperation)).findFirst[simpleName.equals(name)]
+			val method = type.allFeatures.filter(JvmOperation).findFirst[simpleName.equals(name)]
 			if (method != null) {
-				model.toMethod(name, EcoreUtil2::copy(method.returnType)) [
+				return model.overrideMethod(method) [
 					if (overrideAnnotatons) {
-						annotations+=method.toAnnotation(typeof(Override))
-					}
-					for (exception : method.exceptions) {
-						exceptions += EcoreUtil::copy(exception)
-					}
-					for (parameter : method.parameters) {
-						parameters += EcoreUtil::copy(parameter)
+						annotations += method.toAnnotation(Override)
 					}
 					visibility = method.visibility
-					body = init
 				]
 			}
 		}
+		throw new NoSuchMethodException(typeRef + " does not have the " + name + " method ")
+	}
+
+	def JvmOperation overrideMethod(EObject model, String name, JvmTypeReference typeRef, (ITreeAppendable) => void init) {
+		val method = overrideMethod(model, name, typeRef)
+		method.setBody(init)
+		method
 	}
 
 	def addAttributeFields(IEntity<? extends Port> entity, JvmGenericType actorClass) {
 		for (attribute : entity.attributes) {
-			if (attribute instanceof Variable && checkName(attribute, false)) {
-				val varType = type(attribute as Variable)
+			if (attribute instanceof JvmTypedAttribute && checkName(attribute, false)) {
+				val varType = type(attribute as JvmTypedAttribute)
 				// the actual type may later be changed to Parameter by the code generator
 				val field = attribute.toField(varType)
 				field.visibility = JvmVisibility::PROTECTED
+				field.final = (! (attribute instanceof Variable))
 			   	actorClass.members += field
 			}
 		}
@@ -375,12 +435,12 @@ class XActorJvmModelInferrer extends AbstractModelInferrer {
 		resolveTypeParameters(entity);
 		addAttributeFields(entity, actorClass)
 		addPortFields(entity, actorClass)
-		if (entity instanceof EntityContainer) {
-			addEntityContainerMembers(entity as EntityContainer, actorClass)
+		if (entity instanceof EntityContainer<?>) {
+			addEntityContainerMembers(entity as EntityContainer<?>, actorClass)
 		}
 		addAttributeAccessMethods(entity, actorClass)
 		addPortAccessMethods(entity, actorClass)
-		if (entity instanceof Entity){
+		if (entity instanceof Entity<?>){
 			addParameterBindingMethods(entity as Entity, actorClass)
 		}
 	}
@@ -407,15 +467,15 @@ class XActorJvmModelInferrer extends AbstractModelInferrer {
 	}
 
 	def addPortAccessMethods(IEntity<? extends Port> entity, Port port, JvmGenericType actorClass) {
-	   	actorClass.members += entity.toCreateOutputPortMethod(port)
+	   	actorClass.members += port.toCreatePortMethod(null, null, entity)
 	   	if (port instanceof AbstractTypedIOPort) {
 	   		val ioPort = (port as AbstractTypedIOPort)
 	   		if (ioPort.input && needsMethod(ioPort, true)) {
-			   	actorClass.members += entity.toGetTokenValueMethod(ioPort)
+			   	actorClass.members += ioPort.toGetTokenValueMethod(null, false, entity)
 	   		}
 	   		if (ioPort.output) {
 	   			if (needsMethod(ioPort, true)) {
-			   		actorClass.members += entity.toCreateTokenMethod(ioPort)
+			   		actorClass.members += ioPort.toCreateTokenMethod(null, false, entity)
 		   		}
 //	   			if (needsMethod(ioPort, false)) {
 //				   	actorClass.members += entity.toSendTokenMethod(ioPort, false)
@@ -425,24 +485,36 @@ class XActorJvmModelInferrer extends AbstractModelInferrer {
 		}
 	}
 
-	def toCreateOutputPortMethod(IEntity<? extends Port> entity, Port port) {
-	   	port.toMethod(port.methodName("create%sPort"), entity.newTypeRef("ptolemy.actor.TypedIOPort")) [
-			addPtExceptions(entity, true)
+	def toCreatePortMethod(Port port, String altName, String methodName, EObject context) {
+	   	port.toMethod(methodName ?: port.methodName("_create%sPort"), context.newTypeRef("ptolemy.actor.TypedIOPort")) [
+	   		visibility = JvmVisibility::PROTECTED
+			addPtExceptions(context, true)
 	   		if (port instanceof Typeable && type(port as Typeable).isGeneric) {
 	   			setAbstract(true)
 	   		} else {
 		   		body = [
-		   			generateCreatePortMethodBody(port, "port", false, it)
+		   			generateCreatePortMethodBody(port, altName, "port", it)
 		   		]
 	   		}
 	   	]
 	}
 
-	def toGetTokenValueMethod(IEntity<? extends Port> entity, JvmTypedObj typed) {
+	def toSyntheticCreatePortMethod(JvmTypedObj typed, String altName, String methodName, EObject context) {
+	   	typed.toMethod(methodName ?: typed.methodName("_create%sPort"), context.newTypeRef("ptolemy.actor.TypedIOPort")) [
+	   		visibility = JvmVisibility::PROTECTED
+			addPtExceptions(context, true)
+	   		body = [
+	   			generateSyntheticCreatePortMethodBody(typed, altName, methodName, "port", it)
+	   		]
+	   	]
+	}
+
+	def toGetTokenValueMethod(JvmTypedObj typed, String methodName, boolean objectType, EObject context) {
 		val type = type(typed)
-	   	typed.toMethod(typed.methodName("get%sTokenValue"), type) [
+	   	typed.toMethod(methodName ?: typed.methodName("_get%sTokenValue"), if (objectType) type.objectType(context) else type) [
+	   		visibility = JvmVisibility::PROTECTED
    			parameters += typed.toParameter(typed.name, jvm2pTokenType("", typed))
-			addPtExceptions(entity, false)
+			addPtExceptions(context, false)
 	   		if (isAbstract(typed)) {
 	   			setAbstract(true)
 	   		} else {
@@ -453,28 +525,13 @@ class XActorJvmModelInferrer extends AbstractModelInferrer {
 	   	]
 	}
 
-	def toSendTokenMethod(IEntity<? extends Port> entity, JvmTypedObj typed, boolean array) {
-	   	typed.toMethod(typed.methodName("send%sToken" + if (array) "s" else ""), null) [
-	   		visibility = JvmVisibility::PROTECTED
-	   		var paramType = jvm2pTokenType("", typed)
-	   		if (array) {
-	   			paramType = createArrayType(paramType)
-	   		}
-   			parameters += typed.toParameter("channel", entity.newTypeRef(Integer::TYPE))
-   			parameters += typed.toParameter(typed.name, paramType)
-			addPtExceptions(entity, false)
-	   		body = [
-	   			generateSendTokenMethodBody(typed, "channel", array, it)
-	   		]
-	   	]
-	}
-
-	def toCreateTokenMethod(IEntity<? extends Port> entity, JvmTypedObj typed) {
+	def toCreateTokenMethod(JvmTypedObj typed, String methodName, boolean objectType, EObject context) {
 		val type = type(typed)
 		val tokenType = if (typed.isAbstract()) jvm2pTokenType("", typed) else type.jvm2pTokenType(typed)
-	   	typed.toMethod(typed.methodName("create%sToken"), tokenType) [
-   			parameters += typed.toParameter(typed.name, type)
-			addPtExceptions(entity, false)
+	   	typed.toMethod(methodName ?: typed.methodName("_create%sToken"), tokenType) [
+	   		visibility = JvmVisibility::PROTECTED
+   			parameters += typed.toParameter(typed.name, if (objectType) type.objectType(context) else type)
+			addPtExceptions(context, false)
 	   		if (typed.isAbstract()) {
 	   			setAbstract(true)
 	   		} else {
@@ -500,63 +557,86 @@ class XActorJvmModelInferrer extends AbstractModelInferrer {
 	}
 
 	def addAttributeAccessMethods(IEntity<? extends Port> entity, Attribute attribute, JvmGenericType actorClass) {
-		if (attribute instanceof Variable) {
+		if (attribute instanceof Variable || attribute instanceof InjectableAttribute) {
 			val typeRef = attribute.pAttributeType
-			val variable = (attribute as Variable)
-			val varType = type(variable)
+			val typed = (attribute as JvmTypedAttribute)
+			val varType = type(typed)
 
-			if (variable.needsMethod(true)) {
-			   	actorClass.members += attribute.toMethod(attribute.methodName("create%sAttribute"), typeRef) [
+			if (typed.needsMethod(true)) {
+			   	actorClass.members += attribute.toMethod(attribute.methodName("_create%sAttribute"), typeRef) [
 			   		visibility = JvmVisibility::PROTECTED
 					addPtExceptions(entity, true)
-					if (isAbstract(variable)) {
+					if (isAbstract(typed)) {
 						setAbstract(true)
 					} else {
 				   		body = [
-				   			generateCreateAttributeMethodBody(attribute, "attribute", false, it)
+				   			generateCreateAttributeMethodBody(attribute, "attribute", it)
 				   		]
 			   		}
 			   	]
 			}
-			if (variable.needsMethod(true)) {
-		   		val createTokenMethod = entity.toCreateTokenMethod(variable)
-		   		createTokenMethod.visibility = JvmVisibility::PROTECTED
-		   		actorClass.members += createTokenMethod
-	   		}
-			if (variable.needsMethod(false)) {
-				addInitialAttributeValueMethod(entity, variable, variable, variable.valueExpression, actorClass)
-			}
-			if (variable.needsMethod(true)) {
-			   	actorClass.members += attribute.toMethod(attribute.methodName("get%sValue"), varType) [
-					addPtExceptions(entity, false)
-					if (isAbstract(variable)) {
-						setAbstract(true)
-					} else {
+			if (typed instanceof Variable) {
+				val variable = typed as Variable
+				if (typed.needsMethod(true)) {
+			   		val createTokenMethod = typed.toCreateTokenMethod(null, false, entity)
+			   		createTokenMethod.visibility = JvmVisibility::PROTECTED
+			   		actorClass.members += createTokenMethod
+		   		}
+				if (typed.needsMethod(false)) {
+					addInitialAttributeValueMethod(entity, typed, variable, variable.valueExpression, actorClass)
+				}
+				if (typed.needsMethod(true)) {
+				   	actorClass.members += attribute.toMethod(attribute.methodName("_get%sValue"), varType) [
+				   		visibility = JvmVisibility::PROTECTED
+						addPtExceptions(entity, false)
+						if (isAbstract(typed)) {
+							setAbstract(true)
+						} else {
+					   		body = [
+					   			generateGetTokenValueMethodBody('''this.«typed.name».getToken()''', typed, it)
+					   		]
+						}
+				   	]
+			   	}
+				if (typed.needsMethod(false)) {
+				   	actorClass.members += attribute.toMethod(attribute.methodName("_set%sValue"), getTypeForName(void, entity)) [
+				   		visibility = JvmVisibility::PROTECTED
+			   			parameters += attribute.toParameter(attribute.name, type(attribute as Typeable))
+						addPtExceptions(entity, false)
 				   		body = [
-				   			generateGetTokenValueMethodBody('''this.«variable.name».getToken()''', variable, it)
+				   			generateSetVariableValueMethodBody(variable, it)
 				   		]
-					}
-			   	]
-		   	}
-			if (variable.needsMethod(false)) {
-			   	actorClass.members += attribute.toMethod(attribute.methodName("set%sValue"), null) [
-		   			parameters += attribute.toParameter(attribute.name, type(attribute as Typeable))
-					addPtExceptions(entity, false)
-			   		body = [
-			   			generateSetVariableValueMethodBody(variable, it)
-			   		]
-			   	]
-		   	}
+				   	]
+			   	}
+			} else if (typed instanceof InjectableAttribute) {
+				if (typed.needsMethod(false)) {
+					addInitialAttributeValueMethod(entity, typed, typed as InjectableAttribute, actorClass)
+				} 
+				if (typed.needsMethod(true)) {
+				   	actorClass.members += attribute.toMethod(attribute.methodName("_get%sValue"), varType) [
+				   		visibility = JvmVisibility::PROTECTED
+						addPtExceptions(entity, false)
+						if (isAbstract(typed)) {
+							setAbstract(true)
+						} else {
+					   		body = [
+					   			generateGetAttributeValueMethodBody('''this.«typed.name»''', typed, it)
+					   		]
+						}
+				   	]
+			   	}
+			}
 		}
 	}
 
 	def addParameterBindingMethods(Entity<? extends Port> entity, JvmGenericType actorClass) {
 		val superEntity = entity.superEntity
-		if (superEntity instanceof ActorRef) {
-			for (parameterBinding : (superEntity as ActorRef).parameterBindings) {
-				val variable = parameterBinding.parameterRef
-				if (variable != null) {
-					addInitialAttributeValueMethod(entity, parameterBinding, variable, parameterBinding.valueExpression, actorClass)
+		if (superEntity instanceof ActorRef<?>) {
+			for (parameterBinding : (superEntity as ActorRef<?>).parameterBindings) {
+				val parameter = parameterBinding.parameterRef
+				if (parameter != null) {
+					val inheritedParameter = entity.inheritedAttributes.filter(Variable).findFirst[name.equals(parameter.name)]
+					addInitialAttributeValueMethod(entity, parameterBinding, inheritedParameter ?: parameter, parameterBinding.valueExpression, actorClass)
 				}
 			}
 		}
@@ -564,154 +644,218 @@ class XActorJvmModelInferrer extends AbstractModelInferrer {
 
 	def addInitialAttributeValueMethod(IEntity<? extends Port> entity, EObject owner, Variable variable, XExpression expression, JvmGenericType actorClass) {
 		val type = type(variable)
-	   	actorClass.members += owner.toMethod(variable.methodName("initial%sAttributeValue"), type) [
+	   	actorClass.members += owner.toMethod(variable.methodName("_initial%sAttributeValue"), type) [
 	   		visibility = JvmVisibility::PROTECTED
 			addPtExceptions(entity, false)
 	   		body = [
-	   			generateInitAttributeMethodBody(variable, expression, "parameter", false, it)
+	   			generateInitAttributeMethodBody(variable, expression, null, it)
 	   		]
 	   		expression.associateLogicalContainer(it)
 	   	]
 	}
-
-    def dispatch void inferImpl(AbstractEntityActorImpl impl, AtomicActor actor, JvmGenericType actorClass, IJvmDeclaredTypeAcceptor acceptor, boolean isPrelinkingPhase) {
-    	if (impl.entity != null && impl.container == actor) {
-	    	infer(impl.entity, acceptor, isPrelinkingPhase)
-    	}
+	def addInitialAttributeValueMethod(IEntity<? extends Port> entity, EObject owner, InjectableAttribute injectable, JvmGenericType actorClass) {
+		val type = type(injectable)
+	   	actorClass.members += owner.toMethod(injectable.methodName("_initial%sAttributeValue"), type) [
+	   		visibility = JvmVisibility::PROTECTED
+			addPtExceptions(entity, false)
+	   		body = [
+	   			generateInitAttributeMethodBody(injectable, "injectable", it)
+	   		]
+	   	]
 	}
 
 	@Inject extension XActorGenerator
 
-    def dispatch void inferImpl(CaltropActorImpl<? extends AbstractIOPort> impl, AtomicActor actor, JvmGenericType actorClass, IJvmDeclaredTypeAcceptor acceptor, boolean isPrelinkingPhase) {
-    	val implClass = toActorImplClass(actor, actorClass, isPrelinkingPhase)
-    	acceptor.accept(implClass)
-    	if (isPrelinkingPhase) {
-    		return;
-    	}
-    	if (! actorClass.isAbstract) {
-			actorClass.members += impl.toField("_impl", implClass.newTypeRef) [
-				setFinal(true)
-				visibility = JvmVisibility::PRIVATE			
-			]
-			actorClass.members += impl.toMethod("_getImpl", implClass.newTypeRef) [
-				if (overrideAnnotatons) {
-					annotations+=impl.toAnnotation(typeof(Override))
-				}
-				visibility = JvmVisibility::PROTECTED
-				body = [
-					it << "return _impl;"
-				]
-			]
-    	}
-		implClass.members += impl.toMethod("getActor", actorClass.createActorClassRef(implClass.typeParameters)) [
-			if (overrideAnnotatons) {
-				annotations+=impl.toAnnotation(typeof(Override))
-			}
-			if (actorClass.isAbstract) {
-				setAbstract(true)
-			} else {
-				implClass.members += impl.toField(ACTOR_VAR_NAME, actorClass.createActorClassRef(implClass.typeParameters)) [
-					visibility = JvmVisibility::PRIVATE
-					final = true
-				]
-				body = [
-					it << '''return «ACTOR_VAR_NAME»;'''; 
-				]
-	    	}
-		]
-    	if (impl.container == actor) {
-			for (declaration : impl.declarations) {
-				implClass.members += declaration.toField(declaration.name, declaration.inferredType)
-				if (! declaration.constant) {
-					implClass.members += declaration.toField(previousValueName(declaration.name), declaration.inferredType)
-				}
-			}
-			val implSupertype = implClass.superTypes.head
-			if (! (impl.declarations.empty && impl.initActions.empty)) {
-				implClass.members += impl.overrideMethod("initialize", implSupertype) [
-					generateInitializeBody(impl, null, it)
-				]
-			}
-			implClass.members += impl.overrideMethod("prefire", implSupertype) [
-				generatePrefireBody(impl, null, it)
-			]
-			implClass.members += impl.overrideMethod("fire", implSupertype) [
-				generateFireBody(impl, null, it)
-			]
-			if (! impl.declarations.empty) {
-				implClass.members += impl.overrideMethod("postfire", implSupertype) [
-					generatePostfireBody(impl, null, it)
-				]
-			}
-			for (action : impl.initActions) {
-				inferActionMethods(action, implClass)
-			}
-			for (action : impl.actions) {
-				inferActionMethods(action, implClass)
-			}
-    	}
+    def dispatch void inferImpl(AtomicActorImpl<? extends AbstractIOPort> impl, AtomicActor<?> actor, JvmGenericType actorClass, IJvmDeclaredTypeAcceptor acceptor, boolean isPrelinkingPhase) {
     }
 
-    def dispatch void inferInheritedImpl(AbstractEntityActorImpl impl, JvmGenericType actorClass, IJvmDeclaredTypeAcceptor acceptor, boolean isPrelinkingPhase) {
+    def dispatch void inferImpl(CaltropActorImpl<? extends AbstractIOPort> impl, AtomicActor<?> actor, JvmGenericType implClass, IJvmDeclaredTypeAcceptor acceptor, boolean isPrelinkingPhase) {
+    	if (impl.container != actor || implClass.superTypes.head == null) {
+    		return
+		}
+		val implSupertype = implClass.superTypes.head
+		val initializeMethod = impl.overrideMethod("_initializeImpl", implSupertype) [
+			generateInitializeImplBody(impl, implClass, it)
+		]
+		for (declaration : impl.declarations) {
+			val field = declaration.toField(declaration.name, declaration.inferredType)
+			field.visibility = JvmVisibility::PROTECTED
+			implClass.members += field
+			if (! declaration.constant) {
+				implClass.members += declaration.toField(declaration.previousValueName, declaration.inferredType)
+			}
+			inferExpressionMethod(implClass, declaration.methodName("initial%sStateVariableValue"), declaration.valueExpression, declaration.type, initializeMethod)
+		}
+		for (function : impl.functions) {
+			val method = function.toMethod(function.name, if (function.type != null) type(function) else impl.newTypeRef(void)) [
+				addPtExceptions(impl, false)
+				for (parameter : function.parameters) {
+					parameters += toParameter(parameter.name, type(parameter))
+				}
+				body = function.bodyExpression
+			]
+			implClass.members += method
+		}
+		if (! (impl.declarations.empty && impl.initActions.empty && impl.schedule == null)) {
+			implClass.members += initializeMethod
+		}
+		val fireImplMethod = impl.overrideMethod("_fireImpl", implSupertype) []
+		fireImplMethod.body = [
+			generateFireImplBody(impl, fireImplMethod, it)
+		]
+		implClass.members += fireImplMethod
+		for (EventPattern eventPattern : impl.actions.filter(EventAction).map[eventPatterns].flatten) {
+			val listenerInterface = eventPattern.type(true)
+			if (listenerInterface?.type instanceof JvmDeclaredType) {
+				val listenerClass = eventPattern.toClass(eventPattern.eventPatternListenerName) [
+					superTypes += listenerInterface.cloneWithProxies
+				]
+				implClass.members += listenerClass
+				for (JvmOperation op : (listenerInterface.type as JvmDeclaredType).members.filter(JvmOperation)) {
+					if (eventPattern.timeExpression != null) {
+						listenerClass.members += eventPattern.toMethod("_timestamp", eventPattern.newTypeRef(long)) [
+							for (String param : eventPattern.variables) {
+								parameters += eventPattern.toParameter(param, eventPattern.type(null))
+							}
+							body = eventPattern.timeExpression
+						]
+					}
+					val eventMethod = eventPattern.overrideMethod(op) []
+					eventMethod.body = [
+						generateEventListenerMethodBody(eventPattern, eventMethod, it)
+					]
+					listenerClass.members += eventMethod
+				}
+				implClass.members += eventPattern.toField(listenerClass.simpleName, listenerInterface) [
+					initializer = [
+						it -> eventPattern << "new " << newTypeRef(listenerClass) << "();"
+					]
+				]
+			}
+		}
+		if (! impl.declarations.empty) {
+			for (declaration : impl.declarations) {
+				implClass.members += declaration.toMethod(declaration.methodName("_preChange%sState"), declaration.newTypeRef(void)) [
+					parameters += toParameter(declaration.name, declaration.inferredType)
+					body = [
+						generatePreStateVariableChangeBody(declaration, impl, it)
+					]
+				]
+			}
+			for (declaration : impl.declarations) {
+				implClass.members += declaration.toMethod(declaration.methodName("_postChange%sState"), declaration.newTypeRef(void)) [
+					parameters += toParameter(declaration.name, declaration.inferredType)
+					body = [
+						generatePostStateVariableChangeBody(declaration, impl, it)
+					]
+				]
+			}
+		}
+		if (! impl.declarations.empty) {
+			implClass.members += impl.overrideMethod("_postfireImpl", implSupertype) [
+				generatePostfireImplBody(impl, null, it)
+			]
+		}
+		if (! impl.declarations.empty) {
+			implClass.members += impl.overrideMethod("_wrapupImpl", implSupertype) [
+				generateWrapupImplBody(impl, null, it)
+			]
+		}
+		val actionSuperType = impl.newTypeRef("org.ptolemy.xtext.lib.caltrop.AbstractActionImpl")
+		val actions = impl.initActions + impl.actions
+		for (action : actions) {
+			val actionClass = action.toActionClass(actionSuperType)
+			implClass.members += actionClass
+		}
+		implClass.members += impl.toField("_actionImpls", addArrayTypeDimension(actionSuperType)) [
+			visibility = JvmVisibility::PRIVATE
+			final = true
+			initializer = [
+				generateActionImplsInitializer(impl, implClass, actionSuperType, it)
+			]
+		]
+		implClass.members += impl.overrideMethod("getCausalityInterface", implSupertype) [
+			generateGetCausalityInterfaceBody(impl, it)
+		]
+    }
+	
+    def dispatch void inferInheritedImpl(AtomicActorImpl<?> impl, JvmGenericType actorClass, IJvmDeclaredTypeAcceptor acceptor, boolean isPrelinkingPhase) {
     }
 
     def dispatch void inferInheritedImpl(CaltropActorImpl<? extends AbstractIOPort> impl, JvmGenericType actorClass, IJvmDeclaredTypeAcceptor acceptor, boolean isPrelinkingPhase) {
     }
 
-	def inferActionMethods(OutputAction action, JvmGenericType implClass) {
-			val matchMethod = action.toMethod(action.actionMethodName("match"), action.newTypeRef(typeof(boolean))) [
-				addPtExceptions(action, false)
-				val method = it
-				body = [
-					generateActionMatchBody(action, method, it)
-				]
-			]
-			action.inputPatterns.associateLogicalContainer(matchMethod)
-			if (action.guardExpression != null) {
-				action.guardExpression.associateLogicalContainer(matchMethod)
-			}
-			implClass.members += matchMethod
-
-			val doMethod = action.toMethod(action.actionMethodName("do"), null) [
-				addPtExceptions(action, false)
-				action.addInputPatternParameters(it)
-				val method = it
-				body = [
-					generateActionDoBody(action, method, it)
-				]
-			]
-			for (declaration : action.attributes.filter(typeof(Variable))) {
-				if (declaration.valueExpression != null) {
-					declaration.valueExpression.associateLogicalContainer(doMethod)
-				}
-			}
-			if (action.bodyExpression != null) {
-				action.bodyExpression.associateLogicalContainer(doMethod)
-			}
-			implClass.members += doMethod
-
-			val outputMethod = action.toMethod(action.actionMethodName("output"), null) [
-				addPtExceptions(action, false)
-				action.addInputPatternParameters(it)
-				action.addDeclarationParameters(it)
-				val method = it
-				body = [
-					generateActionOutputBody(action, method, it)
-				]
-			]
-			action.outputPatterns.associateLogicalContainer(outputMethod)
-			implClass.members += outputMethod
-	}
-
 	@Inject
 	extension ActionPatternHelper
 
-	def addInputPatternParameters(OutputAction action, JvmExecutable method) {
-		for (pattern : action.inputPatterns) {
-			val port = pattern.portRef
-			for (variable : pattern.variables) {
-				val type = pattern.type(port, null)
+	def addActionPatternParameters(JvmExecutable method, Iterable<? extends ActionPattern> patterns) {
+		for (pattern : patterns) {
+			for (variable : pattern.patternVariables) {
+				val type = pattern.type(null)
 				method.parameters += pattern.toParameter(variable, type)
+			}
+		}
+	}
+
+	def void inferExpressionMethod(JvmGenericType implClass, String name, XExpression expression, JvmTypeReference returnType, JvmOperation actionMethod) {
+		if (expression != null) {
+			val method = actionMethod.sameExpressionContext("_" + indexedName(name, expression), returnType, expression) [
+				visibility = JvmVisibility::PRIVATE
+				body = [
+					generateExpressionMethodBody(expression, null, returnType, it)
+				]
+			]
+			implClass.members += method
+			expression.associateLogicalContainer(method)
+		}
+	}
+
+	def void inferExpressionMethod(JvmGenericType implClass, String name, XExpression expression, Class<?> clazz, JvmOperation actionMethod) {
+		inferExpressionMethod(implClass, name, expression, getTypeForName(clazz, expression), actionMethod)
+	}
+
+	def void inferInputPatternExpressionMethods(JvmGenericType implClass, Iterable<? extends InputPattern> patterns, JvmOperation actionMethod) {
+		for (pattern : patterns) {
+			val methodPrefix = indexedName(actionMethod.simpleName + "Pattern", pattern)
+			if (pattern.repeatExpression != null) {
+				inferExpressionMethod(implClass, methodPrefix + "Repeat", pattern.repeatExpression, typeof(int), actionMethod)
+			}
+			if (pattern.channels instanceof ExpressionChannelSelector) {
+				for (expression : (pattern.channels as ExpressionChannelSelector).keyExpressions) {
+					inferExpressionMethod(implClass, methodPrefix + "Channel", expression, int, actionMethod)
+				}
+			}
+			if (pattern.guardExpression != null) {
+				inferExpressionMethod(implClass, methodPrefix + "Guard", pattern.guardExpression, boolean, actionMethod)
+			}
+		}
+	}
+
+	def void inferOutputPatternExpressionMethods(JvmGenericType implClass, Iterable<? extends OutputPattern> patterns, JvmOperation actionMethod) {
+		for (pattern : patterns) {
+			val methodPrefix = indexedName(actionMethod.simpleName + "Pattern", pattern)
+			for (valueExpression : pattern.valueExpressions) {
+				inferExpressionMethod(implClass, methodPrefix + "Output", valueExpression, pattern.type(pattern.isMultiport(pattern.portRef), null), actionMethod)
+			}
+			if (pattern.repeatExpression != null) {
+				inferExpressionMethod(implClass, methodPrefix + "Repeat", pattern.repeatExpression, int, actionMethod)
+			}
+			if (pattern.channels instanceof ExpressionChannelSelector) {
+				for (expression : (pattern.channels as ExpressionChannelSelector).keyExpressions) {
+					inferExpressionMethod(implClass, methodPrefix + "Channel", expression, int, actionMethod)
+				}
+			}
+			if (pattern.guardExpression != null) {
+				inferExpressionMethod(implClass, methodPrefix + "Guard", pattern.guardExpression, boolean, actionMethod)
+			}
+		}
+	}
+
+	def void inferEventPatternExpressionMethods(JvmGenericType implClass, Iterable<? extends EventPattern> patterns, JvmOperation actionMethod) {
+		for (pattern : patterns) {
+			val methodPrefix = indexedName(actionMethod.simpleName + "Pattern", pattern)
+			if (pattern.guardExpression != null) {
+				inferExpressionMethod(implClass, methodPrefix + "Guard", pattern.guardExpression, boolean, actionMethod)
 			}
 		}
 	}
@@ -721,6 +865,9 @@ class XActorJvmModelInferrer extends AbstractModelInferrer {
 			if (pattern instanceof OutputPattern) {
 				for (valueExpression : (pattern as OutputPattern).valueExpressions) {
 					valueExpression.associateLogicalContainer(container)
+				}
+				if (pattern.guardExpression != null) {
+					pattern.guardExpression.associateLogicalContainer(container)
 				}
 			}
 //			if (pattern.repeatExpression != null) {
@@ -756,8 +903,8 @@ class XActorJvmModelInferrer extends AbstractModelInferrer {
 		}
 	}
 
-	def actionNum(FireAction action) {
-		(action.eContainer as CaltropActorImpl).actions.indexOf(action)		
+	def actionNum(ReAction action) {
+		(action.eContainer as CaltropActorImpl<?>).actions.indexOf(action)		
 	}
 
 	def methodName(String prefix, EObject child, String name) {
@@ -770,21 +917,30 @@ class XActorJvmModelInferrer extends AbstractModelInferrer {
 		methodName(if (action instanceof FireAction) "action" else "init", action, name)
 	}
 
-//    def packagePrefix(EObject eObject) {
-//    	val uri = eObject.eResource.URI.trimFileExtension
-//    	val segments = uri.segmentsList
-//    	val projectSegment = segments.findLast[contains(".")]
-//    	val packageSegments = if (projectSegment != null) segments.drop(segments.indexOf(projectSegment) + 2) else segments
-//    	packageSegments.join('.')
-//    }
+	def toLowerPrefix(QualifiedName qName, boolean upperLast) {
+    	val firstLowerSegments = new ArrayList<String>
+    	for (segment : qName.skipLast(1).segments) {
+    		firstLowerSegments += segment.toFirstLower
+    	}
+    	val simpleName = qName.lastSegment
+    	QualifiedName::create(firstLowerSegments).append(if (upperLast) simpleName.toFirstUpper else simpleName)
+	}
 
-    def toQualifiedClassName(Nameable named) {
+    def toQualifiedClassName(Named named, String name, boolean upperLast) {
     	val qName = named.fullyQualifiedName
     	if (qName == null) {
     		return null
     	}
-    	qName.skipLast(1).append(qName.lastSegment.toFirstUpper).toString()
+    	(if (name != null) qName.append(name) else qName).toLowerPrefix(upperLast).toString
     }
+
+    def toQualifiedClassName(Nameable named) {
+    	named.toQualifiedClassName(null, named instanceof EntityContainer<?>)
+    }
+
+	def toQualifiedClassName(Relation relation) {
+		relation.container.toQualifiedClassName(relation.indexedFeatureName, false)
+	}
 
     def toField(Nameable named, JvmTypeReference type) {
     	named.toField(named.name, type) [
@@ -801,4 +957,83 @@ class XActorJvmModelInferrer extends AbstractModelInferrer {
 		val parameter = typed.toParameter(typed.name, type(typed))
 		parameter
     }
+    
+    //
+    
+	def JvmGenericType toActionClass(OutputAction action, JvmTypeReference superType) {
+		val actionClass = action.toClass(action.indexedFeatureName.toFirstUpper) [
+			superTypes += superType.cloneWithProxies
+			val actionPatterns = new ArrayList<ActionPattern>(action.inputPatterns)
+			if (action instanceof EventAction) {
+				actionPatterns += ((action as EventAction).eventPatterns as Iterable<? extends ActionPattern>)
+			}
+			for (pattern : actionPatterns) {
+				for (variable : pattern.patternVariables) {
+					val type = pattern.type(null)
+					members += pattern.toField(variable, type)
+				}
+			}
+			for (declaration : expressionDeclarations(action.bodyExpression)) {
+				members += declaration.toField(declaration.simpleName, declaration.type)
+			}
+		]
+		try {
+			inferActionClassMethods(action, actionClass)
+		} catch (NoSuchMethodException e) {
+		}
+		actionClass
+	}
+
+	def inferActionClassMethods(OutputAction action, JvmGenericType implClass) {
+		val matchMethod = action.overrideMethod("match", implClass.superTypes.head)
+		matchMethod.body = [
+			generateActionMatchBody(action, matchMethod, it)
+		]
+		implClass.members += matchMethod
+		inferInputPatternExpressionMethods(implClass, action.inputPatterns, matchMethod)
+		if (action instanceof EventAction) {
+			inferEventPatternExpressionMethods(implClass, (action as EventAction).eventPatterns, matchMethod)
+		}
+		if (action.guardExpression != null) {
+			inferExpressionMethod(implClass, matchMethod.simpleName + "Guard", action.guardExpression, getTypeForName(boolean, action), matchMethod)
+		}
+		if (action.bodyExpression != null) {
+			val bodyMethod = action.overrideMethod("body", implClass.superTypes.head)
+			bodyMethod.body = [
+				generateActionDoBody(action, bodyMethod, it)
+			]
+			action.bodyExpression.associateLogicalContainer(bodyMethod)
+			implClass.members += bodyMethod
+		}
+		val outputMethod = action.overrideMethod("output", implClass.superTypes.head) [
+			generateActionOutputBody(action, it)
+		]
+		implClass.members += outputMethod
+		inferOutputPatternExpressionMethods(implClass, action.outputPatterns, outputMethod)
+		if (action.delayExpression != null) {
+			inferExpressionMethod(implClass, matchMethod.simpleName + "Delay", action.delayExpression, getTypeForName(int, action), outputMethod)
+		}
+		if (action.updateExpression != null) {
+			val updateMethod = action.overrideMethod("update", implClass.superTypes.head) [
+				generateActionUpdateBody(action, implClass, it)
+			]
+			action.updateExpression.associateLogicalContainer(updateMethod)
+			implClass.members += updateMethod
+		}
+		implClass.members += action.overrideMethod("getDependencies", implClass.superTypes.head) [
+			val pairType = findDeclaredType("org.ptolemy.xtext.lib.caltrop.Pair", action)
+			val portOwnerAccess = implClass.declaringType.simpleName + ".this"
+			it -> action << "return new " << pairType << "[]{"
+			if (action instanceof FireAction) {
+				val booleanDependencyTypeRef = action.newTypeRef("ptolemy.actor.util.BooleanDependency")
+				for (inputPattern : (action as FireAction).inputPatterns) {
+					for (outputPattern : action.outputPatterns) {
+						it -> action << "new " << pairType << ".Impl(new " << pairType << ".Impl"
+						it -> action << '''(«portOwnerAccess».«inputPattern.portRef.name», «portOwnerAccess».«outputPattern.portRef.name»), ''' << booleanDependencyTypeRef << ".valueOf(true)), "
+					}				
+				}
+			}
+			it << "};"
+		]
+	}    
 }

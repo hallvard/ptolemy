@@ -4,10 +4,11 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.xtext.scoping.IScope;
 import org.eclipse.xtext.xbase.annotations.scoping.XbaseWithAnnotationsScopeProvider;
+import org.eclipse.xtext.xbase.annotations.typesystem.XbaseWithAnnotationsBatchScopeProvider;
 
 import com.google.inject.Inject;
 
-public class XActorScopeProvider extends XbaseWithAnnotationsScopeProvider {
+public class XActorBatchScopeProvider extends XbaseWithAnnotationsBatchScopeProvider {
 	
 	@Inject
 	private XActorDelegatedScopeProvider delegatedScopeProvider;

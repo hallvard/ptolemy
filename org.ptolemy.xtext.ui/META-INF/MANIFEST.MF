@@ -23,5 +23,6 @@ Bundle-RequiredExecutionEnvironment: J2SE-1.5
 Export-Package: org.ptolemy.xtext.ui.contentassist,
  org.ptolemy.xtext.ui.contentassist.antlr,
  org.ptolemy.xtext.ui.custom,
- org.ptolemy.xtext.ui.internal
+ org.ptolemy.xtext.ui.internal,
+ org.ptolemy.xtext.ui.quickfix
 Bundle-Activator: org.ptolemy.xtext.ui.internal.XActorActivator

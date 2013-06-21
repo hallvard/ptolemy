@@ -70,8 +70,7 @@ public abstract class AbstractEmbeddedEditorSupport implements EmbeddedEditorSup
 	}
 
 	protected Resource getOriginalResource() {
-		DiagramEditor diagramEditor = embeddedEditorContext.getDiagramEditor();
-		for (Resource resource : diagramEditor.getResourceSet().getResources()) {
+		for (Resource resource : embeddedEditorContext.getDiagramBehavior().getResourceSet().getResources()) {
 			if (resource instanceof XtextResource) {
 				return resource;
 			}

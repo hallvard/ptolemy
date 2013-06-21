@@ -18,19 +18,20 @@ import org.ptolemy.ecore.kernel.NamedObj;
 import org.ptolemy.ecore.kernel.Port;
 import org.ptolemy.ecore.kernel.Relation;
 import org.ptolemy.ecore.kernel.util.KernelValidator;
+import org.ptolemy.graphiti.actordiagram.RelationConnection;
 
 import com.google.inject.Inject;
 import com.google.inject.name.Named;
 
-public class CreateRelationFeature extends AbstractCreateConnectionFeature {
+public class CreateRelationLinkFeature extends AbstractCreateConnectionFeature {
 
-	protected CreateRelationFeature(IFeatureProvider fp, String name, String description) {
+	protected CreateRelationLinkFeature(IFeatureProvider fp, String name, String description) {
 		super(fp, name, description);
 	}
 
 	@Inject
-	public CreateRelationFeature (IFeatureProvider fp) {
-		this(fp, "Relation", "Create Relation");
+	public CreateRelationLinkFeature (IFeatureProvider fp) {
+		this(fp, "Relation/Link", "Create Relation/Link");
 	}
 
 	public boolean canStartConnection(ICreateConnectionContext context) {
@@ -43,12 +44,16 @@ public class CreateRelationFeature extends AbstractCreateConnectionFeature {
 
 	protected boolean canCreateConnection(Anchor anchor, CreatePortFeature createPortFeature) {
 		AnchorContainer anchorParent = anchor.getParent();
+//		System.out.println("Anchor parent: " + anchorParent);
 		Shape parentShape = Util.getParentShape(anchorParent, Port.class);
 		if (parentShape != null) {
 			return true;
 		}
 		parentShape = Util.getParentShape(anchorParent, Entity.class);
 		if (parentShape != null && createPortFeature.canCreate(getCreateContext(parentShape))) {
+			return true;
+		}
+		if (anchorParent instanceof RelationConnection) {
 			return true;
 		}
 		return false;

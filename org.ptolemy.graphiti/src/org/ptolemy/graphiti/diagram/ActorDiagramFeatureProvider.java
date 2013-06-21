@@ -33,8 +33,10 @@ import org.ptolemy.ecore.kernel.IEntity;
 import org.ptolemy.ecore.kernel.Port;
 import org.ptolemy.graphiti.diagram.features.CreateNoteFeature;
 import org.ptolemy.graphiti.diagram.features.CreatePortFeature;
-import org.ptolemy.graphiti.diagram.features.CreateRelationFeature;
-import org.ptolemy.graphiti.diagram.features.EntityFolderDrillDownFeature;
+import org.ptolemy.graphiti.diagram.features.CreateRelationLinkFeature;
+import org.ptolemy.graphiti.diagram.features.DoubleClickCreateFeature;
+import org.ptolemy.graphiti.diagram.features.DoubleClickFeature;
+import org.ptolemy.graphiti.diagram.features.EntityContainerDrillDownFeature;
 import org.ptolemy.graphiti.diagram.features.LinkReconnectionFeature;
 import org.ptolemy.graphiti.diagram.features.MovePortFeature;
 import org.ptolemy.graphiti.diagram.features.editastext.AbstractEditAsTextFeature;
@@ -49,7 +51,8 @@ public class ActorDiagramFeatureProvider extends DefaultFeatureProvider {
 		super(dtp);
 	}
 
-	@Inject @Named("Entity")			private ICreateFeature createActorFeature;
+	@Inject @Named("Entity")			private ICreateFeature createEntityFeature;
+	@Inject @Named("CompositeEntity")	private ICreateFeature createCompositeEntityFeature;
 	@Inject @Named("EntityContainer")	private ICreateFeature createEntityFolderFeature;
 
 	@Inject @Named("single-input") 	private CreatePortFeature createSingleInputPortFeature;
@@ -64,7 +67,8 @@ public class ActorDiagramFeatureProvider extends DefaultFeatureProvider {
 	public ICreateFeature[] getCreateFeatures() {
 		return new ICreateFeature[] {
 				createEntityFolderFeature,
-				createActorFeature,
+				createEntityFeature,
+				createCompositeEntityFeature,
 				createSingleInputPortFeature, createMultiInputPortFeature,
 				createSingleOutputPortFeature, createMultiOutputPortFeature,
 				createNoteFeature,
@@ -72,7 +76,7 @@ public class ActorDiagramFeatureProvider extends DefaultFeatureProvider {
 	}
 
 	@Inject
-	private CreateRelationFeature createRelationFeature;
+	private CreateRelationLinkFeature createRelationFeature;
 
 	@Override
 	public ICreateConnectionFeature[] getCreateConnectionFeatures() {
@@ -227,23 +231,21 @@ public class ActorDiagramFeatureProvider extends DefaultFeatureProvider {
 	}
 
 	@Inject
-	private EntityFolderDrillDownFeature entityFolderDrillDownFeature;
+	private EntityContainerDrillDownFeature entityFolderDrillDownFeature;
 
-	@Inject @Named("Port")
-	private AbstractEditAsTextFeature editPortAsTextFeature;
+	@Inject @Named("AtomicActor") 	private AbstractEditAsTextFeature editAtomicActorAsTextFeature;
+	@Inject @Named("Port")			private AbstractEditAsTextFeature editPortAsTextFeature;
 
-	@Inject @Named("AtomicActor")
-	private AbstractEditAsTextFeature editAtomicActorAsTextFeature;
-
-//	@Inject
-//	private DoubleClickCreateFeature doubleClickCreateFeature;
+	@Inject @Named("EntityContainerDiagram")	DoubleClickFeature doubleClickEntityDiagramFeature;
+	@Inject @Named("RelationConnection")		DoubleClickFeature doubleClickRelationConnectionFeature;
 
 	@Override
 	public ICustomFeature[] getCustomFeatures(ICustomContext context) {
 		// the first executable one will also be used as double-click feature
-		return new ICustomFeature[]{
+		return new ICustomFeature[] {
 			entityFolderDrillDownFeature,
-//			doubleClickCreateFeature
+			doubleClickEntityDiagramFeature,
+			doubleClickRelationConnectionFeature,
 			editPortAsTextFeature,
 			editAtomicActorAsTextFeature,
 		};

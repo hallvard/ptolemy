@@ -12,14 +12,21 @@ import org.eclipse.emf.ecore.util.Switch;
 import org.eclipse.graphiti.mm.GraphicsAlgorithmContainer;
 import org.eclipse.graphiti.mm.PropertyContainer;
 import org.eclipse.graphiti.mm.StyleContainer;
+import org.eclipse.graphiti.mm.algorithms.GraphicsAlgorithm;
+import org.eclipse.graphiti.mm.algorithms.PlatformGraphicsAlgorithm;
+import org.eclipse.graphiti.mm.algorithms.styles.AbstractStyle;
+import org.eclipse.graphiti.mm.algorithms.styles.Point;
 import org.eclipse.graphiti.mm.pictograms.AdvancedAnchor;
 import org.eclipse.graphiti.mm.pictograms.Anchor;
 import org.eclipse.graphiti.mm.pictograms.AnchorContainer;
 import org.eclipse.graphiti.mm.pictograms.BoxRelativeAnchor;
+import org.eclipse.graphiti.mm.pictograms.Connection;
 import org.eclipse.graphiti.mm.pictograms.ContainerShape;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
+import org.eclipse.graphiti.mm.pictograms.FreeFormConnection;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.graphiti.mm.pictograms.Shape;
+import org.ptolemy.graphiti.actordiagram.*;
 import org.ptolemy.graphiti.actordiagram.ActordiagramPackage;
 import org.ptolemy.graphiti.actordiagram.EntityContainerDiagram;
 import org.ptolemy.graphiti.actordiagram.EntityContainerShape;
@@ -150,6 +157,42 @@ public class ActordiagramSwitch<T> extends Switch<T> {
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
+			case ActordiagramPackage.PORT_GA: {
+				PortGA portGA = (PortGA)theEObject;
+				T result = casePortGA(portGA);
+				if (result == null) result = casePlatformGraphicsAlgorithm(portGA);
+				if (result == null) result = caseGraphicsAlgorithm(portGA);
+				if (result == null) result = caseGraphicsAlgorithmContainer(portGA);
+				if (result == null) result = caseAbstractStyle(portGA);
+				if (result == null) result = casePropertyContainer(portGA);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case ActordiagramPackage.RELATION_CONNECTION: {
+				RelationConnection relationConnection = (RelationConnection)theEObject;
+				T result = caseRelationConnection(relationConnection);
+				if (result == null) result = caseFreeFormConnection(relationConnection);
+				if (result == null) result = caseModelShape(relationConnection);
+				if (result == null) result = caseConnection(relationConnection);
+				if (result == null) result = caseAnchorContainer(relationConnection);
+				if (result == null) result = casePictogramElement(relationConnection);
+				if (result == null) result = caseGraphicsAlgorithmContainer(relationConnection);
+				if (result == null) result = casePropertyContainer(relationConnection);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case ActordiagramPackage.RELATION_SHAPE: {
+				RelationShape relationShape = (RelationShape)theEObject;
+				T result = caseRelationShape(relationShape);
+				if (result == null) result = caseShape(relationShape);
+				if (result == null) result = caseModelShape(relationShape);
+				if (result == null) result = caseAnchorContainer(relationShape);
+				if (result == null) result = casePictogramElement(relationShape);
+				if (result == null) result = caseGraphicsAlgorithmContainer(relationShape);
+				if (result == null) result = casePropertyContainer(relationShape);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
 			case ActordiagramPackage.ENTITY_CONTAINER_DIAGRAM: {
 				EntityContainerDiagram entityContainerDiagram = (EntityContainerDiagram)theEObject;
 				T result = caseEntityContainerDiagram(entityContainerDiagram);
@@ -226,6 +269,51 @@ public class ActordiagramSwitch<T> extends Switch<T> {
 	 * @generated
 	 */
 	public T casePortAnchor(PortAnchor object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Port GA</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Port GA</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T casePortGA(PortGA object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Relation Connection</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Relation Connection</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseRelationConnection(RelationConnection object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Relation Shape</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Relation Shape</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseRelationShape(RelationShape object) {
 		return null;
 	}
 
@@ -406,6 +494,81 @@ public class ActordiagramSwitch<T> extends Switch<T> {
 	 * @generated
 	 */
 	public T caseBoxRelativeAnchor(BoxRelativeAnchor object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Abstract Style</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Abstract Style</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseAbstractStyle(AbstractStyle object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Graphics Algorithm</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Graphics Algorithm</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseGraphicsAlgorithm(GraphicsAlgorithm object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Platform Graphics Algorithm</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Platform Graphics Algorithm</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T casePlatformGraphicsAlgorithm(PlatformGraphicsAlgorithm object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Connection</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Connection</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseConnection(Connection object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Free Form Connection</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Free Form Connection</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseFreeFormConnection(FreeFormConnection object) {
 		return null;
 	}
 

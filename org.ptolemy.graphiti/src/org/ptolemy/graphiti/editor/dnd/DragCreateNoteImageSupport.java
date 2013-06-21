@@ -3,6 +3,7 @@ package org.ptolemy.graphiti.editor.dnd;
 import org.eclipse.gef.EditPartViewer;
 import org.eclipse.graphiti.features.ICreateFeature;
 import org.eclipse.graphiti.features.IFeatureProvider;
+import org.eclipse.swt.dnd.DropTargetEvent;
 
 public class DragCreateNoteImageSupport extends DragCreateNoteSupport {
 
@@ -11,8 +12,8 @@ public class DragCreateNoteImageSupport extends DragCreateNoteSupport {
 	}
 
 	@Override
-	protected ICreateFeature getCreateFeature(Object object, IFeatureProvider featureProvider) {
-		ICreateFeature createImageFeature = DragCreateImageSupport.getCreateImageFeature(object, featureProvider);
-		return (createImageFeature != null ? createImageFeature : super.getCreateFeature(object, featureProvider));
+	protected ICreateFeature getCreateFeature(Object eventObject, IFeatureProvider featureProvider) {
+		ICreateFeature createImageFeature = DragCreateImageSupport.getCreateImageFeature(eventObject, featureProvider);
+		return (createImageFeature != null ? createImageFeature : super.getCreateFeature(eventObject, featureProvider));
 	}
 }

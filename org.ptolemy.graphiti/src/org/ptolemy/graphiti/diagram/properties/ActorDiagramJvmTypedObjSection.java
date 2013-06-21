@@ -3,6 +3,7 @@ package org.ptolemy.graphiti.diagram.properties;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
+import org.eclipse.graphiti.ui.editor.DiagramBehavior;
 import org.eclipse.graphiti.ui.editor.DiagramEditor;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
@@ -19,7 +20,7 @@ public class ActorDiagramJvmTypedObjSection extends ActorDiagramNameableSection 
 
 	private Injector injector = XActorActivator.getInstance().getInjector(XActorActivator.ORG_PTOLEMY_XTEXT_XACTOR);
 	private EmbeddedEditorSupport embeddedEditorSupport;
-	private DiagramEditor diagramEditor;
+	private DiagramBehavior diagramBehavior;
 
     @Override
     public void createControls(Composite parent, final TabbedPropertySheetPage tabbedPropertySheetPage) {
@@ -66,7 +67,7 @@ public class ActorDiagramJvmTypedObjSection extends ActorDiagramNameableSection 
     }
 
 	protected Resource getOriginalResource() {
-		for (Resource resource : diagramEditor.getResourceSet().getResources()) {
+		for (Resource resource : diagramBehavior.getResourceSet().getResources()) {
 			if (resource instanceof XtextResource) {
 				return resource;
 			}

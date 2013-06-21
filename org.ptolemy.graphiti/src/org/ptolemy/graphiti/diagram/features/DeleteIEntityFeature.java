@@ -4,6 +4,7 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.graphiti.features.IFeatureProvider;
 import org.eclipse.graphiti.features.context.IDeleteContext;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
+import org.eclipse.graphiti.mm.pictograms.PictogramLink;
 import org.eclipse.graphiti.services.Graphiti;
 import org.ptolemy.ecore.kernel.Entity;
 import org.ptolemy.ecore.kernel.IEntity;
@@ -27,7 +28,15 @@ public class DeleteIEntityFeature extends AbstractDeleteLinkFeature {
 		EObject bo = Graphiti.getLinkService().getBusinessObjectForLinkedPictogramElement(pe);
 		return (bo instanceof IEntity<?>);
 	}
-	
+
+	@Override
+	public void delete(IDeleteContext context) {
+		super.delete(context);
+		PictogramElement pe = context.getPictogramElement();
+		PictogramLink link = Graphiti.getLinkService().getLinkForPictogramElement(pe);
+		deleteFromContainer(link);
+	}
+
 	@Override
 	protected void deleteBusinessObject(Object bo) {
 		deleteEntity((Entity<? extends Port>) bo);

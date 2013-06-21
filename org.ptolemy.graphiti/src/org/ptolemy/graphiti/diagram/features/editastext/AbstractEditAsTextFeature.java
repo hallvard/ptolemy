@@ -34,7 +34,7 @@ import org.ptolemy.xtext.ui.internal.XActorActivator;
 import com.google.inject.Inject;
 import com.google.inject.Injector;
 
-public abstract class AbstractEditAsTextFeature extends AbstractCustomFeature implements Context {
+public class AbstractEditAsTextFeature extends AbstractCustomFeature implements Context {
 
 	@Inject
 	public AbstractEditAsTextFeature(IFeatureProvider fp) {
@@ -60,7 +60,9 @@ public abstract class AbstractEditAsTextFeature extends AbstractCustomFeature im
 		return canExecute(bo);
 	}
 	
-	public abstract boolean canExecute(EObject bo);
+	public boolean canExecute(EObject bo) {
+		return false;
+	}
 
 	@Override
 	public void execute(ICustomContext context) {
@@ -96,7 +98,7 @@ public abstract class AbstractEditAsTextFeature extends AbstractCustomFeature im
 	}
 	
 	public TransactionalEditingDomain getEditingDomain() {
-		return getDiagramEditor().getEditingDomain();
+		return getDiagramBehavior().getEditingDomain();
 	}
 
 	private IEditAsTextHelper editAsTextHelper = new EditAsTextHelper(this);
@@ -145,7 +147,6 @@ public abstract class AbstractEditAsTextFeature extends AbstractCustomFeature im
 		final Copier copier = getReplacementCopier(editableObject, eObject);
 		final EObject editedObject = copier.get(editableObject);
 		final EObject replacement = copier.copy(copier.get(editableObject));
-		TransactionalEditingDomain editingDomain = getDiagramEditor().getEditingDomain();
 		final EObject owner = editableObject.eContainer();
 		final EStructuralFeature feature = editableObject.eContainingFeature();
 		CompoundCommand compountCommand = new CompoundCommand();
@@ -178,7 +179,7 @@ public abstract class AbstractEditAsTextFeature extends AbstractCustomFeature im
 				}
 			});
 		}
-		editingDomain.getCommandStack().execute(compountCommand);
+		getEditingDomain().getCommandStack().execute(compountCommand);
 		return true;
 	}
 

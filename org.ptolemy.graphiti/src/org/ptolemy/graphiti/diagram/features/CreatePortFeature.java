@@ -8,6 +8,7 @@ import org.eclipse.graphiti.mm.algorithms.GraphicsAlgorithm;
 import org.eclipse.graphiti.services.Graphiti;
 import org.eclipse.xtext.common.types.JvmTypeReference;
 import org.eclipse.xtext.xbase.jvmmodel.JvmTypesBuilder;
+import org.ptolemy.ecore.actor.AbstractIOPort;
 import org.ptolemy.ecore.actor.AbstractTypedIOPort;
 import org.ptolemy.ecore.actor.ActorFactory;
 import org.ptolemy.ecore.actor.IOPort;
@@ -17,6 +18,9 @@ import org.ptolemy.ecore.actor.TypedAtomicActor;
 import org.ptolemy.ecore.actor.TypedCompositeActor;
 import org.ptolemy.ecore.caltrop.CaltropFactory;
 import org.ptolemy.ecore.kernel.Entity;
+import org.ptolemy.ecore.kernel.Nameable;
+import org.ptolemy.ecore.kernel.Port;
+import org.ptolemy.graphiti.actordiagram.util.UniqueNameProvider;
 import org.ptolemy.graphiti.editor.ActorDiagramImageProvider;
 
 import com.google.inject.Inject;
@@ -104,11 +108,29 @@ public class CreatePortFeature extends AbstractCreateFeature {
 		}
 	}
 	
+	@Inject
+	private UniqueNameProvider uniqueNameProvider;
+	
+	protected void configurePortName(Port port, EObject context) {
+		String name = port.getName();
+		String prefix = null;
+		if (name == null) {
+			if (port instanceof AbstractIOPort) {
+				AbstractIOPort ioPort = (AbstractIOPort) port;
+				prefix = (ioPort.isInput() && ioPort.isOutput() ? "io" : (ioPort.isInput() ? "input" : (ioPort.isOutput() ? "output" : "port")));
+			}
+		} else if (! uniqueNameProvider.isUsed(context, name)) {
+			prefix = name;
+		}
+		port.setName(uniqueNameProvider.getUniqueName(context, prefix));
+	}
+	
 	public Object[] create(ICreateContext context) {
 		Entity<AbstractTypedIOPort> parent = (Entity<AbstractTypedIOPort>) Graphiti.getLinkService().getBusinessObjectForLinkedPictogramElement(context.getTargetContainer());
 
 		AbstractTypedIOPort newPort = createPort();
 		configurePort(newPort, context);
+		configurePortName(newPort, parent);
 		configurePortType(newPort, parent);
 		parent.getPorts().add(newPort);
 

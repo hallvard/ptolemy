@@ -10,9 +10,11 @@ import org.eclipse.graphiti.features.IPasteFeature;
 import org.eclipse.graphiti.features.IRemoveFeature;
 import org.eclipse.graphiti.features.IUpdateFeature;
 import org.eclipse.graphiti.services.Graphiti;
+import org.ptolemy.graphiti.diagram.features.CreateCompositeEntityFeature;
 import org.ptolemy.graphiti.diagram.features.CreateEntityContainerFeature;
 import org.ptolemy.graphiti.diagram.features.CreateEntityFeature;
 import org.ptolemy.graphiti.diagram.features.CreatePortFeature;
+import org.ptolemy.graphiti.diagram.features.DoubleClickFeature;
 import org.ptolemy.graphiti.diagram.features.IEntityLayout;
 import org.ptolemy.graphiti.diagram.features.editastext.AbstractEditAsTextFeature;
 
@@ -42,12 +44,13 @@ public class ActorDiagramEditorModule extends AbstractModule {
 
 		bind(org.eclipse.ui.INewWizard.class).to(org.ptolemy.graphiti.editor.CreateActorDiagramWizard.class);
 //		bind(org.ptolemy.graphiti.kieler.GraphitiDiagramLayoutManager.class).to(org.ptolemy.graphiti.kieler.ActorDiagramLayoutManager.class);
-		bind(org.eclipse.graphiti.platform.ga.IGraphicsAlgorithmRendererFactory.class).to(org.ptolemy.graphiti.diagram.features.util.GenericShapeRendererFactory.class);
+		bind(org.eclipse.graphiti.platform.ga.IGraphicsAlgorithmRendererFactory.class).to(org.ptolemy.graphiti.diagram.features.util.ActorDiagramShapeRendererFactory.class);
 
 		// features
 		
 		bind(ICreateFeature.class).annotatedWith(Names.named("EntityContainer")).to(CreateEntityContainerFeature.class);
 		bind(ICreateFeature.class).annotatedWith(Names.named("Entity")).to(CreateEntityFeature.class);
+		bind(ICreateFeature.class).annotatedWith(Names.named("CompositeEntity")).to(CreateCompositeEntityFeature.class);
 		
 		bind(CreatePortFeature.class).annotatedWith(Names.named("single-input")).to(CreatePortFeature.SingleInput.class);
 		bind(CreatePortFeature.class).annotatedWith(Names.named("multi-input")).to(CreatePortFeature.MultiInput.class);
@@ -89,6 +92,9 @@ public class ActorDiagramEditorModule extends AbstractModule {
 
 		bind(AbstractEditAsTextFeature.class).annotatedWith(Names.named("Port")).to(org.ptolemy.graphiti.diagram.features.editastext.EditPortAsTextFeature.class);
 		bind(AbstractEditAsTextFeature.class).annotatedWith(Names.named("AtomicActor")).to(org.ptolemy.graphiti.diagram.features.editastext.EditAtomicActorAsTextFeature.class);
+
+		bind(DoubleClickFeature.class).annotatedWith(Names.named("EntityContainerDiagram")).to(org.ptolemy.graphiti.diagram.features.DoubleClickEntityDiagramCreateEntityFeature.class);
+		bind(DoubleClickFeature.class).annotatedWith(Names.named("RelationConnection")).to(org.ptolemy.graphiti.diagram.features.SplitRelationConnectionFeature.class);
 		
 		// Graphiti services
 		

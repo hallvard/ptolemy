@@ -62,6 +62,33 @@ public interface ActordiagramFactory extends EFactory {
 	PortAnchor createPortAnchor();
 
 	/**
+	 * Returns a new object of class '<em>Port GA</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Port GA</em>'.
+	 * @generated
+	 */
+	PortGA createPortGA();
+
+	/**
+	 * Returns a new object of class '<em>Relation Connection</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Relation Connection</em>'.
+	 * @generated
+	 */
+	RelationConnection createRelationConnection();
+
+	/**
+	 * Returns a new object of class '<em>Relation Shape</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Relation Shape</em>'.
+	 * @generated
+	 */
+	RelationShape createRelationShape();
+
+	/**
 	 * Returns a new object of class '<em>Entity Container Diagram</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

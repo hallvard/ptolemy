@@ -2,12 +2,14 @@
 <?eclipse version="3.4"?>
 <plugin>
 
+<!--
    <extension point="org.eclipse.emf.ecore.generated_package">
       <package
             uri="org.ptolemy.graphiti.actordiagram"
             class="org.ptolemy.graphiti.actordiagram.ActordiagramPackage"
             genModel="model/actordiagram.genmodel"/>
 	</extension>
+-->
 
 	<extension point="org.eclipse.graphiti.ui.diagramTypes">
     	<diagramType
@@ -20,7 +22,7 @@
 
 	<extension point="org.eclipse.graphiti.ui.diagramTypeProviders">
     	<diagramTypeProvider
- 	     	class="org.ptolemy.graphiti.editor.ActorDiagramEditorExecutableExtensionFactory:org.eclipse.graphiti.dt.IDiagramTypeProvider"
+ 	     	class="org.ptolemy.graphiti.PtolemyActorDiagramEditorExecutableExtensionFactory:org.eclipse.graphiti.dt.IDiagramTypeProvider"
     	  	description="This is my editor for Ptolemy actor diagrams"
       		id="org.ptolemy.graphiti.diagram"
       		name="Ptolemy actor diagrams">
@@ -32,11 +34,12 @@
 	<extension
 	      point="org.eclipse.graphiti.ui.imageProviders">
 	   <imageProvider
-	         class="org.ptolemy.graphiti.editor.ActorDiagramEditorExecutableExtensionFactory:org.eclipse.graphiti.ui.platform.IImageProvider"
+	         class="org.ptolemy.graphiti.PtolemyActorDiagramEditorExecutableExtensionFactory:org.eclipse.graphiti.ui.platform.IImageProvider"
 	         id="org.ptolemy.graphiti.editor.ActorDiagramImageProvider">
 	   </imageProvider>
 	</extension>
-	
+
+<!--	
 	<extension point="org.eclipse.ui.views.properties.tabbed.propertyContributor">
 	    <propertyContributor contributorId="xactor.PropertyContributor">
 	        <propertyCategory category="Graphiti"/>
@@ -69,12 +72,13 @@
 	            tab="graphiti.main.tab"/>
 	    </propertySections>
 	</extension>
-	
+-->
+
  <extension
        point="org.eclipse.ui.editors">
     <editor
-          class="org.ptolemy.graphiti.editor.ActorDiagramEditorExecutableExtensionFactory:org.eclipse.ui.IEditorPart"
-          contributorClass="org.ptolemy.graphiti.editor.ActorDiagramEditorExecutableExtensionFactory:org.eclipse.graphiti.ui.editor.DiagramEditorActionBarContributor"
+          class="org.ptolemy.graphiti.PtolemyActorDiagramEditorExecutableExtensionFactory:org.eclipse.ui.IEditorPart"
+          contributorClass="org.ptolemy.graphiti.PtolemyActorDiagramEditorExecutableExtensionFactory:org.eclipse.graphiti.ui.editor.DiagramEditorActionBarContributor"
           default="false"
           extensions="xactor_diagram,xactor"
           id="org.ptolemy.graphiti.xactor"
@@ -89,16 +93,12 @@
       <wizard
             id="org.ptolemy.graphiti.editor.CreateDiagramWizard"
             name="Create Actor Diagram Wizard"
-            class="org.ptolemy.graphiti.editor.ActorDiagramEditorExecutableExtensionFactory:org.eclipse.ui.INewWizard"
+            class="org.ptolemy.graphiti.PtolemyActorDiagramEditorExecutableExtensionFactory:org.eclipse.ui.INewWizard"
             category="org.ptolemy.graphiti"
             icon="resources/icons/single_in.gif">
-         <description>Create Actor Diagram Wizard</description>
+         <description>Create Ptolemy Actor Diagram Wizard</description>
          <selection class="org.eclipse.core.resources.IResource"/>
       </wizard>
    </extension>
 
-	<extension point="de.cau.cs.kieler.kiml.ui.layoutManagers">
-      <manager class="org.ptolemy.graphiti.kieler.ActorDiagramLayoutManager"/>
-   </extension>
-   
 </plugin>

@@ -2,9 +2,11 @@ package org.ptolemy.graphiti.editor;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.emf.common.command.AbstractCommand;
 import org.eclipse.emf.common.command.Command;
 import org.eclipse.emf.common.command.CommandStack;
@@ -16,6 +18,7 @@ import org.eclipse.graphiti.mm.pictograms.Diagram;
 import org.eclipse.graphiti.mm.pictograms.PictogramLink;
 import org.eclipse.graphiti.mm.pictograms.PictogramsFactory;
 import org.eclipse.graphiti.ui.editor.DefaultPersistencyBehavior;
+import org.eclipse.graphiti.ui.editor.DiagramBehavior;
 import org.eclipse.graphiti.ui.editor.DiagramEditor;
 import org.eclipse.xtext.resource.XtextResource;
 import org.ptolemy.ecore.kernel.Nameable;
@@ -27,8 +30,8 @@ import com.google.inject.Inject;
 public class ActorDiagramPersistencyBehavior extends DefaultPersistencyBehavior {
 
 	@Inject
-	public ActorDiagramPersistencyBehavior(DiagramEditor diagramEditor) {
-		super(diagramEditor);
+	public ActorDiagramPersistencyBehavior(DiagramBehavior diagramBehavior) {
+		super(diagramBehavior);
 	}
 
 	public Diagram loadDiagram(URI uri) {
@@ -36,14 +39,14 @@ public class ActorDiagramPersistencyBehavior extends DefaultPersistencyBehavior 
 		Diagram diagram = null;
 		if (fileExtension.endsWith("xactor")) {
 			uri = uri.trimFileExtension().appendFileExtension("xactor_diagram");
-			final TransactionalEditingDomain editingDomain = diagramEditor.getEditingDomain();
+			final TransactionalEditingDomain editingDomain = getEditingDomain();
 			if (editingDomain != null && (! editingDomain.getResourceSet().getURIConverter().exists(uri, null))) {
 				CreateActorDiagramWizard.createDiagramFile(uri);
 			}
 		}
 		diagram = super.loadDiagram(uri);
 		Command createModelRootCommand = createModelRootCommand(diagram);
-		CommandStack commandStack = diagramEditor.getEditingDomain().getCommandStack();
+		CommandStack commandStack = getEditingDomain().getCommandStack();
 		if (createModelRootCommand.canExecute()) {
 			commandStack.execute(createModelRootCommand);
 		}
@@ -55,6 +58,10 @@ public class ActorDiagramPersistencyBehavior extends DefaultPersistencyBehavior 
 //			xtextResourceSet.getResource(xactorUri, true);
 //		}
 		return diagram;
+	}
+
+	private TransactionalEditingDomain getEditingDomain() {
+		return diagramBehavior.getEditingDomain();
 	}
 
 	@Inject
@@ -90,7 +97,7 @@ public class ActorDiagramPersistencyBehavior extends DefaultPersistencyBehavior 
 	protected Resource ensureModelResource(Diagram diagram) {
 		Resource diagramResource = diagram.eResource();
 		URI modelUri = diagramResource.getURI().trimFileExtension().appendFileExtension("xactor");
-		ResourceSet resourceSet = diagramEditor.getEditingDomain().getResourceSet();
+		ResourceSet resourceSet = getEditingDomain().getResourceSet();
 		Resource modelResource = ensureModelResource(modelUri, resourceSet);
 		Nameable modelRoot = ensureModelRoot(modelResource);
 //		try {
@@ -158,21 +165,23 @@ public class ActorDiagramPersistencyBehavior extends DefaultPersistencyBehavior 
 //	}
 
 	@Override
-	protected Set<Resource> save(TransactionalEditingDomain editingDomain, Map<Resource, Map<?, ?>> saveOptions) {
-		Collection<Resource> trackingResources = null;
+	protected Set<Resource> save(TransactionalEditingDomain editingDomain, Map<Resource, Map<?, ?>> saveOptions, IProgressMonitor monitor) {
+		List<Resource> trackingResources = null;
 		try {
-			trackingResources = setTrackingModification(editingDomain.getResourceSet().getResources(), true);
-			return super.save(editingDomain, saveOptions);
+			// we only want to do this for linked resources, i.e. not the model directly linked to the diagram
+			trackingResources = setTrackingModification(editingDomain.getResourceSet().getResources(), 2, true);
+			return super.save(editingDomain, saveOptions, monitor);
 		} finally {
 			if (trackingResources != null) {
-				trackingResources = setTrackingModification(trackingResources, false);
+				trackingResources = setTrackingModification(trackingResources, 0, false);
 			}
 		}
 	}
 
-	protected Collection<Resource> setTrackingModification(Collection<Resource> resources, boolean newValue) {
-		Collection<Resource> changedResources = new ArrayList<Resource>();
-		for (Resource resource : resources) {
+	protected List<Resource> setTrackingModification(List<Resource> resources, int start, boolean newValue) {
+		List<Resource> changedResources = new ArrayList<Resource>();
+		for (int i = start; i < resources.size(); i++) {
+			Resource resource = resources.get(i);
 			if (resource instanceof XtextResource) {
 				if (resource.isTrackingModification() != newValue) {
 					changedResources.add(resource);

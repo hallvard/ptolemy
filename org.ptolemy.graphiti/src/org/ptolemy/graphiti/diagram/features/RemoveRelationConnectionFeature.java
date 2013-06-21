@@ -25,7 +25,8 @@ public class RemoveRelationConnectionFeature extends AbstractRemoveLinkFeature {
 	
 	@Override
 	public void remove(IRemoveContext context) {
-		PictogramElement pe = context.getPictogramElement();
-		removeConnection((Connection) pe);
+		super.remove(context);
+//		PictogramElement pe = context.getPictogramElement();
+//		removeConnection((Connection) pe);
 	}
 }

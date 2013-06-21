@@ -1,19 +1,19 @@
 package org.ptolemy.graphiti.diagram.features;
 
+import org.eclipse.emf.ecore.EObject;
 import org.eclipse.graphiti.features.ICreateFeature;
 import org.eclipse.graphiti.features.IFeatureProvider;
 import org.eclipse.graphiti.features.context.ICreateContext;
 import org.eclipse.graphiti.features.context.ICustomContext;
 import org.eclipse.graphiti.features.context.IDoubleClickContext;
 import org.eclipse.graphiti.features.context.impl.CreateContext;
-import org.eclipse.graphiti.features.custom.AbstractCustomFeature;
 import org.eclipse.graphiti.mm.pictograms.ContainerShape;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 
 import com.google.inject.Inject;
 import com.google.inject.name.Named;
 
-public class DoubleClickCreateFeature extends AbstractCustomFeature {
+public class DoubleClickCreateFeature extends DoubleClickFeature {
 
 	@Inject
 	public DoubleClickCreateFeature(IFeatureProvider fp) {
@@ -22,8 +22,7 @@ public class DoubleClickCreateFeature extends AbstractCustomFeature {
 
 	private ICreateFeature createFeature;
 
-	@Inject
-	public void setCreateFeature(@Named("Entity") ICreateFeature createFeature) {
+	public void setCreateFeature(ICreateFeature createFeature) {
 		this.createFeature = createFeature;
 	}
 	
@@ -51,13 +50,13 @@ public class DoubleClickCreateFeature extends AbstractCustomFeature {
 	}
 	
 	@Override
-	public boolean canExecute(ICustomContext context) {
+	protected boolean canExecute(PictogramElement pe, EObject bo, ICustomContext context) {
 		CreateContext createContext = getCreateContext(context);
 		return createContext != null && getCreateFeature(createContext) != null;
 	}
 	
 	@Override
-	public void execute(ICustomContext context) {
+	protected void execute(PictogramElement pe, EObject bo, ICustomContext context) {
 		CreateContext createContext = getCreateContext(context);
 		if (createContext != null) {
 			getCreateFeature(createContext).execute(createContext);

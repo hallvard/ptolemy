@@ -2,11 +2,12 @@ package org.ptolemy.graphiti.diagram;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.List;
 
-import org.eclipse.emf.common.notify.Adapter;
-import org.eclipse.emf.ecore.resource.Resource;
+import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.ResourceSet;
+import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.graphiti.dt.IDiagramTypeProvider;
 import org.eclipse.graphiti.features.ICreateConnectionFeature;
 import org.eclipse.graphiti.features.IFeature;
@@ -25,11 +26,19 @@ import org.eclipse.graphiti.palette.IObjectCreationToolEntry;
 import org.eclipse.graphiti.palette.IPaletteCompartmentEntry;
 import org.eclipse.graphiti.palette.impl.ObjectCreationToolEntry;
 import org.eclipse.graphiti.palette.impl.PaletteCompartmentEntry;
+import org.eclipse.graphiti.platform.IDiagramEditor;
 import org.eclipse.graphiti.services.Graphiti;
 import org.eclipse.graphiti.services.ILinkService;
 import org.eclipse.graphiti.tb.ContextButtonEntry;
 import org.eclipse.graphiti.tb.DefaultToolBehaviorProvider;
+import org.eclipse.graphiti.tb.IContextButtonEntry;
 import org.eclipse.graphiti.tb.IContextButtonPadData;
+import org.eclipse.xtext.linking.ILinker;
+import org.eclipse.xtext.naming.IQualifiedNameConverter;
+import org.eclipse.xtext.naming.QualifiedName;
+import org.eclipse.xtext.resource.IEObjectDescription;
+import org.eclipse.xtext.scoping.IScope;
+import org.eclipse.xtext.scoping.IScopeProvider;
 import org.ptolemy.ecore.actor.ActorFactory;
 import org.ptolemy.ecore.actor.IOPortKind;
 import org.ptolemy.ecore.actor.TypedAtomicActor;
@@ -38,11 +47,17 @@ import org.ptolemy.ecore.kernel.CompositeEntity;
 import org.ptolemy.ecore.kernel.Entity;
 import org.ptolemy.ecore.kernel.EntityContainer;
 import org.ptolemy.ecore.kernel.KernelFactory;
+import org.ptolemy.ecore.kernel.KernelPackage;
+import org.ptolemy.ecore.kernel.Port;
+import org.ptolemy.ecore.xactor.ActorModel;
 import org.ptolemy.ecore.xactor.EntityFolder;
+import org.ptolemy.ecore.xactor.ImportDirective;
+import org.ptolemy.ecore.xactor.XactorPackage;
 import org.ptolemy.graphiti.diagram.features.CreateEntityFeature;
 import org.ptolemy.graphiti.diagram.features.CreatePortFeature;
+import org.ptolemy.graphiti.diagram.features.editastext.AbstractEditAsTextFeature;
+import org.ptolemy.graphiti.diagram.features.editastext.EditAsTextHelper;
 import org.ptolemy.graphiti.editor.ActorDiagramImageProvider;
-import org.ptolemy.graphiti.editor.ActorDiagramLibraryProvider;
 import org.ptolemy.xtext.ui.internal.XActorActivator;
 
 import com.google.inject.Inject;
@@ -75,11 +90,11 @@ public class ActorDiagramToolBehaviorProvider extends DefaultToolBehaviorProvide
 	    return allCompartments.toArray(new IPaletteCompartmentEntry[allCompartments.size()]);
 	}
 
-    private EntityContainer<?> defaultLibraryContainer = null;
+    private Collection<EntityContainer<?>> defaultLibraryContainers = null;
     
-    private EntityContainer<?> getDefaultLibraryContainer() {
-    	if (defaultLibraryContainer == null) {
-    		defaultLibraryContainer = KernelFactory.eINSTANCE.createEntityContainer();
+    private Collection<EntityContainer<?>> getDefaultLibraryContainers() {
+		if (defaultLibraryContainers == null) {
+
     		TypedAtomicActor actor1 = ActorFactory.eINSTANCE.createTypedAtomicActor();
     		actor1.getPorts().add(CaltropFactory.eINSTANCE.createTypedInputPort());
     		actor1.getPorts().add(CaltropFactory.eINSTANCE.createTypedOutputPort());
@@ -91,66 +106,74 @@ public class ActorDiagramToolBehaviorProvider extends DefaultToolBehaviorProvide
     		actor2.getPorts().add(CaltropFactory.eINSTANCE.createTypedOutputPort());
     		actor1.setName("Input2Output1Actor");
 
-    		defaultLibraryContainer.getEntities().add(actor1);
-    		defaultLibraryContainer.getEntities().add(actor2);
+    		EntityContainer<Port> libraryContainer;
+    		libraryContainer = KernelFactory.eINSTANCE.createEntityContainer();
+    		libraryContainer.setName("Default library");
+    		libraryContainer.getEntities().add(actor1);
+    		libraryContainer.getEntities().add(actor2);
+    		
+    		defaultLibraryContainers = new ArrayList<EntityContainer<?>>();
+    		defaultLibraryContainers.add(libraryContainer);
+    		actor1.setName("Actors");
     	}
-    	return defaultLibraryContainer;
+    	return defaultLibraryContainers;
 	}
-
+	    
 	private List<IPaletteCompartmentEntry> getLibraryCompartments() {
 		List<IPaletteCompartmentEntry> compartments = new ArrayList<IPaletteCompartmentEntry>();
-		ResourceSet resourceSet = getDiagramTypeProvider().getDiagramEditor().getResourceSet();
-		for (Resource resource : resourceSet.getResources()) {
-			for (Adapter adapter : resource.eAdapters()) {
-				if (adapter instanceof ActorDiagramLibraryProvider) {
-					EntityContainer<?> libraryContainer = ((ActorDiagramLibraryProvider) adapter).getLibraryContainer();
-					if (libraryContainer != null) {
-						addCompartmentEntries(libraryContainer, compartments);
+		IDiagramEditor diagramEditor = getDiagramTypeProvider().getDiagramEditor();
+		EObject bo = Graphiti.getLinkService().getBusinessObjectForLinkedPictogramElement(diagramEditor.getDiagramTypeProvider().getDiagram());
+		EObject model = EcoreUtil.getRootContainer(bo);
+		if (model instanceof ActorModel) {
+			IScopeProvider scopeProvider = getDslInjector().getInstance(IScopeProvider.class);
+			IQualifiedNameConverter qualifiedNameConverter = getDslInjector().getInstance(IQualifiedNameConverter.class);
+			for (ImportDirective importDirective : ((ActorModel) model).getImports()) {
+				String qName = importDirective.getImportedNamespace();
+				if (qName.endsWith(".*")) {
+					qName = qName.substring(0, qName.length() - 2);
+				}
+				IScope scope = scopeProvider.getScope(model, XactorPackage.eINSTANCE.getEntityFolder_EntityContainers());
+				for (IEObjectDescription element : scope.getElements(qualifiedNameConverter.toQualifiedName(qName))) {
+					EObject eObject = EcoreUtil.resolve(element.getEObjectOrProxy(), model);
+					if (eObject instanceof EntityContainer<?>) {
+						addCompartmentEntries((EntityContainer<?>) eObject, compartments);
 					}
 				}
 			}
 		}
 		if (compartments.isEmpty()) {
-			addCompartmentEntries(getDefaultLibraryContainer(), compartments);
+			for (EntityContainer<?> entityContainer : getDefaultLibraryContainers()) {
+				addCompartmentEntries(entityContainer, compartments);
+			}
 		}
 		return compartments;
 	}
 
 	protected void addCompartmentEntries(EntityContainer<?> container, List<IPaletteCompartmentEntry> compartments) {
-		PaletteCompartmentEntry compartmentEntry = null;
-		if (container instanceof CompositeEntity<?>) {
-			compartmentEntry = addEntityCreationToolEntry((CompositeEntity<?>) container, compartmentEntry);
-		} else {
+		if (! (container instanceof CompositeEntity<?>)) {
+			IQualifiedNameConverter qualifiedNameConverter = getDslInjector().getInstance(IQualifiedNameConverter.class);
+			QualifiedName qName = qualifiedNameConverter.toQualifiedName(container.getFullName());
+			if (qName.getSegmentCount() > 2) {
+				qName = qName.skipFirst(qName.getSegmentCount() - 2);
+			}
+			PaletteCompartmentEntry compartmentEntry = new PaletteCompartmentEntry(qualifiedNameConverter.toString(qName), null);
 			for (Entity<?> entity : container.getEntities()) {
-				compartmentEntry = addEntityCreationToolEntry(entity, compartmentEntry);
-			}
-		}
-		if (compartmentEntry != null) {
-			compartments.add(compartmentEntry);
-		}
-		if (container instanceof EntityFolder) {
-			compartmentEntry = new PaletteCompartmentEntry(container.getName(), null);
-			for (EntityContainer<?> childContainer : ((EntityFolder) container).getEntityContainers()) {
-				addCompartmentEntries(childContainer, compartments); // compartmentEntry.addToolEntry(createCompartmentEntry(container));
+				compartmentEntry.addToolEntry(createEntityCreationToolEntry(entity));
 			}
 			compartments.add(compartmentEntry);
 		}
 	}
 
-	private PaletteCompartmentEntry addEntityCreationToolEntry(Entity<?> entity, PaletteCompartmentEntry compartmentEntry) {
-		if (compartmentEntry == null) {
-			compartmentEntry = new PaletteCompartmentEntry(entity.getName(), null);
-		}
-		compartmentEntry.addToolEntry(createEntityCreationToolEntry(entity));
-		return compartmentEntry;
-	}
-
+	@Inject 
+	private Injector editorInjector; 
+	
 	private IObjectCreationToolEntry createEntityCreationToolEntry(Entity<?> entity) {
 		String label = entity.getName();
 		if (label == null) {
-			label = entity.toString();
+			label = entity.getDisplayName();
 		}
-		CreateEntityFeature createEntityFeature = new CreateEntityFeature(getFeatureProvider(), entity);
+		CreateEntityFeature createEntityFeature = new CreateEntityFeature(getFeatureProvider(), entity, true);
+		editorInjector.injectMembers(createEntityFeature);
 		ObjectCreationToolEntry toolEntry = new ObjectCreationToolEntry(label, "Create a " + label, null, null, createEntityFeature);
 		return toolEntry;
 	}
@@ -174,31 +197,29 @@ public class ActorDiagramToolBehaviorProvider extends DefaultToolBehaviorProvide
         	createConnectionContext.setSourcePictogramElement(pe);
         	createConnectionContext.setSourceAnchor(anchor);
         }
+        List<IContextButtonEntry> domainSpecificContextButtons = padData.getDomainSpecificContextButtons();
+        if (pe instanceof ContainerShape && linkService.getBusinessObjectForLinkedPictogramElement(pe) instanceof Entity<?>) {
+    		addPortButton((ContainerShape) pe, IOPortKind.INPUT, Boolean.TRUE, domainSpecificContextButtons);
+    		addPortButton((ContainerShape) pe, IOPortKind.INPUT, Boolean.FALSE, domainSpecificContextButtons);
+    		addPortButton((ContainerShape) pe, IOPortKind.OUTPUT, Boolean.FALSE, domainSpecificContextButtons);
+    		addPortButton((ContainerShape) pe, IOPortKind.OUTPUT, Boolean.TRUE, domainSpecificContextButtons);
+        }
         ContextButtonEntry button = new ContextButtonEntry(null, context);
         button.setText("Create connection");
-        ICreateConnectionFeature[] features = getFeatureProvider().getCreateConnectionFeatures();
-        for (ICreateConnectionFeature feature : features) {
-            if (createConnectionContext != null && feature.isAvailable(createConnectionContext) && feature.canStartConnection(createConnectionContext)) {
-            	button.setIconId(ActorDiagramImageProvider.IMG_RELATION);
-                button.addDragAndDropFeature(feature);
-            }
+        for (ICreateConnectionFeature feature : getFeatureProvider().getCreateConnectionFeatures()) {
+        	if (createConnectionContext != null && feature.isAvailable(createConnectionContext) && feature.canStartConnection(createConnectionContext)) {
+        		button.setIconId(ActorDiagramImageProvider.IMG_RELATION);
+        		button.addDragAndDropFeature(feature);
+        	}
         }
         if (button.getDragAndDropFeatures().size() > 0) {
-           padData.getDomainSpecificContextButtons().add(button);
-        }
-        if (pe instanceof ContainerShape && linkService.getBusinessObjectForLinkedPictogramElement(pe) instanceof Entity<?>) {
-            padData.getDomainSpecificContextButtons().addAll(Arrays.asList(
-            		createPortButton((ContainerShape) pe, IOPortKind.INPUT, Boolean.TRUE),
-            		createPortButton((ContainerShape) pe, IOPortKind.INPUT, Boolean.FALSE),
-            		createPortButton((ContainerShape) pe, IOPortKind.OUTPUT, Boolean.FALSE),
-            		createPortButton((ContainerShape) pe, IOPortKind.OUTPUT, Boolean.TRUE)
-            ));
+        	domainSpecificContextButtons.add(button);
         }
         return padData;
 //        return super.getContextButtonPad(context);
     }
 
-	private ContextButtonEntry createPortButton(ContainerShape targetContainer, IOPortKind ioKind, Boolean multi) {
+	private void addPortButton(ContainerShape targetContainer, IOPortKind ioKind, Boolean multi, List<IContextButtonEntry> buttonEntries) {
 		CreateContext createContext = new CreateContext();
 		createContext.setTargetContainer(targetContainer);
 		CreatePortFeature createPortFeature = findCreatePortFeature(ioKind, multi, createContext);
@@ -207,9 +228,8 @@ public class ActorDiagramToolBehaviorProvider extends DefaultToolBehaviorProvide
 			createPortButton.setText(createPortFeature.getCreateName());
 			createPortButton.setDescription(createPortFeature.getCreateDescription());
 			createPortButton.setIconId(createPortFeature.getCreateImageId());
-			return createPortButton;
+			buttonEntries.add(createPortButton);
 		}
-		return null;
 	}
 
 	private CreatePortFeature findCreatePortFeature(IOPortKind ioKind, Boolean multi, ICreateContext createContext) {
@@ -226,13 +246,13 @@ public class ActorDiagramToolBehaviorProvider extends DefaultToolBehaviorProvide
 	
 	//
 
-	private Injector injector;
+	private Injector dslInjector;
 	
-	protected Injector getInjector() {
-		if (injector == null) {
-			injector = XActorActivator.getInstance().getInjector(XActorActivator.ORG_PTOLEMY_XTEXT_XACTOR);
+	protected Injector getDslInjector() {
+		if (dslInjector == null) {
+			dslInjector = XActorActivator.getInstance().getInjector(XActorActivator.ORG_PTOLEMY_XTEXT_XACTOR);
 		}
-		return injector;
+		return dslInjector;
 	}
 
 	@Override

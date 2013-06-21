@@ -4,9 +4,12 @@ import org.eclipse.graphiti.features.IFeatureProvider;
 import org.ptolemy.ecore.actor.ActorFactory;
 import org.ptolemy.ecore.kernel.Entity;
 
-public class CreateCompositeActorFeature extends CreateEntityFeature {
+import com.google.inject.Inject;
+
+public class CreateCompositeEntityFeature extends CreateEntityFeature {
  
-    public CreateCompositeActorFeature(IFeatureProvider fp) {
+	@Inject
+    public CreateCompositeEntityFeature(IFeatureProvider fp) {
         super(fp, "Composite", "Create composite actor");
     }
 

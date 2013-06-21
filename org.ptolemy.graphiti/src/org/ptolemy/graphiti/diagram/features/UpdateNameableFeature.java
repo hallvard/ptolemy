@@ -18,7 +18,9 @@ import org.eclipse.graphiti.features.context.impl.RemoveContext;
 import org.eclipse.graphiti.features.impl.AbstractUpdateFeature;
 import org.eclipse.graphiti.features.impl.Reason;
 import org.eclipse.graphiti.mm.algorithms.AbstractText;
+import org.eclipse.graphiti.mm.pictograms.Connection;
 import org.eclipse.graphiti.mm.pictograms.ContainerShape;
+import org.eclipse.graphiti.mm.pictograms.Diagram;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.graphiti.mm.pictograms.Shape;
 import org.eclipse.graphiti.services.Graphiti;
@@ -132,12 +134,25 @@ public abstract class UpdateNameableFeature extends AbstractUpdateFeature {
     	return null;
     }
 
+    protected <T> Connection findConnection(Diagram diagram, T model) {
+    	for (Connection connection : diagram.getConnections()) {
+    		if (getBusinessObjectForPictogramElement(connection) == model) {
+    			return connection;
+    		}
+    	}
+    	return null;
+    }
+
     protected <T> Collection<T> getMissingChildren(ContainerShape containerShape, Iterable<T> children) {
     	Collection<T> missingChildren = new ArrayList<T>();
     	for (T eObject : children) {
-    		if (findModelShape(containerShape, eObject) == null) {
-    			missingChildren.add(eObject);
+    		if (findModelShape(containerShape, eObject) != null) {
+    			continue;
     		}
+    		if (containerShape instanceof Diagram && findConnection((Diagram) containerShape, eObject) != null) {
+				continue;
+			}
+    		missingChildren.add(eObject);
     	}
     	return missingChildren;
     }

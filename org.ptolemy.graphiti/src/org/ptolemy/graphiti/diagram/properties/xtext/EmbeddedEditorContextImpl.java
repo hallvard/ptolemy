@@ -1,6 +1,7 @@
 package org.ptolemy.graphiti.diagram.properties.xtext;
 
 import org.eclipse.emf.ecore.resource.Resource;
+import org.eclipse.graphiti.ui.editor.DiagramBehavior;
 import org.eclipse.graphiti.ui.editor.DiagramEditor;
 import org.eclipse.xtext.resource.IResourceFactory;
 import org.eclipse.xtext.resource.XtextResource;
@@ -11,10 +12,10 @@ import com.google.inject.Injector;
 public abstract class EmbeddedEditorContextImpl extends EditedResourceProvider implements EmbeddedEditorContext {
 
 	private Injector injector;
-	private DiagramEditor diagramEditor;
+	private DiagramBehavior diagramBehavior;
 	
-	public EmbeddedEditorContextImpl(DiagramEditor diagramEditor, Injector injector) {
-		super(getModelResource(diagramEditor), injector.getInstance(IResourceFactory.class), getModelResource(diagramEditor).getResourceSet());
+	public EmbeddedEditorContextImpl(DiagramBehavior diagramBehavior, Injector injector) {
+		super(getModelResource(diagramBehavior), injector.getInstance(IResourceFactory.class), getModelResource(diagramBehavior).getResourceSet());
 		this.injector = injector;
 	}
 
@@ -24,12 +25,12 @@ public abstract class EmbeddedEditorContextImpl extends EditedResourceProvider i
 	}
 
 	@Override
-	public DiagramEditor getDiagramEditor() {
-		return diagramEditor;
+	public DiagramBehavior getDiagramBehavior() {
+		return diagramBehavior;
 	}
 	
-	public static Resource getModelResource(DiagramEditor diagramEditor) {
-		for (Resource resource : diagramEditor.getResourceSet().getResources()) {
+	public static Resource getModelResource(DiagramBehavior diagramBehavior) {
+		for (Resource resource : diagramBehavior.getResourceSet().getResources()) {
 			if (resource instanceof XtextResource) {
 				return resource;
 			}

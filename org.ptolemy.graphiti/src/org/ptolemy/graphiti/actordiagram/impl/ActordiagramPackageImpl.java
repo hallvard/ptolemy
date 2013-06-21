@@ -6,8 +6,12 @@
  */
 package org.ptolemy.graphiti.actordiagram.impl;
 
+import org.eclipse.draw2d.geometry.Dimension;
+import org.eclipse.draw2d.geometry.Point;
+import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EDataType;
 import org.eclipse.emf.ecore.EGenericType;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
@@ -20,13 +24,18 @@ import org.eclipse.graphiti.mm.pictograms.PictogramsPackage;
 import org.ptolemy.ecore.kernel.KernelPackage;
 import org.ptolemy.graphiti.actordiagram.ActordiagramFactory;
 import org.ptolemy.graphiti.actordiagram.ActordiagramPackage;
+import org.ptolemy.graphiti.actordiagram.Bounds;
 import org.ptolemy.graphiti.actordiagram.EntityContainerDiagram;
 import org.ptolemy.graphiti.actordiagram.EntityContainerShape;
 import org.ptolemy.graphiti.actordiagram.EntityShape;
 import org.ptolemy.graphiti.actordiagram.LabelShape;
 import org.ptolemy.graphiti.actordiagram.ModelShape;
 import org.ptolemy.graphiti.actordiagram.PortAnchor;
+import org.ptolemy.graphiti.actordiagram.PortGA;
 import org.ptolemy.graphiti.actordiagram.PortShape;
+import org.ptolemy.graphiti.actordiagram.RelationConnection;
+import org.ptolemy.graphiti.actordiagram.RelationShape;
+import org.ptolemy.graphiti.actordiagram.Size;
 
 /**
  * <!-- begin-user-doc -->
@@ -68,7 +77,49 @@ public class ActordiagramPackageImpl extends EPackageImpl implements Actordiagra
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	private EClass portGAEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass relationConnectionEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass relationShapeEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	private EClass entityContainerDiagramEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EDataType ePointEDataType = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EDataType eDimensionEDataType = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EDataType eRectangleEDataType = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -262,8 +313,62 @@ public class ActordiagramPackageImpl extends EPackageImpl implements Actordiagra
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EClass getPortGA() {
+		return portGAEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getRelationConnection() {
+		return relationConnectionEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getRelationShape() {
+		return relationShapeEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EClass getEntityContainerDiagram() {
 		return entityContainerDiagramEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EDataType getEPoint() {
+		return ePointEDataType;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EDataType getEDimension() {
+		return eDimensionEDataType;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EDataType getERectangle() {
+		return eRectangleEDataType;
 	}
 
 	/**
@@ -352,7 +457,18 @@ public class ActordiagramPackageImpl extends EPackageImpl implements Actordiagra
 		portAnchorEClass = createEClass(PORT_ANCHOR);
 		createEAttribute(portAnchorEClass, PORT_ANCHOR__ALIGNMENT);
 
+		portGAEClass = createEClass(PORT_GA);
+
+		relationConnectionEClass = createEClass(RELATION_CONNECTION);
+
+		relationShapeEClass = createEClass(RELATION_SHAPE);
+
 		entityContainerDiagramEClass = createEClass(ENTITY_CONTAINER_DIAGRAM);
+
+		// Create data types
+		ePointEDataType = createEDataType(EPOINT);
+		eDimensionEDataType = createEDataType(EDIMENSION);
+		eRectangleEDataType = createEDataType(ERECTANGLE);
 	}
 
 	/**
@@ -417,6 +533,19 @@ public class ActordiagramPackageImpl extends EPackageImpl implements Actordiagra
 		g1.getETypeArguments().add(g2);
 		portShapeEClass.getEGenericSuperTypes().add(g1);
 		portAnchorEClass.getESuperTypes().add(thePictogramsPackage.getBoxRelativeAnchor());
+		portGAEClass.getESuperTypes().add(theAlgorithmsPackage.getPlatformGraphicsAlgorithm());
+		g1 = createEGenericType(thePictogramsPackage.getFreeFormConnection());
+		relationConnectionEClass.getEGenericSuperTypes().add(g1);
+		g1 = createEGenericType(this.getModelShape());
+		g2 = createEGenericType(theKernelPackage.getRelation());
+		g1.getETypeArguments().add(g2);
+		relationConnectionEClass.getEGenericSuperTypes().add(g1);
+		g1 = createEGenericType(thePictogramsPackage.getShape());
+		relationShapeEClass.getEGenericSuperTypes().add(g1);
+		g1 = createEGenericType(this.getModelShape());
+		g2 = createEGenericType(theKernelPackage.getRelation());
+		g1.getETypeArguments().add(g2);
+		relationShapeEClass.getEGenericSuperTypes().add(g1);
 		g1 = createEGenericType(thePictogramsPackage.getDiagram());
 		entityContainerDiagramEClass.getEGenericSuperTypes().add(g1);
 		g1 = createEGenericType(this.getModelShape());
@@ -450,7 +579,28 @@ public class ActordiagramPackageImpl extends EPackageImpl implements Actordiagra
 		initEClass(portAnchorEClass, PortAnchor.class, "PortAnchor", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getPortAnchor_Alignment(), theStylesPackage.getOrientation(), "alignment", null, 0, 1, PortAnchor.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
+		initEClass(portGAEClass, PortGA.class, "PortGA", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
+		addEOperation(portGAEClass, this.getEPoint(), "getTipAnchorPoint", 0, 1, IS_UNIQUE, IS_ORDERED);
+
+		addEOperation(portGAEClass, this.getEPoint(), "getBaseAnchorPoint", 0, 1, IS_UNIQUE, IS_ORDERED);
+
+		addEOperation(portGAEClass, this.getERectangle(), "getTipBounds", 0, 1, IS_UNIQUE, IS_ORDERED);
+
+		addEOperation(portGAEClass, this.getERectangle(), "getBaseBounds", 0, 1, IS_UNIQUE, IS_ORDERED);
+
+		addEOperation(portGAEClass, this.getPortShape(), "getPortShape", 0, 1, IS_UNIQUE, IS_ORDERED);
+
+		initEClass(relationConnectionEClass, RelationConnection.class, "RelationConnection", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
+		initEClass(relationShapeEClass, RelationShape.class, "RelationShape", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
 		initEClass(entityContainerDiagramEClass, EntityContainerDiagram.class, "EntityContainerDiagram", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
+		// Initialize data types
+		initEDataType(ePointEDataType, Point.class, "EPoint", IS_SERIALIZABLE, !IS_GENERATED_INSTANCE_CLASS);
+		initEDataType(eDimensionEDataType, Dimension.class, "EDimension", IS_SERIALIZABLE, !IS_GENERATED_INSTANCE_CLASS);
+		initEDataType(eRectangleEDataType, Rectangle.class, "ERectangle", IS_SERIALIZABLE, !IS_GENERATED_INSTANCE_CLASS);
 
 		// Create resource
 		createResource(eNS_URI);

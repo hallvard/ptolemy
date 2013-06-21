@@ -7,6 +7,7 @@ import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.graphiti.features.IFeatureProvider;
+import org.eclipse.graphiti.services.Graphiti;
 import org.eclipse.graphiti.ui.features.DefaultDeleteFeature;
 import org.ptolemy.ecore.kernel.ComponentPort;
 import org.ptolemy.ecore.kernel.CompositeEntity;
@@ -58,10 +59,11 @@ public class AbstractDeleteLinkFeature extends DefaultDeleteFeature {
 
 	protected void deleteFromContainer(EObject eObject) {
 		EStructuralFeature containingFeature = eObject.eContainingFeature();
+		EObject container = eObject.eContainer();
 		if (containingFeature.isMany()) {
-			((EList<?>) eObject.eContainer().eGet(containingFeature)).remove(eObject);
+			((EList<?>) container.eGet(containingFeature)).remove(eObject);
 		} else {
-			eObject.eContainer().eSet(containingFeature, null);
+			container.eSet(containingFeature, null);
 		}
 	}
 }

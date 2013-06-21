@@ -28,11 +28,11 @@ public class ActorDiagramImageProvider extends AbstractImageProvider {
 	@Override
 	protected void addAvailableImages() {
 		addImageFilePath(IMG_PORT, 				IMG_PATH_PREFIX + "single_inout.gif");
-		addImageFilePath(IMG_INPUT_PORT, 		IMG_PATH_PREFIX + "single_in.gif");
-		addImageFilePath(IMG_OUTPUT_PORT, 		IMG_PATH_PREFIX + "single_out.gif");
-		addImageFilePath(IMG_MULTI_INPUT_PORT, 	IMG_PATH_PREFIX + "multi_in.gif");
-		addImageFilePath(IMG_MULTI_OUTPUT_PORT, IMG_PATH_PREFIX + "multi_out.gif");
+		addImageFilePath(IMG_INPUT_PORT, 		IMG_PATH_PREFIX + "port-input-single.png");
+		addImageFilePath(IMG_MULTI_INPUT_PORT, 	IMG_PATH_PREFIX + "port-input-multi.png");
+		addImageFilePath(IMG_OUTPUT_PORT, 		IMG_PATH_PREFIX + "port-output-single.png");
+		addImageFilePath(IMG_MULTI_OUTPUT_PORT, IMG_PATH_PREFIX + "port-output-multi.png");
 
-		addImageFilePath(IMG_RELATION, IMG_PATH_PREFIX + "relation.gif");
+		addImageFilePath(IMG_RELATION, IMG_PATH_PREFIX + "relation.png");
 	}
 }

@@ -12,22 +12,14 @@ import org.eclipse.swt.dnd.TextTransfer;
 import org.eclipse.swt.dnd.Transfer;
 import org.eclipse.swt.dnd.TransferData;
 
-public abstract class AbstractDragCreateSupport extends AbstractTransferDropTargetListener {
+public abstract class AbstractDragCreateSupport extends AbstractDragSupport {
 
-	private final IFeatureProvider featureProvider;
-	
+	protected AbstractDragCreateSupport(EditPartViewer viewer, Transfer transfer, IFeatureProvider featureProvider) {
+		super(viewer, transfer, featureProvider);
+	}
+
 	public AbstractDragCreateSupport(EditPartViewer viewer, IFeatureProvider featureProvider) {
-		super(viewer);
-		this.featureProvider = featureProvider;
-		setTransfer(getDragTransfer());
-	}
-
-	private IFeatureProvider getFeatureProvider() {
-		return featureProvider;
-	}
-	
-	protected Transfer getDragTransfer() {
-		return TextTransfer.getInstance();
+		this(viewer, TextTransfer.getInstance(), featureProvider);
 	}
 	
 	@Override
@@ -38,7 +30,6 @@ public abstract class AbstractDragCreateSupport extends AbstractTransferDropTarg
 	@Override
 	protected Request createTargetRequest() {
 		CreateRequest request = new CreateRequest();
-
 		request.setFactory(new NoteCreationFactory());
 		request.setLocation(getDropLocation());
 		return request;
@@ -48,24 +39,30 @@ public abstract class AbstractDragCreateSupport extends AbstractTransferDropTarg
 		return TextTransfer.getInstance().nativeToJava(transferData);
 	}
 	
-	protected abstract ICreateFeature getCreateFeature(Object object, IFeatureProvider featureProvider);
-	
+	protected abstract ICreateFeature getCreateFeature(Object eventObject, IFeatureProvider featureProvider);
+
+	protected Object getDropTargetEventObject(DropTargetEvent event) {
+		Object string = null;
+		if (event.data != null) {
+			string = event.data;
+		} else if (event.currentDataType != null) {
+			string = nativeToJava(event.currentDataType);
+		}
+		return string;
+	}
+
 	private class NoteCreationFactory implements CreationFactory {
 
+		public ICreateFeature getCreateFeature() {
+			return AbstractDragCreateSupport.this.getCreateFeature(getDropTargetEventObject(getCurrentEvent()), getFeatureProvider());
+		}
+
 		public Object getNewObject() {
-			DropTargetEvent currentEvent = getCurrentEvent();
-			Object string = null;
-			if (currentEvent.data != null) {
-				string = currentEvent.data;
-			} else if (currentEvent.currentDataType != null) {
-				string = nativeToJava(currentEvent.currentDataType);
-			}
-			ICreateFeature createFeature = getCreateFeature(string, getFeatureProvider());
-			return createFeature;
+			return getCreateFeature();
 		}
 
 		public Object getObjectType() {
-			return ICreateFeature.class;
+			return (getCreateFeature() instanceof ICreateFeature ? ICreateFeature.class : null);
 		}
 	}
 }

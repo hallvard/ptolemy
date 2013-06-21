@@ -1,5 +1,6 @@
 package org.ptolemy.graphiti.diagram.features.util;
 
+import org.eclipse.draw2d.PositionConstants;
 import org.eclipse.graphiti.mm.algorithms.styles.Orientation;
 
 public class OrientationSupport {
@@ -31,5 +32,15 @@ public class OrientationSupport {
 	
 	public static Orientation rotate(Orientation orientation, int n) {
 		return orientation(pos(orientation) + n);
-	}	
+	}
+
+	public static int direction(Orientation orientation) {
+		switch (orientation) {
+		case ALIGNMENT_RIGHT: 	return PositionConstants.EAST;
+		case ALIGNMENT_BOTTOM: 	return PositionConstants.SOUTH;
+		case ALIGNMENT_LEFT: 	return PositionConstants.WEST;
+		case ALIGNMENT_TOP: 	return PositionConstants.NORTH;
+		}
+		return -1;
+	}
 }

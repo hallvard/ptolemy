@@ -132,11 +132,15 @@ public class MultiPageActorDiagramEditor extends MultiPageEditorPart implements 
 	}
 
 	public Resource getDiagramResource() {
-		return getMainEditor().getResourceSet().getResources().get(0);
+		ActorDiagramEditor mainEditor = getMainEditor();
+		return (mainEditor != null ? mainEditor.getEditingDomain().getResourceSet().getResources().get(0) : null);
 	}
 
 	protected void updateEditorPages() {
 		Resource diagramResource = getDiagramResource();
+		if (diagramResource == null) {
+			return;
+		}
 		EList<EObject> diagrams = diagramResource.getContents();
 		// remove extra editors
 		Collection<ActorDiagramEditor> diagramEditors = new ArrayList<ActorDiagramEditor>(actorDiagramEditors.keySet());

@@ -47,6 +47,28 @@
   <eClassifiers xsi:type="ecore:EClass" name="PortAnchor" eSuperTypes="platform:/plugin/org.eclipse.graphiti.mm/model/graphiti.ecore#//pictograms/BoxRelativeAnchor">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="alignment" eType="ecore:EEnum platform:/plugin/org.eclipse.graphiti.mm/model/graphiti.ecore#//algorithms/styles/Orientation"/>
   </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="PortGA" eSuperTypes="platform:/plugin/org.eclipse.graphiti.mm/model/graphiti.ecore#//algorithms/PlatformGraphicsAlgorithm">
+    <eOperations name="getTipAnchorPoint" eType="#//EPoint"/>
+    <eOperations name="getBaseAnchorPoint" eType="#//EPoint"/>
+    <eOperations name="getTipBounds" eType="#//ERectangle"/>
+    <eOperations name="getBaseBounds" eType="#//ERectangle"/>
+    <eOperations name="getPortShape" eType="#//PortShape"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="RelationConnection">
+    <eGenericSuperTypes eClassifier="ecore:EClass platform:/plugin/org.eclipse.graphiti.mm/model/graphiti.ecore#//pictograms/FreeFormConnection"/>
+    <eGenericSuperTypes eClassifier="#//ModelShape">
+      <eTypeArguments eClassifier="ecore:EClass ../../org.ptolemy.ecore/model/kernel.ecore#//Relation"/>
+    </eGenericSuperTypes>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="RelationShape">
+    <eGenericSuperTypes eClassifier="ecore:EClass platform:/plugin/org.eclipse.graphiti.mm/model/graphiti.ecore#//pictograms/Shape"/>
+    <eGenericSuperTypes eClassifier="#//ModelShape">
+      <eTypeArguments eClassifier="ecore:EClass ../../org.ptolemy.ecore/model/kernel.ecore#//Relation"/>
+    </eGenericSuperTypes>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EDataType" name="EPoint" instanceClassName="org.eclipse.draw2d.geometry.Point"/>
+  <eClassifiers xsi:type="ecore:EDataType" name="EDimension" instanceClassName="org.eclipse.draw2d.geometry.Dimension"/>
+  <eClassifiers xsi:type="ecore:EDataType" name="ERectangle" instanceClassName="org.eclipse.draw2d.geometry.Rectangle"/>
   <eClassifiers xsi:type="ecore:EClass" name="EntityContainerDiagram">
     <eGenericSuperTypes eClassifier="ecore:EClass platform:/plugin/org.eclipse.graphiti.mm/model/graphiti.ecore#//pictograms/Diagram"/>
     <eGenericSuperTypes eClassifier="#//ModelShape">

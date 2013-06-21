@@ -29,7 +29,6 @@ public abstract class CreateNameableFeature extends AbstractCreateFeature {
 	}
 
 	public Object[] create(ICreateContext context) {
-
 		ContainerShape targetContainer = context.getTargetContainer();
 		EObject bo = Graphiti.getLinkService().getBusinessObjectForLinkedPictogramElement(targetContainer);
 		Nameable nameable = create(targetContainer, bo);

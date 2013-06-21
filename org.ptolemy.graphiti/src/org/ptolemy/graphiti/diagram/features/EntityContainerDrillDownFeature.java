@@ -10,6 +10,7 @@ import org.eclipse.graphiti.features.context.ICustomContext;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.graphiti.ui.features.AbstractDrillDownFeature;
+import org.ptolemy.ecore.kernel.EntityContainer;
 import org.ptolemy.ecore.kernel.Nameable;
 import org.ptolemy.ecore.kernel.NamedObj;
 import org.ptolemy.ecore.xactor.EntityFolder;
@@ -19,10 +20,10 @@ import org.ptolemy.graphiti.editor.CreateActorDiagramWizard;
 
 import com.google.inject.Inject;
 
-public class EntityFolderDrillDownFeature extends AbstractDrillDownFeature {
+public class EntityContainerDrillDownFeature extends AbstractDrillDownFeature {
 
 	@Inject
-	public EntityFolderDrillDownFeature(IFeatureProvider fp) {
+	public EntityContainerDrillDownFeature(IFeatureProvider fp) {
 		super(fp);
 	}
 
@@ -46,7 +47,7 @@ public class EntityFolderDrillDownFeature extends AbstractDrillDownFeature {
 				return false;
 			}
 			Object bo = getBusinessObjectForPictogramElement(pe);
-			if (bo instanceof EntityFolder) {
+			if (bo instanceof EntityContainer<?>) {
 				return autoCreateDiagram || super.canExecute(context);
 			}
 		}

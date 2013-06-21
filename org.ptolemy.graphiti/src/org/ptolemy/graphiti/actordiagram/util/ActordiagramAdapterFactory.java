@@ -13,14 +13,21 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.graphiti.mm.GraphicsAlgorithmContainer;
 import org.eclipse.graphiti.mm.PropertyContainer;
 import org.eclipse.graphiti.mm.StyleContainer;
+import org.eclipse.graphiti.mm.algorithms.GraphicsAlgorithm;
+import org.eclipse.graphiti.mm.algorithms.PlatformGraphicsAlgorithm;
+import org.eclipse.graphiti.mm.algorithms.styles.AbstractStyle;
+import org.eclipse.graphiti.mm.algorithms.styles.Point;
 import org.eclipse.graphiti.mm.pictograms.AdvancedAnchor;
 import org.eclipse.graphiti.mm.pictograms.Anchor;
 import org.eclipse.graphiti.mm.pictograms.AnchorContainer;
 import org.eclipse.graphiti.mm.pictograms.BoxRelativeAnchor;
+import org.eclipse.graphiti.mm.pictograms.Connection;
 import org.eclipse.graphiti.mm.pictograms.ContainerShape;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
+import org.eclipse.graphiti.mm.pictograms.FreeFormConnection;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.graphiti.mm.pictograms.Shape;
+import org.ptolemy.graphiti.actordiagram.*;
 import org.ptolemy.graphiti.actordiagram.ActordiagramPackage;
 import org.ptolemy.graphiti.actordiagram.EntityContainerDiagram;
 import org.ptolemy.graphiti.actordiagram.EntityContainerShape;
@@ -111,6 +118,18 @@ public class ActordiagramAdapterFactory extends AdapterFactoryImpl {
 				return createPortAnchorAdapter();
 			}
 			@Override
+			public Adapter casePortGA(PortGA object) {
+				return createPortGAAdapter();
+			}
+			@Override
+			public Adapter caseRelationConnection(RelationConnection object) {
+				return createRelationConnectionAdapter();
+			}
+			@Override
+			public Adapter caseRelationShape(RelationShape object) {
+				return createRelationShapeAdapter();
+			}
+			@Override
 			public Adapter caseEntityContainerDiagram(EntityContainerDiagram object) {
 				return createEntityContainerDiagramAdapter();
 			}
@@ -149,6 +168,26 @@ public class ActordiagramAdapterFactory extends AdapterFactoryImpl {
 			@Override
 			public Adapter caseBoxRelativeAnchor(BoxRelativeAnchor object) {
 				return createBoxRelativeAnchorAdapter();
+			}
+			@Override
+			public Adapter caseAbstractStyle(AbstractStyle object) {
+				return createAbstractStyleAdapter();
+			}
+			@Override
+			public Adapter caseGraphicsAlgorithm(GraphicsAlgorithm object) {
+				return createGraphicsAlgorithmAdapter();
+			}
+			@Override
+			public Adapter casePlatformGraphicsAlgorithm(PlatformGraphicsAlgorithm object) {
+				return createPlatformGraphicsAlgorithmAdapter();
+			}
+			@Override
+			public Adapter caseConnection(Connection object) {
+				return createConnectionAdapter();
+			}
+			@Override
+			public Adapter caseFreeFormConnection(FreeFormConnection object) {
+				return createFreeFormConnectionAdapter();
 			}
 			@Override
 			public Adapter caseStyleContainer(StyleContainer object) {
@@ -231,6 +270,48 @@ public class ActordiagramAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createPortAnchorAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.ptolemy.graphiti.actordiagram.PortGA <em>Port GA</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.ptolemy.graphiti.actordiagram.PortGA
+	 * @generated
+	 */
+	public Adapter createPortGAAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.ptolemy.graphiti.actordiagram.RelationConnection <em>Relation Connection</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.ptolemy.graphiti.actordiagram.RelationConnection
+	 * @generated
+	 */
+	public Adapter createRelationConnectionAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.ptolemy.graphiti.actordiagram.RelationShape <em>Relation Shape</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.ptolemy.graphiti.actordiagram.RelationShape
+	 * @generated
+	 */
+	public Adapter createRelationShapeAdapter() {
 		return null;
 	}
 
@@ -399,6 +480,76 @@ public class ActordiagramAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createBoxRelativeAnchorAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.eclipse.graphiti.mm.algorithms.styles.AbstractStyle <em>Abstract Style</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.eclipse.graphiti.mm.algorithms.styles.AbstractStyle
+	 * @generated
+	 */
+	public Adapter createAbstractStyleAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.eclipse.graphiti.mm.algorithms.GraphicsAlgorithm <em>Graphics Algorithm</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.eclipse.graphiti.mm.algorithms.GraphicsAlgorithm
+	 * @generated
+	 */
+	public Adapter createGraphicsAlgorithmAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.eclipse.graphiti.mm.algorithms.PlatformGraphicsAlgorithm <em>Platform Graphics Algorithm</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.eclipse.graphiti.mm.algorithms.PlatformGraphicsAlgorithm
+	 * @generated
+	 */
+	public Adapter createPlatformGraphicsAlgorithmAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.eclipse.graphiti.mm.pictograms.Connection <em>Connection</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.eclipse.graphiti.mm.pictograms.Connection
+	 * @generated
+	 */
+	public Adapter createConnectionAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.eclipse.graphiti.mm.pictograms.FreeFormConnection <em>Free Form Connection</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.eclipse.graphiti.mm.pictograms.FreeFormConnection
+	 * @generated
+	 */
+	public Adapter createFreeFormConnectionAdapter() {
 		return null;
 	}
 

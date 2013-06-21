@@ -8,8 +8,11 @@ package org.ptolemy.graphiti.actordiagram;
 
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EDataType;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
+import org.eclipse.graphiti.mm.algorithms.AlgorithmsPackage;
+import org.eclipse.graphiti.mm.algorithms.styles.StylesPackage;
 import org.eclipse.graphiti.mm.pictograms.PictogramsPackage;
 
 /**
@@ -627,6 +630,405 @@ public interface ActordiagramPackage extends EPackage {
 	int PORT_ANCHOR_FEATURE_COUNT = PictogramsPackage.BOX_RELATIVE_ANCHOR_FEATURE_COUNT + 1;
 
 	/**
+	 * The meta object id for the '{@link org.ptolemy.graphiti.actordiagram.impl.PortGAImpl <em>Port GA</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.ptolemy.graphiti.actordiagram.impl.PortGAImpl
+	 * @see org.ptolemy.graphiti.actordiagram.impl.ActordiagramPackageImpl#getPortGA()
+	 * @generated
+	 */
+	int PORT_GA = 6;
+
+	/**
+	 * The feature id for the '<em><b>Properties</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PORT_GA__PROPERTIES = AlgorithmsPackage.PLATFORM_GRAPHICS_ALGORITHM__PROPERTIES;
+
+	/**
+	 * The feature id for the '<em><b>Background</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PORT_GA__BACKGROUND = AlgorithmsPackage.PLATFORM_GRAPHICS_ALGORITHM__BACKGROUND;
+
+	/**
+	 * The feature id for the '<em><b>Foreground</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PORT_GA__FOREGROUND = AlgorithmsPackage.PLATFORM_GRAPHICS_ALGORITHM__FOREGROUND;
+
+	/**
+	 * The feature id for the '<em><b>Line Width</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PORT_GA__LINE_WIDTH = AlgorithmsPackage.PLATFORM_GRAPHICS_ALGORITHM__LINE_WIDTH;
+
+	/**
+	 * The feature id for the '<em><b>Line Style</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PORT_GA__LINE_STYLE = AlgorithmsPackage.PLATFORM_GRAPHICS_ALGORITHM__LINE_STYLE;
+
+	/**
+	 * The feature id for the '<em><b>Filled</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PORT_GA__FILLED = AlgorithmsPackage.PLATFORM_GRAPHICS_ALGORITHM__FILLED;
+
+	/**
+	 * The feature id for the '<em><b>Line Visible</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PORT_GA__LINE_VISIBLE = AlgorithmsPackage.PLATFORM_GRAPHICS_ALGORITHM__LINE_VISIBLE;
+
+	/**
+	 * The feature id for the '<em><b>Rendering Style</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PORT_GA__RENDERING_STYLE = AlgorithmsPackage.PLATFORM_GRAPHICS_ALGORITHM__RENDERING_STYLE;
+
+	/**
+	 * The feature id for the '<em><b>Transparency</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PORT_GA__TRANSPARENCY = AlgorithmsPackage.PLATFORM_GRAPHICS_ALGORITHM__TRANSPARENCY;
+
+	/**
+	 * The feature id for the '<em><b>Graphics Algorithm Children</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PORT_GA__GRAPHICS_ALGORITHM_CHILDREN = AlgorithmsPackage.PLATFORM_GRAPHICS_ALGORITHM__GRAPHICS_ALGORITHM_CHILDREN;
+
+	/**
+	 * The feature id for the '<em><b>Parent Graphics Algorithm</b></em>' container reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PORT_GA__PARENT_GRAPHICS_ALGORITHM = AlgorithmsPackage.PLATFORM_GRAPHICS_ALGORITHM__PARENT_GRAPHICS_ALGORITHM;
+
+	/**
+	 * The feature id for the '<em><b>Pictogram Element</b></em>' container reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PORT_GA__PICTOGRAM_ELEMENT = AlgorithmsPackage.PLATFORM_GRAPHICS_ALGORITHM__PICTOGRAM_ELEMENT;
+
+	/**
+	 * The feature id for the '<em><b>Width</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PORT_GA__WIDTH = AlgorithmsPackage.PLATFORM_GRAPHICS_ALGORITHM__WIDTH;
+
+	/**
+	 * The feature id for the '<em><b>Height</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PORT_GA__HEIGHT = AlgorithmsPackage.PLATFORM_GRAPHICS_ALGORITHM__HEIGHT;
+
+	/**
+	 * The feature id for the '<em><b>X</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PORT_GA__X = AlgorithmsPackage.PLATFORM_GRAPHICS_ALGORITHM__X;
+
+	/**
+	 * The feature id for the '<em><b>Y</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PORT_GA__Y = AlgorithmsPackage.PLATFORM_GRAPHICS_ALGORITHM__Y;
+
+	/**
+	 * The feature id for the '<em><b>Style</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PORT_GA__STYLE = AlgorithmsPackage.PLATFORM_GRAPHICS_ALGORITHM__STYLE;
+
+	/**
+	 * The feature id for the '<em><b>Id</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PORT_GA__ID = AlgorithmsPackage.PLATFORM_GRAPHICS_ALGORITHM__ID;
+
+	/**
+	 * The number of structural features of the '<em>Port GA</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PORT_GA_FEATURE_COUNT = AlgorithmsPackage.PLATFORM_GRAPHICS_ALGORITHM_FEATURE_COUNT + 0;
+
+	/**
+	 * The meta object id for the '{@link org.ptolemy.graphiti.actordiagram.impl.RelationConnectionImpl <em>Relation Connection</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.ptolemy.graphiti.actordiagram.impl.RelationConnectionImpl
+	 * @see org.ptolemy.graphiti.actordiagram.impl.ActordiagramPackageImpl#getRelationConnection()
+	 * @generated
+	 */
+	int RELATION_CONNECTION = 7;
+
+	/**
+	 * The feature id for the '<em><b>Properties</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int RELATION_CONNECTION__PROPERTIES = PictogramsPackage.FREE_FORM_CONNECTION__PROPERTIES;
+
+	/**
+	 * The feature id for the '<em><b>Visible</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int RELATION_CONNECTION__VISIBLE = PictogramsPackage.FREE_FORM_CONNECTION__VISIBLE;
+
+	/**
+	 * The feature id for the '<em><b>Graphics Algorithm</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int RELATION_CONNECTION__GRAPHICS_ALGORITHM = PictogramsPackage.FREE_FORM_CONNECTION__GRAPHICS_ALGORITHM;
+
+	/**
+	 * The feature id for the '<em><b>Active</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int RELATION_CONNECTION__ACTIVE = PictogramsPackage.FREE_FORM_CONNECTION__ACTIVE;
+
+	/**
+	 * The feature id for the '<em><b>Link</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int RELATION_CONNECTION__LINK = PictogramsPackage.FREE_FORM_CONNECTION__LINK;
+
+	/**
+	 * The feature id for the '<em><b>Anchors</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int RELATION_CONNECTION__ANCHORS = PictogramsPackage.FREE_FORM_CONNECTION__ANCHORS;
+
+	/**
+	 * The feature id for the '<em><b>Start</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int RELATION_CONNECTION__START = PictogramsPackage.FREE_FORM_CONNECTION__START;
+
+	/**
+	 * The feature id for the '<em><b>End</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int RELATION_CONNECTION__END = PictogramsPackage.FREE_FORM_CONNECTION__END;
+
+	/**
+	 * The feature id for the '<em><b>Parent</b></em>' container reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int RELATION_CONNECTION__PARENT = PictogramsPackage.FREE_FORM_CONNECTION__PARENT;
+
+	/**
+	 * The feature id for the '<em><b>Connection Decorators</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int RELATION_CONNECTION__CONNECTION_DECORATORS = PictogramsPackage.FREE_FORM_CONNECTION__CONNECTION_DECORATORS;
+
+	/**
+	 * The feature id for the '<em><b>Bendpoints</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int RELATION_CONNECTION__BENDPOINTS = PictogramsPackage.FREE_FORM_CONNECTION__BENDPOINTS;
+
+	/**
+	 * The feature id for the '<em><b>Model</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int RELATION_CONNECTION__MODEL = PictogramsPackage.FREE_FORM_CONNECTION_FEATURE_COUNT + 0;
+
+	/**
+	 * The number of structural features of the '<em>Relation Connection</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int RELATION_CONNECTION_FEATURE_COUNT = PictogramsPackage.FREE_FORM_CONNECTION_FEATURE_COUNT + 1;
+
+	/**
+	 * The meta object id for the '{@link org.ptolemy.graphiti.actordiagram.impl.RelationShapeImpl <em>Relation Shape</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.ptolemy.graphiti.actordiagram.impl.RelationShapeImpl
+	 * @see org.ptolemy.graphiti.actordiagram.impl.ActordiagramPackageImpl#getRelationShape()
+	 * @generated
+	 */
+	int RELATION_SHAPE = 8;
+
+	/**
+	 * The feature id for the '<em><b>Properties</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int RELATION_SHAPE__PROPERTIES = PictogramsPackage.SHAPE__PROPERTIES;
+
+	/**
+	 * The feature id for the '<em><b>Visible</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int RELATION_SHAPE__VISIBLE = PictogramsPackage.SHAPE__VISIBLE;
+
+	/**
+	 * The feature id for the '<em><b>Graphics Algorithm</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int RELATION_SHAPE__GRAPHICS_ALGORITHM = PictogramsPackage.SHAPE__GRAPHICS_ALGORITHM;
+
+	/**
+	 * The feature id for the '<em><b>Active</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int RELATION_SHAPE__ACTIVE = PictogramsPackage.SHAPE__ACTIVE;
+
+	/**
+	 * The feature id for the '<em><b>Link</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int RELATION_SHAPE__LINK = PictogramsPackage.SHAPE__LINK;
+
+	/**
+	 * The feature id for the '<em><b>Anchors</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int RELATION_SHAPE__ANCHORS = PictogramsPackage.SHAPE__ANCHORS;
+
+	/**
+	 * The feature id for the '<em><b>Container</b></em>' container reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int RELATION_SHAPE__CONTAINER = PictogramsPackage.SHAPE__CONTAINER;
+
+	/**
+	 * The feature id for the '<em><b>Model</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int RELATION_SHAPE__MODEL = PictogramsPackage.SHAPE_FEATURE_COUNT + 0;
+
+	/**
+	 * The number of structural features of the '<em>Relation Shape</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int RELATION_SHAPE_FEATURE_COUNT = PictogramsPackage.SHAPE_FEATURE_COUNT + 1;
+
+	/**
 	 * The meta object id for the '{@link org.ptolemy.graphiti.actordiagram.impl.EntityContainerDiagramImpl <em>Entity Container Diagram</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -634,7 +1036,7 @@ public interface ActordiagramPackage extends EPackage {
 	 * @see org.ptolemy.graphiti.actordiagram.impl.ActordiagramPackageImpl#getEntityContainerDiagram()
 	 * @generated
 	 */
-	int ENTITY_CONTAINER_DIAGRAM = 6;
+	int ENTITY_CONTAINER_DIAGRAM = 9;
 
 	/**
 	 * The feature id for the '<em><b>Properties</b></em>' containment reference list.
@@ -835,6 +1237,36 @@ public interface ActordiagramPackage extends EPackage {
 	int ENTITY_CONTAINER_DIAGRAM_FEATURE_COUNT = PictogramsPackage.DIAGRAM_FEATURE_COUNT + 1;
 
 	/**
+	 * The meta object id for the '<em>EPoint</em>' data type.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.eclipse.draw2d.geometry.Point
+	 * @see org.ptolemy.graphiti.actordiagram.impl.ActordiagramPackageImpl#getEPoint()
+	 * @generated
+	 */
+	int EPOINT = 10;
+
+	/**
+	 * The meta object id for the '<em>EDimension</em>' data type.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.eclipse.draw2d.geometry.Dimension
+	 * @see org.ptolemy.graphiti.actordiagram.impl.ActordiagramPackageImpl#getEDimension()
+	 * @generated
+	 */
+	int EDIMENSION = 11;
+
+	/**
+	 * The meta object id for the '<em>ERectangle</em>' data type.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.eclipse.draw2d.geometry.Rectangle
+	 * @see org.ptolemy.graphiti.actordiagram.impl.ActordiagramPackageImpl#getERectangle()
+	 * @generated
+	 */
+	int ERECTANGLE = 12;
+
+	/**
 	 * Returns the meta object for class '{@link org.ptolemy.graphiti.actordiagram.EntityShape <em>Entity Shape</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -963,6 +1395,36 @@ public interface ActordiagramPackage extends EPackage {
 	EAttribute getPortAnchor_Alignment();
 
 	/**
+	 * Returns the meta object for class '{@link org.ptolemy.graphiti.actordiagram.PortGA <em>Port GA</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Port GA</em>'.
+	 * @see org.ptolemy.graphiti.actordiagram.PortGA
+	 * @generated
+	 */
+	EClass getPortGA();
+
+	/**
+	 * Returns the meta object for class '{@link org.ptolemy.graphiti.actordiagram.RelationConnection <em>Relation Connection</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Relation Connection</em>'.
+	 * @see org.ptolemy.graphiti.actordiagram.RelationConnection
+	 * @generated
+	 */
+	EClass getRelationConnection();
+
+	/**
+	 * Returns the meta object for class '{@link org.ptolemy.graphiti.actordiagram.RelationShape <em>Relation Shape</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Relation Shape</em>'.
+	 * @see org.ptolemy.graphiti.actordiagram.RelationShape
+	 * @generated
+	 */
+	EClass getRelationShape();
+
+	/**
 	 * Returns the meta object for class '{@link org.ptolemy.graphiti.actordiagram.EntityContainerDiagram <em>Entity Container Diagram</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -971,6 +1433,39 @@ public interface ActordiagramPackage extends EPackage {
 	 * @generated
 	 */
 	EClass getEntityContainerDiagram();
+
+	/**
+	 * Returns the meta object for data type '{@link org.eclipse.draw2d.geometry.Point <em>EPoint</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for data type '<em>EPoint</em>'.
+	 * @see org.eclipse.draw2d.geometry.Point
+	 * @model instanceClass="org.eclipse.draw2d.geometry.Point"
+	 * @generated
+	 */
+	EDataType getEPoint();
+
+	/**
+	 * Returns the meta object for data type '{@link org.eclipse.draw2d.geometry.Dimension <em>EDimension</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for data type '<em>EDimension</em>'.
+	 * @see org.eclipse.draw2d.geometry.Dimension
+	 * @model instanceClass="org.eclipse.draw2d.geometry.Dimension"
+	 * @generated
+	 */
+	EDataType getEDimension();
+
+	/**
+	 * Returns the meta object for data type '{@link org.eclipse.draw2d.geometry.Rectangle <em>ERectangle</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for data type '<em>ERectangle</em>'.
+	 * @see org.eclipse.draw2d.geometry.Rectangle
+	 * @model instanceClass="org.eclipse.draw2d.geometry.Rectangle"
+	 * @generated
+	 */
+	EDataType getERectangle();
 
 	/**
 	 * Returns the meta object for class '{@link org.ptolemy.graphiti.actordiagram.ModelShape <em>Model Shape</em>}'.
@@ -1141,6 +1636,36 @@ public interface ActordiagramPackage extends EPackage {
 		EAttribute PORT_ANCHOR__ALIGNMENT = eINSTANCE.getPortAnchor_Alignment();
 
 		/**
+		 * The meta object literal for the '{@link org.ptolemy.graphiti.actordiagram.impl.PortGAImpl <em>Port GA</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.ptolemy.graphiti.actordiagram.impl.PortGAImpl
+		 * @see org.ptolemy.graphiti.actordiagram.impl.ActordiagramPackageImpl#getPortGA()
+		 * @generated
+		 */
+		EClass PORT_GA = eINSTANCE.getPortGA();
+
+		/**
+		 * The meta object literal for the '{@link org.ptolemy.graphiti.actordiagram.impl.RelationConnectionImpl <em>Relation Connection</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.ptolemy.graphiti.actordiagram.impl.RelationConnectionImpl
+		 * @see org.ptolemy.graphiti.actordiagram.impl.ActordiagramPackageImpl#getRelationConnection()
+		 * @generated
+		 */
+		EClass RELATION_CONNECTION = eINSTANCE.getRelationConnection();
+
+		/**
+		 * The meta object literal for the '{@link org.ptolemy.graphiti.actordiagram.impl.RelationShapeImpl <em>Relation Shape</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.ptolemy.graphiti.actordiagram.impl.RelationShapeImpl
+		 * @see org.ptolemy.graphiti.actordiagram.impl.ActordiagramPackageImpl#getRelationShape()
+		 * @generated
+		 */
+		EClass RELATION_SHAPE = eINSTANCE.getRelationShape();
+
+		/**
 		 * The meta object literal for the '{@link org.ptolemy.graphiti.actordiagram.impl.EntityContainerDiagramImpl <em>Entity Container Diagram</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
@@ -1149,6 +1674,36 @@ public interface ActordiagramPackage extends EPackage {
 		 * @generated
 		 */
 		EClass ENTITY_CONTAINER_DIAGRAM = eINSTANCE.getEntityContainerDiagram();
+
+		/**
+		 * The meta object literal for the '<em>EPoint</em>' data type.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.eclipse.draw2d.geometry.Point
+		 * @see org.ptolemy.graphiti.actordiagram.impl.ActordiagramPackageImpl#getEPoint()
+		 * @generated
+		 */
+		EDataType EPOINT = eINSTANCE.getEPoint();
+
+		/**
+		 * The meta object literal for the '<em>EDimension</em>' data type.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.eclipse.draw2d.geometry.Dimension
+		 * @see org.ptolemy.graphiti.actordiagram.impl.ActordiagramPackageImpl#getEDimension()
+		 * @generated
+		 */
+		EDataType EDIMENSION = eINSTANCE.getEDimension();
+
+		/**
+		 * The meta object literal for the '<em>ERectangle</em>' data type.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.eclipse.draw2d.geometry.Rectangle
+		 * @see org.ptolemy.graphiti.actordiagram.impl.ActordiagramPackageImpl#getERectangle()
+		 * @generated
+		 */
+		EDataType ERECTANGLE = eINSTANCE.getERectangle();
 
 		/**
 		 * The meta object literal for the '{@link org.ptolemy.graphiti.actordiagram.impl.ModelShapeImpl <em>Model Shape</em>}' class.

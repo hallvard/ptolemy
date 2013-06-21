@@ -6,6 +6,7 @@ import org.eclipse.graphiti.features.context.impl.AddConnectionContext;
 import org.eclipse.graphiti.mm.pictograms.ContainerShape;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
+import org.ptolemy.ecore.kernel.CompositeEntity;
 import org.ptolemy.ecore.kernel.EntityContainer;
 import org.ptolemy.ecore.kernel.Port;
 import org.ptolemy.ecore.kernel.Relation;
@@ -38,6 +39,10 @@ public class UpdateEntityContainerDiagramFeature extends UpdateNameableFeature {
     		return true;
     	}
     	EntityContainer<?> entityContainer = (EntityContainer<?>) bo;
+		changed	= addNeeded(containerShape, entityContainer.getAllPorts(), reallyUpdate) | changed;
+		if (changed && (! reallyUpdate)) {
+			return true;
+		}
     	changed = addNeeded(containerShape, entityContainer.getEntities(), reallyUpdate) | changed;
     	if (changed && (! reallyUpdate)) {
     		return true;
@@ -48,16 +53,33 @@ public class UpdateEntityContainerDiagramFeature extends UpdateNameableFeature {
     			break;
     		}
     		Port sourcePort = relation.getSourcePort();
-    		ModelShape<?> sourceEntityShape = findModelShape(containerShape, sourcePort.getContainer());
-    		ModelShape<?> sourcePortShape = findModelShape((ContainerShape) sourceEntityShape, (Port) sourcePort);
-    		PortAnchor sourcePortAnchor = LayoutPortFeature.PORT_ANCHOR.get(sourcePortShape);
+    		// may be a diagram port
+    		ModelShape<?> sourcePortShape = findModelShape(containerShape, (Port) sourcePort);
+    		if (sourcePortShape == null) {
+    			// or an entity shape port
+    			ModelShape<?> sourceEntityShape = findModelShape(containerShape, sourcePort.getContainer());
+    			if (sourceEntityShape != null) {
+    				sourcePortShape = findModelShape((ContainerShape) sourceEntityShape, (Port) sourcePort);
+    			}
+    		}
     		Port targetPort = relation.getTargetPorts().get(0); 
-    		ModelShape<?> targetEntityShape = findModelShape(containerShape, targetPort.getContainer());
-    		ModelShape<?> targetPortShape = findModelShape((ContainerShape) targetEntityShape, (Port) targetPort);
-    		PortAnchor targetPortAnchor = LayoutPortFeature.PORT_ANCHOR.get(targetPortShape);
-    		AddConnectionContext addConContext = new AddConnectionContext(sourcePortAnchor, targetPortAnchor);
-    		addConContext.setNewObject(relation);
-    		getFeatureProvider().addIfPossible(addConContext);
+    		// may be a diagram port
+    		ModelShape<?> targetPortShape = findModelShape(containerShape, (Port) targetPort);
+    		if (targetPortShape == null) {
+    			// or an entity shape port
+    			ModelShape<?> targetEntityShape = findModelShape(containerShape, targetPort.getContainer());
+    			if (targetEntityShape != null) {
+    				targetPortShape = findModelShape((ContainerShape) targetEntityShape, (Port) targetPort);
+    			}
+    		}
+    		if (sourcePortShape != null && targetPortShape != null) {
+    			PortAnchor sourcePortAnchor = LayoutPortFeature.PORT_ANCHOR.get(sourcePortShape);
+    			PortAnchor targetPortAnchor = LayoutPortFeature.PORT_ANCHOR.get(targetPortShape);
+    			
+    			AddConnectionContext addConContext = new AddConnectionContext(sourcePortAnchor, targetPortAnchor);
+    			addConContext.setNewObject(relation);
+    			getFeatureProvider().addIfPossible(addConContext);
+    		}
     	}
 		return changed;
     }

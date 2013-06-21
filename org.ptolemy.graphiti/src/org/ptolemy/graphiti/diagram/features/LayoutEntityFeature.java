@@ -80,11 +80,11 @@ public class LayoutEntityFeature extends AbstractLayoutEntityFeature {
 
 		int width = containerSize.width - insets.left - insets.right;
 		int height = containerSize.height - insets.top - insets.right;
-
-		layoutPorts(leftPortShapes, 0, insets.top, 0, height, 0.0f, 1.0f);
-		layoutPorts(rightPortShapes, containerSize.width - portSize, insets.top, 0, height, 0.0f, 1.0f);
-		layoutPorts(topPortShapes, portSize, insets.top - portSize, width, 0, 1.0f, 0.0f);
-		layoutPorts(bottomPortShapes, portSize, insets.top + height, width, 0, 1.0f, 0.0f);
+		int adjustment = 2;
+		layoutPorts(leftPortShapes, 0 + adjustment, insets.top, 0, height, 0.0f, 1.0f);
+		layoutPorts(rightPortShapes, containerSize.width - portSize - adjustment, insets.top, 0, height, 0.0f, 1.0f);
+		layoutPorts(topPortShapes, portSize, insets.top - portSize + adjustment, width, 0, 1.0f, 0.0f);
+		layoutPorts(bottomPortShapes, portSize, insets.top + height - adjustment, width, 0, 1.0f, 0.0f);
 		return changed;
 	}
 

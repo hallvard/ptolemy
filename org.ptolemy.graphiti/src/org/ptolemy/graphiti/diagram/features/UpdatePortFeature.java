@@ -4,6 +4,7 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.graphiti.features.IFeatureProvider;
 import org.eclipse.graphiti.features.context.IUpdateContext;
 import org.eclipse.graphiti.mm.algorithms.styles.Orientation;
+import org.eclipse.graphiti.mm.pictograms.Diagram;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.ptolemy.ecore.actor.AbstractIOPort;
 import org.ptolemy.ecore.kernel.Port;
@@ -28,27 +29,22 @@ public class UpdatePortFeature extends UpdateNameableFeature {
 		boolean changed = super.update(pe, bo, reallyUpdate);
     	PortShape portShape = (PortShape) pe;
     	Port port = portShape.getModel();
-		Boolean input = null;
+    	boolean isDiagramPort = portShape.getContainer() instanceof Diagram;
+		Boolean isInput = null;
 		if (port instanceof AbstractIOPort) {
 			AbstractIOPort ioPort = (AbstractIOPort) port;
 			if (ioPort.isInput() && ioPort.isOutput()) {
 			} else if (ioPort.isInput()) {
-				input = Boolean.TRUE;
+				isInput = Boolean.TRUE;
 			} else if (ioPort.isOutput()) {
-				input = Boolean.FALSE;
+				isInput = Boolean.FALSE;
 			}
 		}
-		if (input != null) {
+		if (isInput != null) {
 			Orientation orientation = Orientation.ALIGNMENT_RIGHT; 
-			Orientation anchorAlignment = Orientation.ALIGNMENT_LEFT;
-
 			int rotation = 0;
-			if (input) {
-				rotation = OrientationSupport.distance(Orientation.ALIGNMENT_LEFT, portShape.getAlignment());
-			} else {
-				rotation = OrientationSupport.distance(Orientation.ALIGNMENT_RIGHT, portShape.getAlignment());
-				anchorAlignment = Orientation.ALIGNMENT_RIGHT;
-			}
+			rotation = OrientationSupport.distance((isInput ? Orientation.ALIGNMENT_LEFT : Orientation.ALIGNMENT_RIGHT), portShape.getAlignment());
+			Orientation anchorAlignment = (isInput == isDiagramPort ? Orientation.ALIGNMENT_RIGHT : Orientation.ALIGNMENT_LEFT);
 			// orientation of port
 			orientation = OrientationSupport.rotate(orientation, rotation);
 			changed |= (portShape.getOrientation() != orientation);
@@ -79,7 +75,7 @@ public class UpdatePortFeature extends UpdateNameableFeature {
     	if (reallyUpdate) {
     		portShape.setFilled(filled);
     	}
-    	boolean locked = port.getInheritsFrom() != null;
+    	boolean locked = isDiagramPort || (port != null && port.getInheritsFrom() != null);
     	changed |= (portShape.isLocked() != locked);
     	if (reallyUpdate) {
     		portShape.setLocked(locked);

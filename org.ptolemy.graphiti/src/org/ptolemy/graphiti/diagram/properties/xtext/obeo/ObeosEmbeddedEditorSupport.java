@@ -85,9 +85,9 @@ public class ObeosEmbeddedEditorSupport extends AbstractEmbeddedEditorSupport {
 	}
 
 	private XtextResource createVirtualXtextResource(EObject semanticElement, ResourceSet resourceSet) throws IOException {
-		IResourceFactory resourceFactory = embeddedEditorContext.getInjector().getInstance(IResourceFactory.class);
+		IResourceFactory resourceFactory = embeddedEditorContext.getDslInjector().getInstance(IResourceFactory.class);
 		if (resourceSet == null) {
-			XtextResourceSet xtextResourceSet = embeddedEditorContext.getInjector().getInstance(XtextResourceSet.class);
+			XtextResourceSet xtextResourceSet = embeddedEditorContext.getDslInjector().getInstance(XtextResourceSet.class);
 			xtextResourceSet.setClasspathURIContext(getClass());
 			resourceSet = xtextResourceSet;
 		}
@@ -140,7 +140,7 @@ public class ObeosEmbeddedEditorSupport extends AbstractEmbeddedEditorSupport {
 		}
 		xtextEditorComposite.setLayout(new FillLayout());
 		IEditorSite editorSite = embeddedEditorContext.getDiagramEditor().getEditorSite();
-		this.xtextEditor = embeddedEditorContext.getInjector().getInstance(XtextEditor.class);
+		this.xtextEditor = embeddedEditorContext.getDslInjector().getInstance(XtextEditor.class);
 		// remove dirty state editor callback
 		xtextEditor.setXtextEditorCallback(new CompoundXtextEditorCallback(Guice.createInjector(new Module() {
 			public void configure(Binder binder) {

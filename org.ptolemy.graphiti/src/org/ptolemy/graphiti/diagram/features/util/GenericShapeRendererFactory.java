@@ -9,6 +9,7 @@ import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.ImageFigure;
 import org.eclipse.draw2d.Label;
 import org.eclipse.draw2d.geometry.Dimension;
+import org.eclipse.graphiti.dt.AbstractDiagramTypeProvider;
 import org.eclipse.graphiti.platform.ga.IGraphicsAlgorithmRenderer;
 import org.eclipse.graphiti.platform.ga.IGraphicsAlgorithmRendererFactory;
 import org.eclipse.graphiti.platform.ga.IRendererContext;
@@ -30,6 +31,17 @@ public class GenericShapeRendererFactory implements IGraphicsAlgorithmRendererFa
 	
 	@Inject
 	private Injector injector;
+
+	private AbstractDiagramTypeProvider diagramTypeProvider;
+
+//	@Inject
+//	public GenericShapeRendererFactory(AbstractDiagramTypeProvider diagramTypeProvider) {
+//		this.diagramTypeProvider = diagramTypeProvider;
+//	}
+
+	protected AbstractDiagramTypeProvider getDiagramTypeProvider() {
+		return diagramTypeProvider;
+	}
 	
 	public static boolean isLabelId(String id) {
 		return id.startsWith("=");
@@ -107,6 +119,9 @@ public class GenericShapeRendererFactory implements IGraphicsAlgorithmRendererFa
 				logger.warning("Couldn't create custom draw2d Shape for " + id + ": " + shapeException);
 			}
 		}
-		return new GenericShapeRenderer(children.toArray(new IFigure[children.size()]));
+		if (children.size() > 0) {
+			return new GenericShapeRenderer(children.toArray(new IFigure[children.size()]));
+		}
+		return null;
 	}
 }

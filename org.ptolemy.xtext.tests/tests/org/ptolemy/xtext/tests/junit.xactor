@@ -1,0 +1,45 @@
+namespace org.ptolemy.xtext.tests :
+
+import java.util.Iterator
+import junit.framework.TestCase
+
+namespace junit :
+
+	actor AbstractTest :
+		function assertEquals(String message, Object expected, Object actual) --> boolean :
+			TestCase::assertEquals(message, expected, actual)
+			true
+		end
+		function assertEquals(String message, int expected, int actual) --> boolean :
+			TestCase::assertEquals(message, expected, actual)
+			true
+		end
+		function assertEquals(String message, boolean expected, boolean actual) --> boolean :
+			TestCase::assertEquals(message, expected, actual)
+			true
+		end
+		function assertEquals(String message, double expected, double actual, double epsilon) --> boolean :
+			TestCase::assertEquals(message, expected, actual, epsilon)
+			true
+		end
+		function assertTrue(String message, boolean actual) --> boolean :
+			TestCase::assertTrue(message, actual)
+			true
+		end
+		function fail(String message) --> boolean :
+			TestCase::fail(message)
+			true
+		end
+	end
+
+	actor TestValues<T>(Iterable<T> values) T input ==> is AbstractTest :
+		val Iterator<T> iter = values.iterator;
+		action [i] ==> guard iter.hasNext
+		do
+			val T next = iter.next
+			assertEquals("assertEquals(" + next + ", " + i + ")", next, i)
+		end
+	end
+end
+
+end

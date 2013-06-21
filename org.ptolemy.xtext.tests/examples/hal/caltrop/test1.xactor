@@ -1,3 +1,0 @@
-model test1
-actor ramp1 is hal.caltrop.actors.library.sources.sequence.Ramp
-(init=2, end=6)

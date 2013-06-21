@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<frame 
+	xmlns="http://www.swixml.org/2007/SwixmlTags"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.swixml.org/2007/SwixmlTags http://www.swixml.org/2007/swixml.xsd" 
+
+	size="640,280" title="Hello SWIXML World" defaultCloseOperation="JFrame.DISPOSE_ON_CLOSE"
+	name="browser"
+	>
+
+	<hbox name="location" constraints="BorderLayout.NORTH">
+  		<label Text="Location: "/>
+    	<xtextfield name="text" Text="http://www.idi.ntnu.no/"/>
+    	<button name="goButton" Text="Go"/>
+  	</hbox>
+
+ 	<splitpane constraints="BorderLayout.CENTER">
+	
+	  	<vbox name="bookmarks">
+	  		<label Text="Bookmarks"/>
+	    	<list name="list"/>
+	    	<button name="addButton" Text="Add bookmark"/>
+	  	</vbox>
+	
+	    <editorpane id="browser.viewer" ContentType="text/html" text="&lt;h1&gt;Browser&lt;/h1&gt;"
+	    	editable="false"
+	    />
+	
+	</splitpane>
+	
+</frame>

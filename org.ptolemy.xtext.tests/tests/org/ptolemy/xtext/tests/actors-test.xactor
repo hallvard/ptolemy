@@ -1,0 +1,302 @@
+namespace org.ptolemy.xtext.tests.actors :
+
+import java.util.Iterator
+
+import org.ptolemy.xtext.tests.junit.AbstractTest
+import org.ptolemy.xtext.tests.junit.TestValues
+
+import org.ptolemy.xtext.tests.actors.sources.generic.StringConst
+import org.ptolemy.xtext.tests.actors.sources.sequence.Ramp
+import org.ptolemy.xtext.tests.actors.sources.sequence.Values
+import org.ptolemy.xtext.tests.actors.logic.LogicFunction
+import org.ptolemy.xtext.tests.actors.misc.ReduceChannels
+import org.ptolemy.xtext.tests.actors.misc.FoldChannels
+import org.ptolemy.xtext.tests.actors.misc.ApplyInput1
+import org.ptolemy.xtext.tests.actors.misc.ApplyInput2
+import org.ptolemy.xtext.tests.actors.misc.SelectChannel1
+import org.ptolemy.xtext.tests.actors.misc.SelectChannelN
+
+namespace sources :
+
+	network StringConstTestModelN :
+		entities
+			stringConst = StringConst(value="fireLimit=-1")
+			stringConstTest String input ==> is AbstractTest :
+				action [s] ==>
+				do
+					assertEquals("fireLimit=-1", "fireLimit=-1", s)
+				end
+				action ==>
+				do
+					fail("Step " + step + ": default action")
+				end
+			end
+			
+		structure
+			stringConst.output --> stringConstTest.input
+	end
+
+	network StringConstTestModel1 :
+
+		entities
+			stringConst = StringConst(value="fireLimit=1", fireLimit=1)			
+			stringConstTest String input ==> is AbstractTest :
+				action [s] ==>
+				do
+					assertTrue("Step should be < 1", step < 1)
+					assertEquals("fireLimit=1", "fireLimit=1", s)
+				end
+				action ==>
+				do
+					fail("Stop when step >= 1")
+				end
+			end
+			
+		structure
+			stringConst.output --> stringConstTest.input
+	end
+
+	network RampTestModel1 :
+
+		entities
+			ramp = Ramp	
+			rampTest int input ==> is AbstractTest :
+				action [i] ==>
+				do
+					assertEquals("input should be == " + step, step, i)
+				end
+				action ==>
+				do
+					fail("Step " + step + ": default action")
+				end
+			end
+			
+		structure
+			ramp.output --> rampTest.input
+	end
+
+	network RampTestModel2 :
+
+		entities
+			ramp = Ramp(stop=5)
+			rampTest int input ==> is AbstractTest :
+				action [i] ==>
+				do
+					assertTrue("Step should be < 5", step < 5)
+					assertEquals("input should be " + step, step, i)
+				end
+				action ==>
+				do
+					fail("Stop when step >= 5")
+				end
+			end
+			
+		structure
+			ramp.output --> rampTest.input
+	end
+
+	network RampTestModel3 :
+
+		entities
+			ramp = Ramp(step=2)
+			rampTest int input ==> is AbstractTest :
+				action [i] ==>
+				do
+					assertTrue("Step should be < 5", step < 5)
+					assertEquals("input should be " + (step * 2), step * 2, i)
+				end
+				action ==>
+				do
+					fail("Stop when step >= 5")
+				end
+			end
+			
+		structure
+			ramp.output --> rampTest.input
+	end
+
+	network ValuesTestModel1 :
+
+		entities
+			values = Values<Integer>(values=#[0, 1, 2])
+			valuesTest int input ==> is AbstractTest :
+				action [i] ==>
+				do
+					assertTrue("Step should be < 3", step < 3)
+					assertEquals("input should be " + step, step, i)
+				end
+				action ==>
+				do
+					fail("Stop when step >= 3")
+				end
+			end
+			
+		structure
+			values.output --> valuesTest.input
+	end
+
+	network ValuesTestModel2 :
+
+		entities
+			values = Values<Integer>(values=#[0, 1, 2], rep=true)
+			valuesTest int input ==> is AbstractTest :
+				action [i] ==>
+				do
+					assertEquals("input should be " + step, step % 3, i)
+				end
+				action ==>
+				do
+					fail("Step " + step + ": default action")
+				end
+			end
+			
+		structure
+			values.output --> valuesTest.input
+	end
+end
+
+namespace logic :
+
+	network LogicFunctionAndTestModel1 :
+
+		entities
+			values = Values<Boolean>(values=#[false, true])
+			logicFunction = LogicFunction
+			logicFunctionTest = TestValues<Boolean>(values=#[false, true])
+			
+		structure
+			values.output --> logicFunction.input
+			logicFunction.output --> logicFunctionTest.input
+	end
+	network LogicFunctionAndTestModel2 :
+
+		entities
+			values1 = Values<Boolean>(values=#[false, false, true, true])
+			values2 = Values<Boolean>(values=#[false, true, false, true])
+			logicFunction = LogicFunction
+			logicFunctionTest = TestValues<Boolean>(values=#[false, false, false, true])
+			
+		structure
+			values1.output --> logicFunction.input
+			values2.output --> logicFunction.input
+			logicFunction.output --> logicFunctionTest.input
+	end
+
+	network LogicFunctionOrTestModel1 :
+
+		entities
+			values = Values<Boolean>(values=#[false, true])
+			logicFunction = LogicFunction
+			logicFunctionTest = TestValues<Boolean>(values=#[false, true])
+			
+		structure
+			values.output --> logicFunction.input
+			logicFunction.output --> logicFunctionTest.input
+	end
+
+	network LogicFunctionOrTestModel2 :
+
+		entities
+			values1 = Values<Boolean>(values=#[false, false, true, true])
+			values2 = Values<Boolean>(values=#[false, true, false, true])
+			logicFunction = LogicFunction(fun="or")
+			logicFunctionTest = TestValues<Boolean>(values=#[false, true, true, true])
+
+		structure
+			values1.output --> logicFunction.input
+			values2.output --> logicFunction.input
+			logicFunction.output --> logicFunctionTest.input
+	end
+end
+
+namespace misc :
+
+	network ReduceChannelsTestModel1 :
+
+		entities
+			values = Values<Integer>(values=#[1, 2])
+			reduceChannels = ReduceChannels<Integer>(fun=[int n1, int n2|n1 + n2])
+			reduceChannelsTest = TestValues<Integer>(values=#[1, 2])
+			
+		structure
+			values.output --> reduceChannels.input
+			reduceChannels.output --> reduceChannelsTest.input
+	end
+	network ReduceChannelsTestModel2 :
+
+		entities
+			values1 = Values<Integer>(values=#[1, 2])
+			values2 = Values<Integer>(values=#[9, 10])
+			reduceChannels = ReduceChannels<Integer>(fun=[int n1, int n2|n1 + n2])
+			reduceChannelsTest = TestValues<Integer>(values=#[10, 12])
+		
+		structure
+			values1.output --> reduceChannels.input
+			values2.output --> reduceChannels.input
+			reduceChannels.output --> reduceChannelsTest.input
+	end
+
+	network FoldChannelsTestModel1 :
+
+		entities
+			values = Values<Integer>(values=#[1, 2])
+			foldChannels = FoldChannels<String,Integer>(fun=[String s, int n2|s + n2], init="0")
+			foldChannelsTest = TestValues<String>(values=#["01", "02"])
+			
+		structure
+			values.output --> foldChannels.input
+			foldChannels.output --> foldChannelsTest.input
+	end
+	network FoldChannelsTestModel2 :
+
+		entities
+			values1 = Values<Integer>(values=#[1, 2])
+			values2 = Values<Integer>(values=#[9, 10])
+			foldChannels = FoldChannels<String,Integer>(fun=[String s, int n2|s + n2], init="0")
+			foldChannelsTest = TestValues<String>(values=#["019", "0210"])
+		
+		structure
+			values1.output --> foldChannels.input
+			values2.output --> foldChannels.input
+			foldChannels.output --> foldChannelsTest.input
+	end
+
+	network ApplyInput1TestModel :
+		entities
+			values = Values<Integer>(values=#[1, 2])
+			applyInput = ApplyInput1<Integer, Integer>(fun=[int n|n+1])
+			applyInputTest = TestValues<Integer>(values=#[2, 3])
+			
+		structure
+			values.output --> applyInput.input
+			applyInput.output --> applyInputTest.input
+	end
+	network ApplyInput2TestModel :
+		entities
+			values = Values<Integer>(values=#[1, 2, 3, 4])
+			applyInput = ApplyInput2<Integer, Integer>(fun=[int n1, int n2|n1+n2])
+			applyInputTest = TestValues<Integer>(values=#[3, 7])
+			
+		structure
+			values.output --> applyInput.input
+			applyInput.output --> applyInputTest.input
+	end
+	
+	network SelectChannelNTestModel :
+		entities
+			values1 = Values<Integer>(values=#[1, 2, 3])
+			values2 = Values<Integer>(values=#[4, 5, 6])
+			values3 = Values<Integer>(values=#[9, 10, 11])
+			channels = Values<Integer>(values=#[0, 2, 1])
+			selectChannel = SelectChannelN<Integer>
+			selectChannelTest = TestValues<Integer>(values=#[1, 10, 6])
+		
+		structure
+			values1.output --> selectChannel.input
+			values2.output --> selectChannel.input
+			values3.output --> selectChannel.input
+			channels.output --> selectChannel.channel
+			selectChannel.output --> selectChannelTest.input
+	end
+end
+end

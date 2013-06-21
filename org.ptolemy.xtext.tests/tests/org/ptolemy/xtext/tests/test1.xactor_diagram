@@ -1,0 +1,218 @@
+<?xml version="1.0" encoding="ASCII"?>
+<xmi:XMI xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:actordiagram="org.ptolemy.graphiti.actordiagram" xmlns:al="http://eclipse.org/graphiti/mm/algorithms" xmlns:pi="http://eclipse.org/graphiti/mm/pictograms">
+  <actordiagram:EntityContainerDiagram visible="true" gridUnit="10" diagramTypeId="xactor" name="test1" snapToGrid="true" pictogramLinks="/0/@children.0/@link /0/@children.0/@children.0/@link /0/@children.1/@link /0/@children.1/@children.0/@link /0/@children.2/@link /0/@children.2/@children.0/@link /0/@children.2/@children.1/@link /0/@children.3/@link /0/@children.3/@children.0/@link /0/@children.3/@children.1/@link /0/@connections.0/@link /0/@connections.1/@link /0/@children.4/@link /0/@children.4/@children.0/@link /0/@children.4/@children.1/@link /1/@link" version="0.9.0">
+    <graphicsAlgorithm xsi:type="al:Rectangle" background="/0/@colors.1" foreground="/0/@colors.0" lineWidth="1" transparency="0.0" width="120" height="140"/>
+    <link>
+      <businessObjects href="test1.xactor#/0"/>
+    </link>
+    <children xsi:type="actordiagram:EntityShape" visible="true" active="true" label="/0/@children.0/@graphicsAlgorithm/@graphicsAlgorithmChildren.1">
+      <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="94" height="91" x="520" y="237">
+        <graphicsAlgorithmChildren xsi:type="al:Rectangle" background="/0/@colors.3" foreground="/0/@colors.2" lineWidth="2" transparency="0.0" width="70" height="65" x="12" y="14"/>
+        <graphicsAlgorithmChildren xsi:type="al:Text" foreground="/0/@colors.2" lineWidth="1" filled="false" transparency="0.0" width="70" height="14" x="12" font="/0/@fonts.0" value="ramp1"/>
+      </graphicsAlgorithm>
+      <link>
+        <businessObjects href="test1.xactor#/0/@entities[name='ramp1']"/>
+      </link>
+      <anchors xsi:type="pi:ChopboxAnchor" referencedGraphicsAlgorithm="/0/@children.0/@graphicsAlgorithm/@graphicsAlgorithmChildren.0"/>
+      <children xsi:type="actordiagram:PortShape" visible="true" active="true" alignment="ALIGNMENT_RIGHT" orientation="ALIGNMENT_RIGHT" outsideAnchor="/0/@children.0/@children.0/@anchors.0" size="12" filled="true" locked="true">
+        <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="12" height="12" x="82" y="40">
+          <graphicsAlgorithmChildren xsi:type="actordiagram:PortGA" background="/0/@colors.6" foreground="/0/@colors.5" width="12" height="12"/>
+        </graphicsAlgorithm>
+        <link>
+          <businessObjects href="test1.xactor#/0/@entities[name='ramp1']/@inheritedPorts[name='output']"/>
+        </link>
+        <anchors xsi:type="actordiagram:PortAnchor" visible="true" active="true" outgoingConnections="/0/@connections.0 /0/@connections.1" referencedGraphicsAlgorithm="/0/@children.0/@children.0/@graphicsAlgorithm" relativeWidth="0.6" relativeHeight="0.45" alignment="ALIGNMENT_RIGHT">
+          <graphicsAlgorithm xsi:type="al:Rectangle" background="/0/@colors.4" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="2" height="2"/>
+        </anchors>
+        <anchors xsi:type="pi:ChopboxAnchor" referencedGraphicsAlgorithm="/0/@children.0/@children.0/@graphicsAlgorithm"/>
+      </children>
+    </children>
+    <children xsi:type="actordiagram:EntityShape" visible="true" active="true" label="/0/@children.1/@graphicsAlgorithm/@graphicsAlgorithmChildren.1">
+      <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="91" height="91" x="720" y="237">
+        <graphicsAlgorithmChildren xsi:type="al:Rectangle" background="/0/@colors.3" foreground="/0/@colors.2" lineWidth="2" transparency="0.0" width="67" height="65" x="12" y="14"/>
+        <graphicsAlgorithmChildren xsi:type="al:Text" foreground="/0/@colors.2" lineWidth="1" filled="false" transparency="0.0" width="70" height="14" x="12" font="/0/@fonts.0" value="discard1"/>
+      </graphicsAlgorithm>
+      <link>
+        <businessObjects href="test1.xactor#/0/@entities[name='discard1']"/>
+      </link>
+      <anchors xsi:type="pi:ChopboxAnchor" referencedGraphicsAlgorithm="/0/@children.1/@graphicsAlgorithm/@graphicsAlgorithmChildren.0"/>
+      <children xsi:type="actordiagram:PortShape" visible="true" active="true" alignment="ALIGNMENT_LEFT" orientation="ALIGNMENT_RIGHT" outsideAnchor="/0/@children.1/@children.0/@anchors.0" size="12" filled="true" locked="true">
+        <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="12" height="12" y="40">
+          <graphicsAlgorithmChildren xsi:type="actordiagram:PortGA" background="/0/@colors.6" foreground="/0/@colors.5" width="12" height="12"/>
+        </graphicsAlgorithm>
+        <link>
+          <businessObjects href="test1.xactor#/0/@entities[name='discard1']/@inheritedPorts[name='input']"/>
+        </link>
+        <anchors xsi:type="actordiagram:PortAnchor" visible="true" active="true" incomingConnections="/0/@connections.0 /0/@connections.1" referencedGraphicsAlgorithm="/0/@children.1/@children.0/@graphicsAlgorithm" relativeHeight="0.45" alignment="ALIGNMENT_LEFT">
+          <graphicsAlgorithm xsi:type="al:Rectangle" background="/0/@colors.4" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="2" height="2"/>
+        </anchors>
+        <anchors xsi:type="pi:ChopboxAnchor" referencedGraphicsAlgorithm="/0/@children.1/@children.0/@graphicsAlgorithm"/>
+      </children>
+    </children>
+    <children xsi:type="actordiagram:EntityShape" visible="true" active="true" label="/0/@children.2/@graphicsAlgorithm/@graphicsAlgorithmChildren.1">
+      <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="44" height="46" x="8" y="16">
+        <graphicsAlgorithmChildren xsi:type="al:Rectangle" background="/0/@colors.3" foreground="/0/@colors.2" lineWidth="2" transparency="0.0" width="20" height="20" x="12" y="14"/>
+        <graphicsAlgorithmChildren xsi:type="al:Text" foreground="/0/@colors.2" lineWidth="1" filled="false" transparency="0.0" width="70" height="14" x="12" font="/0/@fonts.0" value="comp1"/>
+      </graphicsAlgorithm>
+      <link>
+        <businessObjects href="test1.xactor#/0/@entities[name='comp1']"/>
+      </link>
+      <anchors xsi:type="pi:ChopboxAnchor" referencedGraphicsAlgorithm="/0/@children.2/@graphicsAlgorithm/@graphicsAlgorithmChildren.0"/>
+      <children xsi:type="actordiagram:PortShape" visible="true" active="true" alignment="ALIGNMENT_LEFT" orientation="ALIGNMENT_RIGHT" outsideAnchor="/0/@children.2/@children.0/@anchors.0" size="12" filled="true">
+        <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="12" height="12" y="18">
+          <graphicsAlgorithmChildren xsi:type="actordiagram:PortGA" background="/0/@colors.3" foreground="/0/@colors.2" width="12" height="12"/>
+        </graphicsAlgorithm>
+        <link>
+          <businessObjects href="test1.xactor#/0/@entities[name='comp1']/@ports[name='null1']"/>
+        </link>
+        <anchors xsi:type="actordiagram:PortAnchor" visible="true" active="true" referencedGraphicsAlgorithm="/0/@children.2/@children.0/@graphicsAlgorithm" relativeHeight="0.6166666507720947" alignment="ALIGNMENT_LEFT">
+          <graphicsAlgorithm xsi:type="al:Rectangle" background="/0/@colors.4" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="2" height="2"/>
+        </anchors>
+        <anchors xsi:type="pi:ChopboxAnchor" referencedGraphicsAlgorithm="/0/@children.2/@children.0/@graphicsAlgorithm"/>
+      </children>
+      <children xsi:type="actordiagram:PortShape" visible="true" active="true" alignment="ALIGNMENT_RIGHT" orientation="ALIGNMENT_RIGHT" outsideAnchor="/0/@children.2/@children.1/@anchors.0" size="12" filled="true">
+        <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="12" height="12" x="32" y="18">
+          <graphicsAlgorithmChildren xsi:type="actordiagram:PortGA" background="/0/@colors.3" foreground="/0/@colors.2" width="12" height="12"/>
+        </graphicsAlgorithm>
+        <link>
+          <businessObjects href="test1.xactor#/0/@entities[name='comp1']/@ports[name='output1']"/>
+        </link>
+        <anchors xsi:type="actordiagram:PortAnchor" visible="true" active="true" referencedGraphicsAlgorithm="/0/@children.2/@children.1/@graphicsAlgorithm" relativeWidth="0.3" relativeHeight="0.2833333253860474" alignment="ALIGNMENT_RIGHT">
+          <graphicsAlgorithm xsi:type="al:Rectangle" background="/0/@colors.4" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="2" height="2"/>
+        </anchors>
+        <anchors xsi:type="pi:ChopboxAnchor" referencedGraphicsAlgorithm="/0/@children.2/@children.1/@graphicsAlgorithm"/>
+      </children>
+    </children>
+    <children xsi:type="actordiagram:EntityShape" visible="true" active="true" label="/0/@children.3/@graphicsAlgorithm/@graphicsAlgorithmChildren.1">
+      <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="44" height="46" x="68" y="16">
+        <graphicsAlgorithmChildren xsi:type="al:Rectangle" background="/0/@colors.3" foreground="/0/@colors.2" lineWidth="2" transparency="0.0" width="20" height="20" x="12" y="14"/>
+        <graphicsAlgorithmChildren xsi:type="al:Text" foreground="/0/@colors.2" lineWidth="1" filled="false" transparency="0.0" width="70" height="14" x="12" font="/0/@fonts.0" value="comp2"/>
+      </graphicsAlgorithm>
+      <link>
+        <businessObjects href="test1.xactor#/0/@entities[name='comp2']"/>
+      </link>
+      <anchors xsi:type="pi:ChopboxAnchor" referencedGraphicsAlgorithm="/0/@children.3/@graphicsAlgorithm/@graphicsAlgorithmChildren.0"/>
+      <children xsi:type="actordiagram:PortShape" visible="true" active="true" alignment="ALIGNMENT_LEFT" orientation="ALIGNMENT_RIGHT" outsideAnchor="/0/@children.3/@children.0/@anchors.0" size="12" filled="true">
+        <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="12" height="12" y="18">
+          <graphicsAlgorithmChildren xsi:type="actordiagram:PortGA" background="/0/@colors.3" foreground="/0/@colors.2" width="12" height="12"/>
+        </graphicsAlgorithm>
+        <link>
+          <businessObjects href="test1.xactor#/0/@entities[name='comp2']/@ports[name='input1']"/>
+        </link>
+        <anchors xsi:type="actordiagram:PortAnchor" visible="true" active="true" referencedGraphicsAlgorithm="/0/@children.3/@children.0/@graphicsAlgorithm" relativeHeight="0.6166666507720947" alignment="ALIGNMENT_LEFT">
+          <graphicsAlgorithm xsi:type="al:Rectangle" background="/0/@colors.4" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="2" height="2"/>
+        </anchors>
+        <anchors xsi:type="pi:ChopboxAnchor" referencedGraphicsAlgorithm="/0/@children.3/@children.0/@graphicsAlgorithm"/>
+      </children>
+      <children xsi:type="actordiagram:PortShape" visible="true" active="true" alignment="ALIGNMENT_RIGHT" orientation="ALIGNMENT_RIGHT" outsideAnchor="/0/@children.3/@children.1/@anchors.0" size="12" filled="true">
+        <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="12" height="12" x="32" y="18">
+          <graphicsAlgorithmChildren xsi:type="actordiagram:PortGA" background="/0/@colors.3" foreground="/0/@colors.2" width="12" height="12"/>
+        </graphicsAlgorithm>
+        <link>
+          <businessObjects href="test1.xactor#/0/@entities[name='comp2']/@ports[name='output1']"/>
+        </link>
+        <anchors xsi:type="actordiagram:PortAnchor" visible="true" active="true" referencedGraphicsAlgorithm="/0/@children.3/@children.1/@graphicsAlgorithm" relativeWidth="0.3" relativeHeight="0.2833333253860474" alignment="ALIGNMENT_RIGHT">
+          <graphicsAlgorithm xsi:type="al:Rectangle" background="/0/@colors.4" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="2" height="2"/>
+        </anchors>
+        <anchors xsi:type="pi:ChopboxAnchor" referencedGraphicsAlgorithm="/0/@children.3/@children.1/@graphicsAlgorithm"/>
+      </children>
+    </children>
+    <children xsi:type="actordiagram:EntityShape" visible="true" active="true" label="/0/@children.4/@graphicsAlgorithm/@graphicsAlgorithmChildren.1">
+      <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="94" height="76" x="978" y="366">
+        <graphicsAlgorithmChildren xsi:type="al:Rectangle" background="/0/@colors.3" foreground="/0/@colors.2" lineWidth="2" transparency="0.0" width="70" height="50" x="12" y="14"/>
+        <graphicsAlgorithmChildren xsi:type="al:Text" foreground="/0/@colors.2" lineWidth="1" filled="false" transparency="0.0" width="70" height="14" x="12" font="/0/@fonts.0" value="comp1"/>
+      </graphicsAlgorithm>
+      <link>
+        <businessObjects href="test1.xactor#/0/@entities[name='comp1']"/>
+      </link>
+      <anchors xsi:type="pi:ChopboxAnchor" referencedGraphicsAlgorithm="/0/@children.4/@graphicsAlgorithm/@graphicsAlgorithmChildren.0"/>
+      <children xsi:type="actordiagram:PortShape" visible="true" active="true" alignment="ALIGNMENT_LEFT" orientation="ALIGNMENT_RIGHT" outsideAnchor="/0/@children.4/@children.0/@anchors.0" size="12" filled="true">
+        <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="12" height="12" y="33">
+          <graphicsAlgorithmChildren xsi:type="actordiagram:PortGA" background="/0/@colors.3" foreground="/0/@colors.2" lineStyle="UNSPECIFIED" width="12" height="12"/>
+        </graphicsAlgorithm>
+        <link>
+          <businessObjects href="test1.xactor#/0/@entities[name='comp1']/@ports[name='input1']"/>
+        </link>
+        <anchors xsi:type="actordiagram:PortAnchor" visible="true" active="true" referencedGraphicsAlgorithm="/0/@children.4/@children.0/@graphicsAlgorithm" relativeHeight="0.5" alignment="ALIGNMENT_LEFT">
+          <graphicsAlgorithm xsi:type="al:Rectangle" background="/0/@colors.4" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="2" height="2"/>
+        </anchors>
+        <anchors xsi:type="pi:ChopboxAnchor" referencedGraphicsAlgorithm="/0/@children.4/@children.0/@graphicsAlgorithm"/>
+      </children>
+      <children xsi:type="actordiagram:PortShape" visible="true" active="true" alignment="ALIGNMENT_RIGHT" orientation="ALIGNMENT_RIGHT" outsideAnchor="/0/@children.4/@children.1/@anchors.0" size="12" filled="true">
+        <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="12" height="12" x="82" y="33">
+          <graphicsAlgorithmChildren xsi:type="actordiagram:PortGA" background="/0/@colors.3" foreground="/0/@colors.2" lineStyle="UNSPECIFIED" width="12" height="12"/>
+        </graphicsAlgorithm>
+        <link>
+          <businessObjects href="test1.xactor#/0/@entities[name='comp1']/@ports[name='output1']"/>
+        </link>
+        <anchors xsi:type="actordiagram:PortAnchor" visible="true" active="true" referencedGraphicsAlgorithm="/0/@children.4/@children.1/@graphicsAlgorithm" relativeWidth="1.0" relativeHeight="0.5" alignment="ALIGNMENT_RIGHT">
+          <graphicsAlgorithm xsi:type="al:Rectangle" background="/0/@colors.4" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="2" height="2"/>
+        </anchors>
+        <anchors xsi:type="pi:ChopboxAnchor" referencedGraphicsAlgorithm="/0/@children.4/@children.1/@graphicsAlgorithm"/>
+      </children>
+    </children>
+    <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="/0/@children.0/@children.0/@anchors.0" end="/0/@children.1/@children.0/@anchors.0">
+      <graphicsAlgorithm xsi:type="al:Polyline" foreground="/0/@colors.2" lineWidth="2" filled="false" transparency="0.0"/>
+      <link>
+        <businessObjects href="test1.xactor#/0/@relations.0"/>
+      </link>
+      <anchors xsi:type="pi:BoxRelativeAnchor" visible="true" active="true" referencedGraphicsAlgorithm="/0/@connections.0/@graphicsAlgorithm" relativeWidth="0.5" relativeHeight="0.5">
+        <graphicsAlgorithm xsi:type="al:Rectangle" lineStyle="UNSPECIFIED" width="5" height="5" x="-2" y="-2"/>
+      </anchors>
+    </connections>
+    <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="/0/@children.0/@children.0/@anchors.0" end="/0/@children.1/@children.0/@anchors.0">
+      <graphicsAlgorithm xsi:type="al:Polyline" foreground="/0/@colors.2" lineWidth="2" filled="false" transparency="0.0"/>
+      <link>
+        <businessObjects href="test1.xactor#/0/@relations.0"/>
+      </link>
+      <anchors xsi:type="pi:BoxRelativeAnchor" visible="true" active="true" referencedGraphicsAlgorithm="/0/@connections.1/@graphicsAlgorithm" relativeWidth="0.5" relativeHeight="0.5">
+        <graphicsAlgorithm xsi:type="al:Rectangle" lineStyle="UNSPECIFIED" width="5" height="5" x="-2" y="-2"/>
+      </anchors>
+    </connections>
+    <colors red="227" green="238" blue="249"/>
+    <colors red="255" green="255" blue="255"/>
+    <colors red="98" green="131" blue="167"/>
+    <colors red="187" green="218" blue="247"/>
+    <colors/>
+    <colors red="132" green="132" blue="132"/>
+    <colors red="217" green="217" blue="217"/>
+    <fonts name="Arial" size="8" bold="true"/>
+  </actordiagram:EntityContainerDiagram>
+  <actordiagram:EntityContainerDiagram visible="true" gridUnit="10" diagramTypeId="xactor" name="comp1" snapToGrid="true" pictogramLinks="/1/@children.0/@link /1/@children.1/@link" version="0.9.0">
+    <graphicsAlgorithm xsi:type="al:Rectangle" background="/1/@colors.1" foreground="/1/@colors.0" lineWidth="1" transparency="0.0" width="1000" height="1000"/>
+    <link>
+      <businessObjects href="test1.xactor#/0/@entities[name='comp1']"/>
+    </link>
+    <children xsi:type="actordiagram:PortShape" visible="true" active="true" alignment="ALIGNMENT_LEFT" orientation="ALIGNMENT_RIGHT" outsideAnchor="/1/@children.0/@anchors.0" size="36" filled="true" locked="true">
+      <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="36" height="36" x="290" y="200">
+        <graphicsAlgorithmChildren xsi:type="actordiagram:PortGA" background="/1/@colors.6" foreground="/1/@colors.5" lineStyle="UNSPECIFIED" width="36" height="36"/>
+      </graphicsAlgorithm>
+      <link>
+        <businessObjects href="test1.xactor#/0/@entities[name='comp1']/@ports[name='input1']"/>
+      </link>
+      <anchors xsi:type="actordiagram:PortAnchor" visible="true" active="true" referencedGraphicsAlgorithm="/1/@children.0/@graphicsAlgorithm" relativeWidth="1.0" relativeHeight="0.5" alignment="ALIGNMENT_RIGHT">
+        <graphicsAlgorithm xsi:type="al:Rectangle" background="/1/@colors.4" lineWidth="1" filled="true" lineVisible="true" transparency="0.0" width="6" height="6"/>
+      </anchors>
+      <anchors xsi:type="pi:ChopboxAnchor" referencedGraphicsAlgorithm="/1/@children.0/@graphicsAlgorithm"/>
+    </children>
+    <children xsi:type="actordiagram:PortShape" visible="true" active="true" alignment="ALIGNMENT_RIGHT" orientation="ALIGNMENT_RIGHT" outsideAnchor="/1/@children.1/@anchors.0" size="36" filled="true" locked="true">
+      <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="36" height="36" x="590" y="200">
+        <graphicsAlgorithmChildren xsi:type="actordiagram:PortGA" background="/1/@colors.6" foreground="/1/@colors.5" lineStyle="UNSPECIFIED" width="36" height="36"/>
+      </graphicsAlgorithm>
+      <link>
+        <businessObjects href="test1.xactor#/0/@entities[name='comp1']/@ports[name='output1']"/>
+      </link>
+      <anchors xsi:type="actordiagram:PortAnchor" visible="true" active="true" referencedGraphicsAlgorithm="/1/@children.1/@graphicsAlgorithm" relativeHeight="0.5" alignment="ALIGNMENT_LEFT">
+        <graphicsAlgorithm xsi:type="al:Rectangle" background="/1/@colors.4" lineWidth="1" filled="true" lineVisible="true" transparency="0.0" width="6" height="6"/>
+      </anchors>
+      <anchors xsi:type="pi:ChopboxAnchor" referencedGraphicsAlgorithm="/1/@children.1/@graphicsAlgorithm"/>
+    </children>
+    <colors red="227" green="238" blue="249"/>
+    <colors red="255" green="255" blue="255"/>
+    <colors red="98" green="131" blue="167"/>
+    <colors red="187" green="218" blue="247"/>
+    <colors/>
+    <colors red="132" green="132" blue="132"/>
+    <colors red="217" green="217" blue="217"/>
+  </actordiagram:EntityContainerDiagram>
+</xmi:XMI>

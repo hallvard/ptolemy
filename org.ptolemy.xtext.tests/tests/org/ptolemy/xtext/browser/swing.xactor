@@ -1,0 +1,133 @@
+namespace org.ptolemy.xtext.swing :
+
+import java.net.URL
+import java.util.List
+import javax.swing.JTextField
+import javax.swing.JButton
+import javax.swing.JEditorPane
+import javax.swing.JList
+
+actor PTextField(String id)
+String systemOutput ==> String userInput :
+	val JTextField textField = get(id, JTextField);
+	initialize ==> [textField.text] end
+	action [string] ==>
+		update
+			textField.text = string
+			true
+	end
+	event textField.text [propertyEvent] ==> [textField.text] end
+	event textField!^action [actionEvent] ==> [textField.text] end
+end
+
+actor PButton(String id)
+Object* enable ==> Object actionEvent :
+	val JButton button = get(id, JButton);
+	action [enable] any ==>
+		update
+			val Object value = enable.values.head
+			button.enabled = value != null && (value != Boolean::FALSE) && (! (value instanceof Exception))
+			true
+	end
+	event button!^action [actionEvent] ==> [actionEvent] end
+end
+
+actor PButtonValve<T>(String id)
+T input ==> T output :
+	val JButton button = get(id, JButton);
+	var T current = null;
+	function isValid() --> boolean :
+		current != null
+	end
+	action [input] ==>
+		do current = input
+		update
+			button.enabled = isValid
+			true
+	end
+	event button!^action [actionEvent] ==> [current] when isValid
+	end
+end
+
+actor PButtonEagerConverter<T,S>(String id, (T) => S fun, (S) => boolean validator)
+T input ==> S output :
+	val JButton button = get(id, JButton);
+	var S current = null;
+	function isValid() --> boolean :
+		current != null && (validator == null || validator.apply(current))
+	end
+	action [input] ==>
+		do {
+			try {
+				current = fun.apply(input)
+			} catch(Exception e) {
+				current = null
+			}
+		}
+		update
+			button.enabled = isValid
+			true
+	end
+	event button!^action [actionEvent] ==> [current] when isValid
+	end
+end
+
+actor PButtonLazyConverter<T,S>(String id, (T) => S fun, (T) => boolean validator)
+T input ==> S output :
+	val JButton button = get(id, JButton);
+	var T current = null;
+	function isValid() --> boolean :
+		current != null && (validator == null || validator.apply(current))
+	end
+	action [input] ==>
+		do current = input
+		update
+			button.enabled = isValid
+			true
+	end
+	event button!^action [actionEvent] ==> [fun.apply(current)] when isValid
+	end
+end
+
+actor PBrowser(String id)
+URL systemOutput ==> URL userInput :
+	val JEditorPane editorPane = get(id, JEditorPane);
+	action [url] ==>
+		update setPage(url)
+		true
+	end
+	event editorPane.page [propertyEvent] ==> [editorPane.page] end
+	event editorPane!hyperlink [hyperlinkEvent] when "ACTIVATED".equals(hyperlinkEvent.getEventType().toString()) ==>
+		update
+			setPage(hyperlinkEvent.getURL())
+			true
+	end
+	function setPage(URL url) --> void :
+    	try {
+          editorPane.page = url;
+       } catch (java.io.IOException ioe) {
+       }
+	end
+end
+
+actor PList<T>(String id)
+List<T> systemOutput ==> T userInput :
+	val JList list = get(id, JList);
+	function newSelectionIndex(List<T> values, T oldSelection, int oldIndex) --> int :
+		values.indexOf(oldSelection)
+	end
+	action [values] ==> [if (index < 0) null else list.model.getElementAt(index) as T]
+		do
+			val int index = newSelectionIndex(values, list.selectedValue as T, list.selectedIndex)
+		update
+			list.model = new org.ptolemy.xtext.tests.gui.swing.DelegatingListModel(values)
+			list.selectedIndex = index
+		true
+	end
+	event list!listSelection [listSelectionEvent] ==> [selection] // when selection != null
+		do
+			val T selection = list.selectedValue as T
+	end
+end
+
+end

@@ -1,0 +1,91 @@
+namespace org.ptolemy.xtext.browser :
+
+import java.util.List
+import java.util.ArrayList
+
+import org.ptolemy.xtext.util.Variable
+import org.ptolemy.xtext.util.Converter
+import org.ptolemy.xtext.util.Valve
+import org.ptolemy.xtext.util.Object2String
+
+import org.ptolemy.xtext.swing.PTextField
+//import org.ptolemy.xtext.swing.PButton
+import org.ptolemy.xtext.swing.PButtonEagerConverter
+import org.ptolemy.xtext.swing.PBrowser
+import org.ptolemy.xtext.swing.PList
+import org.ptolemy.xtext.swing.PButtonValve
+
+import java.net.URL
+
+network browser :
+	entities
+		location = Variable<URL>(allowNull=false)
+
+		locationText = PTextField(id="browser.location.text")
+//		string2Url = Converter<String, URL>(
+//			fun=[String s|try { new URL(s) } catch (Exception e) { throw new RuntimeException(e)}]
+//		)
+		string2Url = PButtonEagerConverter<String, URL>(id="browser.location.goButton",
+			fun=[String s|try { new URL(s) } catch (Exception e) { throw new RuntimeException(e)}]
+		)
+//		Button(id="browser.location.goButton")
+//		urlValve = Valve<URL>
+
+//		url2string = Object2String<URL>
+		browserPane = PBrowser(id="browser.viewer")
+
+		bookmarks = actor URL addBookmark, URL removeBookmark ==> is Variable<List<URL>>(initialValue=new ArrayList<URL>()) :
+			function addBookmark(List<URL> bookmarks, URL bookmark, boolean copy) --> List<URL> :
+				val List<URL> newBookmarks = if (copy) new ArrayList(bookmarks) else bookmarks
+				if (! newBookmarks.contains(bookmark)) {
+					newBookmarks.add(bookmark)
+				}
+				newBookmarks
+			end
+			action addBookmark: [bookmark] ==> [newBookmarks] when (! oldBookmarks.contains(bookmark))
+			do
+				val List<URL> oldBookmarks = current
+				val List<URL> newBookmarks = addBookmark(current, bookmark, true)
+			update
+				addBookmark(current, bookmark, false)
+				true
+			end
+			function removeBookmark(List<URL> bookmarks, URL bookmark, boolean copy) --> List<URL> :
+				val List<URL> newBookmarks = if (copy) new ArrayList(bookmarks) else bookmarks
+				if (newBookmarks.contains(bookmark)) {
+					newBookmarks.remove(bookmark)
+				}
+				newBookmarks
+			end
+			action removeBookmark: [bookmark] ==> [newBookmarks] when (oldBookmarks.contains(bookmark))
+			do
+				val List<URL> oldBookmarks = current
+				val List<URL> newBookmarks = removeBookmark(current, bookmark, true)
+			update
+				removeBookmark(current, bookmark, false)
+				true
+			end
+		end
+		bookmarksList = PList<URL>(id="browser.bookmarks.list")
+		addBookmarksButtonValve = PButtonValve<URL>(id="browser.bookmarks.addButton")
+
+	structure
+		location.value -- toString() when it != null --> locationText.systemOutput
+//		url2string.output 		--> locationText.systemOutput
+		location.value 			--> browserPane.systemOutput
+ 		string2Url.output 		--> location.setValue
+// 		string2Url.output 		--> urlValve.input
+// 		string2Url.output 		--> goButton.enable
+// 		string2Url.exception 	--> goButton.enable
+// 		goButton.actionEvent 	--> urlValve.trigger
+// 		urlValve.output 		--> location.setValue
+		locationText.userInput 	--> string2Url.input
+		browserPane.userInput 	--> location.setValue
+		
+		bookmarks.value	--> bookmarksList.systemOutput
+		bookmarksList.userInput	--> location.setValue
+		location.value --> addBookmarksButtonValve.input
+		addBookmarksButtonValve.output --> bookmarks.addBookmark
+end
+
+end

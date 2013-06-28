@@ -142,7 +142,7 @@ class XActorJvmModelInferrer extends AbstractModelInferrer {
 				val conversionRelationTypeRef = entityTypeRef(relation.toQualifiedClassName, container)
 				val name = relation.indexedFeatureName
 				actorClass.members += relation.toField(name, conversionRelationTypeRef)
-			   	actorClass.members += relation.toMethod('''_createÂ«name.toFirstUpperÂ»Entity''', conversionRelationTypeRef) [
+			   	actorClass.members += relation.toMethod('''_createÇname.toFirstUpperÈEntity''', conversionRelationTypeRef) [
 			   		visibility = JvmVisibility::PROTECTED
 					addPtExceptions(relation, true)
 			   		body = [
@@ -200,13 +200,13 @@ class XActorJvmModelInferrer extends AbstractModelInferrer {
 			if (relation.conversionExpression != null) {
 				body = relation.conversionExpression
 			} else {
-				body = [ it << '''return Â«valueVarÂ»;''']
+				body = [ it << '''return ÇvalueVarÈ;''']
 			}
 		]
 		actorClass.members += actionClass
 		actorClass.members += relationMethodContext.toMethod("_createConversionAction", newTypeRef(actionSuperType)) [
 			body = [
-				it << '''return new Â«actionClass.simpleNameÂ»();'''
+				it << '''return new ÇactionClass.simpleNameÈ();'''
 			]
 		]
 		actorClass 
@@ -593,7 +593,7 @@ class XActorJvmModelInferrer extends AbstractModelInferrer {
 							setAbstract(true)
 						} else {
 					   		body = [
-					   			generateGetTokenValueMethodBody('''this.Â«typed.nameÂ».getToken()''', typed, it)
+					   			generateGetTokenValueMethodBody('''this.Çtyped.nameÈ.getToken()''', typed, it)
 					   		]
 						}
 				   	]
@@ -620,7 +620,7 @@ class XActorJvmModelInferrer extends AbstractModelInferrer {
 							setAbstract(true)
 						} else {
 					   		body = [
-					   			generateGetAttributeValueMethodBody('''this.Â«typed.nameÂ»''', typed, it)
+					   			generateGetAttributeValueMethodBody('''this.Çtyped.nameÈ''', typed, it)
 					   		]
 						}
 				   	]
@@ -1029,7 +1029,7 @@ class XActorJvmModelInferrer extends AbstractModelInferrer {
 				for (inputPattern : (action as FireAction).inputPatterns) {
 					for (outputPattern : action.outputPatterns) {
 						it -> action << "new " << pairType << ".Impl(new " << pairType << ".Impl"
-						it -> action << '''(Â«portOwnerAccessÂ».Â«inputPattern.portRef.nameÂ», Â«portOwnerAccessÂ».Â«outputPattern.portRef.nameÂ»), ''' << booleanDependencyTypeRef << ".valueOf(true)), "
+						it -> action << '''(ÇportOwnerAccessÈ.ÇinputPattern.portRef.nameÈ, ÇportOwnerAccessÈ.ÇoutputPattern.portRef.nameÈ), ''' << booleanDependencyTypeRef << ".valueOf(true)), "
 					}				
 				}
 			}

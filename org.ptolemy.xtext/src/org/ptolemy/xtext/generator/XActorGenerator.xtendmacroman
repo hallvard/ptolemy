@@ -100,14 +100,14 @@ class XActorGenerator extends JvmModelGenerator {
 		val typeRef = attribute.pAttributeType
 		it -> attribute << typeRef << " ";
 		if (attribute instanceof Variable) {
-			it -> attribute << '''Â«varNameÂ» = new ''' << typeRef << '''(this, "Â«attribute.nameÂ»");'''
+			it -> attribute << '''ÇvarNameÈ = new ''' << typeRef << '''(this, "Çattribute.nameÈ");'''
 		}
 		if (attribute instanceof Typeable) {
-			it << '''Â«varNameÂ».setTypeEquals('''
+			it << '''ÇvarNameÈ.setTypeEquals('''
 			appendPTypeExpression(attribute as Typeable, it)
 			it << ");"
 		}
-		it << '''return Â«varNameÂ»;'''
+		it << '''return ÇvarNameÈ;'''
 	}
 
 	def appendPTypeExpression(Typeable typed, ITreeAppendable it) {
@@ -117,7 +117,7 @@ class XActorGenerator extends JvmModelGenerator {
 			it << TypeUtil::TOKEN_CONST_PREFIX << simpleName.toUpperCase
 		}
 		else {
-			it -> typed << '''new Â«TypeUtil::TYPE_PACKAGE_PREFIXÂ»ObjectType(''' << type.type << ".class)"
+			it -> typed << '''new ÇTypeUtil::TYPE_PACKAGE_PREFIXÈObjectType(''' << type.type << ".class)"
 //			val qName = type.qualifiedName
 //			val pos = qName.indexOf("<")
 //			(if (pos < 0) qName else qName.substring(0, pos)) + ".class"
@@ -132,25 +132,25 @@ class XActorGenerator extends JvmModelGenerator {
 		if (expression != null) {
 			expression.toJavaStatement(it, true); it << '\n'
 		}
-		it << if (varName != null) '''Â«varNameÂ».setToken(Â«variable.methodName("_create%sToken")Â»(''' else "return "
+		it << if (varName != null) '''ÇvarNameÈ.setToken(Çvariable.methodName("_create%sToken")È(''' else "return "
 		generateVariableInitExpression(expression, variable.type, it)
 		it << (if (varName != null) "))") << "; "
 	}
 	def void generateSetVariableValueMethodBody(Variable variable, ITreeAppendable it) {
-		it << '''this.Â«variable.nameÂ».setToken(Â«variable.methodName("_create%sToken")Â»(Â«variable.nameÂ»));'''
+		it << '''this.Çvariable.nameÈ.setToken(Çvariable.methodName("_create%sToken")È(Çvariable.nameÈ));'''
 	}
 
 	def void generateCreatePortMethodBody(Port port, String name, String varName, ITreeAppendable it) {
-		it -> port << "ptolemy.actor.TypedIOPort" << ''' Â«varNameÂ» = new ''' << "ptolemy.actor.TypedIOPort" << '''(this, "Â«if (name != null) name else port.nameÂ»"'''
+		it -> port << "ptolemy.actor.TypedIOPort" << ''' ÇvarNameÈ = new ''' << "ptolemy.actor.TypedIOPort" << '''(this, "Çif (name != null) name else port.nameÈ"'''
 		if (port instanceof AbstractIOPort) {
 			val ioPort = port as AbstractIOPort
-			it << ''', Â«ioPort.inputÂ», Â«ioPort.outputÂ»'''
+			it << ''', ÇioPort.inputÈ, ÇioPort.outputÈ'''
 		}
     	it << ");"
     	if (port instanceof AbstractIOPort) {
-			it << '''Â«varNameÂ».setMultiport(Â«(port as AbstractIOPort).multiportÂ»);'''
+			it << '''ÇvarNameÈ.setMultiport(Ç(port as AbstractIOPort).multiportÈ);'''
 		}
-		it << '''Â«varNameÂ».setTypeEquals('''
+		it << '''ÇvarNameÈ.setTypeEquals('''
 		appendPTypeExpression(port as Typeable, it)
 		it << ");"
     	if (port instanceof AbstractIOPort && (port as AbstractIOPort).rate >= 0) {
@@ -162,29 +162,29 @@ class XActorGenerator extends JvmModelGenerator {
 				addRateParameter(port, varName, "production", ioPort.rate, it)
 			}
 		}
-		it << '''return Â«varNameÂ»;'''
+		it << '''return ÇvarNameÈ;'''
 	}
 
 	def void generateSyntheticCreatePortMethodBody(Typeable typed, String name, String methodName, String varName, ITreeAppendable it) {
-		it -> typed << "ptolemy.actor.TypedIOPort" << ''' Â«varNameÂ» = super.Â«methodNameÂ»();''';
-		it << '''Â«varNameÂ».setTypeEquals('''
+		it -> typed << "ptolemy.actor.TypedIOPort" << ''' ÇvarNameÈ = super.ÇmethodNameÈ();''';
+		it << '''ÇvarNameÈ.setTypeEquals('''
 		appendPTypeExpression(typed, it)
 		it << ");"
-		it << '''return Â«varNameÂ»;'''
+		it << '''return ÇvarNameÈ;'''
 	}
 
 	def void generateCreateEntityMethodBody(Named named, String name, String varName, JvmTypeReference typeRef, ITreeAppendable it) {
 		it -> named << typeRef << " ";
 		val altName = if (name != null) name else named.name
 		val altVarName = (if (varName != null) varName else altName)
-		it -> named << altVarName << " = new " << typeRef << '''(this, "Â«altNameÂ»");'''
-		it << '''return Â«altVarNameÂ»;'''
+		it -> named << altVarName << " = new " << typeRef << '''(this, "ÇaltNameÈ");'''
+		it << '''return ÇaltVarNameÈ;'''
 	}
 
 	def void generateCreateTokenMethodBody(String valueExpr, JvmTypedObj jvmTyped, ITreeAppendable it) {
 		val portType = type(jvmTyped)
 		val tokenType = portType.jvm2pTokenType(jvmTyped)
-		it -> jvmTyped << "return new " << tokenType << '''(Â«valueExprÂ»'''
+		it -> jvmTyped << "return new " << tokenType << '''(ÇvalueExprÈ'''
 		if (portType.is2ObjectTokenType) {
 		 	it << ", " << portType.type << ".class"
 		}
@@ -204,9 +204,9 @@ class XActorGenerator extends JvmModelGenerator {
 	}
 	
 //	def void generateSendTokenMethodBody(JvmTypedObj jvmTyped, String channelExpr, boolean array, ITreeAppendable it) {
-//		it << '''send(this.Â«jvmTyped.nameÂ», Â«channelExprÂ», Â«jvmTyped.nameÂ»'''
+//		it << '''send(this.ÇjvmTyped.nameÈ, ÇchannelExprÈ, ÇjvmTyped.nameÈ'''
 //		if (array) {
-//			it << ''', Â«jvmTyped.nameÂ».length'''
+//			it << ''', ÇjvmTyped.nameÈ.length'''
 //		}
 //		it << ");"
 //	}
@@ -214,21 +214,21 @@ class XActorGenerator extends JvmModelGenerator {
 	def void generateActorConstructorBody(IEntity<? extends Port> entity, JvmExecutable op, ITreeAppendable it) {
 		it << "super(parent, name);"
 		for (attribute : entity.attributes) {
-			it << '''this.Â«attribute.nameÂ» = Â«attribute.methodName("_create%sAttribute")Â»();'''
+			it << '''this.Çattribute.nameÈ = Çattribute.methodName("_create%sAttribute")È();'''
 		}
 		for (port: entity.ports) {
-			it << '''this.Â«port.nameÂ» = Â«port.methodName("_create%sPort")Â»();'''
+			it << '''this.Çport.nameÈ = Çport.methodName("_create%sPort")È();'''
 		}
 
 		if (entity instanceof EntityContainer<?>) {
 			val composite = (entity as EntityContainer<?>)
 			for (child : composite.entities) {
-				it << '''this.Â«child.nameÂ» = Â«child.methodName("_create%sEntity")Â»();'''
+				it << '''this.Çchild.nameÈ = Çchild.methodName("_create%sEntity")È();'''
 			}
 			for (relation : composite.relations) {
 				if (relation.isConversionRelation) {
 					val name = relation.indexedFeatureName
-					it << '''this.Â«nameÂ» = _createÂ«name.toFirstUpperÂ»Entity();'''
+					it << '''this.ÇnameÈ = _createÇname.toFirstUpperÈEntity();'''
 				}
 			}
 			val Map<Port, String> portRelations = new HashMap<Port, String>()
@@ -236,35 +236,35 @@ class XActorGenerator extends JvmModelGenerator {
 				val port = relation.sourcePort
 				var relationName = portRelations.get(port)
 				if (relationName == null) {
-					it -> relation << "ptolemy.actor.TypedIORelation" << ''' Â«relation.nameÂ» = new ''' << "ptolemy.actor.TypedIORelation" << '''(this, "Â«relation.nameÂ»");'''
+					it -> relation << "ptolemy.actor.TypedIORelation" << ''' Çrelation.nameÈ = new ''' << "ptolemy.actor.TypedIORelation" << '''(this, "Çrelation.nameÈ");'''
 					relationName = relation.name
 					portRelations.put(port, relationName)
-					it << '''this.Â«port.container.nameÂ».getPort("Â«port.nameÂ»").link(Â«relationNameÂ»);'''
+					it << '''this.Çport.container.nameÈ.getPort("Çport.nameÈ").link(ÇrelationNameÈ);'''
 				}
 				if (relation.isConversionRelation) {
-					it << '''this.Â«relation.indexedFeatureNameÂ».getPort("input").link(Â«relationNameÂ»);'''
+					it << '''this.Çrelation.indexedFeatureNameÈ.getPort("input").link(ÇrelationNameÈ);'''
 					relationName = relation.indexedFeatureName
-					it -> relation << "ptolemy.actor.TypedIORelation" << ''' Â«relationNameÂ» = new ''' << "ptolemy.actor.TypedIORelation" << '''(this, "Â«relationNameÂ»");'''
-					it << '''this.Â«relationNameÂ».getPort("output").link(Â«relationNameÂ»);'''
+					it -> relation << "ptolemy.actor.TypedIORelation" << ''' ÇrelationNameÈ = new ''' << "ptolemy.actor.TypedIORelation" << '''(this, "ÇrelationNameÈ");'''
+					it << '''this.ÇrelationNameÈ.getPort("output").link(ÇrelationNameÈ);'''
 				}
 				for (targetPort : relation.targetPorts) {
-					it << '''this.Â«targetPort.container.nameÂ».getPort("Â«targetPort.nameÂ»").link(Â«relationNameÂ»);'''
+					it << '''this.ÇtargetPort.container.nameÈ.getPort("ÇtargetPort.nameÈ").link(ÇrelationNameÈ);'''
 				}
 			}
 		}
 //		else if (! op.containerType.isAbstract) {
-//			it << '''this._impl = new Â«op.containerType.simpleNameÂ»Impl(this'''
+//			it << '''this._impl = new Çop.containerType.simpleNameÈImpl(this'''
 //			it << entity.actorImplConstructorParameters.join(", ", ", ", "") [simpleName]
 //			it << "); "
 //		}
 		for (attribute : entity.attributes) {
-			it << '''Â«attribute.methodName("_set%sValue")Â»(Â«attribute.methodName("_initial%sAttributeValue")Â»());'''
+			it << '''Çattribute.methodName("_set%sValue")È(Çattribute.methodName("_initial%sAttributeValue")È());'''
 		}
 	}
 	
 	def void addRateParameter(Port port, String varName, String rateKind, int rate, ITreeAppendable it) {
 		var paramName = "token" + rateKind.toFirstUpper + "Rate"
-		it -> port << '''new ''' << "ptolemy.data.expr.Parameter" << '''(Â«if (varName != null) varName else port.nameÂ», "Â«paramName.toFirstLowerÂ»", new ''' << "ptolemy.data.IntToken" << '''(Â«rateÂ»));'''
+		it -> port << '''new ''' << "ptolemy.data.expr.Parameter" << '''(Çif (varName != null) varName else port.nameÈ, "ÇparamName.toFirstLowerÈ", new ''' << "ptolemy.data.IntToken" << '''(ÇrateÈ));'''
 	}
   
 	def void generateActorImplConstructorBody(IEntity<? extends Port> entity, JvmExecutable op, ITreeAppendable it) {
@@ -276,13 +276,13 @@ class XActorGenerator extends JvmModelGenerator {
 		val superArguments = new ArrayList<JvmFormalParameter>()
 		superArguments += actorParameter
 		superArguments += inheritedParameters
-		it << '''super(Â«superArguments.join(", ")[simpleName]Â»);'''
+		it << '''super(ÇsuperArguments.join(", ")[simpleName]È);'''
 		if (fields.exists[simpleName.equals(actorParameter.simpleName)]) {
-			it << '''this.Â«actorParameter.simpleNameÂ» = Â«actorParameter.simpleNameÂ»;'''
+			it << '''this.ÇactorParameter.simpleNameÈ = ÇactorParameter.simpleNameÈ;'''
 		}
 		for (parameter : fieldParameters) {
 			if (! superArguments.contains(parameter)) {
-				it << '''this.Â«parameter.simpleNameÂ» = Â«parameter.simpleNameÂ»;'''
+				it << '''this.Çparameter.simpleNameÈ = Çparameter.simpleNameÈ;'''
 			}
 		}
 	}
@@ -315,25 +315,25 @@ class XActorGenerator extends JvmModelGenerator {
 		if (actionNum < 0) {
 			actionNum = actorImpl.initActions.size() + actorImpl.actions.indexOf(action)
 		}
-		'''_actionImpls[Â«actionNumÂ»]'''
+		'''_actionImpls[ÇactionNumÈ]'''
 	}
 
 	def void generateInitializeImplBody(CaltropActorImpl<? extends AbstractIOPort> impl, JvmGenericType implClass, ITreeAppendable it) {
 		it << "super._initializeImpl();"
 		for (declaration : impl.declarations) {
 			val name = declaration.previousValueName
-			it <<'''this.Â«nameÂ» = Â«if (declaration.valueExpression != null) '''Â«declaration.methodName("_initial%sStateVariableValue")Â»()''' else defaultValue(declaration.type)Â»;'''
-			it << '''Â«declaration.methodName("_postChange%sState")Â»(this.Â«nameÂ»);'''
+			it <<'''this.ÇnameÈ = Çif (declaration.valueExpression != null) '''Çdeclaration.methodName("_initial%sStateVariableValue")È()''' else defaultValue(declaration.type)È;'''
+			it << '''Çdeclaration.methodName("_postChange%sState")È(this.ÇnameÈ);'''
  		}
-		it << '''Â«FOR action : impl.initActions SEPARATOR("else ")Â»
-		if (Â«actionRef(action)Â».match()) {
-			Â«actionRef(action)Â».body();
-			Â«actionRef(action)Â».output();
+		it << '''ÇFOR action : impl.initActions SEPARATOR("else ")È
+		if (ÇactionRef(action)È.match()) {
+			ÇactionRef(action)È.body();
+			ÇactionRef(action)È.output();
 		}
-		Â«ENDFORÂ»'''
+		ÇENDFORÈ'''
 		
 		if (impl.schedule != null) {
-			it << '''currentState = Â«impl.schedule.states.indexOf(impl.schedule.initial)Â»;'''
+			it << '''currentState = Çimpl.schedule.states.indexOf(impl.schedule.initial)È;'''
 		}
 	}
 
@@ -341,7 +341,7 @@ class XActorGenerator extends JvmModelGenerator {
 		it -> context << '''new ''' << superType << "[]{"
 		for (classMember : implClass.members.filter(JvmDeclaredType)) {
 			if (superType.qualifiedName.equals(classMember.superTypes.head.qualifiedName)) {
-				it << '''new Â«classMember.simpleNameÂ»(), '''
+				it << '''new ÇclassMember.simpleNameÈ(), '''
 			}
 		}
 		it << "}"
@@ -365,7 +365,7 @@ class XActorGenerator extends JvmModelGenerator {
 			declareThisVariables(container.eContainer() as JvmGenericType, it)
 			expression.toJavaStatement(it, true);
 		}
-		it << if (varName != null) '''Â«varNameÂ» = ''' else "return "
+		it << if (varName != null) '''ÇvarNameÈ = ''' else "return "
 		generateVariableInitExpression(expression, type, it)
 		it << "; "
 	}
@@ -380,18 +380,18 @@ class XActorGenerator extends JvmModelGenerator {
 
 	def void generateFireImplBody(CaltropActorImpl<? extends AbstractIOPort> impl, JvmOperation op, ITreeAppendable it) {
 		val returnVar = declareSyntheticVariable(impl, "result")
-		it -> impl << op.returnType << ''' Â«returnVarÂ» = super.Â«op.simpleNameÂ»();'''
-		it << '''if (Â«returnVarÂ» != null) return Â«returnVarÂ»;'''
+		it -> impl << op.returnType << ''' ÇreturnVarÈ = super.Çop.simpleNameÈ();'''
+		it << '''if (ÇreturnVarÈ != null) return ÇreturnVarÈ;'''
 		for (declaration : impl.declarations) {
 			if (! declaration.constant) {
-				it << '''this.Â«declaration.nameÂ» = this.Â«declaration.previousValueNameÂ»;'''
+				it << '''this.Çdeclaration.nameÈ = this.Çdeclaration.previousValueNameÈ;'''
 			}
 		}
 		if (impl.schedule != null) {
 			val states = impl.schedule.states
 			it << "switch (currentState) {"
 			for (state : states) {
-				it << '''case Â«states.indexOf(state)Â»:''' newLine
+				it << '''case Çstates.indexOf(state)È:''' newLine
 				generateStateMatchBody(state, impl.actions, op, it)
 				it << "break;"
 			}
@@ -420,7 +420,7 @@ class XActorGenerator extends JvmModelGenerator {
 	def generateStateMatchBody(EObject context, Iterable<? extends OutputAction> actions, int targetStateNum, ITreeAppendable it) {
 		val pairType = findDeclaredType("org.ptolemy.xtext.lib.caltrop.Pair", context)
 		for (action : actions) {
-			it << '''if (Â«actionRef(action)Â».match()) return new ''' << pairType << '''.Impl(Â«targetStateNumÂ», Â«actionRef(action)Â»);'''
+			it << '''if (ÇactionRef(action)È.match()) return new ''' << pairType << '''.Impl(ÇtargetStateNumÈ, ÇactionRef(action)È);'''
 		}
 	}
 	
@@ -437,18 +437,18 @@ class XActorGenerator extends JvmModelGenerator {
 	}
 
 	def void generateEventListenerMethodBody(EventPattern eventPattern, JvmOperation op, ITreeAppendable it) {
-		val timestampExpression = if (eventPattern.timeExpression != null) '''_timestamp(Â«op.parameters.head.simpleNameÂ»)''' else "0"
-		it << '''postEvent(Â«timestampExpressionÂ», Â«eventPattern.varRef.previousValueNameÂ», "Â«eventPattern.nameÂ»", "Â«op.simpleNameÂ»", Â«op.parameters.join(",") [simpleName]Â»);'''
+		val timestampExpression = if (eventPattern.timeExpression != null) '''_timestamp(Çop.parameters.head.simpleNameÈ)''' else "0"
+		it << '''postEvent(ÇtimestampExpressionÈ, ÇeventPattern.varRef.previousValueNameÈ, "ÇeventPattern.nameÈ", "Çop.simpleNameÈ", Çop.parameters.join(",") [simpleName]È);'''
 	}
 
 	def void generatePreStateVariableChangeBody(StateVariable declaration, CaltropActorImpl<? extends AbstractIOPort> impl, ITreeAppendable it) {
 		val variablePatterns = impl.actions.eventPatternsForVariable(declaration)
 		if (! variablePatterns.empty) {
-			it << '''if (Â«declaration.nameÂ» != null) {'''
+			it << '''if (Çdeclaration.nameÈ != null) {'''
 			for (EventPattern eventPattern : variablePatterns) {
 				it << declaration.name << "."
-				it << 	if (eventPattern.property) 	'''Â«listenerRemoverName("propertyChange")Â»("Â«eventPattern.nameÂ»", Â«eventPattern.eventPatternListenerNameÂ»)'''
-						else						'''Â«listenerRemoverName(eventPattern.name)Â»(Â«eventPattern.eventPatternListenerNameÂ»)'''
+				it << 	if (eventPattern.property) 	'''ÇlistenerRemoverName("propertyChange")È("ÇeventPattern.nameÈ", ÇeventPattern.eventPatternListenerNameÈ)'''
+						else						'''ÇlistenerRemoverName(eventPattern.name)È(ÇeventPattern.eventPatternListenerNameÈ)'''
 				it << ";"
 			}
 			it << "}"
@@ -458,11 +458,11 @@ class XActorGenerator extends JvmModelGenerator {
 	def void generatePostStateVariableChangeBody(StateVariable declaration, CaltropActorImpl<? extends AbstractIOPort> impl, ITreeAppendable it) {
 		val variablePatterns = impl.actions.eventPatternsForVariable(declaration)
 		if (! variablePatterns.empty) {
-			it << '''if (Â«declaration.nameÂ» != null) {'''
+			it << '''if (Çdeclaration.nameÈ != null) {'''
 			for (EventPattern eventPattern : variablePatterns) {
 				it << declaration.name << "."
-				it << 	if (eventPattern.property) 	'''Â«listenerAdderName("propertyChange")Â»("Â«eventPattern.nameÂ»", Â«eventPattern.eventPatternListenerNameÂ»)'''
-						else						'''Â«listenerAdderName(eventPattern.name)Â»(Â«eventPattern.eventPatternListenerNameÂ»)'''
+				it << 	if (eventPattern.property) 	'''ÇlistenerAdderName("propertyChange")È("ÇeventPattern.nameÈ", ÇeventPattern.eventPatternListenerNameÈ)'''
+						else						'''ÇlistenerAdderName(eventPattern.name)È(ÇeventPattern.eventPatternListenerNameÈ)'''
 				it << ";"
 			}
 			it << "}"
@@ -473,10 +473,10 @@ class XActorGenerator extends JvmModelGenerator {
 		it << "if (! super._postfireImpl()) return false;"
 		for (declaration : impl.declarations) {
 			if (! declaration.constant) {
-				it << '''if (this.Â«declaration.previousValueNameÂ» != this.Â«declaration.nameÂ») {'''
-					it << '''Â«declaration.methodName("_preChange%sState")Â»(this.Â«declaration.previousValueNameÂ»);'''
-					it << '''this.Â«declaration.previousValueNameÂ» = this.Â«declaration.nameÂ»;'''
-					it << '''Â«declaration.methodName("_postChange%sState")Â»(this.Â«declaration.previousValueNameÂ»);'''
+				it << '''if (this.Çdeclaration.previousValueNameÈ != this.Çdeclaration.nameÈ) {'''
+					it << '''Çdeclaration.methodName("_preChange%sState")È(this.Çdeclaration.previousValueNameÈ);'''
+					it << '''this.Çdeclaration.previousValueNameÈ = this.Çdeclaration.nameÈ;'''
+					it << '''Çdeclaration.methodName("_postChange%sState")È(this.Çdeclaration.previousValueNameÈ);'''
 				it << "}"
 			}
 		}
@@ -486,8 +486,8 @@ class XActorGenerator extends JvmModelGenerator {
 	def void generateWrapupImplBody(CaltropActorImpl<? extends AbstractIOPort> impl, JvmExecutable op, ITreeAppendable it) {
 		it << "super._wrapupImpl();"
 		for (declaration : impl.declarations) {
-			it << '''Â«declaration.methodName("_preChange%sState")Â»(this.Â«declaration.nameÂ»);'''
-			it <<'''this.Â«declaration.nameÂ» = Â«defaultValue(declaration.type)Â»;'''
+			it << '''Çdeclaration.methodName("_preChange%sState")È(this.Çdeclaration.nameÈ);'''
+			it <<'''this.Çdeclaration.nameÈ = ÇdefaultValue(declaration.type)È;'''
  		}
 	}
 
@@ -539,7 +539,7 @@ class XActorGenerator extends JvmModelGenerator {
 			if (declaration.valueExpression != null) {
 				declaration.valueExpression.toJavaStatement(it, true) newLine
 			}
-			it -> action << declaration.type << ''' Â«declaration.nameÂ»'''
+			it -> action << declaration.type << ''' Çdeclaration.nameÈ'''
 			if (declaration.valueExpression != null) {
 				it << " = " << declaration.valueExpression
 			}
@@ -548,7 +548,7 @@ class XActorGenerator extends JvmModelGenerator {
 		if (action.bodyExpression != null) {
 			action.bodyExpression.toJavaStatement(it, false) newLine
 			for (declaration : expressionDeclarations(action.bodyExpression)) {
-				it << '''this.Â«declaration.simpleNameÂ» = Â«declaration.simpleNameÂ»;'''
+				it << '''this.Çdeclaration.simpleNameÈ = Çdeclaration.simpleNameÈ;'''
 			}
 		}
 	}
@@ -557,7 +557,7 @@ class XActorGenerator extends JvmModelGenerator {
 		var delayExpr = "-1"
 		if (action.delayExpression != null) {
 			delayExpr = it.declareSyntheticVariable(action, "_delay")
-			it << '''int Â«delayExprÂ»''' << " = "
+			it << '''int ÇdelayExprÈ''' << " = "
 			methodCall(action.delayExpression, it)
 			it << ";"
 		}

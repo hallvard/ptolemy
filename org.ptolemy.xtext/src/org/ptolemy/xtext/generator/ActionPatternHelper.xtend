@@ -143,20 +143,20 @@ class ActionPatternHelper {
 		val port = pattern.portRef
 		switch (channels) {
 			KeywordChannelSelector: {
-				it -> pattern << port.channelsInternalType << ''' ÇchannelsVarÈ = channels(Çpattern.portAccessÈ, ÇcountArgÈ, ÇanyArgÈ, ÇwidthVarÈ);'''
+				it -> pattern << port.channelsInternalType << ''' Â«channelsVarÂ» = channels(Â«pattern.portAccessÂ», Â«countArgÂ», Â«anyArgÂ», Â«widthVarÂ»);'''
 			}
 			ExpressionChannelSelector: {
 				val channelVars = new ArrayList<String>()
 				for (expression : channels.keyExpressions) {
 //					expression.toJavaStatement(it, true) newLine
 					val channelVar = it.declareSyntheticVariable(pattern, "_" + port.name + "Channel")
-					it -> port << port.channelsType(channels.many) << ''' ÇchannelVarÈ = ''' // << expression << ";"
+					it -> port << port.channelsType(channels.many) << ''' Â«channelVarÂ» = ''' // << expression << ";"
 //					methodCall(patternMethodName(pattern, actionMethod, "Channel", expression), actionMethod, it)
 					methodCall(expression, it)
 					it << ";"
 					channelVars += channelVar
 				}
-				it -> pattern << port.channelsInternalType << ''' ÇchannelsVarÈ = channels(Çpattern.portAccessÈ, ÇcountArgÈ, ÇanyArgÈ, '''
+				it -> pattern << port.channelsInternalType << ''' Â«channelsVarÂ» = channels(Â«pattern.portAccessÂ», Â«countArgÂ», Â«anyArgÂ», '''
 				if (channels.many) {
 					// needed because the channels type is parameterized and we cannot create an array of such a type 
 					it << channelVars.join(", ") << ");"
@@ -179,22 +179,22 @@ class ActionPatternHelper {
 	}
 
 	def String portAccess(PortPattern pattern) {
-		return '''Çancestor(pattern, Entity).nameÈ.this.Çpattern.portRef.nameÈ'''
+		return '''Â«ancestor(pattern, Entity).nameÂ».this.Â«pattern.portRef.nameÂ»'''
 	}
 
 	def String tokenValueAccess(PortPattern pattern) {
-		'''Çpattern.portRef.methodName("_get%sTokenValue")È'''
+		'''Â«pattern.portRef.methodName("_get%sTokenValue")Â»'''
 	}
 
 	def String createTokenAccess(PortPattern pattern) {
-		'''Çpattern.portRef.methodName("_create%sToken")È'''
+		'''Â«pattern.portRef.methodName("_create%sToken")Â»'''
 	}
 
 	def void generatePatternMatchPart(InputPattern pattern, Port port, JvmExecutable method, ITreeAppendable it) {
 		val repeatVar = (if (pattern.isRepeat()) it.declareSyntheticVariable(pattern, "_" + port.name + "Repeat") else "1")
 		if (pattern.isRepeat()) {
 //			pattern.repeatExpression.toJavaStatement(it, true) newLine
-			it << '''int ÇrepeatVarÈ''' << " = "
+			it << '''int Â«repeatVarÂ»''' << " = "
 			methodCall(pattern.repeatExpression, it)
 			it << ";"
 		}
@@ -202,27 +202,27 @@ class ActionPatternHelper {
 		val widthVar = it.declareSyntheticVariable(pattern, "_" + port.name + "Width")
 		val channelsVar = it.declareSyntheticVariable(pattern, "_" + port.name + "Channels")
 		if (isMultiport) {
-			it << '''int ÇwidthVarÈ = Çpattern.portAccessÈ.getWidth();'''
+			it << '''int Â«widthVarÂ» = Â«pattern.portAccessÂ».getWidth();'''
 			generateChannelsList(pattern, channelsVar, repeatVar, widthVar, it)
-			it << '''if (ÇchannelsVarÈ == null || ÇchannelsVarÈ.length == 0) return false;'''
+			it << '''if (Â«channelsVarÂ» == null || Â«channelsVarÂ».length == 0) return false;'''
 			for (variable : pattern.variables) {
-				it << ''' ÇvariableÈ = channelMap(ÇchannelsVarÈ);'''
+				it << ''' Â«variableÂ» = channelMap(Â«channelsVarÂ»);'''
 			}
 		}
 		val channelVar = if (isMultiport) it.declareSyntheticVariable(pattern, "_" + port.name + "Channel") else "0"
 		if (isMultiport) {
-			it << '''for (int ÇchannelVarÈ : ÇchannelsVarÈ) {'''
+			it << '''for (int Â«channelVarÂ» : Â«channelsVarÂ») {'''
 		}
 		val arrayVar = it.declareSyntheticVariable(pattern, "_" + port.name + "Array")
 		if (pattern.isRepeat() || pattern.size() > 1) {
-			it << '''if (! hasToken(Çpattern.portAccessÈ, ÇchannelVarÈ, ÇrepeatVarÈ * Çpattern.size()È)) return false;'''
-			it -> pattern << "ptolemy.data.Token" << '''[] ÇarrayVarÈ = Çpattern.portAccessÈ.get(ÇchannelVarÈ, ÇrepeatVarÈ * Çpattern.size()È);'''
+			it << '''if (! hasToken(Â«pattern.portAccessÂ», Â«channelVarÂ», Â«repeatVarÂ» * Â«pattern.size()Â»)) return false;'''
+			it -> pattern << "ptolemy.data.Token" << '''[] Â«arrayVarÂ» = Â«pattern.portAccessÂ».get(Â«channelVarÂ», Â«repeatVarÂ» * Â«pattern.size()Â»);'''
 		}
 		for (variable : pattern.variables) {
 			val varVar = if (isMultiport) it.declareSyntheticVariable(pattern, "_" + variable) else variable
 			inputPatternVariable(variable, varVar, arrayVar, channelVar, repeatVar, pattern, port, it);
 			if (isMultiport) {
-				it << '''ÇvariableÈ.put(ÇchannelVarÈ, ÇvarVarÈ);'''
+				it << '''Â«variableÂ».put(Â«channelVarÂ», Â«varVarÂ»);'''
 			}
 		}
 		if (isMultiport) {
@@ -235,11 +235,11 @@ class ActionPatternHelper {
 
 	def void generatePatternMatchPart(EventPattern pattern, Variable varRef, JvmExecutable method, ITreeAppendable it) {
 		val eventVar = it.declareSyntheticVariable(pattern, "event")
-		it << '''Object[] ÇeventVarÈ = getEvent(ÇvarRef.nameÈ, "Çpattern.nameÈ", Çif (pattern.qualifier != null) '''"Çpattern.qualifierÈ"''' else "null"È);'''
-		it << '''if (ÇeventVarÈ == null) return false;'''
+		it << '''Object[] Â«eventVarÂ» = getEvent(Â«varRef.nameÂ», "Â«pattern.nameÂ»", Â«if (pattern.qualifier != null) '''"Â«pattern.qualifierÂ»"''' else "null"Â»);'''
+		it << '''if (Â«eventVarÂ» == null) return false;'''
 		var num = 0;
 		for (variable : pattern.variables) {
-			it -> pattern << '''if (ÇeventVarÈ.length > ÇnumÈ) ÇvariableÈ = (''' << pattern.type(null) << ''') ÇeventVarÈ[ÇnumÈ];'''
+			it -> pattern << '''if (Â«eventVarÂ».length > Â«numÂ») Â«variableÂ» = (''' << pattern.type(null) << ''') Â«eventVarÂ»[Â«numÂ»];'''
 		}
 		if (pattern.guardExpression != null) {
 			it << "if (! " methodCall(pattern.guardExpression, it) it << ") return false;"
@@ -257,7 +257,7 @@ class ActionPatternHelper {
 			if (pattern.isMultiport(port)) {
 				it -> pattern << patternType << " "
 			}
-			it << '''ÇvarVarÈ = '''
+			it << '''Â«varVarÂ» = '''
 			// Tokens subclass constructor or copyInto array call?
 			if (portType.isPrimitive) {
 				it -> pattern << tokensType << ".copyInto"
@@ -265,10 +265,10 @@ class ActionPatternHelper {
 				it -> pattern << "new " << tokensType
 			}
 			// common part of argument list
-			it << '''(ÇarrayVarÈ, ÇgroupSizeÈ, ÇoffsetÈ'''
+			it << '''(Â«arrayVarÂ», Â«groupSizeÂ», Â«offsetÂ»'''
 			// array argument in copyInto case
 			if (portType.isPrimitive) {
-				it -> pattern << ", new " << portType << '''[ÇrepeatVarÈ]'''
+				it -> pattern << ", new " << portType << '''[Â«repeatVarÂ»]'''
 			}
 			// in the generic case, the class is the last argument of the call, whether copyInto or constructor
 			if (portType.is2ObjectTokenType) {
@@ -279,13 +279,13 @@ class ActionPatternHelper {
 			if (pattern.isMultiport(port)) {
 				it -> pattern << patternType << " "
 			}
-			it << '''ÇvarVarÈ = Çpattern.tokenValueAccessÈ(ÇarrayVarÈ[ÇoffsetÈ]);'''
+			it << '''Â«varVarÂ» = Â«pattern.tokenValueAccessÂ»(Â«arrayVarÂ»[Â«offsetÂ»]);'''
 		} else {
-			it << '''if (! hasToken(Çpattern.portAccessÈ, ÇchannelExprÈ, 1)) return false;'''
+			it << '''if (! hasToken(Â«pattern.portAccessÂ», Â«channelExprÂ», 1)) return false;'''
 			if (pattern.isMultiport(port)) {
 				it -> pattern << patternType << " "
 			}
-			it << '''ÇvarVarÈ = Çpattern.tokenValueAccessÈ(Çpattern.portAccessÈ.get(ÇchannelExprÈ));'''
+			it << '''Â«varVarÂ» = Â«pattern.tokenValueAccessÂ»(Â«pattern.portAccessÂ».get(Â«channelExprÂ»));'''
 		}
 	}
 
@@ -301,7 +301,7 @@ class ActionPatternHelper {
 		if (mustCast) {
 			it -> context << "((" << type << ") "
 		}
-		it -> context << tokenType << '''.convert(ÇtokenExpressionÈ).ÇmethodNameÈ()'''
+		it -> context << tokenType << '''.convert(Â«tokenExpressionÂ»).Â«methodNameÂ»()'''
 		if (mustCast) {
 			it << ")"
 		}
@@ -314,20 +314,20 @@ class ActionPatternHelper {
 	def void generatePatternOutputPart(OutputPattern pattern, String delayVar, ITreeAppendable it) {
 		val repeatVar = if (pattern.isRepeat()) it.declareSyntheticVariable(pattern, "_repeat") else null
 		if (repeatVar != null) {
-			it << '''int ÇrepeatVarÈ''' << " = " methodCall(pattern.repeatExpression, it) it << ";"
+			it << '''int Â«repeatVarÂ»''' << " = " methodCall(pattern.repeatExpression, it) it << ";"
 		}
 		val port = pattern.portRef
 		val widthVar = it.declareSyntheticVariable(pattern, "_" + port.name + "Width")
 		val channelsVar = it.declareSyntheticVariable(pattern, "_" + port.name + "Channels")
 		val isMultiport = pattern.isMultiport(port)
 		if (isMultiport) {
-			it << '''int ÇwidthVarÈ = Çpattern.portAccessÈ.getWidth();'''
+			it << '''int Â«widthVarÂ» = Â«pattern.portAccessÂ».getWidth();'''
 			generateChannelsList(pattern, channelsVar, repeatVar, widthVar, it)
 		}
 		val channelVar = if (isMultiport) it.declareSyntheticVariable(pattern, "_" + port.name + "Channel") else "0"
 		if (isMultiport) {
-			it << '''for (int ÇchannelVarÈ : ÇchannelsVarÈ) {'''
-			it << '''if (ÇchannelVarÈ < 0 || ÇchannelVarÈ >= ÇwidthVarÈ) continue;'''
+			it << '''for (int Â«channelVarÂ» : Â«channelsVarÂ») {'''
+			it << '''if (Â«channelVarÂ» < 0 || Â«channelVarÂ» >= Â«widthVarÂ») continue;'''
 		}
 		if (pattern.guardExpression != null) {
 			it << "if (" methodCall(pattern.guardExpression, it) it << ") {"
@@ -374,11 +374,11 @@ class ActionPatternHelper {
 			val valVar = it.declareSyntheticVariable(pattern, "_" + "value")
 //			valueExpression.toJavaStatement(it, true) newLine
 			val varType = if (pattern.isRepeat && (! portType.isPrimitive)) pattern.newTypeRef(Iterator, portType) else pattern.type(false, null)
-			it -> pattern << varType << ''' ÇvalVarÈ''' << " = "; // << valueExpression
+			it -> pattern << varType << ''' Â«valVarÂ»''' << " = "; // << valueExpression
 //			methodCall(patternMethodName(pattern, actionMethod, "Output", valueExpression), actionMethod, it)
 			methodCall(valueExpression, it)
 			if (multiport) {
-				it << '''.get(ÇchannelExprÈ)'''
+				it << '''.get(Â«channelExprÂ»)'''
 			}
 			if (pattern.isRepeat() && (! portType.isPrimitive)) {
 				it << ".iterator()"
@@ -388,30 +388,30 @@ class ActionPatternHelper {
 		}
 		if (pattern.isRepeat()) {
 			val arrayVar = it.declareSyntheticVariable(pattern, "_" + "tokenArray")
-			it -> pattern << tokenType << '''[] ÇarrayVarÈ = new ''' << tokenType << '''[ÇvalueExpressions.size()È * ÇrepeatVarÈ];'''
+			it -> pattern << tokenType << '''[] Â«arrayVarÂ» = new ''' << tokenType << '''[Â«valueExpressions.size()Â» * Â«repeatVarÂ»];'''
 			val forVar = it.declareSyntheticVariable(pattern, "_" + "token")
-			it << '''for (int ÇforVarÈ = 0; ÇforVarÈ < ÇrepeatVarÈ; ÇforVarÈ++) {'''
+			it << '''for (int Â«forVarÂ» = 0; Â«forVarÂ» < Â«repeatVarÂ»; Â«forVarÂ»++) {'''
 			for (valueExpression : valueExpressions) {
 				val pos = valueExpressions.indexOf(valueExpression)
-				it << '''ÇarrayVarÈ[ÇforVarÈ * Çpattern.size()È + ÇposÈ] = Çpattern.createTokenAccessÈ('''
+				it << '''Â«arrayVarÂ»[Â«forVarÂ» * Â«pattern.size()Â» + Â«posÂ»] = Â«pattern.createTokenAccessÂ»('''
 				if (portType.isPrimitive) {
-					it << '''ÇvalVars.get(pos)È[ÇforVarÈ]'''
+					it << '''Â«valVars.get(pos)Â»[Â«forVarÂ»]'''
 				} else {
-					it << '''ÇvalVars.get(pos)È.next()'''
+					it << '''Â«valVars.get(pos)Â».next()'''
 				}
 				it << ");"
 			}
 			it << "}"
-			it << '''send(Çpattern.portAccessÈ, ÇchannelExprÈ, ÇarrayVarÈ, ÇdelayVar ?: "-1"È);'''
+			it << '''send(Â«pattern.portAccessÂ», Â«channelExprÂ», Â«arrayVarÂ», Â«delayVar ?: "-1"Â»);'''
 		} else if (valueExpressions.size() > 0) {
 			val needsArray = valueExpressions.size() > 1
 			var needsSeparator = false
-			it << '''send(Çpattern.portAccessÈ, ÇchannelExprÈ, '''
+			it << '''send(Â«pattern.portAccessÂ», Â«channelExprÂ», '''
 			if (needsArray) {
 				it -> pattern << "new " << tokenType << "[]{"
 			}
 			for (valVar : valVars) {
-				it << (if (needsSeparator) ", ") << '''Çpattern.createTokenAccessÈ(''' << valVar << ")"
+				it << (if (needsSeparator) ", ") << '''Â«pattern.createTokenAccessÂ»(''' << valVar << ")"
 				needsSeparator = true
 			}
 			it << (if (needsArray) "}") << ", " << (delayVar ?: "-1") << ");"

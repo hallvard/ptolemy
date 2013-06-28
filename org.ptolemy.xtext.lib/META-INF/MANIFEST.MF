@@ -27,6 +27,6 @@ Export-Package: org.ptolemy.xtext.lib,
  ptolemy.kernel.util,
  ptolemy.math,
  ptolemy.util
-Require-Bundle: org.eclipse.xtext.xbase.lib;bundle-version="2.3.0"
-Bundle-ClassPath: .,
- lib/ptolemy-core.jar
+Require-Bundle: org.eclipse.xtext.xbase.lib;bundle-version="2.3.0",
+ org.ptolemy.jars
+Bundle-ClassPath: .

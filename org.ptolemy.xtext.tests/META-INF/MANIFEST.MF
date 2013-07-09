@@ -3,7 +3,7 @@ Bundle-ManifestVersion: 2
 Bundle-Name: org.ptolemy.xtext.tests
 Bundle-Vendor: My Company
 Bundle-Version: 1.0.0
-Bundle-SymbolicName: org.ptolemy.xtext.tests; singleton:=true
+Bundle-SymbolicName: org.ptolemy.xtext.tests;singleton:=true
 Bundle-ActivationPolicy: lazy
 Require-Bundle: org.ptolemy.ecore;bundle-version="1.0.0",
  org.ptolemy.xtext,
@@ -15,9 +15,9 @@ Require-Bundle: org.ptolemy.ecore;bundle-version="1.0.0",
  org.junit4;resolution:=optional,
  org.eclipse.ui.workbench;resolution:=optional,
  org.eclipse.xtext.xbase.lib;bundle-version="2.1.1",
- org.ptolemy;bundle-version="8.1.0",
  org.eclipse.emf.mwe2.launch;bundle-version="2.3.0",
- org.ptolemy.xtext.lib;bundle-version="1.0.0"
+ org.ptolemy.xtext.lib;bundle-version="1.0.0",
+ org.ptolemy.xtext.launch;bundle-version="1.0.0"
 Import-Package: org.apache.log4j,
  org.apache.commons.logging
 Bundle-RequiredExecutionEnvironment: J2SE-1.5

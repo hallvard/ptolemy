@@ -22,16 +22,9 @@ network browser :
 		location = Variable<URL>(allowNull=false)
 
 		locationText = PTextField(id="browser.location.text")
-//		string2Url = Converter<String, URL>(
-//			fun=[String s|try { new URL(s) } catch (Exception e) { throw new RuntimeException(e)}]
-//		)
 		string2Url = PButtonEagerConverter<String, URL>(id="browser.location.goButton",
 			fun=[String s|try { new URL(s) } catch (Exception e) { throw new RuntimeException(e)}]
 		)
-//		Button(id="browser.location.goButton")
-//		urlValve = Valve<URL>
-
-//		url2string = Object2String<URL>
 		browserPane = PBrowser(id="browser.viewer")
 
 		bookmarks = actor URL addBookmark, URL removeBookmark ==> is Variable<List<URL>>(initialValue=new ArrayList<URL>()) :
@@ -71,14 +64,8 @@ network browser :
 
 	structure
 		location.value -- toString() when it != null --> locationText.systemOutput
-//		url2string.output 		--> locationText.systemOutput
 		location.value 			--> browserPane.systemOutput
  		string2Url.output 		--> location.setValue
-// 		string2Url.output 		--> urlValve.input
-// 		string2Url.output 		--> goButton.enable
-// 		string2Url.exception 	--> goButton.enable
-// 		goButton.actionEvent 	--> urlValve.trigger
-// 		urlValve.output 		--> location.setValue
 		locationText.userInput 	--> string2Url.input
 		browserPane.userInput 	--> location.setValue
 		

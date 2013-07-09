@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+	<extension point="org.eclipse.debug.core.launchConfigurationTypes">
+    	<launchConfigurationType
+          	id="org.ptolemy.xtext.launch.type"
+          	name="Ptolemy Application"
+       		delegate="org.ptolemy.xtext.launch.PtolemyLaunchConfigurationDelegate"
+          	modes="run, debug"
+          	sourceLocatorId="org.eclipse.jdt.launching.sourceLocator.JavaSourceLookupDirector"
+          >
+    	</launchConfigurationType>
+ 	</extension>
+ 	
+ 	<extension point="org.eclipse.debug.ui.launchConfigurationTypeImages">
+    	<launchConfigurationTypeImage
+        	configTypeID="org.ptolemy.xtext.launch.type"
+        	id="org.ptolemy.xtext.launch.image"
+        	icon="platform:/plugin/org.ptolemy.xtext.ui/icons/xactor.png"
+        	>
+    	</launchConfigurationTypeImage>
+	</extension>
+
+ 	<extension point="org.eclipse.debug.ui.launchConfigurationTabGroups">
+    	<launchConfigurationTabGroup
+       		type="org.ptolemy.xtext.launch.type"
+        	class="org.ptolemy.xtext.launch.PtolemyTabGroup"
+        	id="org.ptolemy.xtext.launch.tabGroup"
+        	>
+    	</launchConfigurationTabGroup>
+	</extension>
+	
+	<!--
+	<extension point="org.eclipse.debug.ui.launchShortcuts">
+    	<shortcut
+        	id="org.ptolemy.xtext.launch.shortcut"
+        	class="org.ptolemy.xtext.launch.PtolemyLaunchShortcut"
+        	label="Ptolemy Application"
+        	modes="run, debug"
+        	icon="platform:/plugin/org.ptolemy.xtext.ui/icons/xactor.png"
+        	>
+ 			<contextualLaunch>
+           		<enablement>
+             		<with variable="selection">
+	               		<count value="1"/>
+	               		<iterate>
+	               			<or>
+		                   		<test property="org.eclipse.debug.ui.matchesPattern" value="*.xactor"/>
+		                   		<test property="org.eclipse.debug.ui.matchesPattern" value="*.xactor_diagram"/>
+		                   	</or>
+	    	           	</iterate>
+             		</with>
+           		</enablement>
+  		 	</contextualLaunch>
+  		</shortcut>
+	</extension>
+	-->
+
+</plugin>

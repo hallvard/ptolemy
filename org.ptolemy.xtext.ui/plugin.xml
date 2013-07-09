@@ -3,8 +3,7 @@
 
 <plugin>
 
-    <extension
-            point="org.eclipse.ui.editors">
+    <extension point="org.eclipse.ui.editors">
         <editor
             class="org.ptolemy.xtext.ui.XActorExecutableExtensionFactory:org.eclipse.xtext.ui.editor.XtextEditor"
             contributorClass="org.eclipse.ui.editors.text.TextEditorActionContributor"
@@ -12,7 +11,9 @@
             extensions="xactor"
             id="org.ptolemy.xtext.XActor"
             matchingStrategy="org.ptolemy.xtext.ui.XActorExecutableExtensionFactory:org.eclipse.xtext.xbase.ui.editor.JavaEditorInputMatcher"
-            name="XActor Editor">
+            name="XActor Editor"
+            icon="icons/xactor.png"
+            >
         </editor>
     </extension>
     <extension
@@ -541,5 +542,20 @@
             </visibleWhen>
          </command>
       </menuContribution>
-   </extension>  
+   </extension>
+
+    <extension
+          point="org.eclipse.ui.newWizards">
+       <category
+             id="org.ptolemy.xtext.ui"
+             name="Sample Wizards">
+       </category>
+       <wizard
+             category="org.ptolemy.xtext.ui"
+             class="org.ptolemy.xtext.ui.wizards.NewXActorFileWizard"
+             icon="icons/xactor.png"
+             id="org.ptolemy.xtext.ui.wizards.NewXActorFileWizard"
+             name="XActor file">
+       </wizard>
+    </extension>
 </plugin>

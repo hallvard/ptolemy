@@ -1,0 +1,29 @@
+namespace $namespaceName :
+
+actor Source<T>(T init)
+==> T output :
+	action ==> [init]
+	end
+end
+
+actor Sink<T>
+T input ==> :
+	action [object] ==>
+	end
+end
+
+network $actorName :
+	entities
+		source = Source<String>(init="HelloWorld")
+		toUpperCase = actor Object input ==> String output :
+			action [object] ==> [String.valueOf(object).toUpperCase]
+			end
+		end
+		sink = Sink<String>
+
+	structure
+		source.output --> toUpperCase.input
+		toUpperCase.output --> sink.input
+end
+
+end

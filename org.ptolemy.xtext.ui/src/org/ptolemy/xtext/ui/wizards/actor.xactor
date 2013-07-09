@@ -1,0 +1,12 @@
+namespace $namespaceName :
+
+actor $actorName (boolean toUpper=true)
+Object input ==> String output :
+	action [object] ==> [converted]
+		do
+			val String string = String.valueOf(object)
+			val String converted = if (toUpper) string.toUpperCase else string.toLowerCase
+	end
+end
+
+end

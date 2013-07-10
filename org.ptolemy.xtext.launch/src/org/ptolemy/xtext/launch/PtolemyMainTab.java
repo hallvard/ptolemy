@@ -19,6 +19,7 @@ import org.eclipse.jdt.internal.debug.ui.launcher.AbstractJavaMainTab;
 import org.eclipse.jdt.launching.IJavaLaunchConfigurationConstants;
 import org.eclipse.jdt.ui.IJavaElementSearchConstants;
 import org.eclipse.jdt.ui.JavaUI;
+import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.dialogs.ProgressMonitorDialog;
 import org.eclipse.jface.window.Window;
 import org.eclipse.swt.SWT;
@@ -46,10 +47,39 @@ import ptolemy.actor.TypedCompositeActor;
 
 public class PtolemyMainTab extends AbstractJavaMainTab implements ILaunchConfigurationTab {
 
-	@Override
-	public String getName() {
-		return "Ptolemy";
+	public static String ACTOR_TYPE_KEY = "ACTOR_TYPE_KEY";
+
+	public static String DIRECTOR_TYPE_KEY = "DIRECTOR_TYPE_KEY";
+
+	public static String RESOURCE_TYPE_KEY = "RESOURCE_TYPE_KEY";
+	
+	public static String RESOURCE_PATH_KEY = "RESOURCE_PATH_KEY";
+	
+	static String getStringAttributeValue(ILaunchConfiguration configuration, String attribute, String def) {
+		try {
+			return configuration.getAttribute(attribute, (String) def);
+		} catch (CoreException e) {
+			return null;
+		}
 	}
+
+	public static String getActorClassName(ILaunchConfiguration configuration) {
+		return getStringAttributeValue(configuration, ACTOR_TYPE_KEY, null);
+	}
+
+	public static String getDirectorClassName(ILaunchConfiguration configuration) {
+		return getStringAttributeValue(configuration, DIRECTOR_TYPE_KEY, null);
+	}
+	
+	public static String getResourceClassName(ILaunchConfiguration configuration) {
+		return getStringAttributeValue(configuration, RESOURCE_TYPE_KEY, null);
+	}
+	
+	public static String getResourcePath(ILaunchConfiguration configuration) {
+		return getStringAttributeValue(configuration, RESOURCE_PATH_KEY, null);
+	}
+	
+	//
 
 	private Text actorClassNameText;
 
@@ -92,7 +122,7 @@ public class PtolemyMainTab extends AbstractJavaMainTab implements ILaunchConfig
 		button.setText("Browse...");
 		button.addSelectionListener(new SelectionAdapter() {
 			public void widgetSelected(SelectionEvent e) {
-				selectType("Actor class", TypedCompositeActor.class, PtolemyLaunchConfigurationDelegate.ACTOR_TYPE_KEY, actorClassNameText);
+				selectType("Actor class", TypedCompositeActor.class, ACTOR_TYPE_KEY, actorClassNameText);
 			}
 		});
 
@@ -120,7 +150,7 @@ public class PtolemyMainTab extends AbstractJavaMainTab implements ILaunchConfig
 		button.setText("Browse...");
 		button.addSelectionListener(new SelectionAdapter() {
 			public void widgetSelected(SelectionEvent e) {
-				selectType("Director class", Director.class, PtolemyLaunchConfigurationDelegate.DIRECTOR_TYPE_KEY, directorClassNameText);
+				selectType("Director class", Director.class, DIRECTOR_TYPE_KEY, directorClassNameText);
 			}
 		});
 
@@ -145,7 +175,7 @@ public class PtolemyMainTab extends AbstractJavaMainTab implements ILaunchConfig
 		button.setText("Browse...");
 		button.addSelectionListener(new SelectionAdapter() {
 			public void widgetSelected(SelectionEvent e) {
-				selectType("Resource class", BeanResource.class, PtolemyLaunchConfigurationDelegate.RESOURCE_TYPE_KEY, resourceClassNameText);
+				selectType("Resource class", BeanResource.class, RESOURCE_TYPE_KEY, resourceClassNameText);
 			}
 		});
 
@@ -164,37 +194,44 @@ public class PtolemyMainTab extends AbstractJavaMainTab implements ILaunchConfig
 		button.setText("Browse...");
 		button.addSelectionListener(new SelectionAdapter() {
 			public void widgetSelected(SelectionEvent e) {
-				selectResource("Resource path", PtolemyLaunchConfigurationDelegate.RESOURCE_PATH_KEY, resourcePathText);
+				selectResource("Resource path", RESOURCE_PATH_KEY, resourcePathText);
 			}
 		});
 
 		setControl(comp);
 	}
 
+	@Override
+	public String getName() {
+		return "Ptolemy";
+	}
+	
 	protected void selectType(String title, Class<?> superClass, String attribute, Control textControl) {
-		IEditorInput editorInput = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().getActiveEditor().getEditorInput();
-		if (editorInput instanceof IFileEditorInput) {
-			IProject project = ((IFileEditorInput) editorInput).getFile().getProject();
-			IJavaProject javaProject = JavaCore.create(project);
-			try {
-				IType superType = javaProject.findType(superClass.getName());
-				//				ITypeHierarchy hierarchy = superType.newTypeHierarchy(new NullProgressMonitor());
-				//				IType[] subTypes = hierarchy.getAllSubtypes(superType);
-				IJavaSearchScope superTypeScope = SearchEngine.createHierarchyScope(superType);
-				SelectionDialog typeDialog = JavaUI.createTypeDialog(textControl.getShell(), new ProgressMonitorDialog(textControl.getShell()), superTypeScope, IJavaElementSearchConstants.CONSIDER_CLASSES, false);
-				typeDialog.setTitle(title);
-				if (typeDialog.open() == Window.OK) {
-					Object[] result = typeDialog.getResult();
-					if (result != null && result.length > 0 && result[0] instanceof IType) {
-						String typeName = ((IType) result[0]).getFullyQualifiedName();
-						setStringAttribute((ILaunchConfigurationWorkingCopy) getCurrentLaunchConfiguration(), attribute, typeName);
-						updateStringWidget(textControl, typeName);
-						updateLaunchConfigurationDialog();
-					}
+		IProject project = null;
+		project = ResourcesPlugin.getWorkspace().getRoot().getProject(fProjText.getText());
+		if (project == null) {
+			new MessageDialog(textControl.getShell(), "No project selected!", null, "You must select the project first!", MessageDialog.ERROR, new String[]{"OK"}, 0).open();
+			return;
+		}
+		IJavaProject javaProject = JavaCore.create(project);
+		try {
+			IType superType = javaProject.findType(superClass.getName());
+			//				ITypeHierarchy hierarchy = superType.newTypeHierarchy(new NullProgressMonitor());
+			//				IType[] subTypes = hierarchy.getAllSubtypes(superType);
+			IJavaSearchScope superTypeScope = SearchEngine.createHierarchyScope(superType);
+			SelectionDialog typeDialog = JavaUI.createTypeDialog(textControl.getShell(), new ProgressMonitorDialog(textControl.getShell()), superTypeScope, IJavaElementSearchConstants.CONSIDER_CLASSES, false);
+			typeDialog.setTitle(title);
+			if (typeDialog.open() == Window.OK) {
+				Object[] result = typeDialog.getResult();
+				if (result != null && result.length > 0 && result[0] instanceof IType) {
+					String typeName = ((IType) result[0]).getFullyQualifiedName();
+					setStringAttribute((ILaunchConfigurationWorkingCopy) getCurrentLaunchConfiguration(), attribute, typeName);
+					updateStringWidget(textControl, typeName);
+					updateLaunchConfigurationDialog();
 				}
-
-			} catch (JavaModelException e) {
 			}
+
+		} catch (JavaModelException e) {
 		}
 	}
 
@@ -205,7 +242,7 @@ public class PtolemyMainTab extends AbstractJavaMainTab implements ILaunchConfig
 		if (dialog.open() == Window.OK) {
 			Object[] result = dialog.getResult();
 			if (result != null && result.length > 0 && result[0] instanceof IResource) {
-				IPath path = ((IResource) result[0]).getFullPath();
+				IPath path = ((IResource) result[0]).getLocation();
 				updateStringWidget(textControl, path.toString());
 				updateLaunchConfigurationDialog();
 			}
@@ -226,25 +263,27 @@ public class PtolemyMainTab extends AbstractJavaMainTab implements ILaunchConfig
 		configuration.setAttribute(IJavaLaunchConfigurationConstants.ATTR_MAIN_TYPE_NAME, "org.ptolemy.xtext.launch.PtolemyMain");
 	}
 
+	protected boolean checkNonNull(ILaunchConfiguration configuration, String attribute, String message) {
+		try {
+			if (getStringAttributeValue(configuration, attribute, null) == null) {
+				throw new NullPointerException();
+			}
+			return true;
+		} catch (Exception e) {
+			setErrorMessage(message);
+			return false;
+		}
+	}
+	
 	public boolean isValid(ILaunchConfiguration configuration) {
 		setErrorMessage(null);
 		if (! super.isValid(configuration)) {
 			return false;
 		}
-		try {
-			if (configuration.getAttribute(PtolemyLaunchConfigurationDelegate.ACTOR_TYPE_KEY, (String) null) == null) {
-				throw new NullPointerException();
-			}
-		} catch (Exception e) {
-			setErrorMessage("No actor class");
+		if (! checkNonNull(configuration, ACTOR_TYPE_KEY, "No actor class")) {
 			return false;
 		}
-		try {
-			if (configuration.getAttribute(PtolemyLaunchConfigurationDelegate.DIRECTOR_TYPE_KEY, (String) null) == null) {
-				throw new NullPointerException();
-			}
-		} catch (Exception e) {
-			setErrorMessage("No director class");
+		if (! checkNonNull(configuration, DIRECTOR_TYPE_KEY, "No director class")) {
 			return false;
 		}
 		return true;
@@ -254,10 +293,10 @@ public class PtolemyMainTab extends AbstractJavaMainTab implements ILaunchConfig
 	public void performApply(ILaunchConfigurationWorkingCopy configuration) {
 		configuration.setAttribute(IJavaLaunchConfigurationConstants.ATTR_PROJECT_NAME, fProjText.getText().trim());
 
-		setStringAttribute(configuration, PtolemyLaunchConfigurationDelegate.ACTOR_TYPE_KEY, actorClassNameText.getText());
-		setStringAttribute(configuration, PtolemyLaunchConfigurationDelegate.DIRECTOR_TYPE_KEY, directorClassNameText.getText());
-		setStringAttribute(configuration, PtolemyLaunchConfigurationDelegate.RESOURCE_TYPE_KEY, resourceClassNameText.getText());
-		setStringAttribute(configuration, PtolemyLaunchConfigurationDelegate.RESOURCE_PATH_KEY, resourcePathText.getText());
+		setStringAttribute(configuration, ACTOR_TYPE_KEY, actorClassNameText.getText());
+		setStringAttribute(configuration, DIRECTOR_TYPE_KEY, directorClassNameText.getText());
+		setStringAttribute(configuration, RESOURCE_TYPE_KEY, resourceClassNameText.getText());
+		setStringAttribute(configuration, RESOURCE_PATH_KEY, resourcePathText.getText());
 	}
 
 	protected void updateStringWidget(Widget textWidget, String value) {
@@ -281,9 +320,9 @@ public class PtolemyMainTab extends AbstractJavaMainTab implements ILaunchConfig
 	@Override
 	public void initializeFrom(ILaunchConfiguration configuration) {
 		super.initializeFrom(configuration);
-		updateStringWidget(configuration, PtolemyLaunchConfigurationDelegate.ACTOR_TYPE_KEY, actorClassNameText);
-		updateStringWidget(configuration, PtolemyLaunchConfigurationDelegate.DIRECTOR_TYPE_KEY, directorClassNameText);
-		updateStringWidget(configuration, PtolemyLaunchConfigurationDelegate.RESOURCE_TYPE_KEY, resourceClassNameText);
-		updateStringWidget(configuration, PtolemyLaunchConfigurationDelegate.RESOURCE_PATH_KEY, resourcePathText);
+		updateStringWidget(configuration, ACTOR_TYPE_KEY, actorClassNameText);
+		updateStringWidget(configuration, DIRECTOR_TYPE_KEY, directorClassNameText);
+		updateStringWidget(configuration, RESOURCE_TYPE_KEY, resourceClassNameText);
+		updateStringWidget(configuration, RESOURCE_PATH_KEY, resourcePathText);
 	}
 }

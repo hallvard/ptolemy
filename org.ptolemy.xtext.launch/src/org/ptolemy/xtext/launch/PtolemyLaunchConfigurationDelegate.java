@@ -8,25 +8,29 @@ import org.eclipse.jdt.launching.JavaLaunchDelegate;
 
 public class PtolemyLaunchConfigurationDelegate extends JavaLaunchDelegate {
 	
-	public static String ACTOR_TYPE_KEY = "ACTOR_TYPE_KEY";
-
-	public static String DIRECTOR_TYPE_KEY = "DIRECTOR_TYPE_KEY";
-
-	public static String RESOURCE_TYPE_KEY = "RESOURCE_TYPE_KEY";
-	
-	public static String RESOURCE_PATH_KEY = "RESOURCE_PATH_KEY";
-	
 	public void launch(ILaunchConfiguration configuration, String mode, ILaunch launch, IProgressMonitor monitor) throws CoreException {
 		super.launch(configuration, mode, launch, monitor);
 	}
 	
+	String getStringAttributeValue(ILaunchConfiguration configuration, String attribute, String def) {
+		try {
+			return configuration.getAttribute(attribute, (String) def);
+		} catch (CoreException e) {
+			return null;
+		}
+	}
+	
+
+	
 	@Override
 	public String getProgramArguments(ILaunchConfiguration configuration) throws CoreException {
-		return
-			configuration.getAttribute(ACTOR_TYPE_KEY, "?") + " " +
-			configuration.getAttribute(DIRECTOR_TYPE_KEY, "?") + " " +
-			configuration.getAttribute(RESOURCE_TYPE_KEY, "?") + " " +
-			configuration.getAttribute(RESOURCE_PATH_KEY, "?") + " " +
-			super.getProgramArguments(configuration);
+		String actorClassName = PtolemyMainTab.getActorClassName(configuration);
+		String directorClassName = PtolemyMainTab.getDirectorClassName(configuration);
+		String resourceClassName = PtolemyMainTab.getResourceClassName(configuration);
+		String resourcePath = PtolemyMainTab.getResourcePath(configuration);
+		return 	actorClassName + " " +
+				directorClassName + " " +
+				(resourceClassName != null && resourcePath != null ? resourceClassName + " " + resourcePath + " " : "") +
+				super.getProgramArguments(configuration);
 	}
 }

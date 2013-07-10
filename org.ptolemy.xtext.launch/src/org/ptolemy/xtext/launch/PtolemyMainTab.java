@@ -165,6 +165,8 @@ public class PtolemyMainTab extends AbstractJavaMainTab implements ILaunchConfig
 				updateLaunchConfigurationDialog();
 			}
 		});
+		resourceClassNameText.add("org.ptolemy.xtext.launch.swixml.SwixmlResource");
+		resourceClassNameText.select(0);
 		resourceClassNameText.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent e) {

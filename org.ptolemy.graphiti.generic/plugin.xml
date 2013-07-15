@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+
+   <extension point="org.eclipse.emf.ecore.generated_package">
+      <package
+            uri="org.ptolemy.graphiti.generic.actordiagram"
+            class="org.ptolemy.graphiti.generic.actordiagram.ActordiagramPackage"
+            genModel="model/actordiagram.genmodel"/>
+	</extension>
+
+<!--
+	<extension point="org.eclipse.graphiti.ui.diagramTypes">
+    	<diagramType
+      		description="Diagram type for Ptolemy actor diagram"
+      		id="org.ptolemy.graphiti.diagram.type"
+      		name="Ptolemy actor diagram type"
+      		type="xactor">
+    	</diagramType>
+	</extension>
+
+	<extension point="org.eclipse.graphiti.ui.diagramTypeProviders">
+    	<diagramTypeProvider
+ 	     	class="org.ptolemy.graphiti.editor.ActorDiagramEditorExecutableExtensionFactory:org.eclipse.graphiti.dt.IDiagramTypeProvider"
+    	  	description="This is my editor for Ptolemy actor diagrams"
+      		id="org.ptolemy.graphiti.diagram"
+      		name="Ptolemy actor diagrams">
+			<diagramType id="org.ptolemy.graphiti.diagram.type"/>
+	      	<imageProvider id="org.ptolemy.graphiti.editor.ActorDiagramImageProvider"/>
+    	</diagramTypeProvider>
+  	</extension>
+
+	<extension
+	      point="org.eclipse.graphiti.ui.imageProviders">
+	   <imageProvider
+	         class="org.ptolemy.graphiti.editor.ActorDiagramEditorExecutableExtensionFactory:org.eclipse.graphiti.ui.platform.IImageProvider"
+	         id="org.ptolemy.graphiti.editor.ActorDiagramImageProvider">
+	   </imageProvider>
+	</extension>
+	
+	<extension point="org.eclipse.ui.views.properties.tabbed.propertyContributor">
+	    <propertyContributor contributorId="xactor.PropertyContributor">
+	        <propertyCategory category="Graphiti"/>
+	    </propertyContributor>
+	</extension>
+	      
+	<extension point="org.eclipse.ui.views.properties.tabbed.propertyTabs">
+	   	<propertyTabs
+	       	contributorId="xactor.PropertyContributor">
+	   	<propertyTab
+	      	category="Graphiti"
+	      	id="graphiti.main.tab"
+	    	label="Main"/>
+	   </propertyTabs>
+	</extension>
+	    
+	<extension
+	      point="org.eclipse.ui.views.properties.tabbed.propertySections">
+		<propertySections
+	          contributorId="xactor.PropertyContributor">
+	 		<propertySection
+	        	class="org.ptolemy.graphiti.editor.ActorDiagramEditorExecutableExtensionFactory:org.ptolemy.graphiti.diagram.properties.ActorDiagramEntitySection"
+	           	filter="org.ptolemy.graphiti.editor.ActorDiagramEditorExecutableExtensionFactory:org.ptolemy.graphiti.diagram.properties.ActorDiagramEntityFilter"
+	            id="graphiti.main.tab.actor"
+	            tab="graphiti.main.tab"/>
+	 		<propertySection
+	        	class="org.ptolemy.graphiti.editor.ActorDiagramEditorExecutableExtensionFactory:org.ptolemy.graphiti.diagram.properties.ActorDiagramPortSection"
+	           	filter="org.ptolemy.graphiti.editor.ActorDiagramEditorExecutableExtensionFactory:org.ptolemy.graphiti.diagram.properties.ActorDiagramPortFilter"
+	            id="graphiti.main.tab.port"
+	            tab="graphiti.main.tab"/>
+	    </propertySections>
+	</extension>
+	
+ <extension
+       point="org.eclipse.ui.editors">
+    <editor
+          class="org.ptolemy.graphiti.editor.ActorDiagramEditorExecutableExtensionFactory:org.eclipse.ui.IEditorPart"
+          contributorClass="org.ptolemy.graphiti.editor.ActorDiagramEditorExecutableExtensionFactory:org.eclipse.graphiti.ui.editor.DiagramEditorActionBarContributor"
+          default="false"
+          extensions="xactor_diagram,xactor"
+          id="org.ptolemy.graphiti.xactor"
+          name="Actor Diagram Editor">
+    </editor>
+ </extension>
+
+   <extension point="org.eclipse.ui.newWizards">
+      <category
+            id="org.ptolemy.graphiti"
+            name="Ptolemy Graphiti"/>
+      <wizard
+            id="org.ptolemy.graphiti.editor.CreateDiagramWizard"
+            name="Create Actor Diagram Wizard"
+            class="org.ptolemy.graphiti.editor.ActorDiagramEditorExecutableExtensionFactory:org.eclipse.ui.INewWizard"
+            category="org.ptolemy.graphiti"
+            icon="resources/icons/single_in.gif">
+         <description>Create Actor Diagram Wizard</description>
+         <selection class="org.eclipse.core.resources.IResource"/>
+      </wizard>
+   </extension>
+
+-->
+
+</plugin>

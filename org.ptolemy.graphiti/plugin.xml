@@ -16,7 +16,8 @@
       		description="Diagram type for Ptolemy actor diagram"
       		id="org.ptolemy.graphiti.diagram.type"
       		name="Ptolemy actor diagram type"
-      		type="xactor">
+      		type="xactor"
+      		>
     	</diagramType>
 	</extension>
 
@@ -74,15 +75,16 @@
 	</extension>
 -->
 
- <extension
-       point="org.eclipse.ui.editors">
+ <extension point="org.eclipse.ui.editors">
     <editor
-          class="org.ptolemy.graphiti.PtolemyActorDiagramEditorExecutableExtensionFactory:org.eclipse.ui.IEditorPart"
-          contributorClass="org.ptolemy.graphiti.PtolemyActorDiagramEditorExecutableExtensionFactory:org.eclipse.graphiti.ui.editor.DiagramEditorActionBarContributor"
-          default="false"
-          extensions="xactor_diagram,xactor"
-          id="org.ptolemy.graphiti.xactor"
-          name="Actor Diagram Editor">
+        id="org.ptolemy.graphiti.xactor"
+        class="org.ptolemy.graphiti.PtolemyActorDiagramEditorExecutableExtensionFactory:org.eclipse.ui.IEditorPart"
+        contributorClass="org.ptolemy.graphiti.PtolemyActorDiagramEditorExecutableExtensionFactory:org.eclipse.graphiti.ui.editor.DiagramEditorActionBarContributor"
+        default="false"
+        extensions="xactor_diagram,xactor"
+        name="Actor Diagram Editor"
+	    icon="platform:/plugin/org.ptolemy.xtext.ui/icons/xactor.png"
+        >
     </editor>
  </extension>
 

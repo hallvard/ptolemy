@@ -1,19 +1,19 @@
 # The ptolemy repository
 
 This repository contains plugin projects that together implement models, editors and code generators for the Cal language and ptolemy framework:
-* org.ptolemy.ecore - the ptolemy ecore model project used by editors and code generator
-* org.ptolemy.xtext and org.ptolemy.xtext.ui - the Cal language implementation based on Xtext, with a code generator for the ptolemy framework
+* [org.ptolemy.ecore](org.ptolemy.ecore/README.md) - the ptolemy ecore model project used by editors and code generator
+* org.ptolemy.xtext and [org.ptolemy.xtext.ui](org.ptolemy.xtext.ui/README.md) - the Cal language implementation based on Xtext, with a code generator for the ptolemy framework
 
 * org.ptolemy.jars - a plugin wrapper for the ptolemy jars (core and several domains), i.e. the ptolemy runtime platform
-* org.ptolemy.xtext.lib - an extension of the ptolemy runtime platform, to support the Cal language implementation
+* [org.ptolemy.xtext.lib](org.ptolemy.xtext.lib/README.md) - an extension of the ptolemy runtime platform, to support the Cal language implementation
 
 * org.ptolemy.xtext.launch - launcher support, configuration, tab/tab group and delegate
 
-* org.ptolemy.graphiti.generic - a generic graphical editor for actor networks
+* [org.ptolemy.graphiti.generic](org.ptolemy.graphiti.generic/README.md) - a generic graphical editor for actor networks
 * org.ptolemy.graphiti.generic.kieler - support for Kieler-based layout in the generic editor
 
-* org.ptolemy.graphiti - the generic editor adapted to the ptolemy ecore model
-* org.caltoopia.graphiti - the generic editor adapted to the caltoopia ecore model
+* [org.ptolemy.graphiti](org.ptolemy.graphiti/README.md) - the generic editor adapted to the ptolemy ecore model
+* [org.caltoopia.graphiti](org.ptolemy.graphiti/README.md) - the generic editor adapted to the caltoopia ecore model
 
 * org.ptolemy.xtext.tests - tests and examples
 
@@ -49,39 +49,3 @@ In this example, an actor network implements the behavior of a Swing interface, 
 * `browser.xml` - the Swixml file describing the composition of Swing components, their properties and layout
 
 To launch this example, create a launch configuration with `org.ptolemy.xtext.tests` as the project name, `org.ptolemy.xtext.browser.Browser` as the actor class, `ptolemy.domains.de.kernel.DEDirector` as director class, `org.ptolemy.xtext.launch.swixml.SwixmlResource` as the resource class and the full path of `browser.xml` as the resource path. 
-
-# More about the plugin projects #
-
-## org.ptolemy.ecore - the ptolemy ecore model project used by editors and code generator
-
-This plugin project contains the ecore models used by the DSL. There are two pairs of models:
-
-* kernel.ecore and actor.ecore - corresponds to the ptolemy kernel and actor hierarchy
-* caltrop and xactor - DSL constructs
-
-## org.ptolemy.xtext and org.ptolemy.xtext.ui - the Cal language implementation based on Xtext, with a code generator for the ptolemy framework
-
-These two plugin projects are the standard Xtext projects for the DSL parser and editor. The parser project also contains the code generator for the ptolemy runtime platform. 
-
-## org.ptolemy.jars - a plugin wrapper for the ptolemy jars (core and several domains), i.e. the ptolemy runtime platform
-## org.ptolemy.xtext.lib - an extension of the ptolemy runtime platform, to support the Cal language implementation
-
-## org.ptolemy.xtext.launch - launcher support, configuration, tab/tab group and delegate
-
-## org.ptolemy.graphiti.generic - a generic graphical editor for actor networks
-
-This plugin implements a generic graphical editor for actor networks, based on the graphiti framework. The editor may sit on top of different underlying actor network models and Xtext-based DSLs, the logic of which are exposed through facade classes used for navigating and editing the model.
-
-The editor uses Google's dependency injection framework Guice for customization.
-
-## org.ptolemy.graphiti.generic.kieler - support for Kieler-based layout in the generic editor
-
-## org.ptolemy.graphiti - the generic editor adapted to the ptolemy ecore model
-
-This plugin customizes the generic editor for the ptolemy ecore model.
-
-## org.caltoopia.graphiti - the generic editor adapted to the caltoopia ecore model
-
-This plugin customizes the generic editor for the caltoopia ecore model.
-
-## org.ptolemy.xtext.tests - tests and examples

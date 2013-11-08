@@ -67,6 +67,10 @@ import org.ptolemy.ecore.caltrop.ConversionRelation
 import org.ptolemy.ecore.kernel.Relation
 import org.ptolemy.ecore.kernel.Named
 import org.ptolemy.ecore.kernel.CompositeEntity
+import org.ptolemy.ecore.kernel.EntityRef
+import org.ptolemy.xtext.generator.MappingCopier
+import org.ptolemy.ecore.caltrop.RealmKind
+import org.ptolemy.ecore.caltrop.StateVariable
 
 class XActorJvmModelInferrer extends AbstractModelInferrer {
 	
@@ -78,13 +82,20 @@ class XActorJvmModelInferrer extends AbstractModelInferrer {
 	@Inject extension TypeUtil
 
     def dispatch void infer(IEntity<?> entity, IJvmDeclaredTypeAcceptor acceptor, boolean isPrelinkingPhase) {
-    	val Collection<IEntity<?>> entities = new EntitySorter(entity).sort();
+    	val Collection<IEntity<?>> entities = new EntitySorter(entity, true).sort();
     	for (IEntity<?> entity2 : entities) {
     		inferActorClass(entity2, acceptor, isPrelinkingPhase)
     	}
     }
 
     def dispatch void inferActorClass(IEntity<?> entity, IJvmDeclaredTypeAcceptor acceptor, boolean isPrelinkingPhase) {
+    }
+
+    def dispatch void inferActorClass(EntityRef<?> entityRef, IJvmDeclaredTypeAcceptor acceptor, boolean isPrelinkingPhase) {
+    	val entity = entityRef.getRef()
+    	if (entity.eResource() == entityRef.eResource()) {
+	    	inferActorClass(entity, acceptor, isPrelinkingPhase)
+    	}
     }
 
 	def boolean isConversionRelation(Relation relation) {
@@ -215,13 +226,19 @@ class XActorJvmModelInferrer extends AbstractModelInferrer {
     def dispatch void inferActorClass(TypedAtomicActor actor, IJvmDeclaredTypeAcceptor acceptor, boolean isPrelinkingPhase) {
     	var JvmGenericType actorClass = null
     	if (actor.name != null) {
-    		if (actor.superEntity != null) { // && (! isPrelinkingPhase)) {
-    			actor.superEntity.resolve(false)
+    		if (actor.superEntity != null) {
+    			if (isPrelinkingPhase) {
+	    			actor.superEntity.getRef(); // only resolve proxy
+    			} else {
+	    			actor.superEntity.resolve(false)
+	    		}
     		}
     		actorClass = actor.toActorClass(isPrelinkingPhase)
 	    	acceptor.accept(actorClass)
     	}
     	if (! isPrelinkingPhase) {
+	    	var isAbstract = isAbstract(actor)
+			actorClass.setAbstract(isAbstract)
 			if (actor.impl != null) {
 	    		inferImpl(actor.impl, actor, actorClass, acceptor, isPrelinkingPhase)
 	    	} else if (actor.inheritedImpl != null) {
@@ -283,8 +300,6 @@ class XActorJvmModelInferrer extends AbstractModelInferrer {
     	if (entity instanceof TypeParameterized) {
     		(entity as TypeParameterized).addTypeParameters(actorClass, null)
     	}
-    	var isAbstract = isAbstract(entity)
-		actorClass.setAbstract(isAbstract)
 
 		actorClass => [
 //			annotations += entity.toAnnotation(SuppressWarnings, "serial")
@@ -308,6 +323,14 @@ class XActorJvmModelInferrer extends AbstractModelInferrer {
 			val cons = it
 			body = [
 				generateActorConstructorBody(entity, cons, it)
+			]
+		]
+		actorClass.members += entity.toConstructor [
+			simpleName = actorClass.simpleName
+			parameters += entity.toParameter("parent", entity.newTypeRef("ptolemy.kernel.CompositeEntity"))
+			addPtExceptions(entity, true)
+			body = [
+				it << '''this(parent, "«entity.name»");'''
 			]
 		]
 		actorClass
@@ -363,13 +386,13 @@ class XActorJvmModelInferrer extends AbstractModelInferrer {
 
 	private val overrideAnnotatons = false
 
-	def sameExpressionContext(JvmOperation method, String name, JvmTypeReference returnType, EObject model, (JvmOperation) => void init) {
+	def sameExpressionContext(EObject model, JvmOperation method, String name, JvmTypeReference returnType, JvmTypeReference typeRef, (JvmOperation) => void init) {
 		model.toMethod(name, returnType) [
 			for (exception : method.exceptions) {
-				exceptions += EcoreUtil::copy(exception)
+				exceptions += EcoreUtil.copy(exception)
 			}
 			for (parameter : method.parameters) {
-				val parameterCopy = EcoreUtil::copy(parameter)
+				val parameterCopy = MappingCopier.map(parameter, typeRef)
 				if (parameterCopy.name == null) {
 					parameterCopy.name = "arg" + parameters.size 
 				}
@@ -379,8 +402,8 @@ class XActorJvmModelInferrer extends AbstractModelInferrer {
 		]
 	}
 
-	def overrideMethod(EObject model, JvmOperation method, (JvmOperation) => void init) {
-		sameExpressionContext(method, method.simpleName, method.returnType, model, init)
+	def overrideMethod(EObject model, JvmOperation method, JvmTypeReference typeRef, (JvmOperation) => void init) {
+		model.sameExpressionContext(method, method.simpleName, method.returnType, typeRef, init)
 	}
 
 	def JvmOperation overrideMethod(EObject model, String name, JvmTypeReference typeRef) {
@@ -388,7 +411,7 @@ class XActorJvmModelInferrer extends AbstractModelInferrer {
 			val type = typeRef.type as JvmDeclaredType
 			val method = type.allFeatures.filter(JvmOperation).findFirst[simpleName.equals(name)]
 			if (method != null) {
-				return model.overrideMethod(method) [
+				return model.overrideMethod(method, typeRef) [
 					if (overrideAnnotatons) {
 						annotations += method.toAnnotation(Override)
 					}
@@ -679,12 +702,14 @@ class XActorJvmModelInferrer extends AbstractModelInferrer {
 		]
 		for (declaration : impl.declarations) {
 			val field = declaration.toField(declaration.name, declaration.inferredType)
-			field.visibility = JvmVisibility::PROTECTED
-			implClass.members += field
-			if (! declaration.constant) {
-				implClass.members += declaration.toField(declaration.previousValueName, declaration.inferredType)
+			if (field != null) {
+				field.visibility = JvmVisibility::PROTECTED
+				implClass.members += field
+				if (! declaration.constant) {
+					implClass.members += declaration.toField(declaration.previousValueName, declaration.inferredType)
+				}
+				inferExpressionMethod(implClass, declaration.methodName("initial%sStateVariableValue"), declaration.valueExpression, declaration.type, initializeMethod)
 			}
-			inferExpressionMethod(implClass, declaration.methodName("initial%sStateVariableValue"), declaration.valueExpression, declaration.type, initializeMethod)
 		}
 		for (function : impl.functions) {
 			val method = function.toMethod(function.name, if (function.type != null) type(function) else impl.newTypeRef(void)) [
@@ -708,7 +733,7 @@ class XActorJvmModelInferrer extends AbstractModelInferrer {
 			val listenerInterface = eventPattern.type(true)
 			if (listenerInterface?.type instanceof JvmDeclaredType) {
 				val listenerClass = eventPattern.toClass(eventPattern.eventPatternListenerName) [
-					superTypes += listenerInterface.cloneWithProxies
+					superTypes += listenerInterface
 				]
 				implClass.members += listenerClass
 				for (JvmOperation op : (listenerInterface.type as JvmDeclaredType).members.filter(JvmOperation)) {
@@ -720,7 +745,7 @@ class XActorJvmModelInferrer extends AbstractModelInferrer {
 							body = eventPattern.timeExpression
 						]
 					}
-					val eventMethod = eventPattern.overrideMethod(op) []
+					val eventMethod = eventPattern.overrideMethod(op, listenerInterface) []
 					eventMethod.body = [
 						generateEventListenerMethodBody(eventPattern, eventMethod, it)
 					]
@@ -735,26 +760,40 @@ class XActorJvmModelInferrer extends AbstractModelInferrer {
 		}
 		if (! impl.declarations.empty) {
 			for (declaration : impl.declarations) {
-				implClass.members += declaration.toMethod(declaration.methodName("_preChange%sState"), declaration.newTypeRef(void)) [
+				declaration.toDeclarationMethod("_preChange%sState", declaration.newTypeRef(void), false, implClass) [
 					parameters += toParameter(declaration.name, declaration.inferredType)
+					addPtExceptions(declaration, false)
 					body = [
 						generatePreStateVariableChangeBody(declaration, impl, it)
 					]
 				]
 			}
 			for (declaration : impl.declarations) {
-				implClass.members += declaration.toMethod(declaration.methodName("_postChange%sState"), declaration.newTypeRef(void)) [
+				declaration.toDeclarationMethod("_postChange%sState", declaration.newTypeRef(void), false, implClass) [
 					parameters += toParameter(declaration.name, declaration.inferredType)
+					addPtExceptions(declaration, false)
 					body = [
 						generatePostStateVariableChangeBody(declaration, impl, it)
 					]
 				]
 			}
+			for (declaration : impl.declarations.filter[it.updateExpression != null]) {
+				declaration.toDeclarationMethod("_update%sState", declaration.newTypeRef(void), false, implClass) [
+					addPtExceptions(declaration, false)
+					val method = it
+					body = [
+						generateUpdateStateVariableBody(declaration, method, it)
+					]
+					declaration.updateExpression.associateLogicalContainer(method)
+				]
+			}
 		}
 		if (! impl.declarations.empty) {
-			implClass.members += impl.overrideMethod("_postfireImpl", implSupertype) [
-				generatePostfireImplBody(impl, null, it)
+			val postFireImplMethod = impl.overrideMethod("_postfireImpl", implSupertype)
+			postFireImplMethod.body = [
+				generatePostfireImplBody(impl, postFireImplMethod, it)
 			]
+			implClass.members += postFireImplMethod
 		}
 		if (! impl.declarations.empty) {
 			implClass.members += impl.overrideMethod("_wrapupImpl", implSupertype) [
@@ -779,6 +818,35 @@ class XActorJvmModelInferrer extends AbstractModelInferrer {
 		]
     }
 	
+	def toDeclarationMethod(StateVariable declaration, String methodName, JvmTypeReference returnType, boolean sync, JvmGenericType implClass, (JvmOperation) => void init) {
+		val realmName = if (declaration.realm != null) declaration.realm.key else null
+		val method = declaration.toMethod(declaration.methodName(methodName) + if (realmName != null) "_" + realmName else "", returnType, init)
+		implClass.members += method
+		if (realmName != null) {
+			implClass.members += declaration.toMethod(declaration.methodName(methodName), returnType) [
+				for (parameter : method.parameters) {
+					parameters += toParameter(parameter.name, parameter.parameterType)
+				}
+				for (exception : method.exceptions) {
+					exceptions += declaration.newTypeRef(exception.qualifiedName)
+				}
+				body = [
+					it << '''realm«if (sync) "S" else "As"»yncExec("«realmName»", new Runnable() {''' << "public void run() {"
+					if (! method.exceptions.empty) {
+						it << '''try {'''
+					}
+					it << '''«declaration.methodName(methodName) + "_" + realmName»('''
+					it << method.parameters.join(",") [name]
+					it << ");"
+					if (! method.exceptions.empty) {
+						it << '''} catch (Exception e) {}'''
+					}
+					it << "}" << "});"
+				]
+			]
+		}
+	}
+	
     def dispatch void inferInheritedImpl(AtomicActorImpl<?> impl, JvmGenericType actorClass, IJvmDeclaredTypeAcceptor acceptor, boolean isPrelinkingPhase) {
     }
 
@@ -799,14 +867,14 @@ class XActorJvmModelInferrer extends AbstractModelInferrer {
 
 	def void inferExpressionMethod(JvmGenericType implClass, String name, XExpression expression, JvmTypeReference returnType, JvmOperation actionMethod) {
 		if (expression != null) {
-			val method = actionMethod.sameExpressionContext("_" + indexedName(name, expression), returnType, expression) [
+			val method = expression.sameExpressionContext(actionMethod, "_" + indexedName(name, expression), returnType, null) [
 				visibility = JvmVisibility::PRIVATE
 				body = [
 					generateExpressionMethodBody(expression, null, returnType, it)
 				]
 			]
-			implClass.members += method
 			expression.associateLogicalContainer(method)
+			implClass.members += method
 		}
 	}
 
@@ -834,8 +902,11 @@ class XActorJvmModelInferrer extends AbstractModelInferrer {
 	def void inferOutputPatternExpressionMethods(JvmGenericType implClass, Iterable<? extends OutputPattern> patterns, JvmOperation actionMethod) {
 		for (pattern : patterns) {
 			val methodPrefix = indexedName(actionMethod.simpleName + "Pattern", pattern)
-			for (valueExpression : pattern.valueExpressions) {
-				inferExpressionMethod(implClass, methodPrefix + "Output", valueExpression, pattern.type(pattern.isMultiport(pattern.portRef), null), actionMethod)
+			if (pattern.portRef != null) {
+				val patternType = pattern.type(pattern.isMultiport(pattern.portRef), null)
+				for (valueExpression : pattern.valueExpressions) {
+					inferExpressionMethod(implClass, methodPrefix + "Output", valueExpression, patternType, actionMethod)
+				}
 			}
 			if (pattern.repeatExpression != null) {
 				inferExpressionMethod(implClass, methodPrefix + "Repeat", pattern.repeatExpression, int, actionMethod)

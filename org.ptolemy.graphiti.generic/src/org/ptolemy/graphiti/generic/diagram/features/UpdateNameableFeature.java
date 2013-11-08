@@ -18,6 +18,7 @@ import org.eclipse.graphiti.features.context.impl.RemoveContext;
 import org.eclipse.graphiti.features.impl.AbstractUpdateFeature;
 import org.eclipse.graphiti.features.impl.Reason;
 import org.eclipse.graphiti.mm.algorithms.AbstractText;
+import org.eclipse.graphiti.mm.algorithms.PlatformGraphicsAlgorithm;
 import org.eclipse.graphiti.mm.pictograms.Connection;
 import org.eclipse.graphiti.mm.pictograms.ContainerShape;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
@@ -27,7 +28,10 @@ import org.eclipse.graphiti.services.Graphiti;
 import org.eclipse.graphiti.services.ILinkService;
 import org.ptolemy.graphiti.generic.ActorViewModel;
 import org.ptolemy.graphiti.generic.NameViewModel;
+import org.ptolemy.graphiti.generic.actordiagram.IconShape;
 import org.ptolemy.graphiti.generic.actordiagram.LabelShape;
+import org.ptolemy.graphiti.generic.diagram.features.util.GenericShapeRendererFactory;
+import org.ptolemy.graphiti.generic.diagram.features.util.IconImageProvider;
 
 import com.google.inject.Inject;
 
@@ -78,7 +82,10 @@ public abstract class UpdateNameableFeature extends AbstractUpdateFeature {
 		}
 		return changed;
     }
-
+    
+    @Inject
+    private IEntityLayout entityLayout;
+    
     protected boolean update(PictogramElement pe, boolean reallyUpdate) {
         if (AbstractRemoveLinkFeature.isUnlinked(pe, linkService)) {
         	if (reallyUpdate) {
@@ -86,12 +93,11 @@ public abstract class UpdateNameableFeature extends AbstractUpdateFeature {
         	}
         	return true;
         }
-    	if (pe instanceof LabelShape) {
-	    	LabelShape labelShape = (LabelShape) pe;
-	        AbstractText textShape = labelShape.getLabel();
+        EObject bo = linkService.getBusinessObjectForLinkedPictogramElement(pe);
+    	if (pe instanceof LabelShape && ((LabelShape) pe).getLabel() != null) {
+	        AbstractText textShape = ((LabelShape) pe).getLabel();
 	    	String pictogramName = textShape.getValue();
 	        // retrieve name from business model
-	    	EObject bo = linkService.getBusinessObjectForLinkedPictogramElement(pe);
 			String actorName = nameViewModel.getName(bo);
 	        // update needed, if names are different
 	        if (actorName != null ? (! actorName.equals(pictogramName)) : pictogramName != null) {
@@ -100,6 +106,19 @@ public abstract class UpdateNameableFeature extends AbstractUpdateFeature {
 	        	}
 	        	return true;
 	        }
+    	}
+    	if (pe instanceof IconShape && ((IconShape) pe).getIcon() != null) {
+    		PlatformGraphicsAlgorithm icon = ((IconShape) pe).getIcon();
+			String oldId = icon.getId();
+    		String iconUrl = entityLayout.getIconUrl(bo);
+    		String iconId = GenericShapeRendererFactory.createImageIdForURL(iconUrl);
+	        // update needed, if iconIds are different
+    		if (oldId != iconId && (oldId == null || (! oldId.equals(iconId)))) {
+    			if (reallyUpdate) {
+    				icon.setId(iconId);
+    			}
+    			return true;
+    		}
     	}
         return false;
     }

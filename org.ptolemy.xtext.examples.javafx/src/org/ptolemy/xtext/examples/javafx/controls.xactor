@@ -1,0 +1,133 @@
+namespace org.ptolemy.xtext.examples.javafx.scene.control :
+
+import java.io.IOException
+import java.net.MalformedURLException
+import java.net.URL
+import java.util.ArrayList
+import java.util.Collection
+import java.util.List
+import javafx.concurrent.Worker
+import javafx.scene.control.Button
+import javafx.scene.control.ListView
+import javafx.scene.control.SelectionModel
+import javafx.scene.control.TextField
+import javafx.scene.web.WebView
+import org.eclipse.xtext.xbase.lib.Pair
+
+actor PTextField(String id)
+String systemOutput ==> String userInput :
+	val @javafx TextField textField = get(id, TextField);
+	var @javafx String text := textField.text update textField.text = text;
+	initialize ==> [text] end
+	action [string] ==>	do
+		text = string
+	end
+	event textField.text [propertyEvent] ==> [text] end
+	event textField!^action [actionEvent] ==> [text] end
+end
+
+actor PButton(String id)
+Object* enable ==> Object actionEvent :
+	val @javafx Button button = get(id, Button);
+	var @javafx boolean enabled = ! button.disabled update button.disable = ! enabled;
+	action [enable] any ==>	do
+		val Object value = enable.values.head
+		enabled = value != null && (value != Boolean::FALSE) && (! (value instanceof Exception))
+	end
+	event button!^action [actionEvent] ==> [actionEvent] end
+end
+
+actor PButtonValve<T>(String id) T input ==> T output :
+	val @javafx Button button = get(id, Button);
+	var @javafx boolean enabled = ! button.disabled update button.disable = ! enabled;
+	var T current = null;
+	function isValid() --> boolean :
+		current != null
+	end
+	action [input] ==> do
+		current = input
+		enabled = isValid
+	end
+	event button!^action [actionEvent] ==> [current] when isValid
+	end
+end
+
+actor PButtonEagerConverter<T,S>(String id, (T) => S fun, (S) => boolean validator)
+T input ==> S output :
+	val @javafx Button button = get(id, Button);
+	var @javafx boolean enabled = ! button.disabled update button.disable = ! enabled;
+	var S current = null;
+	function isValid() --> boolean :
+		current != null && (validator == null || validator.apply(current))
+	end
+	action [input] ==> do
+		try {
+			current = fun.apply(input)
+			enabled = isValid
+		} catch(Exception e) {
+			current = null
+		}
+	end
+	event button!^action [actionEvent] ==> [current] when isValid
+	end
+end
+
+actor PButtonLazyConverter<T,S>(String id, (T) => S fun, (T) => boolean validator) T input ==> S output :
+	val @javafx Button button = get(id, Button);
+	var @javafx boolean enabled = ! button.disabled update button.disable = ! enabled;
+	var T current = null;
+	function isValid() --> boolean :
+		current != null && (validator == null || validator.apply(current))
+	end
+	action [input] ==> do
+		current = input
+		enabled = isValid
+	end
+	event button!^action [actionEvent] ==> [fun.apply(current)] when isValid
+	end
+end
+
+actor PBrowser(String id) URL systemOutput ==> URL userInput :
+	val @javafx WebView webView = get(id, WebView);
+	val @javafx Worker<Void> pageLoader = webView.engine.loadWorker;
+	var @javafx URL page := null update setPage(page);
+	action [url] ==>
+		do page = url
+	end
+	event pageLoader.state [property] when property.getValue == Worker.State.SUCCEEDED ==> [createURL(webView.engine.location)] end
+	function createURL(String location) --> URL :
+		try { new URL(location) }
+		catch (MalformedURLException mue) {}
+	end
+	function setPage(URL url) --> void :
+    	try {
+    		webView.engine.load(url.toString)
+       } catch (IOException ioe) {
+       }
+	end
+end
+
+actor PCollection<T>(String id) Collection<T> systemOutput ==> T userInput :
+	val @javafx ListView<T> list = get(id, ListView);
+	val @javafx SelectionModel<T> selectionModel = list.selectionModel;
+	var @javafx List<T> items := list.items update {
+		list.items.setAll(items)
+	};
+	var @javafx Pair<T, Integer> selection := new Pair<T, Integer>(selectionModel.selectedItem, selectionModel.selectedIndex) update {
+		val index = if (selection.key != null && ( selection.value < 0 ) ) {
+			items.indexOf(selection.key)
+		} else {
+			selection.value
+		}
+		selectionModel.select(index)
+	};
+	action [values] ==>
+		do
+			items = new ArrayList<T>(values)
+			selection = selection.key -> ( -1 )
+end
+	event selectionModel.selectedItem [listSelectionEvent] ==> [selectionModel.selectedItem]
+	end 
+end
+
+end

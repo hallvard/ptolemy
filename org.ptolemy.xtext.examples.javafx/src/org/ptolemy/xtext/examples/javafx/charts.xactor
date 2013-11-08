@@ -1,0 +1,58 @@
+namespace org.ptolemy.xtext.examples.javafx.scene.chart :
+
+import java.util.HashMap
+import java.util.Map
+import javafx.scene.chart.PieChart
+import javafx.scene.chart.XYChart
+import org.eclipse.xtext.xbase.lib.Pair
+
+actor PPieChartPairs(String id)
+Pair<String,Double> data ==> :
+	val @javafx PieChart pieChart = get(id, PieChart);
+	val Map<String, PieChart.Data> pieData = new HashMap<String, PieChart.Data>;
+	var @javafx PieChart.Data newData update {
+		pieData.put(newData.name, newData)
+		pieChart.data.setAll(pieData.values);
+	};
+	action [data] ==> do
+		newData = new PieChart.Data(data.key, data.value)
+	end
+end
+
+actor PPieChartNamesValues(String id)
+String name, double value ==> :
+	val @javafx PieChart pieChart = get(id, PieChart);
+	val Map<String, PieChart.Data> pieData = new HashMap<String, PieChart.Data>;
+	var @javafx PieChart.Data newData update {
+		pieData.put(newData.name, newData)
+		pieChart.data.setAll(pieData.values);
+	};
+	action [name],[value] ==> do
+		newData = new PieChart.Data(name, value)
+	end
+end
+
+actor PXYChartXsYs<X,Y>(String id)
+X xs, Y ys, int seriesNum, Object clear ==> :
+	val @javafx XYChart<X,Y> xyChart = get(id, XYChart);
+	var int currentSeriesNum = 0;
+	var @javafx boolean clearSeries update series(currentSeriesNum).data.clear;
+	var @javafx XYChart.Data<X,Y> newData update series(currentSeriesNum).data += newData;
+	action seriesNum:[i] ==> do
+		currentSeriesNum = i
+	end
+	action clear:[b] ==> do
+		clearSeries = (b != null && (! Boolean.FALSE.equals(b)))
+	end
+	action [x],[y] ==> do
+		newData = new XYChart.Data<X,Y>(x, y)
+	end
+	function series(int seriesNum) --> XYChart.Series<X,Y> :
+		while (xyChart.data.size <= seriesNum) {
+			xyChart.data += new XYChart.Series<X,Y>()
+		}
+		xyChart.data.get(seriesNum)
+	end
+end
+
+end

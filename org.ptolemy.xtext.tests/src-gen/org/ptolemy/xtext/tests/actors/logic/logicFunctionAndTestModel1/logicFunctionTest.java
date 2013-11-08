@@ -52,4 +52,9 @@ public class logicFunctionTest extends TestValues<Boolean> {
     super(parent, name);
     
   }
+  
+  public logicFunctionTest(final CompositeEntity parent) throws NameDuplicationException, IllegalActionException {
+    this(parent, "logicFunctionTest");
+    
+  }
 }

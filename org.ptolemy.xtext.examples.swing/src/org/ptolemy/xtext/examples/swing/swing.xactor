@@ -1,0 +1,139 @@
+namespace org.ptolemy.xtext.examples.swing :
+
+import java.net.URL
+import java.util.List
+import java.io.IOException
+import javax.swing.JTextField
+import javax.swing.JButton
+import javax.swing.JEditorPane
+import javax.swing.JList
+import org.ptolemy.xtext.examples.swing.util.DelegatingListModel
+import java.util.Collection
+import java.util.ArrayList
+
+actor PTextField(String id)
+String systemOutput ==> String userInput :
+	val JTextField textField = get(id, JTextField);
+	var String text = textField.text update textField.text = text;
+	initialize ==> [textField.text] end
+	action [string] ==>
+		do
+			text = string
+	end
+	event textField.text [propertyEvent] ==> [textField.text] end
+	event textField!^action [actionEvent] ==> [textField.text] end
+end
+
+actor PButton(String id)
+Object* enable ==> Object actionEvent :
+	val JButton button = get(id, JButton);
+	var boolean enabled = button.enabled update button.enabled = enabled;
+	action [enable] any ==>
+		do
+			val Object value = enable.values.head
+			enabled = value != null && (value != Boolean::FALSE) && (! (value instanceof Exception))
+	end
+	event button!^action [actionEvent] ==> [actionEvent] end
+end
+
+actor PButtonValve<T>(String id)
+T input ==> T output :
+	val JButton button = get(id, JButton);
+	var boolean enabled = button.enabled update button.enabled = enabled;
+	var T current = null;
+	function isValid() --> boolean :
+		current != null
+	end
+	action [input] ==>
+		do
+			current = input
+			enabled = isValid
+	end
+	event button!^action [actionEvent] ==> [current] when isValid
+	end
+end
+
+actor PButtonEagerConverter<T,S>(String id, (T) => S fun, (S) => boolean validator)
+T input ==> S output :
+	val JButton button = get(id, JButton);
+	var boolean enabled = button.enabled update button.enabled = enabled;
+	var S current = null;
+	function isValid() --> boolean :
+		current != null && (validator == null || validator.apply(current))
+	end
+	action [input] ==>
+		do
+			try {
+				current = fun.apply(input)
+				enabled = isValid
+			} catch(Exception e) {
+				current = null
+			}
+	end
+	event button!^action [actionEvent] ==> [current] when isValid
+	end
+end
+
+actor PButtonLazyConverter<T,S>(String id, (T) => S fun, (T) => boolean validator)
+T input ==> S output :
+	val JButton button = get(id, JButton);
+	var boolean enabled = button.enabled update button.enabled = enabled;
+	var T current = null;
+	function isValid() --> boolean :
+		current != null && (validator == null || validator.apply(current))
+	end
+	action [input] ==>
+		do
+			current = input
+			enabled = isValid
+	end
+	event button!^action [actionEvent] ==> [fun.apply(current)] when isValid
+	end
+end
+
+actor PBrowser(String id)
+URL systemOutput ==> URL userInput :
+	val JEditorPane editorPane = get(id, JEditorPane);
+	var URL page := null update setPage(page);
+	action [url] ==>
+		do page = url
+	end
+	event editorPane.page [propertyEvent] ==> [editorPane.page] end
+	event editorPane!hyperlink [hyperlinkEvent] when "ACTIVATED".equals(hyperlinkEvent.getEventType().toString()) ==>
+		do page = hyperlinkEvent.getURL()
+	end
+	function setPage(URL url) --> void :
+    	try {
+          editorPane.page = url;
+       } catch (IOException ioe) {
+       }
+	end
+end
+
+actor PCollection<T>(String id)
+Collection<T> systemOutput ==> T userInput :
+	val JList list = get(id, JList);
+	var Pair<List<T>, Integer> valuesSelection := null update {
+		list.^model = new DelegatingListModel(valuesSelection.key)
+		list.selectedIndex = valuesSelection.value
+	};
+	function newSelectionIndex(List<T> values, T oldSelection, int oldIndex) --> int :
+		values.indexOf(oldSelection)
+	end
+	action [values] ==> [if (index < 0) null else list.^model.getElementAt(index) as T]
+		do
+			val List<T> valuesList = new ArrayList<T>(values)
+			val int index = valuesList.indexOf(list.selectedValue as T)
+			valuesSelection = valuesList -> index
+//		update
+//			list.model = new DelegatingListModel(values)
+//			list.selectedIndex = index
+//		true
+	end
+	event list!listSelection [listSelectionEvent] ==> [list.selectedValue as T] // when selection != null
+//		do
+//			val T selection = list.selectedValue as T
+	end
+end
+
+end

@@ -52,4 +52,9 @@ public class values2 extends Values<Boolean> {
     super(parent, name);
     
   }
+  
+  public values2(final CompositeEntity parent) throws NameDuplicationException, IllegalActionException {
+    this(parent, "values2");
+    
+  }
 }

@@ -89,6 +89,10 @@ public class ActordiagramAdapterFactory extends AdapterFactoryImpl {
 				return createLabelShapeAdapter();
 			}
 			@Override
+			public Adapter caseIconShape(IconShape object) {
+				return createIconShapeAdapter();
+			}
+			@Override
 			public Adapter caseEntityShape(EntityShape object) {
 				return createEntityShapeAdapter();
 			}
@@ -327,6 +331,20 @@ public class ActordiagramAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createLabelShapeAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.ptolemy.graphiti.generic.actordiagram.IconShape <em>Icon Shape</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.ptolemy.graphiti.generic.actordiagram.IconShape
+	 * @generated
+	 */
+	public Adapter createIconShapeAdapter() {
 		return null;
 	}
 

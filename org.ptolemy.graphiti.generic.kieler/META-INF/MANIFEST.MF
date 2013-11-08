@@ -1,9 +1,9 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
-Bundle-Name: Kieler
+Bundle-Name: Kieler layout support for generic graphical actor model editor
 Bundle-SymbolicName: org.ptolemy.graphiti.generic.kieler;singleton:=true
-Bundle-Version: 1.0.0.qualifier
-Fragment-Host: org.ptolemy.graphiti.generic;bundle-version="1.0.0.qualifier"
+Bundle-Version: 0.0.1.qualifier
+Fragment-Host: org.ptolemy.graphiti.generic;bundle-version="0.0.1.qualifier"
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Require-Bundle: de.cau.cs.kieler.core;bundle-version="0.8.1",
  de.cau.cs.kieler.core.kgraph;bundle-version="0.4.2",

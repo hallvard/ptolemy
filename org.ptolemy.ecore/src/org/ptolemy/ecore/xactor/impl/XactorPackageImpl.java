@@ -6,7 +6,6 @@
  */
 package org.ptolemy.ecore.xactor.impl;
 
-import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EGenericType;
 import org.eclipse.emf.ecore.EPackage;
@@ -17,7 +16,6 @@ import org.eclipse.xtext.xtype.XtypePackage;
 import org.eclipse.xtext.xtype.impl.XtypePackageImpl;
 import org.ptolemy.ecore.kernel.KernelPackage;
 import org.ptolemy.ecore.xactor.EntityFolder;
-import org.ptolemy.ecore.xactor.ImportDirective;
 import org.ptolemy.ecore.xactor.XactorFactory;
 import org.ptolemy.ecore.xactor.XactorPackage;
 
@@ -34,13 +32,6 @@ public class XactorPackageImpl extends EPackageImpl implements XactorPackage {
 	 * @generated
 	 */
 	private EClass entityFolderEClass = null;
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	private EClass importDirectiveEClass = null;
 
 	/**
 	 * Creates an instance of the model <b>Package</b>, registered with
@@ -144,24 +135,6 @@ public class XactorPackageImpl extends EPackageImpl implements XactorPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EClass getImportDirective() {
-		return importDirectiveEClass;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EAttribute getImportDirective_ImportedNamespace() {
-		return (EAttribute)importDirectiveEClass.getEStructuralFeatures().get(0);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	public XactorFactory getXactorFactory() {
 		return (XactorFactory)getEFactoryInstance();
 	}
@@ -188,9 +161,6 @@ public class XactorPackageImpl extends EPackageImpl implements XactorPackage {
 		entityFolderEClass = createEClass(ENTITY_FOLDER);
 		createEReference(entityFolderEClass, ENTITY_FOLDER__ENTITY_CONTAINERS);
 		createEReference(entityFolderEClass, ENTITY_FOLDER__IMPORTS);
-
-		importDirectiveEClass = createEClass(IMPORT_DIRECTIVE);
-		createEAttribute(importDirectiveEClass, IMPORT_DIRECTIVE__IMPORTED_NAMESPACE);
 	}
 
 	/**
@@ -233,10 +203,7 @@ public class XactorPackageImpl extends EPackageImpl implements XactorPackage {
 		// Initialize classes and features; add operations and parameters
 		initEClass(entityFolderEClass, EntityFolder.class, "EntityFolder", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getEntityFolder_EntityContainers(), this.getEntityFolder(), null, "entityContainers", null, 0, -1, EntityFolder.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getEntityFolder_Imports(), theXtypePackage.getXImportSection(), null, "imports", null, 0, -1, EntityFolder.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-		initEClass(importDirectiveEClass, ImportDirective.class, "ImportDirective", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEAttribute(getImportDirective_ImportedNamespace(), ecorePackage.getEString(), "importedNamespace", null, 0, 1, ImportDirective.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getEntityFolder_Imports(), theXtypePackage.getXImportSection(), null, "imports", null, 0, 1, EntityFolder.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		// Create resource
 		createResource(eNS_URI);

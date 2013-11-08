@@ -52,4 +52,9 @@ public class selectChannelTest extends TestValues<Integer> {
     super(parent, name);
     
   }
+  
+  public selectChannelTest(final CompositeEntity parent) throws NameDuplicationException, IllegalActionException {
+    this(parent, "selectChannelTest");
+    
+  }
 }

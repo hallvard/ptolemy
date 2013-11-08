@@ -3,25 +3,26 @@ package org.ptolemy.xtext.lib.caltrop;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
-import java.util.Collections;
 import java.util.HashSet;
 import java.util.Iterator;
-import java.util.List;
 import java.util.Set;
-
-import org.ptolemy.xtext.lib.caltrop.EventQueue.Entry;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import ptolemy.actor.Actor;
 import ptolemy.actor.IOPort;
+import ptolemy.actor.Manager;
 import ptolemy.actor.NoRoomException;
 import ptolemy.actor.TypedAtomicActor;
 import ptolemy.actor.util.BooleanDependency;
 import ptolemy.actor.util.CausalityInterface;
-import ptolemy.actor.util.DefaultCausalityInterface;
 import ptolemy.actor.util.Dependency;
 import ptolemy.actor.util.Time;
+import ptolemy.data.BooleanToken;
 import ptolemy.data.Token;
+import ptolemy.data.expr.Parameter;
 import ptolemy.kernel.CompositeEntity;
+import ptolemy.kernel.Port;
 import ptolemy.kernel.util.IllegalActionException;
 import ptolemy.kernel.util.NameDuplicationException;
 import ptolemy.kernel.util.NamedObj;
@@ -32,30 +33,116 @@ public abstract class AbstractCaltropActor extends TypedAtomicActor {
 	public AbstractCaltropActor(CompositeEntity container, String name) throws IllegalActionException, NameDuplicationException {
 		super(container, name);
 	}
+
+	protected <T> T get(Class<T> c) {
+		return get(null, c);
+	}
+
+	protected void realmAsyncExec(String realmKey, Runnable runnable) throws IllegalActionException {
+		RealmHandler realmHandler = get(realmKey, RealmHandler.class);
+		if (realmHandler != null) {
+			realmHandler.realmAsyncExec(runnable);
+		} else {
+			warn("No RealmHandler for " + realmKey, null);
+			runnable.run();
+		}
+	}
+	protected void realmSyncExec(String realmKey, Runnable runnable) throws IllegalActionException {
+		RealmHandler realmHandler = get(realmKey, RealmHandler.class);
+		if (realmHandler != null) {
+			realmHandler.realmSyncExec(runnable);
+		} else {
+			warn("No RealmHandler for " + realmKey, null);
+			runnable.run();
+		}
+	}
 	
 	protected <T> T get(String id, Class<T> c) {
-		NamedObj container = this;
+		return get(id, c, this);
+	}
+
+	public static <T> T get(String id, Class<T> c, NamedObj origin) {
+		NamedObj container = origin;
 		while (container != null) {
-			for (ObjectProvider objectProvider : container.attributeList(ObjectProvider.class)) {
-				T object = objectProvider.get(id, c);
-				if (object != null) {
-					return object;
-				}
+			String objectId = (id != null ? id : origin.getName(container));
+			T result = get1(objectId, c, container);
+			if (result != null) {
+				return result;
 			}
 			container = container.getContainer();
 		}
 		return (T) null;
 	}
 	
-	protected boolean hasToken(IOPort port, int channel, int count) throws IllegalActionException {
-		return (count == 1 ? port.hasToken(channel) : port.hasToken(channel, count));
+	public static <T> T get1(String objectId, Class<T> c, NamedObj container) {
+		for (ObjectProvider objectProvider : container.attributeList(ObjectProvider.class)) {
+			T object = objectProvider.get(objectId, c);
+			if (object != null) {
+				return object;
+			}
+		}
+		return null;
 	}
 	
 	protected int step;
 
 	private SendQueue _sendQueue = null;
 	
+	private Logger logger = null;
+	
+	protected String getLoggerName(Actor actor) {
+//		return actor.getClass().getName();
+		return actor.getFullName();
+	}
+	
+	protected Logger getLogger() {
+		if (logger == null) {
+			String loggerName = getLoggerName(this);
+			while (loggerName.startsWith(".")) {
+				loggerName = loggerName.substring(1);
+			}
+			logger = Logger.getLogger(loggerName);
+		}
+		return logger;
+	}
+
+	protected String logPort(Port port) {
+		return port.getName();
+	}
+
+	protected String logActor(Actor actor) {
+		return getLoggerName(actor);
+	}
+	
+	protected String logThis() {
+		return logActor(this);
+	}
+
+	protected void trace(String message, Throwable e) {
+		getLogger().log(Level.FINE, logThis() + " - " + message, e);
+	}
+	protected void debug(String message, Throwable e) {
+		getLogger().log(Level.INFO, logThis() + " - " + message, e);
+	}
+	protected void warn(String message, Throwable e) {
+		getLogger().log(Level.WARNING, logThis() + " - " + message, e);
+	}
+	protected void error(String message, Throwable e) {
+		getLogger().log(Level.SEVERE, logThis() + " - " + message, e);
+	}
+	
+	protected boolean hasToken(IOPort port, int channel, int count) throws IllegalActionException {
+		boolean hasToken = count == 1 ? port.hasToken(channel) : port.hasToken(channel, count);
+		if (hasToken) {
+			debug("Found " + count + " tokens on " + logPort(port), null);
+		} else {
+			trace("Didn't find " + count + " tokens on " + logPort(port), null);
+		}
+		return hasToken;
+	}
+	
 	protected void send(IOPort port, int channel, Token token, int delay) throws NoRoomException, IllegalActionException {
+		debug("Sending " + token + " on " + logPort(port), null);
 		if (delay < 0) {
 			port.send(channel, token);
 		} else {
@@ -67,6 +154,7 @@ public abstract class AbstractCaltropActor extends TypedAtomicActor {
 	}
 	
 	protected void send(IOPort port, int channel, Token[] tokens, int delay) throws NoRoomException, IllegalActionException {
+		debug("Sending " + tokens.length + " tokens on " + logPort(port), null);
 		if (delay < 0) {
 			port.send(channel, tokens, tokens.length);
 		} else {
@@ -80,7 +168,7 @@ public abstract class AbstractCaltropActor extends TypedAtomicActor {
 	private EventQueue _eventQueue = null;
 	
 	protected void postEvent(long time, Object source, String name, String qualifier, Object... arguments) {
-		System.out.println("Posting " + name + "." + qualifier + " event @ " + time);
+		debug("Posting " + name + "." + qualifier + " event @ " + time, null);
 		if (_eventQueue == null) {
 			_eventQueue = new EventQueue();
 		}
@@ -92,12 +180,12 @@ public abstract class AbstractCaltropActor extends TypedAtomicActor {
 	}
 	
 	protected Object[] getEvent(Object source, String name, String qualifier) throws IllegalActionException {
-		Iterator<Entry> entries = _eventQueue.entriesBefore(getDirector().getModelTime().getLongValue());
+		Iterator<EventQueue.Entry> entries = _eventQueue.entriesBefore(getDirector().getModelTime().getLongValue());
 		while (entries.hasNext()) {
 			EventQueue.Entry entry = entries.next();
 			Object[] match = entry.match(source, name, qualifier);
 			if (match != null) {
-				System.out.println("Matched " + name + "." + qualifier + " event @ " + entry.time);
+				debug("Matched " + name + "." + qualifier + " event @ " + entry.time, null);
 				return match;
 			}
 		}
@@ -141,7 +229,7 @@ public abstract class AbstractCaltropActor extends TypedAtomicActor {
 		}
 	}
 
-	protected boolean _postfireImpl() {
+	protected boolean _postfireImpl() throws IllegalActionException {
 		return true;
 	}
 
@@ -172,7 +260,7 @@ public abstract class AbstractCaltropActor extends TypedAtomicActor {
 		return _postfireImpl() && result;
 	}
 
-	protected void _wrapupImpl() {
+	protected void _wrapupImpl() throws IllegalActionException {
 	}
 
 	@Override

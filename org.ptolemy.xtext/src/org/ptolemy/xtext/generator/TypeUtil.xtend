@@ -9,6 +9,14 @@ import org.eclipse.xtext.common.types.util.TypeReferences
 import org.eclipse.xtext.xbase.jvmmodel.JvmTypesBuilder
 import org.eclipse.xtext.xtype.XFunctionTypeRef
 import org.ptolemy.ecore.actor.Typeable
+import java.util.Map
+import org.eclipse.xtext.common.types.JvmTypeParameter
+import java.util.Queue
+import java.util.LinkedList
+import org.eclipse.xtext.common.types.JvmParameterizedTypeReference
+import org.eclipse.xtext.common.types.JvmGenericType
+import org.eclipse.xtext.common.types.JvmTypeParameterDeclarator
+import org.eclipse.xtext.common.types.JvmDeclaredType
 
 class TypeUtil {
 	

@@ -1,7 +1,5 @@
 namespace org.ptolemy.xtext.tests.actors :
 
-import java.util.Iterator
-
 import org.ptolemy.xtext.tests.junit.AbstractTest
 import org.ptolemy.xtext.tests.junit.TestValues
 

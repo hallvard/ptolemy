@@ -141,6 +141,9 @@ public class KernelSwitch<T> extends Switch<T> {
 			case KernelPackage.ENTITY_REF: {
 				EntityRef<?> entityRef = (EntityRef<?>)theEObject;
 				T result = caseEntityRef(entityRef);
+				if (result == null) result = caseIEntity(entityRef);
+				if (result == null) result = caseNameable(entityRef);
+				if (result == null) result = caseNamed(entityRef);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}

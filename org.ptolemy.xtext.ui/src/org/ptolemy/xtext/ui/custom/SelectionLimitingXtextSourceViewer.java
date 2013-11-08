@@ -24,8 +24,7 @@ public class SelectionLimitingXtextSourceViewer extends XtextSourceViewer
 		getTextWidget().addLineBackgroundListener(this);
 	}
 
-    @Override
-
+	@Override
     public void lineGetBackground(LineBackgroundEvent event) {
         int offset = event.lineOffset;
         if (! isValidOffset(offset)) {
@@ -35,7 +34,7 @@ public class SelectionLimitingXtextSourceViewer extends XtextSourceViewer
 
     private boolean movingCaret = false;
     
-	@Override
+    @Override
 	public void caretMoved(CaretEvent event) {
 //		System.out.println("Caret: " + event.caretOffset);
 		if (movingCaret) {
@@ -92,6 +91,7 @@ public class SelectionLimitingXtextSourceViewer extends XtextSourceViewer
 	}
 	
 	public static class Factory implements XtextSourceViewer.Factory {
+		
 		@Override
 		public XtextSourceViewer createSourceViewer(Composite parent,
 				IVerticalRuler ruler, IOverviewRuler overviewRuler,

@@ -1,0 +1,18 @@
+namespace org.ptolemy.xtext.examples.swing :
+
+import javax.swing.JTextField
+
+actor XTextField(String id)
+String systemOutput ==> String userInput :
+	val JTextField textField = get(id, JTextField);
+	var String text := textField.text update textField.text = text;
+	initialize ==> [textField.text] end
+	action [string] ==>
+		do
+			text = string
+	end
+	event textField.text [propertyEvent] ==> [textField.text] end
+	event textField!^action [actionEvent] ==> [textField.text] end
+end
+
+end

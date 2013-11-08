@@ -61,4 +61,9 @@ public class LogicFunctionAndTestModel2 extends TypedCompositeActor {
     this.logicFunctionTest.getPort("input").link(r3);
     
   }
+  
+  public LogicFunctionAndTestModel2(final CompositeEntity parent) throws NameDuplicationException, IllegalActionException {
+    this(parent, "LogicFunctionAndTestModel2");
+    
+  }
 }

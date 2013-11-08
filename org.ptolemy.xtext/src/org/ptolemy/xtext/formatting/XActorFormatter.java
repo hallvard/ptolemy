@@ -41,7 +41,6 @@ public class XActorFormatter extends AbstractDeclarativeFormatter {
 	}
 
 	protected void configureCustomFormatting(FormattingConfig c, XActorGrammarAccess f) {
-		c.setLinewrap(1).after(f.getImportDirectiveRule());
 		c.setLinewrap(1).before(f.getEntityFolderRule());
 		
 		c.setLinewrap(2).around(f.getEntityRule());

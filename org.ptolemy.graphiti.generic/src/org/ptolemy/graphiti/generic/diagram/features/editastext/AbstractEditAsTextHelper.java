@@ -97,7 +97,8 @@ public abstract class AbstractEditAsTextHelper implements IEditAsTextHelper, IEd
 		addKeyListeners(editor.getViewer().getTextWidget());
 
 		if (readonlyPrefix.length() > 0 || readonlySuffix.length() > 0) {
-			((SelectionLimitingXtextSourceViewer) editor.getViewer()).setReadOnlyRegion(readonlyPrefix.length(), -readonlySuffix.length());
+			// TODO
+//			((SelectionLimitingXtextSourceViewer) editor.getViewer()).setReadOnlyRegion(readonlyPrefix.length(), -readonlySuffix.length());
 		}
 		return editableContent;
 	}

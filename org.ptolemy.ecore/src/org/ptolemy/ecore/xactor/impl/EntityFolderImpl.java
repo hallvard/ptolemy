@@ -8,10 +8,12 @@ package org.ptolemy.ecore.xactor.impl;
 
 import java.util.Collection;
 
+import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
+import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 import org.eclipse.xtext.xtype.XImportSection;
@@ -20,7 +22,6 @@ import org.ptolemy.ecore.kernel.NamedObj;
 import org.ptolemy.ecore.kernel.Port;
 import org.ptolemy.ecore.kernel.impl.EntityContainerImpl;
 import org.ptolemy.ecore.xactor.EntityFolder;
-import org.ptolemy.ecore.xactor.ImportDirective;
 import org.ptolemy.ecore.xactor.XactorPackage;
 
 /**
@@ -49,14 +50,14 @@ public class EntityFolderImpl extends EntityContainerImpl<Port> implements Entit
 	protected EList<EntityFolder> entityContainers;
 
 	/**
-	 * The cached value of the '{@link #getImports() <em>Imports</em>}' containment reference list.
+	 * The cached value of the '{@link #getImports() <em>Imports</em>}' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @see #getImports()
 	 * @generated
 	 * @ordered
 	 */
-	protected EList<XImportSection> imports;
+	protected XImportSection imports;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -94,11 +95,42 @@ public class EntityFolderImpl extends EntityContainerImpl<Port> implements Entit
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EList<XImportSection> getImports() {
-		if (imports == null) {
-			imports = new EObjectContainmentEList<XImportSection>(XImportSection.class, this, XactorPackage.ENTITY_FOLDER__IMPORTS);
-		}
+	public XImportSection getImports() {
 		return imports;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public NotificationChain basicSetImports(XImportSection newImports, NotificationChain msgs) {
+		XImportSection oldImports = imports;
+		imports = newImports;
+		if (eNotificationRequired()) {
+			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, XactorPackage.ENTITY_FOLDER__IMPORTS, oldImports, newImports);
+			if (msgs == null) msgs = notification; else msgs.add(notification);
+		}
+		return msgs;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setImports(XImportSection newImports) {
+		if (newImports != imports) {
+			NotificationChain msgs = null;
+			if (imports != null)
+				msgs = ((InternalEObject)imports).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - XactorPackage.ENTITY_FOLDER__IMPORTS, null, msgs);
+			if (newImports != null)
+				msgs = ((InternalEObject)newImports).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - XactorPackage.ENTITY_FOLDER__IMPORTS, null, msgs);
+			msgs = basicSetImports(newImports, msgs);
+			if (msgs != null) msgs.dispatch();
+		}
+		else if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, XactorPackage.ENTITY_FOLDER__IMPORTS, newImports, newImports));
 	}
 
 	/**
@@ -112,7 +144,7 @@ public class EntityFolderImpl extends EntityContainerImpl<Port> implements Entit
 			case XactorPackage.ENTITY_FOLDER__ENTITY_CONTAINERS:
 				return ((InternalEList<?>)getEntityContainers()).basicRemove(otherEnd, msgs);
 			case XactorPackage.ENTITY_FOLDER__IMPORTS:
-				return ((InternalEList<?>)getImports()).basicRemove(otherEnd, msgs);
+				return basicSetImports(null, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -147,8 +179,7 @@ public class EntityFolderImpl extends EntityContainerImpl<Port> implements Entit
 				getEntityContainers().addAll((Collection<? extends EntityFolder>)newValue);
 				return;
 			case XactorPackage.ENTITY_FOLDER__IMPORTS:
-				getImports().clear();
-				getImports().addAll((Collection<? extends XImportSection>)newValue);
+				setImports((XImportSection)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -166,7 +197,7 @@ public class EntityFolderImpl extends EntityContainerImpl<Port> implements Entit
 				getEntityContainers().clear();
 				return;
 			case XactorPackage.ENTITY_FOLDER__IMPORTS:
-				getImports().clear();
+				setImports((XImportSection)null);
 				return;
 		}
 		super.eUnset(featureID);
@@ -183,7 +214,7 @@ public class EntityFolderImpl extends EntityContainerImpl<Port> implements Entit
 			case XactorPackage.ENTITY_FOLDER__ENTITY_CONTAINERS:
 				return entityContainers != null && !entityContainers.isEmpty();
 			case XactorPackage.ENTITY_FOLDER__IMPORTS:
-				return imports != null && !imports.isEmpty();
+				return imports != null;
 		}
 		return super.eIsSet(featureID);
 	}

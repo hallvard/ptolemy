@@ -1,7 +1,5 @@
 package org.ptolemy.graphiti.generic.diagram.features;
 
-import javax.sound.sampled.Port;
-
 import org.eclipse.graphiti.features.IFeatureProvider;
 import org.eclipse.graphiti.features.context.IDeleteContext;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
@@ -31,9 +29,7 @@ public class DeletePortFeature extends AbstractDeleteLinkFeature {
 
 	@Override
 	protected void deleteBusinessObject(Object bo) {
-		if (bo instanceof Port) {
-			deletePort((Port) bo);
-		}
+		// TODO
 	}
 
 //	protected void deletePort(Port port) {

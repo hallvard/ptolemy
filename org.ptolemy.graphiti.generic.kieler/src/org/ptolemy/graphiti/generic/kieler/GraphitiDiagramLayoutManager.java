@@ -60,163 +60,14 @@ import de.cau.cs.kieler.kiml.util.KimlUtil;
  * @author msp
  */
 @SuppressWarnings("restriction")
-public class GraphitiDiagramLayoutManager extends GefDiagramLayoutManager<PictogramElement> {
+public class GraphitiDiagramLayoutManager extends de.cau.cs.kieler.kiml.graphiti.GraphitiDiagramLayoutManager {
 
-    /**
-     * {@inheritDoc}
-     */
-    public boolean supports(final Object object) {
-        return object instanceof DiagramEditor || object instanceof IPictogramElementEditPart || object instanceof PictogramElement;
-    }
-    
-    /** the cached layout configuration for Graphiti. */
-    private GraphitiLayoutConfig layoutConfig = new GraphitiLayoutConfig();
-
-    /**
-     * {@inheritDoc}
-     */
-    @SuppressWarnings({ "rawtypes", "unchecked" })
-    public Object getAdapter(final Object object, final Class adapterType) {
-        if (adapterType.isAssignableFrom(GraphitiLayoutConfig.class)) {
-            return layoutConfig;
-        } else if (adapterType.isAssignableFrom(IPictogramElementEditPart.class)) {
-            if (object instanceof IPictogramElementEditPart) {
-                return object;
-            } else if (object instanceof DiagramEditor) {
-                return ((DiagramEditor) object).getGraphicalViewer().getContents();
-            }
-        } else if (adapterType.isAssignableFrom(EObject.class)) {
-            if (object instanceof IPictogramElementEditPart) {
-                PictogramElement pe = ((IPictogramElementEditPart) object).getPictogramElement();
-                if (pe.getLink() != null) {
-                    List<EObject> businessObjects = pe.getLink().getBusinessObjects();
-                    if (!businessObjects.isEmpty()) {
-                        return businessObjects.get(0);
-                    }
-                }
-            } else if (object instanceof PictogramElement) {
-                PictogramElement pe = (PictogramElement) object;
-                if (pe.getLink() != null) {
-                    List<EObject> businessObjects = pe.getLink().getBusinessObjects();
-                    if (!businessObjects.isEmpty()) {
-                        return businessObjects.get(0);
-                    }
-                }
-            }
-        } else if (adapterType.isAssignableFrom(PictogramElement.class)) {
-            if (object instanceof PictogramElement) {
-                return object;
-            } else if (object instanceof IPictogramElementEditPart) {
-                return ((IPictogramElementEditPart) object).getPictogramElement();
-            } else if (object instanceof DiagramEditor) {
-                EditPart contents = ((DiagramEditor) object).getGraphicalViewer().getContents();
-                if (contents instanceof IPictogramElementEditPart) {
-                    return ((IPictogramElementEditPart) contents).getPictogramElement();
-                }
-            }
-        } else if (adapterType.isAssignableFrom(TransactionalEditingDomain.class)) {
-            if (object instanceof DiagramEditor) {
-                return ((DiagramEditor) object).getEditingDomain();
-            } else if (object instanceof IPictogramElementEditPart) {
-                return ((IPictogramElementEditPart) object).getConfigurationProvider()
-                        .getDiagramBehavior().getEditingDomain();
-            }
-        }
-        if (object instanceof IAdaptable) {
-            return ((IAdaptable) object).getAdapter(adapterType);
-        }
-        return null;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public Class<?>[] getAdapterList() {
-        return new Class<?>[] { PictogramElement.class };
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public LayoutMapping<PictogramElement> buildLayoutGraph(final IWorkbenchPart workbenchPart,
-            final Object diagramPart) {
-        LayoutMapping<PictogramElement> mapping = new LayoutMapping<PictogramElement>(this);
-        mapping.setProperty(KimlGraphitiUtil.CONNECTIONS, new LinkedList<Connection>());
-        mapping.setProperty(KimlGraphitiUtil.STATIC_CONFIG, new VolatileLayoutConfig());
-
-        if (workbenchPart instanceof DiagramEditor) {
-            mapping.setProperty(KimlGraphitiUtil.DIAGRAM_EDITOR, (DiagramEditor) workbenchPart);
-        } else {
-        	DiagramEditor diagramEditor =  (DiagramEditor) getAdapter(workbenchPart, DiagramEditor.class);
-        	if (diagramEditor != null) {
-                mapping.setProperty(KimlGraphitiUtil.DIAGRAM_EDITOR, diagramEditor);
-        	}
-        }
-        EditPart layoutRootPart = null;
-        if (diagramPart instanceof IPictogramElementEditPart) {
-            layoutRootPart = (EditPart) diagramPart;
-        } else if (mapping.getProperty(KimlGraphitiUtil.DIAGRAM_EDITOR) != null) {
-            layoutRootPart = mapping.getProperty(KimlGraphitiUtil.DIAGRAM_EDITOR)
-                    .getGraphicalViewer().getContents();
-        }
-        if (!(layoutRootPart instanceof IPictogramElementEditPart)) {
-            throw new UnsupportedOperationException(
-                    "Not supported by this layout manager: Workbench part "
-                    + workbenchPart + ", Edit part " + diagramPart);
-        }
-        PictogramElement element = ((IPictogramElementEditPart) layoutRootPart)
-                .getPictogramElement();
-        mapping.setParentElement(element);
-
-        if (element instanceof Diagram) {
-            KNode topNode = KimlUtil.createInitializedNode();
-            KShapeLayout shapeLayout = topNode.getData(KShapeLayout.class);
-            GraphicsAlgorithm ga = element.getGraphicsAlgorithm();
-            shapeLayout.setPos(ga.getX(), ga.getY());
-            shapeLayout.setSize(ga.getWidth(), ga.getHeight());
-            mapping.getGraphMap().put(topNode, element);
-
-            buildLayoutGraphRecursively(mapping, (Diagram) element, topNode);
-            
-            mapping.setLayoutGraph(topNode);
-        } else if (element instanceof Shape) {
-            mapping.setLayoutGraph(createNode(mapping, null, (Shape) element));
-        }
-
-        for (Connection entry : mapping.getProperty(KimlGraphitiUtil.CONNECTIONS)) {
-            KimlGraphitiUtil.createEdge(mapping, entry);
-        }
-        
-        // create layout configurators for Graphiti
-        mapping.getLayoutConfigs().add(mapping.getProperty(KimlGraphitiUtil.STATIC_CONFIG));
-        mapping.getLayoutConfigs().add(layoutConfig);
-
-        return mapping;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    protected void transferLayout(final LayoutMapping<PictogramElement> mapping) {
-        DiagramEditor diagramEditor = mapping.getProperty(KimlGraphitiUtil.DIAGRAM_EDITOR);
-        GraphitiLayoutCommand command = new GraphitiLayoutCommand(diagramEditor.getEditingDomain(),
-                diagramEditor.getDiagramTypeProvider().getFeatureProvider());
-        for (Entry<KGraphElement, PictogramElement> entry : mapping.getGraphMap().entrySet()) {
-            command.add(entry.getKey(), entry.getValue());
-        }
-        mapping.setProperty(KimlGraphitiUtil.LAYOUT_COMMAND, command);
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    protected void applyLayout(final LayoutMapping<PictogramElement> mapping) {
-        TransactionalEditingDomain editingDomain = mapping.getProperty(KimlGraphitiUtil.DIAGRAM_EDITOR)
-                .getEditingDomain();
-        editingDomain.getCommandStack().execute(mapping.getProperty(KimlGraphitiUtil.LAYOUT_COMMAND));
-    }
+//    /**
+//     * {@inheritDoc}
+//     */
+//    public boolean supports(final Object object) {
+//        return object instanceof DiagramEditor || object instanceof IPictogramElementEditPart || object instanceof PictogramElement;
+//    }
 
     /** the fixed minimal size of shapes. */
     protected static final float MIN_SIZE = 15.0f;
@@ -274,11 +125,8 @@ public class GraphitiDiagramLayoutManager extends GefDiagramLayoutManager<Pictog
                 nodeGa.getHeight() - nodeInsets.getTop() - nodeInsets.getBottom());
         // the modification flag must initially be false
         ((KShapeLayoutImpl) nodeLayout).resetModificationFlag();
-        configureLayout(element, nodeLayout);
 
-        // FIXME find a way to specify the minimal size dynamically
-        staticConfig.setValue(LayoutOptions.MIN_WIDTH, childNode, LayoutContext.GRAPH_ELEM, MIN_SIZE);
-        staticConfig.setValue(LayoutOptions.MIN_HEIGHT, childNode, LayoutContext.GRAPH_ELEM, MIN_SIZE);
+        configureLayout(element, childNode, nodeLayout, staticConfig);
 
         mapping.getGraphMap().put(childNode, element);
 
@@ -301,7 +149,9 @@ public class GraphitiDiagramLayoutManager extends GefDiagramLayoutManager<Pictog
         return childNode;
     }
 
-	protected void configureLayout( PictogramElement element, KShapeLayout nodeLayout) {
+	protected void configureLayout(PictogramElement element, KNode childNode, KShapeLayout nodeLayout, VolatileLayoutConfig staticConfig) {
+        staticConfig.setValue(LayoutOptions.MIN_WIDTH, childNode, LayoutContext.GRAPH_ELEM, MIN_SIZE);
+        staticConfig.setValue(LayoutOptions.MIN_HEIGHT, childNode, LayoutContext.GRAPH_ELEM, MIN_SIZE);
 	}
 
 	protected void createLabels(final PictogramElement element, KNode childNode, KInsets nodeInsets) {

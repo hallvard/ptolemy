@@ -7,6 +7,7 @@ import org.eclipse.graphiti.features.context.IAddContext;
 import org.eclipse.graphiti.features.context.impl.AddContext;
 import org.eclipse.graphiti.mm.algorithms.AbstractText;
 import org.eclipse.graphiti.mm.algorithms.GraphicsAlgorithm;
+import org.eclipse.graphiti.mm.algorithms.PlatformGraphicsAlgorithm;
 import org.eclipse.graphiti.mm.algorithms.Rectangle;
 import org.eclipse.graphiti.mm.algorithms.styles.Orientation;
 import org.eclipse.graphiti.mm.pictograms.ChopboxAnchor;
@@ -19,6 +20,7 @@ import org.eclipse.graphiti.services.ILinkService;
 import org.ptolemy.graphiti.generic.ActorViewModel;
 import org.ptolemy.graphiti.generic.EntityViewModel;
 import org.ptolemy.graphiti.generic.actordiagram.ActordiagramFactory;
+import org.ptolemy.graphiti.generic.actordiagram.IconShape;
 import org.ptolemy.graphiti.generic.actordiagram.LabelShape;
 
 import com.google.inject.Inject;
@@ -106,6 +108,13 @@ public class AddEntityFeature extends AddNameableFeature {
 		if (entityShape instanceof LabelShape) {
 			setLabel((LabelShape) entityShape, newEntity, text);
 			entityLayout.layoutText(text, insets.left, insets.right, width, height);
+		}
+
+		PlatformGraphicsAlgorithm pga = entityLayout.createIcon(bounds, newEntity);
+		
+		if (entityShape instanceof IconShape) {
+			// create and set icon graphics algorithm
+			entityLayout.layoutIcon(pga, insets.left, insets.right, width, height);
 		}
 
         for (EObject port : actorViewModel.getPorts(newEntity)) {

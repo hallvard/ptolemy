@@ -6,12 +6,16 @@ import org.eclipse.graphiti.features.IFeatureProvider;
 import org.eclipse.graphiti.features.context.IAddContext;
 import org.eclipse.graphiti.features.impl.AbstractAddShapeFeature;
 import org.eclipse.graphiti.mm.algorithms.AbstractText;
+import org.eclipse.graphiti.mm.algorithms.PlatformGraphicsAlgorithm;
 import org.eclipse.graphiti.mm.pictograms.ContainerShape;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.graphiti.services.Graphiti;
 import org.ptolemy.graphiti.generic.EntityViewModel;
 import org.ptolemy.graphiti.generic.NameViewModel;
+import org.ptolemy.graphiti.generic.actordiagram.IconShape;
 import org.ptolemy.graphiti.generic.actordiagram.LabelShape;
+import org.ptolemy.graphiti.generic.diagram.features.util.GenericShapeRendererFactory;
+import org.ptolemy.graphiti.generic.diagram.features.util.IconImageProvider;
 
 import com.google.inject.Inject;
 

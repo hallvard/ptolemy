@@ -27,6 +27,16 @@ public class GenericShapeRenderer extends Shape implements IGraphicsAlgorithmRen
 		setPreferredSize(size);
 	}
 	
+	private float alignmentX = 0.5f, alignmentY = 0.5f;
+	
+	public void setAlignmentX(float alignmentX) {
+		this.alignmentX = alignmentX;
+	}
+
+	public void setAlignmentY(float alignmentY) {
+		this.alignmentY = alignmentY;
+	}
+	
 	@Override
 	public void setBounds(Rectangle rect) {
 		Dimension preferredSize = getPreferredSize();
@@ -40,6 +50,15 @@ public class GenericShapeRenderer extends Shape implements IGraphicsAlgorithmRen
 			bounds.y -= (preferredSize.height - rect.height) / 2;
 		}
 		super.setBounds(bounds);
+		for (Object child : getChildren()) {
+			IFigure childFigure = (IFigure) child;
+			Dimension preferredChildSize = childFigure.getPreferredSize();
+			int dx = bounds.width - preferredChildSize.width, dy = bounds.height - preferredChildSize.height; 
+			Rectangle childBounds = new Rectangle(((IFigure) child).getBounds());
+			childBounds.x = (useLocalCoordinates() ? 0 : bounds.x) + (int) (dx * alignmentX);
+			childBounds.y = (useLocalCoordinates() ? 0 : bounds.y) + (int) (dy * alignmentY);
+			childFigure.setBounds(childBounds);
+		}
 	}
 
 	@Override

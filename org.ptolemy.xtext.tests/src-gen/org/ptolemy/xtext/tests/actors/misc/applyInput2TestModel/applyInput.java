@@ -58,17 +58,22 @@ public class applyInput extends ApplyInput2<Integer,Integer> {
   protected Function2<? super Integer,? super Integer,? extends Integer> _initialFunAttributeValue() throws IllegalActionException {
     
     final Function2<Integer,Integer,Integer> _function = new Function2<Integer,Integer,Integer>() {
-        public Integer apply(final Integer n1, final Integer n2) {
-          int _plus = (n1 + n2);
-          return Integer.valueOf(_plus);
-        }
-      };
+      public Integer apply(final Integer n1, final Integer n2) {
+        int _plus = (n1 + n2);
+        return Integer.valueOf(_plus);
+      }
+    };
     
     return _function; 
   }
   
   public applyInput(final CompositeEntity parent, final String name) throws NameDuplicationException, IllegalActionException {
     super(parent, name);
+    
+  }
+  
+  public applyInput(final CompositeEntity parent) throws NameDuplicationException, IllegalActionException {
+    this(parent, "applyInput");
     
   }
 }

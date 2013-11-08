@@ -34,4 +34,9 @@ public class logicFunction extends LogicFunction {
     super(parent, name);
     
   }
+  
+  public logicFunction(final CompositeEntity parent) throws NameDuplicationException, IllegalActionException {
+    this(parent, "logicFunction");
+    
+  }
 }

@@ -52,4 +52,9 @@ public class foldChannelsTest extends TestValues<String> {
     super(parent, name);
     
   }
+  
+  public foldChannelsTest(final CompositeEntity parent) throws NameDuplicationException, IllegalActionException {
+    this(parent, "foldChannelsTest");
+    
+  }
 }

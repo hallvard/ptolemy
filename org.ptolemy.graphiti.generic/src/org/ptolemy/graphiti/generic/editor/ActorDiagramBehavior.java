@@ -1,15 +1,23 @@
 package org.ptolemy.graphiti.generic.editor;
 
 import org.eclipse.core.commands.operations.OperationHistoryEvent;
+import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.gef.GraphicalViewer;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
 import org.eclipse.graphiti.ui.editor.DefaultPersistencyBehavior;
 import org.eclipse.graphiti.ui.editor.DefaultUpdateBehavior;
 import org.eclipse.graphiti.ui.editor.DiagramBehavior;
+import org.eclipse.jface.util.TransferDragSourceListener;
+import org.eclipse.swt.dnd.DND;
+import org.eclipse.swt.dnd.DragSource;
+import org.eclipse.swt.dnd.DragSourceEvent;
+import org.eclipse.swt.dnd.TextTransfer;
+import org.eclipse.swt.dnd.Transfer;
 import org.ptolemy.graphiti.generic.editor.dnd.DragCreateImageSupport;
 import org.ptolemy.graphiti.generic.editor.dnd.DragCreateNoteImageSupport;
 import org.ptolemy.graphiti.generic.editor.dnd.DragImportActorsSupport;
+import org.ptolemy.graphiti.generic.editor.dnd.EObjectUriDragSourceListener;
 
 import com.google.inject.Inject;
 import com.google.inject.Injector;
@@ -39,6 +47,9 @@ public class ActorDiagramBehavior extends DiagramBehavior {
 		
 		getGraphicalViewer().addDropTargetListener(new DragImportActorsSupport(getDiagramTypeProvider().getFeatureProvider()));
 		getEditDomain().getPaletteViewer().addDropTargetListener(new DragImportActorsSupport(getDiagramTypeProvider().getFeatureProvider()));
+
+//		new DragSource(getGraphicalViewer().getControl(), DND.DROP_COPY);
+//		getGraphicalViewer().addDragSourceListener(new EObjectUriDragSourceListener());
 	}
 
 	private GraphicalViewer getGraphicalViewer() {
@@ -83,5 +94,15 @@ public class ActorDiagramBehavior extends DiagramBehavior {
 				}
 			}
 		};
+	}
+	
+	@Override
+	public Point calculateRealMouseLocation(Point nativeLocation) {
+		Point realMouseLocation = nativeLocation;
+		try {
+			realMouseLocation = super.calculateRealMouseLocation(nativeLocation);
+		} catch (Exception e) {
+		}
+		return realMouseLocation;
 	}
 }

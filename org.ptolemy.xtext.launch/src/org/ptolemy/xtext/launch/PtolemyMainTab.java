@@ -15,7 +15,9 @@ import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jdt.core.JavaModelException;
 import org.eclipse.jdt.core.search.IJavaSearchScope;
 import org.eclipse.jdt.core.search.SearchEngine;
+import org.eclipse.jdt.debug.ui.launchConfigurations.JavaMainTab;
 import org.eclipse.jdt.internal.debug.ui.launcher.AbstractJavaMainTab;
+import org.eclipse.jdt.internal.debug.ui.launcher.SharedJavaMainTab;
 import org.eclipse.jdt.launching.IJavaLaunchConfigurationConstants;
 import org.eclipse.jdt.ui.IJavaElementSearchConstants;
 import org.eclipse.jdt.ui.JavaUI;
@@ -45,7 +47,7 @@ import org.eclipse.ui.dialogs.SelectionDialog;
 import ptolemy.actor.Director;
 import ptolemy.actor.TypedCompositeActor;
 
-public class PtolemyMainTab extends AbstractJavaMainTab implements ILaunchConfigurationTab {
+public class PtolemyMainTab extends JavaMainTab implements ILaunchConfigurationTab {
 
 	public static String ACTOR_TYPE_KEY = "ACTOR_TYPE_KEY";
 
@@ -71,23 +73,23 @@ public class PtolemyMainTab extends AbstractJavaMainTab implements ILaunchConfig
 		return getStringAttributeValue(configuration, DIRECTOR_TYPE_KEY, null);
 	}
 	
-	public static String getResourceClassName(ILaunchConfiguration configuration) {
-		return getStringAttributeValue(configuration, RESOURCE_TYPE_KEY, null);
+	public static String getResourcePathKey(ResourceContribution resourceContribution) {
+		return resourceContribution.getName() + "." + RESOURCE_PATH_KEY;
 	}
-	
-	public static String getResourcePath(ILaunchConfiguration configuration) {
-		return getStringAttributeValue(configuration, RESOURCE_PATH_KEY, null);
+
+	public static String getResourcePath(ResourceContribution resourceContribution, ILaunchConfiguration configuration) {
+		return getStringAttributeValue(configuration, getResourcePathKey(resourceContribution), null);
 	}
-	
+
 	//
 
-	private Text actorClassNameText;
+	private Text mainClassNameText;
 
+	private Text actorClassNameText;
+	
 	private Combo directorClassNameText;
 
-	private Combo resourceClassNameText;
-
-	private Text resourcePathText;
+	private Text[] resourcePathTexts;
 
 	@Override
 	public void createControl(Composite parent) {
@@ -101,11 +103,20 @@ public class PtolemyMainTab extends AbstractJavaMainTab implements ILaunchConfig
 		comp.setLayout(layout);
 
 		createProjectEditor(comp);
-		Control projectEditorControl = comp.getChildren()[0];
+		createMainTypeEditor(comp, "Main class:");
+
+		Control[] children = comp.getChildren();
+		
+		Control projectEditorControl = children[0];
 		gd = new GridData(GridData.FILL_HORIZONTAL);
 		gd.horizontalSpan = layout.numColumns;
 		projectEditorControl.setLayoutData(gd);
 
+		Control mainEditorControl = children[1];
+		gd = new GridData(GridData.FILL_HORIZONTAL);
+		gd.horizontalSpan = layout.numColumns;
+		mainEditorControl.setLayoutData(gd);
+		
 		Label label = new Label(comp, SWT.NULL);
 		label.setText("Actor class:");
 
@@ -154,51 +165,30 @@ public class PtolemyMainTab extends AbstractJavaMainTab implements ILaunchConfig
 			}
 		});
 
-		label = new Label(comp, SWT.NULL);
-		label.setText("Resource class:");
-
-		resourceClassNameText = new Combo(comp, SWT.BORDER | SWT.DROP_DOWN);
-		gd = new GridData(GridData.FILL_HORIZONTAL);
-		resourceClassNameText.setLayoutData(gd);
-		resourceClassNameText.addModifyListener(new ModifyListener() {
-			public void modifyText(ModifyEvent e) {
-				updateLaunchConfigurationDialog();
-			}
-		});
-		resourceClassNameText.add("org.ptolemy.xtext.launch.swixml.SwixmlResource");
-		resourceClassNameText.select(0);
-		resourceClassNameText.addSelectionListener(new SelectionAdapter() {
-			@Override
-			public void widgetSelected(SelectionEvent e) {
-				updateLaunchConfigurationDialog();
-			}
-		});
-		button = new Button(comp, SWT.PUSH);
-		button.setText("Browse...");
-		button.addSelectionListener(new SelectionAdapter() {
-			public void widgetSelected(SelectionEvent e) {
-				selectType("Resource class", BeanResource.class, RESOURCE_TYPE_KEY, resourceClassNameText);
-			}
-		});
-
-		label = new Label(comp, SWT.NULL);
-		label.setText("Resoure file name:");
-
-		resourcePathText = new Text(comp, SWT.BORDER | SWT.SINGLE);
-		gd = new GridData(GridData.FILL_HORIZONTAL);
-		resourcePathText.setLayoutData(gd);
-		resourcePathText.addModifyListener(new ModifyListener() {
-			public void modifyText(ModifyEvent e) {
-				updateLaunchConfigurationDialog();
-			}
-		});
-		button = new Button(comp, SWT.PUSH);
-		button.setText("Browse...");
-		button.addSelectionListener(new SelectionAdapter() {
-			public void widgetSelected(SelectionEvent e) {
-				selectResource("Resource path", RESOURCE_PATH_KEY, resourcePathText);
-			}
-		});
+		ResourceContribution[] resourceContributions = Activator.getDefault().getResourceContributions();
+		resourcePathTexts = new Text[resourceContributions.length];
+		for (int i = 0; i < resourceContributions.length; i++) {
+			final ResourceContribution resourceContribution = resourceContributions[i];
+			label = new Label(comp, SWT.NULL);
+			label.setText(resourceContribution.getName() + " resource file name:");
+			
+			final Text resourcePathText = new Text(comp, SWT.BORDER | SWT.SINGLE);
+			gd = new GridData(GridData.FILL_HORIZONTAL);
+			resourcePathText.setLayoutData(gd);
+			resourcePathText.addModifyListener(new ModifyListener() {
+				public void modifyText(ModifyEvent e) {
+					updateLaunchConfigurationDialog();
+				}
+			});
+			button = new Button(comp, SWT.PUSH);
+			button.setText("Browse...");
+			button.addSelectionListener(new SelectionAdapter() {
+				public void widgetSelected(SelectionEvent e) {
+					selectResource("Resource path", getResourcePathKey(resourceContribution), resourcePathText);
+				}
+			});
+			resourcePathTexts[i] = resourcePathText;
+		}
 
 		setControl(comp);
 	}
@@ -239,7 +229,7 @@ public class PtolemyMainTab extends AbstractJavaMainTab implements ILaunchConfig
 
 	protected void selectResource(String title, String attribute, Control textControl) {
 		final IContainer input = ResourcesPlugin.getWorkspace().getRoot();
-		final SelectionDialog dialog = new FilteredResourcesSelectionDialog(resourcePathText.getShell(), false, input, IResource.FILE);
+		final SelectionDialog dialog = new FilteredResourcesSelectionDialog(textControl.getShell(), false, input, IResource.FILE);
 		dialog.setTitle(title);
 		if (dialog.open() == Window.OK) {
 			Object[] result = dialog.getResult();
@@ -294,11 +284,14 @@ public class PtolemyMainTab extends AbstractJavaMainTab implements ILaunchConfig
 	@Override
 	public void performApply(ILaunchConfigurationWorkingCopy configuration) {
 		configuration.setAttribute(IJavaLaunchConfigurationConstants.ATTR_PROJECT_NAME, fProjText.getText().trim());
+		configuration.setAttribute(IJavaLaunchConfigurationConstants.ATTR_MAIN_TYPE_NAME, fMainText.getText().trim());
 
 		setStringAttribute(configuration, ACTOR_TYPE_KEY, actorClassNameText.getText());
 		setStringAttribute(configuration, DIRECTOR_TYPE_KEY, directorClassNameText.getText());
-		setStringAttribute(configuration, RESOURCE_TYPE_KEY, resourceClassNameText.getText());
-		setStringAttribute(configuration, RESOURCE_PATH_KEY, resourcePathText.getText());
+		ResourceContribution[] resourceContributions = Activator.getDefault().getResourceContributions();
+		for (int i = 0; i < resourceContributions.length; i++) {
+			setStringAttribute(configuration, getResourcePathKey(resourceContributions[i]), resourcePathTexts[i].getText());
+		}
 	}
 
 	protected void updateStringWidget(Widget textWidget, String value) {
@@ -324,7 +317,9 @@ public class PtolemyMainTab extends AbstractJavaMainTab implements ILaunchConfig
 		super.initializeFrom(configuration);
 		updateStringWidget(configuration, ACTOR_TYPE_KEY, actorClassNameText);
 		updateStringWidget(configuration, DIRECTOR_TYPE_KEY, directorClassNameText);
-		updateStringWidget(configuration, RESOURCE_TYPE_KEY, resourceClassNameText);
-		updateStringWidget(configuration, RESOURCE_PATH_KEY, resourcePathText);
+		ResourceContribution[] resourceContributions = Activator.getDefault().getResourceContributions();
+		for (int i = 0; i < resourceContributions.length; i++) {
+			updateStringWidget(configuration, getResourcePathKey(resourceContributions[i]), resourcePathTexts[i]);
+		}
 	}
 }

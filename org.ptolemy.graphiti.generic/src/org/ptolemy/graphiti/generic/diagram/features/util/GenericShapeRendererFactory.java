@@ -54,17 +54,21 @@ public class GenericShapeRendererFactory implements IGraphicsAlgorithmRendererFa
 		return id.startsWith("@");
 	}
 	public static String createImageIdForURL(URL url) {
-		return "@" + url.toString();
+		return createImageIdForURL(url.toString());
+	}
+	public static String createImageIdForURL(String urlString) {
+		return "@" + urlString;
 	}
 	
 	@Override
 	public IGraphicsAlgorithmRenderer createGraphicsAlgorithmRenderer(IRendererContext rendererContext) {
-		String[] ids = rendererContext.getPlatformGraphicsAlgorithm().getId().split(" ");
+		String id = rendererContext.getPlatformGraphicsAlgorithm().getId();
+		String[] ids = (id != null && id.trim().length() > 0 ? id.split(" ") : new String[0]);
 		List<IFigure> children = new ArrayList<IFigure>(ids.length);
 		for (int i = 0; i < ids.length; i++) {
 			IFigure figure = null;
 			Exception shapeException = null;
-			String id = ids[i];
+			id = ids[i];
 			// is this a label with the id as text
 			if (isLabelId(id)) {
 				String labelText = id.substring(1);
@@ -111,17 +115,17 @@ public class GenericShapeRendererFactory implements IGraphicsAlgorithmRendererFa
 				figure = new Label(id);
 			}
 			if (figure != null) {
-				Dimension labelSize = figure.getPreferredSize();
-				figure.setSize(labelSize);
+				Dimension shapeSize = figure.getPreferredSize();
+				figure.setSize(shapeSize);
 				children.add(figure);
 			}
 			if (shapeException != null) {
 				logger.warning("Couldn't create custom draw2d Shape for " + id + ": " + shapeException);
 			}
 		}
-		if (children.size() > 0) {
+//		if (children.size() > 0) {
 			return new GenericShapeRenderer(children.toArray(new IFigure[children.size()]));
-		}
-		return null;
+//		}
+//		return null;
 	}
 }

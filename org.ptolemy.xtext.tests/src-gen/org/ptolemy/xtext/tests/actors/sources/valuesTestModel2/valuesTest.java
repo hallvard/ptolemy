@@ -35,6 +35,11 @@ public class valuesTest extends AbstractTest {
     
   }
   
+  public valuesTest(final CompositeEntity parent) throws NameDuplicationException, IllegalActionException {
+    this(parent, "valuesTest");
+    
+  }
+  
   protected Pair<Integer,AbstractActionImpl> _fireImpl() throws IllegalActionException {
     Pair<Integer,AbstractActionImpl> result = super._fireImpl();
     if (result != null) return result;

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+   <extension
+         point="org.ptolemy.xtext.launch.resourceContribution">
+      <resourceContribution
+            name="Javafx"
+            contributorClass="org.ptolemy.xtext.launch.javafx.JavafxResourceContributor"
+            >
+      </resourceContribution>
+   </extension>
+
+</plugin>

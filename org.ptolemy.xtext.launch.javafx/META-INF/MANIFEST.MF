@@ -1,0 +1,12 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Javafx Launch support
+Bundle-SymbolicName: org.ptolemy.xtext.launch.javafx;singleton:=true
+Bundle-Version: 0.0.1.qualifier
+Require-Bundle: org.ptolemy.jars;bundle-version="0.0.1",
+ org.ptolemy.xtext.lib;bundle-version="0.0.1",
+ org.ptolemy.xtext.launch;bundle-version="0.0.1"
+Bundle-RequiredExecutionEnvironment: JavaSE-1.7
+Bundle-ClassPath: .,
+ libs/swixml.jar
+Export-Package: org.ptolemy.xtext.launch.javafx

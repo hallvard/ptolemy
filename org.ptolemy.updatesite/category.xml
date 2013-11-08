@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<site>
+   <feature url="features/org.ptolemy.feature_0.0.1.qualifier.jar" id="org.ptolemy.feature" version="0.0.1.qualifier">
+      <category name="org.ptolemy"/>
+   </feature>
+   <category-def name="org.ptolemy" label="Ptolemy"/>
+</site>

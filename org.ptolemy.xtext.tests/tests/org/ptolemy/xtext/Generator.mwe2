@@ -1,0 +1,42 @@
+module org.ptolemy.xtext.tests.Generator
+
+import org.eclipse.emf.mwe.utils.*
+
+var testsProjectDir = "../org.ptolemy.xtext.tests"
+var testsPackageDir = "org/ptolemy/xtext"
+var outlet.src.test.dir = "${testsProjectDir}/src-gen"
+
+Workflow {
+
+	bean = StandaloneSetup {
+//		scanClassPath  = true
+		registerGeneratedEPackage = "org.ptolemy.ecore.kernel.KernelPackage"
+		registerGeneratedEPackage = "org.ptolemy.ecore.actor.ActorPackage"
+		registerGeneratedEPackage = "org.ptolemy.ecore.caltrop.CaltropPackage"
+		registerGeneratedEPackage = "org.ptolemy.ecore.xactor.XactorPackage"
+	}
+
+	component = org.eclipse.emf.mwe.utils.DirectoryCleaner {
+		directory = "${outlet.src.test.dir}/${testsPackageDir}"
+	}
+
+	component = org.eclipse.xtext.mwe.Reader {
+		register = org.ptolemy.xtext.XActorStandaloneSetup {}
+		path = "${testsProjectDir}/tests/${testsPackageDir}"
+		uriFilter = org.eclipse.xtext.mwe.NameBasedFilter {
+			regularExpression = ".*\\.xactor$"
+		}
+		loadResource = {
+			slot = "model"
+		}
+	}
+
+	component = org.eclipse.xtext.generator.GeneratorComponent {
+		register = org.ptolemy.xtext.XActorStandaloneSetup {}
+
+		slot = 'model'
+		outlet = {
+			path = "${outlet.src.test.dir}"
+		}
+	}
+}

@@ -130,6 +130,9 @@
         <eTypeArguments eTypeParameter="#//EntityRef/P"/>
       </eGenericType>
     </eStructuralFeatures>
+    <eGenericSuperTypes eClassifier="#//IEntity">
+      <eTypeArguments eTypeParameter="#//EntityRef/P"/>
+    </eGenericSuperTypes>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Port" eSuperTypes="#//NamedObj">
     <eAnnotations source="http://www.eclipse.org/emf/2002/Ecore">

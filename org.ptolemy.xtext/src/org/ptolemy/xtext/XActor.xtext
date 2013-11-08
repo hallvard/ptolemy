@@ -17,7 +17,7 @@ import "http://www.eclipse.org/xtext/xbase/Xbase" as xbase
 
 ActorModel returns EntityFolder: {EntityFolder}
 	'namespace' name=QualifiedName (displayName=STRING)? ':'
-	(imports += XImportSection)?
+	(imports = XImportSection)?
 	(attributes+=InjectableAttribute)*
 	(
 	(entityContainers+=EntityFolder) |
@@ -33,10 +33,6 @@ EntityFolder:
 	(entities+=Entity)
 	)*
 	'end';
-
-ImportDirective:
-	'import' importedNamespace=QualifiedNameWithOptionalWildcard (';'?)
-;
 
 QualifiedNameWithOptionalWildcard:
 	ID ('.' ID)* ('.*')?
@@ -175,7 +171,11 @@ FunctionParameter returns JvmTypedObj:
 
 StateVariable:
 	('@' attributes+=AnnotationAttribute)*
-	(constant?='val'|'var') type=JvmTypeReference name=ValidID (OpSingleAssign valueExpression=XInitExpression ';')?;
+	(constant?='val'|'var') (realm=Realm)? type=JvmTypeReference name=ValidID (((binding?=':='|'=') valueExpression=XInitExpression)? ('update' updateExpression=XExpression)? ';')?;
+
+Realm:
+	'@' key=(ID | STRING)
+;
 
 InitAction returns OutputAction: {OutputAction}
 	(name=ValidID ':' )?
@@ -289,7 +289,3 @@ XClosure returns xbase::XExpression:
 //		'end'
 //	)
 	;
-
-OpSingleAssign:
-	(':='|'=')
-;

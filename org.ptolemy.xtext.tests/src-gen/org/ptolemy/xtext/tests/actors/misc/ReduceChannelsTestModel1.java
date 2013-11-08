@@ -48,4 +48,9 @@ public class ReduceChannelsTestModel1 extends TypedCompositeActor {
     this.reduceChannelsTest.getPort("input").link(r2);
     
   }
+  
+  public ReduceChannelsTestModel1(final CompositeEntity parent) throws NameDuplicationException, IllegalActionException {
+    this(parent, "ReduceChannelsTestModel1");
+    
+  }
 }

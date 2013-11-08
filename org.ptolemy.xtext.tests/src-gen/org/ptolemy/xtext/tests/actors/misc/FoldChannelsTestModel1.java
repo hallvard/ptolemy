@@ -48,4 +48,9 @@ public class FoldChannelsTestModel1 extends TypedCompositeActor {
     this.foldChannelsTest.getPort("input").link(r2);
     
   }
+  
+  public FoldChannelsTestModel1(final CompositeEntity parent) throws NameDuplicationException, IllegalActionException {
+    this(parent, "FoldChannelsTestModel1");
+    
+  }
 }

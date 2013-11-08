@@ -63,7 +63,10 @@ public class XActorDelegatedScopeProvider {
 			}
 			if (container instanceof CaltropActorImpl) {
 				for (StateVariable var : ((CaltropActorImpl<?>) container).getDeclarations()) {
-					descriptions.add(EObjectDescription.create(QualifiedName.create(var.getName()), var));
+					String name = var.getName();
+					if (name != null) {
+						descriptions.add(EObjectDescription.create(QualifiedName.create(name), var));
+					}
 				}
 			}
 		}

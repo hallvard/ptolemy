@@ -1,0 +1,49 @@
+namespace org.ptolemy.xtext.examples.javafx :
+
+import org.ptolemy.xtext.examples.ui.Variable
+import org.ptolemy.xtext.examples.ui.CollectionVariable
+import org.ptolemy.xtext.examples.ui.Converter
+import org.ptolemy.xtext.examples.ui.Valve
+import org.ptolemy.xtext.examples.ui.Object2String
+
+import org.ptolemy.xtext.examples.javafx.scene.control.PTextField
+import org.ptolemy.xtext.examples.javafx.scene.control.PButtonEagerConverter
+import org.ptolemy.xtext.examples.javafx.scene.control.PBrowser
+import org.ptolemy.xtext.examples.javafx.scene.control.PCollection
+import org.ptolemy.xtext.examples.javafx.scene.control.PButtonValve
+
+import java.net.URL
+
+network browser :
+	entities
+		location = Variable<URL>(allowNull=false)
+
+		locationText = PTextField(id="browser_location_text")
+		string2Url = PButtonEagerConverter<String, URL>(id="browser_location_goButton",
+			fun=[String s|try { new URL(s) } catch (Exception e) { throw new RuntimeException(e)}]
+		)
+		browserPane = PBrowser(id="browser_viewer")
+
+		bookmarks = CollectionVariable<URL>
+		bookmarksList = PCollection<URL>(id="browser_bookmarks_list")
+		addBookmarksButtonValve = PButtonValve<URL>(id="browser_bookmarks_addButton")
+		removeBookmarksButtonValve = PButtonValve<URL>(id="browser_bookmarks_removeButton")
+
+	structure
+		location.value -- toString() when it != null --> locationText.systemOutput
+		location.value 			--> browserPane.systemOutput
+ 		string2Url.output 		--> location.setValue
+		locationText.userInput 	--> string2Url.input
+		browserPane.userInput 	--> location.setValue
+		
+		bookmarks.value	--> bookmarksList.systemOutput
+		bookmarksList.userInput	--> location.setValue
+
+		location.value --> addBookmarksButtonValve.input
+		addBookmarksButtonValve.output --> bookmarks.add
+
+		bookmarksList.userInput	--> removeBookmarksButtonValve.input
+		removeBookmarksButtonValve.output --> bookmarks.remove
+end
+
+end

@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
-	<classpathentry excluding="org/ptolemy/graphiti/diagram/properties/xtext/obeo/|org/caltoopia/graphiti/generic/diagram/properties/ActorDiagramPortSection.java|org/caltoopia/graphiti/generic/diagram/properties/xtext/obeo/|org/caltoopia/graphiti/generic/kieler/|org/ptolemy/graphiti/generic/diagram/properties/xtext/obeo/|org/ptolemy/graphiti/generic/diagram/properties/ActorDiagramPortSection.java" kind="src" path="src"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.6"/>
 	<classpathentry kind="con" path="org.eclipse.pde.core.requiredPlugins"/>
-	<classpathentry kind="src" path="model"/>
-	<classpathentry kind="output" path="bin"/>
+	<classpathentry kind="src" path="src/"/>
+	<classpathentry kind="output" path="target/classes"/>
 </classpath>

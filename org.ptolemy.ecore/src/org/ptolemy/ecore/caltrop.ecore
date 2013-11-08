@@ -24,6 +24,11 @@
   <eClassifiers xsi:type="ecore:EClass" name="TypedOutputPort" eSuperTypes="actor.ecore#//AbstractTypedIOPort"/>
   <eClassifiers xsi:type="ecore:EClass" name="StateVariable" eSuperTypes="actor.ecore#//Variable">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="constant" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="binding" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="updateExpression" eType="ecore:EClass http://www.eclipse.org/xtext/xbase/Xbase#//XExpression"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="realm" eType="#//Realm"
+        containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="FireAction" eSuperTypes="#//ReAction">
     <eStructuralFeatures xsi:type="ecore:EReference" name="inputPatterns" upperBound="-1"
@@ -128,5 +133,8 @@
         containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="guardExpression" eType="ecore:EClass http://www.eclipse.org/xtext/xbase/Xbase#//XExpression"
         containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Realm">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="key" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
 </ecore:EPackage>

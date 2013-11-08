@@ -44,8 +44,6 @@ public class ActorTests extends TestSuite {
 		suite.addTestSuite(TypedAtomicActorTest.class);
 		suite.addTestSuite(CompositeActorTest.class);
 		suite.addTestSuite(TypedCompositeActorTest.class);
-		suite.addTestSuite(EntityActorImplTest.class);
-		suite.addTestSuite(EntityRefActorImplTest.class);
 		return suite;
 	}
 

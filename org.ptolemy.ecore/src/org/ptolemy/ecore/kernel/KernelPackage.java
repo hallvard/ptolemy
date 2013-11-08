@@ -390,7 +390,7 @@ public interface KernelPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int ENTITY_REF__OWNER = 0;
+	int ENTITY_REF__OWNER = IENTITY_FEATURE_COUNT + 0;
 
 	/**
 	 * The feature id for the '<em><b>Ref</b></em>' reference.
@@ -399,7 +399,7 @@ public interface KernelPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int ENTITY_REF__REF = 1;
+	int ENTITY_REF__REF = IENTITY_FEATURE_COUNT + 1;
 
 	/**
 	 * The feature id for the '<em><b>Resolved</b></em>' containment reference.
@@ -408,7 +408,7 @@ public interface KernelPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int ENTITY_REF__RESOLVED = 2;
+	int ENTITY_REF__RESOLVED = IENTITY_FEATURE_COUNT + 2;
 
 	/**
 	 * The number of structural features of the '<em>Entity Ref</em>' class.
@@ -417,7 +417,7 @@ public interface KernelPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int ENTITY_REF_FEATURE_COUNT = 3;
+	int ENTITY_REF_FEATURE_COUNT = IENTITY_FEATURE_COUNT + 3;
 
 	/**
 	 * The meta object id for the '{@link org.ptolemy.ecore.kernel.impl.PortImpl <em>Port</em>}' class.

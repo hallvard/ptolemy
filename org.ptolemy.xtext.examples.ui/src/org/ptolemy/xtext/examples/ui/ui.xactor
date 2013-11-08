@@ -1,0 +1,109 @@
+namespace org.ptolemy.xtext.examples.ui :
+
+import java.util.Collection
+import java.util.ArrayList
+
+actor Variable<T>(T initialValue=null, boolean allowNull=true, (T) => boolean validator)
+T* setValue ==> T value :
+	var T current = initialValue;
+	function diff(T oldValue, T newValue) --> boolean :
+		(oldValue != newValue && (oldValue == null || (! oldValue.equals(newValue))))
+	end
+	function isValid(T value) --> boolean :
+		(allowNull || ( value != null) ) && (validator == null || validator.apply(value))
+	end
+	action [newValue] any ==> [current] when current != old_current do
+		val T value = newValue.values.head
+		if (diff(current, value) && isValid(value)) {
+			current = value
+		}
+	end
+end
+
+actor CollectionVariable<T>
+T add, T remove ==> Collection<T> value :
+	var Collection<T> currentItems = new ArrayList<T>();
+	action add: [item] ==> [currentItems = newItems] when (! contains)
+	do
+		val boolean contains = currentItems.contains(item)
+		val Collection<T> newItems = if (! contains) {
+			val Collection<T> items = new ArrayList<T>(currentItems)
+			items.add(item)
+			items
+		}
+		newItems
+	end
+	action remove: [item] ==> [currentItems = newItems] when contains
+	do
+		val boolean contains = currentItems.contains(item)
+		val Collection<T> newItems = if (contains) {
+			val Collection<T> items = new ArrayList<T>(currentItems)
+			items.remove(item)
+			items
+		}
+		newItems
+	end
+end
+
+actor Converter<T,S>((T) => S fun) T input ==> S output, Exception exception :
+	action input: [input] ==> [value] when exception == null, [exception] when exception != null
+	do
+		var Exception exception = null
+		var S value = null
+		try {
+			value = fun.apply(input)
+		} catch (Exception e) {
+			exception = e
+		}
+	end
+end
+
+actor ConverterValve<T,S>((T) => S fun) T input, Object trigger ==> S output, Exception exception :
+	var T current = null;
+	action input: [input] ==>
+	do current = input
+	end
+	action trigger: [trigger] when trigger != null && ( Boolean.FALSE != trigger )
+&& ! (trigger instanceof Throwable) ==> [value] when exception == null, [exception] when exception != null
+	do
+		var Exception exception = null
+		var S value = null
+		try {
+			value = fun.apply(current)
+		} catch (Exception e) {
+			exception = e
+		}
+	end
+end
+
+actor Valve<T> T input, Object trigger ==> T output :
+	var T current = null;
+	action [input] ==> do
+		current = input
+	end
+	action trigger: [trigger] when triggers(trigger) ==> [current]
+	end
+	action [input],[trigger] when triggers(trigger) ==> [current]
+	do current = input
+	end
+	function triggers(Object trigger) --> boolean :
+		trigger != null && ( Boolean.FALSE != trigger ) && ! (trigger instanceof Throwable)
+	end
+end
+
+actor InstanceOf(String className = "java.lang.Object") Object input ==> boolean output :
+	action [input] ==> [input != null && (input.getClass().name.equals(className) || ( input.getClass().simpleName == className) )]
+	end
+end
+
+actor Object2String<T>(String def="") T input ==> String output :
+	action [input] ==> [if (input != null) input.toString() else def]
+	end
+end
+
+actor FirstChannel<T> T* input ==> T output :
+	action [input] any ==> [input.values.head]
+	end
+end
+
+end

@@ -1,8 +1,8 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
-Bundle-Name: %pluginName
+Bundle-Name: Generic graphical actor model editor
 Bundle-SymbolicName: org.ptolemy.graphiti.generic;singleton:=true
-Bundle-Version: 1.0.0.qualifier
+Bundle-Version: 0.0.1.qualifier
 Bundle-ClassPath: .
 Bundle-Vendor: %providerName
 Bundle-Localization: plugin
@@ -30,4 +30,5 @@ Export-Package: org.ptolemy.graphiti.generic,
  org.ptolemy.graphiti.generic.actordiagram,
  org.ptolemy.graphiti.generic.actordiagram.impl,
  org.ptolemy.graphiti.generic.actordiagram.util,
+ org.ptolemy.graphiti.generic.diagram.features.util,
  org.ptolemy.graphiti.generic.editor

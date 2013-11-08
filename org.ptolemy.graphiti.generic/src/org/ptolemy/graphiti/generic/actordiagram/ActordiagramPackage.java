@@ -90,6 +90,34 @@ public interface ActordiagramPackage extends EPackage {
 	int LABEL_SHAPE_FEATURE_COUNT = 1;
 
 	/**
+	 * The meta object id for the '{@link org.ptolemy.graphiti.generic.actordiagram.impl.IconShapeImpl <em>Icon Shape</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.ptolemy.graphiti.generic.actordiagram.impl.IconShapeImpl
+	 * @see org.ptolemy.graphiti.generic.actordiagram.impl.ActordiagramPackageImpl#getIconShape()
+	 * @generated
+	 */
+	int ICON_SHAPE = 1;
+
+	/**
+	 * The feature id for the '<em><b>Icon</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ICON_SHAPE__ICON = 0;
+
+	/**
+	 * The number of structural features of the '<em>Icon Shape</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ICON_SHAPE_FEATURE_COUNT = 1;
+
+	/**
 	 * The meta object id for the '{@link org.ptolemy.graphiti.generic.actordiagram.impl.EntityShapeImpl <em>Entity Shape</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -97,7 +125,7 @@ public interface ActordiagramPackage extends EPackage {
 	 * @see org.ptolemy.graphiti.generic.actordiagram.impl.ActordiagramPackageImpl#getEntityShape()
 	 * @generated
 	 */
-	int ENTITY_SHAPE = 1;
+	int ENTITY_SHAPE = 2;
 
 	/**
 	 * The feature id for the '<em><b>Properties</b></em>' containment reference list.
@@ -181,13 +209,22 @@ public interface ActordiagramPackage extends EPackage {
 	int ENTITY_SHAPE__LABEL = PictogramsPackage.CONTAINER_SHAPE_FEATURE_COUNT + 0;
 
 	/**
+	 * The feature id for the '<em><b>Icon</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ENTITY_SHAPE__ICON = PictogramsPackage.CONTAINER_SHAPE_FEATURE_COUNT + 1;
+
+	/**
 	 * The number of structural features of the '<em>Entity Shape</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int ENTITY_SHAPE_FEATURE_COUNT = PictogramsPackage.CONTAINER_SHAPE_FEATURE_COUNT + 1;
+	int ENTITY_SHAPE_FEATURE_COUNT = PictogramsPackage.CONTAINER_SHAPE_FEATURE_COUNT + 2;
 
 	/**
 	 * The meta object id for the '{@link org.ptolemy.graphiti.generic.actordiagram.impl.EntityContainerShapeImpl <em>Entity Container Shape</em>}' class.
@@ -197,7 +234,7 @@ public interface ActordiagramPackage extends EPackage {
 	 * @see org.ptolemy.graphiti.generic.actordiagram.impl.ActordiagramPackageImpl#getEntityContainerShape()
 	 * @generated
 	 */
-	int ENTITY_CONTAINER_SHAPE = 2;
+	int ENTITY_CONTAINER_SHAPE = 3;
 
 	/**
 	 * The feature id for the '<em><b>Properties</b></em>' containment reference list.
@@ -297,7 +334,7 @@ public interface ActordiagramPackage extends EPackage {
 	 * @see org.ptolemy.graphiti.generic.actordiagram.impl.ActordiagramPackageImpl#getPortShape()
 	 * @generated
 	 */
-	int PORT_SHAPE = 4;
+	int PORT_SHAPE = 5;
 
 	/**
 	 * The meta object id for the '{@link org.ptolemy.graphiti.generic.actordiagram.impl.PortAnchorImpl <em>Port Anchor</em>}' class.
@@ -307,7 +344,7 @@ public interface ActordiagramPackage extends EPackage {
 	 * @see org.ptolemy.graphiti.generic.actordiagram.impl.ActordiagramPackageImpl#getPortAnchor()
 	 * @generated
 	 */
-	int PORT_ANCHOR = 5;
+	int PORT_ANCHOR = 6;
 
 	/**
 	 * The meta object id for the '{@link org.ptolemy.graphiti.generic.actordiagram.impl.PortGAImpl <em>Port GA</em>}' class.
@@ -317,7 +354,7 @@ public interface ActordiagramPackage extends EPackage {
 	 * @see org.ptolemy.graphiti.generic.actordiagram.impl.ActordiagramPackageImpl#getPortGA()
 	 * @generated
 	 */
-	int PORT_GA = 6;
+	int PORT_GA = 7;
 
 	/**
 	 * The meta object id for the '{@link org.ptolemy.graphiti.generic.actordiagram.impl.RelationConnectionImpl <em>Relation Connection</em>}' class.
@@ -327,7 +364,7 @@ public interface ActordiagramPackage extends EPackage {
 	 * @see org.ptolemy.graphiti.generic.actordiagram.impl.ActordiagramPackageImpl#getRelationConnection()
 	 * @generated
 	 */
-	int RELATION_CONNECTION = 7;
+	int RELATION_CONNECTION = 8;
 
 	/**
 	 * The meta object id for the '{@link org.ptolemy.graphiti.generic.actordiagram.impl.RelationShapeImpl <em>Relation Shape</em>}' class.
@@ -337,7 +374,7 @@ public interface ActordiagramPackage extends EPackage {
 	 * @see org.ptolemy.graphiti.generic.actordiagram.impl.ActordiagramPackageImpl#getRelationShape()
 	 * @generated
 	 */
-	int RELATION_SHAPE = 8;
+	int RELATION_SHAPE = 9;
 
 	/**
 	 * The meta object id for the '{@link org.ptolemy.graphiti.generic.actordiagram.impl.EntityContainerDiagramImpl <em>Entity Container Diagram</em>}' class.
@@ -347,7 +384,7 @@ public interface ActordiagramPackage extends EPackage {
 	 * @see org.ptolemy.graphiti.generic.actordiagram.impl.ActordiagramPackageImpl#getEntityContainerDiagram()
 	 * @generated
 	 */
-	int ENTITY_CONTAINER_DIAGRAM = 3;
+	int ENTITY_CONTAINER_DIAGRAM = 4;
 
 	/**
 	 * The feature id for the '<em><b>Properties</b></em>' containment reference list.
@@ -1176,7 +1213,7 @@ public interface ActordiagramPackage extends EPackage {
 	 * @see org.ptolemy.graphiti.generic.actordiagram.impl.ActordiagramPackageImpl#getEPoint()
 	 * @generated
 	 */
-	int EPOINT = 9;
+	int EPOINT = 10;
 
 	/**
 	 * The meta object id for the '<em>EDimension</em>' data type.
@@ -1186,7 +1223,7 @@ public interface ActordiagramPackage extends EPackage {
 	 * @see org.ptolemy.graphiti.generic.actordiagram.impl.ActordiagramPackageImpl#getEDimension()
 	 * @generated
 	 */
-	int EDIMENSION = 10;
+	int EDIMENSION = 11;
 
 	/**
 	 * The meta object id for the '<em>ERectangle</em>' data type.
@@ -1196,7 +1233,7 @@ public interface ActordiagramPackage extends EPackage {
 	 * @see org.ptolemy.graphiti.generic.actordiagram.impl.ActordiagramPackageImpl#getERectangle()
 	 * @generated
 	 */
-	int ERECTANGLE = 11;
+	int ERECTANGLE = 12;
 
 
 	/**
@@ -1219,6 +1256,27 @@ public interface ActordiagramPackage extends EPackage {
 	 * @generated
 	 */
 	EReference getLabelShape_Label();
+
+	/**
+	 * Returns the meta object for class '{@link org.ptolemy.graphiti.generic.actordiagram.IconShape <em>Icon Shape</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Icon Shape</em>'.
+	 * @see org.ptolemy.graphiti.generic.actordiagram.IconShape
+	 * @generated
+	 */
+	EClass getIconShape();
+
+	/**
+	 * Returns the meta object for the reference '{@link org.ptolemy.graphiti.generic.actordiagram.IconShape#getIcon <em>Icon</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference '<em>Icon</em>'.
+	 * @see org.ptolemy.graphiti.generic.actordiagram.IconShape#getIcon()
+	 * @see #getIconShape()
+	 * @generated
+	 */
+	EReference getIconShape_Icon();
 
 	/**
 	 * Returns the meta object for class '{@link org.ptolemy.graphiti.generic.actordiagram.EntityShape <em>Entity Shape</em>}'.
@@ -1482,6 +1540,24 @@ public interface ActordiagramPackage extends EPackage {
 		 * @generated
 		 */
 		EReference LABEL_SHAPE__LABEL = eINSTANCE.getLabelShape_Label();
+
+		/**
+		 * The meta object literal for the '{@link org.ptolemy.graphiti.generic.actordiagram.impl.IconShapeImpl <em>Icon Shape</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.ptolemy.graphiti.generic.actordiagram.impl.IconShapeImpl
+		 * @see org.ptolemy.graphiti.generic.actordiagram.impl.ActordiagramPackageImpl#getIconShape()
+		 * @generated
+		 */
+		EClass ICON_SHAPE = eINSTANCE.getIconShape();
+
+		/**
+		 * The meta object literal for the '<em><b>Icon</b></em>' reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference ICON_SHAPE__ICON = eINSTANCE.getIconShape_Icon();
 
 		/**
 		 * The meta object literal for the '{@link org.ptolemy.graphiti.generic.actordiagram.impl.EntityShapeImpl <em>Entity Shape</em>}' class.

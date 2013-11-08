@@ -101,6 +101,7 @@ public class CaltropFactoryImpl extends EFactoryImpl implements CaltropFactory {
 			case CaltropPackage.EVENT_ACTION: return createEventAction();
 			case CaltropPackage.EVENT_PATTERN: return createEventPattern();
 			case CaltropPackage.CONVERSION_RELATION: return createConversionRelation();
+			case CaltropPackage.REALM: return createRealm();
 			default:
 				throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
 		}
@@ -334,6 +335,16 @@ public class CaltropFactoryImpl extends EFactoryImpl implements CaltropFactory {
 	public ConversionRelation createConversionRelation() {
 		ConversionRelationImpl conversionRelation = new ConversionRelationImpl();
 		return conversionRelation;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public Realm createRealm() {
+		RealmImpl realm = new RealmImpl();
+		return realm;
 	}
 
 	/**

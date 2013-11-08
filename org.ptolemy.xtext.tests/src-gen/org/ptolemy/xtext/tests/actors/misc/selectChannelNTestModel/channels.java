@@ -52,4 +52,9 @@ public class channels extends Values<Integer> {
     super(parent, name);
     
   }
+  
+  public channels(final CompositeEntity parent) throws NameDuplicationException, IllegalActionException {
+    this(parent, "channels");
+    
+  }
 }

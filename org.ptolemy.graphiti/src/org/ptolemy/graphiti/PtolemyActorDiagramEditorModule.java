@@ -16,6 +16,8 @@ public class PtolemyActorDiagramEditorModule extends ActorDiagramEditorModule {
 		bind(org.ptolemy.ecore.caltrop.CaltropFactory.class).toInstance(org.ptolemy.ecore.caltrop.CaltropFactory.eINSTANCE);
 		bind(org.ptolemy.ecore.xactor.XactorFactory.class).toInstance(org.ptolemy.ecore.xactor.XactorFactory.eINSTANCE);
 		
+		bind(org.ptolemy.graphiti.generic.diagram.features.util.IconImageProvider.class).to(org.ptolemy.graphiti.EntityIconImageProvider.class);
+
 		// the diagram editor ++
 //		bind(org.eclipse.graphiti.ui.editor.DiagramEditor.class).to(org.ptolemy.graphiti.editor.ActorDiagramEditor.class);
 //		bind(org.eclipse.graphiti.ui.editor.DiagramEditorActionBarContributor.class).to(org.ptolemy.graphiti.editor.ActorDiagramEditorActionBarContributor.class);

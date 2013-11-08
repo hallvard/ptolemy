@@ -77,6 +77,7 @@ import org.ptolemy.ecore.caltrop.InputPattern;
 import org.ptolemy.ecore.caltrop.KeywordChannelSelector;
 import org.ptolemy.ecore.caltrop.OutputAction;
 import org.ptolemy.ecore.caltrop.OutputPattern;
+import org.ptolemy.ecore.caltrop.Realm;
 import org.ptolemy.ecore.caltrop.Schedule;
 import org.ptolemy.ecore.caltrop.State;
 import org.ptolemy.ecore.caltrop.StateVariable;
@@ -84,7 +85,6 @@ import org.ptolemy.ecore.caltrop.Transition;
 import org.ptolemy.ecore.caltrop.TypedInputPort;
 import org.ptolemy.ecore.caltrop.TypedOutputPort;
 import org.ptolemy.ecore.xactor.EntityFolder;
-import org.ptolemy.ecore.xactor.ImportDirective;
 import org.ptolemy.ecore.xactor.XactorPackage;
 import org.ptolemy.xtext.services.XActorGrammarAccess;
 
@@ -244,6 +244,12 @@ public abstract class AbstractXActorSemanticSequencer extends XbaseSemanticSeque
 					return; 
 				}
 				else break;
+			case CaltropPackage.REALM:
+				if(context == grammarAccess.getRealmRule()) {
+					sequence_Realm(context, (Realm) semanticObject); 
+					return; 
+				}
+				else break;
 			case CaltropPackage.SCHEDULE:
 				if(context == grammarAccess.getScheduleRule()) {
 					sequence_Schedule(context, (Schedule) semanticObject); 
@@ -347,12 +353,6 @@ public abstract class AbstractXActorSemanticSequencer extends XbaseSemanticSeque
 				}
 				else if(context == grammarAccess.getEntityFolderRule()) {
 					sequence_EntityFolder(context, (EntityFolder) semanticObject); 
-					return; 
-				}
-				else break;
-			case XactorPackage.IMPORT_DIRECTIVE:
-				if(context == grammarAccess.getImportDirectiveRule()) {
-					sequence_ImportDirective(context, (ImportDirective) semanticObject); 
 					return; 
 				}
 				else break;
@@ -1324,7 +1324,7 @@ public abstract class AbstractXActorSemanticSequencer extends XbaseSemanticSeque
 	 *     (
 	 *         name=QualifiedName 
 	 *         displayName=STRING? 
-	 *         imports+=XImportSection? 
+	 *         imports=XImportSection? 
 	 *         attributes+=InjectableAttribute* 
 	 *         (entityContainers+=EntityFolder | entities+=Entity)*
 	 *     )
@@ -1491,22 +1491,6 @@ public abstract class AbstractXActorSemanticSequencer extends XbaseSemanticSeque
 	
 	/**
 	 * Constraint:
-	 *     importedNamespace=QualifiedNameWithOptionalWildcard
-	 */
-	protected void sequence_ImportDirective(EObject context, ImportDirective semanticObject) {
-		if(errorAcceptor != null) {
-			if(transientValues.isValueTransient(semanticObject, XactorPackage.Literals.IMPORT_DIRECTIVE__IMPORTED_NAMESPACE) == ValueTransient.YES)
-				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, XactorPackage.Literals.IMPORT_DIRECTIVE__IMPORTED_NAMESPACE));
-		}
-		INodesForEObjectProvider nodes = createNodeProvider(semanticObject);
-		SequenceFeeder feeder = createSequencerFeeder(semanticObject, nodes);
-		feeder.accept(grammarAccess.getImportDirectiveAccess().getImportedNamespaceQualifiedNameWithOptionalWildcardParserRuleCall_1_0(), semanticObject.getImportedNamespace());
-		feeder.finish();
-	}
-	
-	
-	/**
-	 * Constraint:
 	 *     (name=ValidID? (outputPatterns+=OutputPattern outputPatterns+=OutputPattern*)? guardExpression=XExpression? bodyExpression=XBodyExpression?)
 	 */
 	protected void sequence_InitAction(EObject context, OutputAction semanticObject) {
@@ -1607,6 +1591,15 @@ public abstract class AbstractXActorSemanticSequencer extends XbaseSemanticSeque
 	
 	/**
 	 * Constraint:
+	 *     (key=ID | key=STRING)
+	 */
+	protected void sequence_Realm(EObject context, Realm semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
 	 *     (initial=[State|ID] states+=State+)
 	 */
 	protected void sequence_Schedule(EObject context, Schedule semanticObject) {
@@ -1616,7 +1609,14 @@ public abstract class AbstractXActorSemanticSequencer extends XbaseSemanticSeque
 	
 	/**
 	 * Constraint:
-	 *     (attributes+=AnnotationAttribute* constant?='val'? type=JvmTypeReference name=ValidID valueExpression=XInitExpression?)
+	 *     (
+	 *         attributes+=AnnotationAttribute* 
+	 *         constant?='val'? 
+	 *         realm=Realm? 
+	 *         type=JvmTypeReference 
+	 *         name=ValidID 
+	 *         ((binding?=':='? valueExpression=XInitExpression)? updateExpression=XExpression?)?
+	 *     )
 	 */
 	protected void sequence_StateVariable(EObject context, StateVariable semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);

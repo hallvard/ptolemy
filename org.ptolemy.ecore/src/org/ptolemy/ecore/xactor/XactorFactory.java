@@ -35,15 +35,6 @@ public interface XactorFactory extends EFactory {
 	EntityFolder createEntityFolder();
 
 	/**
-	 * Returns a new object of class '<em>Import Directive</em>'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Import Directive</em>'.
-	 * @generated
-	 */
-	ImportDirective createImportDirective();
-
-	/**
 	 * Returns the package supported by this factory.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

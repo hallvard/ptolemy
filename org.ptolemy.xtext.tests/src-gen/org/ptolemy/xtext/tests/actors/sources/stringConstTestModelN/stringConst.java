@@ -26,4 +26,9 @@ public class stringConst extends StringConst {
     super(parent, name);
     
   }
+  
+  public stringConst(final CompositeEntity parent) throws NameDuplicationException, IllegalActionException {
+    this(parent, "stringConst");
+    
+  }
 }

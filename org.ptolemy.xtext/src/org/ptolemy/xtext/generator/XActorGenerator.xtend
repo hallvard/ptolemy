@@ -47,6 +47,9 @@ import org.ptolemy.ecore.kernel.IEntity
 import org.ptolemy.ecore.kernel.Named
 import org.ptolemy.ecore.kernel.Port
 import org.ptolemy.xtext.jvmmodel.XActorJvmModelInferrer
+import org.ptolemy.xtext.generator.eventsupport.AbstractEventSupport
+import org.ptolemy.xtext.generator.eventsupport.EventData
+import org.ptolemy.ecore.caltrop.RealmKind
 
 class XActorGenerator extends JvmModelGenerator {
 
@@ -65,7 +68,7 @@ class XActorGenerator extends JvmModelGenerator {
 			fsa.generateFile(type.qualifiedName.replace('.','/') + ".java", content)
 		}
 	}
-	
+
 	override CharSequence generateType(JvmDeclaredType type, GeneratorConfig genConfig) {
 		val sourceElement = type.primarySourceElement
 		if (sourceElement instanceof Named) { // && (! (sourceElement as Entity).isAbstract())) {
@@ -321,9 +324,10 @@ class XActorGenerator extends JvmModelGenerator {
 	def void generateInitializeImplBody(CaltropActorImpl<? extends AbstractIOPort> impl, JvmGenericType implClass, ITreeAppendable it) {
 		it << "super._initializeImpl();"
 		for (declaration : impl.declarations) {
-			val name = declaration.previousValueName
-			it <<'''this.«name» = «if (declaration.valueExpression != null) '''«declaration.methodName("_initial%sStateVariableValue")»()''' else defaultValue(declaration.type)»;'''
-			it << '''«declaration.methodName("_postChange%sState")»(this.«name»);'''
+//			if (! declaration.binding) {
+				it <<'''this.«declaration.name» = this.«declaration.previousValueName» = «if (declaration.valueExpression != null) '''«declaration.methodName("_initial%sStateVariableValue")»()''' else defaultValue(declaration.type)»;'''
+				it << '''«declaration.methodName("_postChange%sState")»(this.«declaration.name»);'''
+//			}
  		}
 		it << '''«FOR action : impl.initActions SEPARATOR("else ")»
 		if («actionRef(action)».match()) {
@@ -383,8 +387,13 @@ class XActorGenerator extends JvmModelGenerator {
 		it -> impl << op.returnType << ''' «returnVar» = super.«op.simpleName»();'''
 		it << '''if («returnVar» != null) return «returnVar»;'''
 		for (declaration : impl.declarations) {
-			if (! declaration.constant) {
-				it << '''this.«declaration.name» = this.«declaration.previousValueName»;'''
+			val name = declaration.name
+			if (declaration.binding) {
+				it << '''«declaration.methodName("_preChange%sState")»(this.«name»);'''
+				it << '''this.«name» = this.«declaration.previousValueName» = «declaration.methodName("_initial%sStateVariableValue")»();'''
+				it << '''«declaration.methodName("_postChange%sState")»(this.«name»);'''
+			} else if (! declaration.constant) {
+				it << '''this.«name» = this.«declaration.previousValueName»;'''
 			}
 		}
 		if (impl.schedule != null) {
@@ -441,14 +450,17 @@ class XActorGenerator extends JvmModelGenerator {
 		it << '''postEvent(«timestampExpression», «eventPattern.varRef.previousValueName», "«eventPattern.name»", "«op.simpleName»", «op.parameters.join(",") [simpleName]»);'''
 	}
 
+	@Inject extension AbstractEventSupport
+
 	def void generatePreStateVariableChangeBody(StateVariable declaration, CaltropActorImpl<? extends AbstractIOPort> impl, ITreeAppendable it) {
 		val variablePatterns = impl.actions.eventPatternsForVariable(declaration)
 		if (! variablePatterns.empty) {
 			it << '''if («declaration.name» != null) {'''
 			for (EventPattern eventPattern : variablePatterns) {
 				it << declaration.name << "."
-				it << 	if (eventPattern.property) 	'''«listenerRemoverName("propertyChange")»("«eventPattern.name»", «eventPattern.eventPatternListenerName»)'''
-						else						'''«listenerRemoverName(eventPattern.name)»(«eventPattern.eventPatternListenerName»)'''
+				val beanType = eventPattern.varRef?.inferredType
+				val EventData eventData = beanType.getEvent(eventPattern.name, eventPattern.property)
+				eventData.appendRemoveListener(eventPattern.eventPatternListenerName, it)
 				it << ";"
 			}
 			it << "}"
@@ -461,22 +473,32 @@ class XActorGenerator extends JvmModelGenerator {
 			it << '''if («declaration.name» != null) {'''
 			for (EventPattern eventPattern : variablePatterns) {
 				it << declaration.name << "."
-				it << 	if (eventPattern.property) 	'''«listenerAdderName("propertyChange")»("«eventPattern.name»", «eventPattern.eventPatternListenerName»)'''
-						else						'''«listenerAdderName(eventPattern.name)»(«eventPattern.eventPatternListenerName»)'''
+				val beanType = eventPattern.varRef?.inferredType
+				val EventData eventData = beanType.getEvent(eventPattern.name, eventPattern.property)
+				eventData.appendAddListener(eventPattern.eventPatternListenerName, it)
 				it << ";"
 			}
 			it << "}"
 		}
 	}
 
+	def void generateUpdateStateVariableBody(StateVariable declaration, JvmExecutable op, ITreeAppendable it) {
+		declareThisVariables(op.declaringType, it)
+		declaration.updateExpression.toJavaStatement(it, false) newLine
+	}
+
 	def void generatePostfireImplBody(CaltropActorImpl<? extends AbstractIOPort> impl, JvmExecutable op, ITreeAppendable it) {
 		it << "if (! super._postfireImpl()) return false;"
 		for (declaration : impl.declarations) {
+			val name = declaration.name
 			if (! declaration.constant) {
-				it << '''if (this.«declaration.previousValueName» != this.«declaration.name») {'''
-					it << '''«declaration.methodName("_preChange%sState")»(this.«declaration.previousValueName»);'''
-					it << '''this.«declaration.previousValueName» = this.«declaration.name»;'''
-					it << '''«declaration.methodName("_postChange%sState")»(this.«declaration.previousValueName»);'''
+				it << '''if (this.«declaration.previousValueName» != this.«name») {'''
+				if (declaration.updateExpression != null) {
+					it << '''«declaration.methodName("_update%sState")»();'''
+				}
+				it << '''«declaration.methodName("_preChange%sState")»(this.«declaration.previousValueName»);'''
+				it << '''this.«declaration.previousValueName» = this.«name»;'''
+				it << '''«declaration.methodName("_postChange%sState")»(this.«declaration.previousValueName»);'''
 				it << "}"
 			}
 		}

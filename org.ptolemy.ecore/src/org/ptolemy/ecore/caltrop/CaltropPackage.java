@@ -609,13 +609,40 @@ public interface CaltropPackage extends EPackage {
 	int STATE_VARIABLE__CONSTANT = ActorPackage.VARIABLE_FEATURE_COUNT + 0;
 
 	/**
+	 * The feature id for the '<em><b>Binding</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int STATE_VARIABLE__BINDING = ActorPackage.VARIABLE_FEATURE_COUNT + 1;
+
+	/**
+	 * The feature id for the '<em><b>Update Expression</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int STATE_VARIABLE__UPDATE_EXPRESSION = ActorPackage.VARIABLE_FEATURE_COUNT + 2;
+
+	/**
+	 * The feature id for the '<em><b>Realm</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int STATE_VARIABLE__REALM = ActorPackage.VARIABLE_FEATURE_COUNT + 3;
+
+	/**
 	 * The number of structural features of the '<em>State Variable</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int STATE_VARIABLE_FEATURE_COUNT = ActorPackage.VARIABLE_FEATURE_COUNT + 1;
+	int STATE_VARIABLE_FEATURE_COUNT = ActorPackage.VARIABLE_FEATURE_COUNT + 4;
 
 	/**
 	 * The meta object id for the '{@link org.ptolemy.ecore.caltrop.impl.OutputActionImpl <em>Output Action</em>}' class.
@@ -1760,6 +1787,34 @@ public interface CaltropPackage extends EPackage {
 	int CONVERSION_RELATION_FEATURE_COUNT = KernelPackage.RELATION_FEATURE_COUNT + 3;
 
 	/**
+	 * The meta object id for the '{@link org.ptolemy.ecore.caltrop.impl.RealmImpl <em>Realm</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.ptolemy.ecore.caltrop.impl.RealmImpl
+	 * @see org.ptolemy.ecore.caltrop.impl.CaltropPackageImpl#getRealm()
+	 * @generated
+	 */
+	int REALM = 22;
+
+	/**
+	 * The feature id for the '<em><b>Key</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int REALM__KEY = 0;
+
+	/**
+	 * The number of structural features of the '<em>Realm</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int REALM_FEATURE_COUNT = 1;
+
+	/**
 	 * The meta object id for the '{@link org.ptolemy.ecore.caltrop.ChannelSelectorKeyword <em>Channel Selector Keyword</em>}' enum.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1767,7 +1822,7 @@ public interface CaltropPackage extends EPackage {
 	 * @see org.ptolemy.ecore.caltrop.impl.CaltropPackageImpl#getChannelSelectorKeyword()
 	 * @generated
 	 */
-	int CHANNEL_SELECTOR_KEYWORD = 22;
+	int CHANNEL_SELECTOR_KEYWORD = 23;
 
 	/**
 	 * Returns the meta object for class '{@link org.ptolemy.ecore.caltrop.CaltropActorImpl <em>Actor Impl</em>}'.
@@ -1873,6 +1928,39 @@ public interface CaltropPackage extends EPackage {
 	 * @generated
 	 */
 	EAttribute getStateVariable_Constant();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.ptolemy.ecore.caltrop.StateVariable#isBinding <em>Binding</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Binding</em>'.
+	 * @see org.ptolemy.ecore.caltrop.StateVariable#isBinding()
+	 * @see #getStateVariable()
+	 * @generated
+	 */
+	EAttribute getStateVariable_Binding();
+
+	/**
+	 * Returns the meta object for the containment reference '{@link org.ptolemy.ecore.caltrop.StateVariable#getUpdateExpression <em>Update Expression</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference '<em>Update Expression</em>'.
+	 * @see org.ptolemy.ecore.caltrop.StateVariable#getUpdateExpression()
+	 * @see #getStateVariable()
+	 * @generated
+	 */
+	EReference getStateVariable_UpdateExpression();
+
+	/**
+	 * Returns the meta object for the containment reference '{@link org.ptolemy.ecore.caltrop.StateVariable#getRealm <em>Realm</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference '<em>Realm</em>'.
+	 * @see org.ptolemy.ecore.caltrop.StateVariable#getRealm()
+	 * @see #getStateVariable()
+	 * @generated
+	 */
+	EReference getStateVariable_Realm();
 
 	/**
 	 * Returns the meta object for the containment reference list '{@link org.ptolemy.ecore.caltrop.CaltropActorImpl#getDeclarations <em>Declarations</em>}'.
@@ -2441,6 +2529,27 @@ public interface CaltropPackage extends EPackage {
 	EReference getConversionRelation_GuardExpression();
 
 	/**
+	 * Returns the meta object for class '{@link org.ptolemy.ecore.caltrop.Realm <em>Realm</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Realm</em>'.
+	 * @see org.ptolemy.ecore.caltrop.Realm
+	 * @generated
+	 */
+	EClass getRealm();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.ptolemy.ecore.caltrop.Realm#getKey <em>Key</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Key</em>'.
+	 * @see org.ptolemy.ecore.caltrop.Realm#getKey()
+	 * @see #getRealm()
+	 * @generated
+	 */
+	EAttribute getRealm_Key();
+
+	/**
 	 * Returns the meta object for the attribute '{@link org.ptolemy.ecore.caltrop.ConversionRelation#getValueVar <em>Value Var</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -2572,6 +2681,30 @@ public interface CaltropPackage extends EPackage {
 		 * @generated
 		 */
 		EAttribute STATE_VARIABLE__CONSTANT = eINSTANCE.getStateVariable_Constant();
+
+		/**
+		 * The meta object literal for the '<em><b>Binding</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute STATE_VARIABLE__BINDING = eINSTANCE.getStateVariable_Binding();
+
+		/**
+		 * The meta object literal for the '<em><b>Update Expression</b></em>' containment reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference STATE_VARIABLE__UPDATE_EXPRESSION = eINSTANCE.getStateVariable_UpdateExpression();
+
+		/**
+		 * The meta object literal for the '<em><b>Realm</b></em>' containment reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference STATE_VARIABLE__REALM = eINSTANCE.getStateVariable_Realm();
 
 		/**
 		 * The meta object literal for the '<em><b>Declarations</b></em>' containment reference list feature.
@@ -3030,6 +3163,24 @@ public interface CaltropPackage extends EPackage {
 		 * @generated
 		 */
 		EReference CONVERSION_RELATION__GUARD_EXPRESSION = eINSTANCE.getConversionRelation_GuardExpression();
+
+		/**
+		 * The meta object literal for the '{@link org.ptolemy.ecore.caltrop.impl.RealmImpl <em>Realm</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.ptolemy.ecore.caltrop.impl.RealmImpl
+		 * @see org.ptolemy.ecore.caltrop.impl.CaltropPackageImpl#getRealm()
+		 * @generated
+		 */
+		EClass REALM = eINSTANCE.getRealm();
+
+		/**
+		 * The meta object literal for the '<em><b>Key</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute REALM__KEY = eINSTANCE.getRealm_Key();
 
 		/**
 		 * The meta object literal for the '<em><b>Value Var</b></em>' attribute feature.

@@ -52,4 +52,9 @@ public class applyInputTest extends TestValues<Integer> {
     super(parent, name);
     
   }
+  
+  public applyInputTest(final CompositeEntity parent) throws NameDuplicationException, IllegalActionException {
+    this(parent, "applyInputTest");
+    
+  }
 }

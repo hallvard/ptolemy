@@ -67,6 +67,7 @@ public class ActordiagramFactoryImpl extends EFactoryImpl implements Actordiagra
 	@Override
 	public EObject create(EClass eClass) {
 		switch (eClass.getClassifierID()) {
+			case ActordiagramPackage.ICON_SHAPE: return createIconShape();
 			case ActordiagramPackage.ENTITY_SHAPE: return createEntityShape();
 			case ActordiagramPackage.ENTITY_CONTAINER_SHAPE: return createEntityContainerShape();
 			case ActordiagramPackage.ENTITY_CONTAINER_DIAGRAM: return createEntityContainerDiagram();
@@ -116,6 +117,16 @@ public class ActordiagramFactoryImpl extends EFactoryImpl implements Actordiagra
 			default:
 				throw new IllegalArgumentException("The datatype '" + eDataType.getName() + "' is not a valid classifier");
 		}
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public IconShape createIconShape() {
+		IconShapeImpl iconShape = new IconShapeImpl();
+		return iconShape;
 	}
 
 	/**

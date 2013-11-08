@@ -71,7 +71,8 @@ namespace sources :
 				next != null
 			end
 			initialize ==> do updateNext end
-			action ==> [next] guard next != null update updateNext
+			action ==> [next] guard next != null
+			update updateNext
 			end
 		end
 	end

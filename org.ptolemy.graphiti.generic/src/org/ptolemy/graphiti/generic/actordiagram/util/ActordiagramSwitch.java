@@ -86,11 +86,18 @@ public class ActordiagramSwitch<T> extends Switch<T> {
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
+			case ActordiagramPackage.ICON_SHAPE: {
+				IconShape iconShape = (IconShape)theEObject;
+				T result = caseIconShape(iconShape);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
 			case ActordiagramPackage.ENTITY_SHAPE: {
 				EntityShape entityShape = (EntityShape)theEObject;
 				T result = caseEntityShape(entityShape);
 				if (result == null) result = caseContainerShape(entityShape);
 				if (result == null) result = caseLabelShape(entityShape);
+				if (result == null) result = caseIconShape(entityShape);
 				if (result == null) result = caseShape(entityShape);
 				if (result == null) result = caseAnchorContainer(entityShape);
 				if (result == null) result = casePictogramElement(entityShape);
@@ -199,6 +206,21 @@ public class ActordiagramSwitch<T> extends Switch<T> {
 	 * @generated
 	 */
 	public T caseLabelShape(LabelShape object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Icon Shape</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Icon Shape</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseIconShape(IconShape object) {
 		return null;
 	}
 

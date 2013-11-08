@@ -20,6 +20,7 @@ import org.ptolemy.graphiti.generic.actordiagram.ActordiagramPackage;
 import org.ptolemy.graphiti.generic.actordiagram.EntityContainerDiagram;
 import org.ptolemy.graphiti.generic.actordiagram.EntityContainerShape;
 import org.ptolemy.graphiti.generic.actordiagram.EntityShape;
+import org.ptolemy.graphiti.generic.actordiagram.IconShape;
 import org.ptolemy.graphiti.generic.actordiagram.LabelShape;
 import org.ptolemy.graphiti.generic.actordiagram.PortAnchor;
 import org.ptolemy.graphiti.generic.actordiagram.PortGA;
@@ -40,6 +41,13 @@ public class ActordiagramPackageImpl extends EPackageImpl implements Actordiagra
 	 * @generated
 	 */
 	private EClass labelShapeEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass iconShapeEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -198,6 +206,24 @@ public class ActordiagramPackageImpl extends EPackageImpl implements Actordiagra
 	 */
 	public EReference getLabelShape_Label() {
 		return (EReference)labelShapeEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getIconShape() {
+		return iconShapeEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getIconShape_Icon() {
+		return (EReference)iconShapeEClass.getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -420,6 +446,9 @@ public class ActordiagramPackageImpl extends EPackageImpl implements Actordiagra
 		labelShapeEClass = createEClass(LABEL_SHAPE);
 		createEReference(labelShapeEClass, LABEL_SHAPE__LABEL);
 
+		iconShapeEClass = createEClass(ICON_SHAPE);
+		createEReference(iconShapeEClass, ICON_SHAPE__ICON);
+
 		entityShapeEClass = createEClass(ENTITY_SHAPE);
 
 		entityContainerShapeEClass = createEClass(ENTITY_CONTAINER_SHAPE);
@@ -487,6 +516,7 @@ public class ActordiagramPackageImpl extends EPackageImpl implements Actordiagra
 		// Add supertypes to classes
 		entityShapeEClass.getESuperTypes().add(thePictogramsPackage.getContainerShape());
 		entityShapeEClass.getESuperTypes().add(this.getLabelShape());
+		entityShapeEClass.getESuperTypes().add(this.getIconShape());
 		entityContainerShapeEClass.getESuperTypes().add(thePictogramsPackage.getContainerShape());
 		entityContainerShapeEClass.getESuperTypes().add(this.getLabelShape());
 		entityContainerDiagramEClass.getESuperTypes().add(thePictogramsPackage.getDiagram());
@@ -499,6 +529,9 @@ public class ActordiagramPackageImpl extends EPackageImpl implements Actordiagra
 		// Initialize classes and features; add operations and parameters
 		initEClass(labelShapeEClass, LabelShape.class, "LabelShape", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getLabelShape_Label(), theAlgorithmsPackage.getAbstractText(), null, "label", null, 0, 1, LabelShape.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(iconShapeEClass, IconShape.class, "IconShape", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getIconShape_Icon(), theAlgorithmsPackage.getPlatformGraphicsAlgorithm(), null, "icon", null, 0, 1, IconShape.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(entityShapeEClass, EntityShape.class, "EntityShape", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 

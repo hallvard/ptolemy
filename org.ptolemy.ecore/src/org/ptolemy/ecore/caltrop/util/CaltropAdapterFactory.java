@@ -187,6 +187,10 @@ public class CaltropAdapterFactory extends AdapterFactoryImpl {
 				return createConversionRelationAdapter();
 			}
 			@Override
+			public Adapter caseRealm(Realm object) {
+				return createRealmAdapter();
+			}
+			@Override
 			public <P extends AbstractIOPort> Adapter caseAtomicActorImpl(AtomicActorImpl<P> object) {
 				return createAtomicActorImplAdapter();
 			}
@@ -571,6 +575,20 @@ public class CaltropAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createConversionRelationAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.ptolemy.ecore.caltrop.Realm <em>Realm</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.ptolemy.ecore.caltrop.Realm
+	 * @generated
+	 */
+	public Adapter createRealmAdapter() {
 		return null;
 	}
 

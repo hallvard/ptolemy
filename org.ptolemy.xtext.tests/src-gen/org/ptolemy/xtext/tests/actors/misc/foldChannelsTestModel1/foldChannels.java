@@ -74,11 +74,11 @@ public class foldChannels extends FoldChannels<String,Integer> {
   protected Function2<? super String,? super Integer,? extends String> _initialFunAttributeValue() throws IllegalActionException {
     
     final Function2<String,Integer,String> _function = new Function2<String,Integer,String>() {
-        public String apply(final String s, final Integer n2) {
-          String _plus = (s + Integer.valueOf(n2));
-          return _plus;
-        }
-      };
+      public String apply(final String s, final Integer n2) {
+        String _plus = (s + Integer.valueOf(n2));
+        return _plus;
+      }
+    };
     
     return _function; 
   }
@@ -91,6 +91,11 @@ public class foldChannels extends FoldChannels<String,Integer> {
   
   public foldChannels(final CompositeEntity parent, final String name) throws NameDuplicationException, IllegalActionException {
     super(parent, name);
+    
+  }
+  
+  public foldChannels(final CompositeEntity parent) throws NameDuplicationException, IllegalActionException {
+    this(parent, "foldChannels");
     
   }
 }

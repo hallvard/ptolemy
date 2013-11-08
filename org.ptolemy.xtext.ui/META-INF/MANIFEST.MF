@@ -1,8 +1,7 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
-Bundle-Name: org.ptolemy.xtext.ui
-Bundle-Vendor: My Company
-Bundle-Version: 1.0.0
+Bundle-Name: Cal language editor implementation
+Bundle-Version: 0.0.1.qualifier
 Bundle-SymbolicName: org.ptolemy.xtext.ui; singleton:=true
 Bundle-ActivationPolicy: lazy
 Require-Bundle: org.ptolemy.xtext;visibility:=reexport,
@@ -21,10 +20,11 @@ Require-Bundle: org.ptolemy.xtext;visibility:=reexport,
  org.eclipse.core.runtime
 Import-Package: org.apache.log4j,
  org.apache.commons.logging
-Bundle-RequiredExecutionEnvironment: J2SE-1.5
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Export-Package: org.ptolemy.xtext.ui.contentassist,
  org.ptolemy.xtext.ui.contentassist.antlr,
  org.ptolemy.xtext.ui.custom,
  org.ptolemy.xtext.ui.internal,
  org.ptolemy.xtext.ui.quickfix
 Bundle-Activator: org.ptolemy.xtext.ui.internal.XActorActivator
+Bundle-ClassPath: .

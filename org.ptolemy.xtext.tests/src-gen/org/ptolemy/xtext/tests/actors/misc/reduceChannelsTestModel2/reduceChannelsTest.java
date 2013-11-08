@@ -52,4 +52,9 @@ public class reduceChannelsTest extends TestValues<Integer> {
     super(parent, name);
     
   }
+  
+  public reduceChannelsTest(final CompositeEntity parent) throws NameDuplicationException, IllegalActionException {
+    this(parent, "reduceChannelsTest");
+    
+  }
 }

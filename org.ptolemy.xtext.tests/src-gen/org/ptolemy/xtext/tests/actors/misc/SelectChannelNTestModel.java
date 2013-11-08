@@ -87,4 +87,9 @@ public class SelectChannelNTestModel extends TypedCompositeActor {
     this.selectChannelTest.getPort("input").link(r5);
     
   }
+  
+  public SelectChannelNTestModel(final CompositeEntity parent) throws NameDuplicationException, IllegalActionException {
+    this(parent, "SelectChannelNTestModel");
+    
+  }
 }

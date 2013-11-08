@@ -26,7 +26,7 @@ import org.eclipse.emf.ecore.EObject;
  * @model
  * @generated
  */
-public interface EntityRef<P extends Port> extends EObject {
+public interface EntityRef<P extends Port> extends IEntity<P> {
 	/**
 	 * Returns the value of the '<em><b>Owner</b></em>' container reference.
 	 * It is bidirectional and its opposite is '{@link org.ptolemy.ecore.kernel.Entity#getSuperEntity <em>Super Entity</em>}'.

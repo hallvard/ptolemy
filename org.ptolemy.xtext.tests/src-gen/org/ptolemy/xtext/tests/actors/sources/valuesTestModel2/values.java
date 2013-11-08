@@ -58,4 +58,9 @@ public class values extends Values<Integer> {
     super(parent, name);
     
   }
+  
+  public values(final CompositeEntity parent) throws NameDuplicationException, IllegalActionException {
+    this(parent, "values");
+    
+  }
 }

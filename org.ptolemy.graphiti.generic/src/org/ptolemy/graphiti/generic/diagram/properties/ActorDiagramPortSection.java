@@ -1,7 +1,6 @@
 package org.ptolemy.graphiti.generic.diagram.properties;
 
-import javax.sound.sampled.Port;
-
+import org.eclipse.emf.ecore.EObject;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.graphiti.services.Graphiti;
 import org.eclipse.swt.SWT;
@@ -13,10 +12,18 @@ import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.ui.views.properties.tabbed.TabbedPropertySheetPage;
 import org.eclipse.ui.views.properties.tabbed.TabbedPropertySheetWidgetFactory;
+import org.ptolemy.graphiti.generic.ActorEditModel;
+import org.ptolemy.graphiti.generic.ActorViewModel;
+import org.ptolemy.graphiti.generic.ActorViewModel.PortKind;
+
+import com.google.inject.Inject;
 
 public class ActorDiagramPortSection extends ActorDiagramNameableSection {
  
     private Button inputButton, outputButton, multiportButton;
+    
+    @Inject
+    private ActorViewModel actorViewModel;
     
     @Override
     public void createControls(Composite parent, TabbedPropertySheetPage tabbedPropertySheetPage) {
@@ -48,10 +55,9 @@ public class ActorDiagramPortSection extends ActorDiagramNameableSection {
 			public void widgetSelected(SelectionEvent e) {
 		        PictogramElement pe = getSelectedPictogramElement();
 		        if (pe != null) {
-		            Port port = (Port) Graphiti.getLinkService().getBusinessObjectForLinkedPictogramElement(pe);
-		            if (port instanceof IOPort) {
-		            	IOPort ioPort = (IOPort) port;
-        				setIoKind(ioPort, inputButton.getSelection(), ioPort.isOutput());
+		            EObject port = Graphiti.getLinkService().getBusinessObjectForLinkedPictogramElement(pe);
+		            if (actorViewModel.isPort(port, null)) {
+        				setIoKind(port, inputButton.getSelection(), actorViewModel.isPort(port, PortKind.OUTPUT));
 		            }
 		        }
 			}
@@ -62,10 +68,9 @@ public class ActorDiagramPortSection extends ActorDiagramNameableSection {
         	public void widgetSelected(SelectionEvent e) {
         		PictogramElement pe = getSelectedPictogramElement();
         		if (pe != null) {
-        			Port port = (Port) Graphiti.getLinkService().getBusinessObjectForLinkedPictogramElement(pe);
-        			if (port instanceof IOPort) {
-        				IOPort ioPort = (IOPort) port;
-        				setIoKind(ioPort, ioPort.isInput(), outputButton.getSelection());
+		            EObject port = Graphiti.getLinkService().getBusinessObjectForLinkedPictogramElement(pe);
+		            if (actorViewModel.isPort(port, null)) {
+        				setIoKind(port, actorViewModel.isPort(port, PortKind.INPUT), outputButton.getSelection());
         			}
         		}
         	}
@@ -76,20 +81,19 @@ public class ActorDiagramPortSection extends ActorDiagramNameableSection {
         	public void widgetSelected(SelectionEvent e) {
         		PictogramElement pe = getSelectedPictogramElement();
         		if (pe != null) {
-        			Port port = (Port) Graphiti.getLinkService().getBusinessObjectForLinkedPictogramElement(pe);
-        			if (port instanceof IOPort) {
-        				IOPort ioPort = (IOPort) port;
-        				setMultiport(ioPort, multiportButton.getSelection());
+		            EObject port = Graphiti.getLinkService().getBusinessObjectForLinkedPictogramElement(pe);
+		            if (actorViewModel.isPort(port, null)) {
+        				setMultiport(port, multiportButton.getSelection());
         			}
         		}
         	}
         });
     }
  
-    void setIoKind(IOPort ioPort, boolean input, boolean output) {
-    	PortKind newPortKind = PortKind.UNSPECIFIED;
+    void setIoKind(EObject ioPort, boolean input, boolean output) {
+    	PortKind newPortKind = PortKind.IO;
     	if (input && output) {
-    		newPortKind = PortKind.INPUT_OUTPUT;
+    		newPortKind = PortKind.IO;
     	} else if (input) {
     		newPortKind = PortKind.INPUT;
     	} else if (output) {
@@ -98,12 +102,14 @@ public class ActorDiagramPortSection extends ActorDiagramNameableSection {
     	setIoKind(ioPort, newPortKind);
     }
 
-	void setIoKind(final IOPort ioPort, final PortKind newPortKind) {
-    	setProperty(ioPort, ActorPackage.eINSTANCE.getIOPort_IoKind(), newPortKind);
+	void setIoKind(final EObject ioPort, final PortKind newPortKind) {
+		// TODO
+//    	setProperty(ioPort, ActorPackage.eINSTANCE.getIOPort_IoKind(), newPortKind);
 	}
 
-	void setMultiport(final IOPort ioPort, final boolean newMultiport) {
-		setProperty(ioPort, ActorPackage.eINSTANCE.getAbstractIOPort_Multiport(), newMultiport);
+	void setMultiport(final EObject ioPort, final boolean newMultiport) {
+		// TODO
+//		setProperty(ioPort, ActorPackage.eINSTANCE.getAbstractIOPort_Multiport(), newMultiport);
 	}
 
     @Override
@@ -111,14 +117,15 @@ public class ActorDiagramPortSection extends ActorDiagramNameableSection {
     	super.refresh();
         PictogramElement pe = getSelectedPictogramElement();
         if (pe != null) {
-            Port port = (Port) Graphiti.getLinkService().getBusinessObjectForLinkedPictogramElement(pe);
-            inputButton.setEnabled(port instanceof IOPort);
-            outputButton.setEnabled(port instanceof IOPort);
-            multiportButton.setEnabled(port instanceof IOPort);
+            EObject port = Graphiti.getLinkService().getBusinessObjectForLinkedPictogramElement(pe);
+            boolean canEdit = actorViewModel.isPort(port, null) && actorViewModel instanceof ActorEditModel;
+            inputButton.setEnabled(canEdit);
+            outputButton.setEnabled(canEdit);
+            multiportButton.setEnabled(canEdit);
 
-            inputButton.setSelection(port instanceof IOPort && ((IOPort) port).isInput());
-            outputButton.setSelection(port instanceof IOPort && ((IOPort) port).isOutput());
-            multiportButton.setSelection(port instanceof IOPort && ((IOPort) port).isMultiport());
+            inputButton.setSelection(canEdit && actorViewModel.isPort(port, PortKind.INPUT));
+            outputButton.setSelection(canEdit && actorViewModel.isPort(port, PortKind.OUTPUT));
+            multiportButton.setSelection(canEdit);
         }
     }
 }

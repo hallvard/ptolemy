@@ -2,6 +2,8 @@ package org.ptolemy.xtext.generator
 
 import com.google.inject.Inject
 import java.util.ArrayList
+import java.util.Arrays
+import java.util.Collection
 import java.util.Iterator
 import java.util.List
 import org.eclipse.emf.ecore.EObject
@@ -15,7 +17,6 @@ import org.eclipse.xtext.xbase.XExpression
 import org.eclipse.xtext.xbase.compiler.output.ITreeAppendable
 import org.eclipse.xtext.xbase.jvmmodel.JvmModelAssociator
 import org.eclipse.xtext.xbase.jvmmodel.JvmTypesBuilder
-import org.eclipse.xtext.xbase.lib.Pair
 import org.ptolemy.ecore.actor.AbstractIOPort
 import org.ptolemy.ecore.actor.InjectableAttribute
 import org.ptolemy.ecore.actor.Typeable
@@ -32,6 +33,12 @@ import org.ptolemy.ecore.caltrop.PortPattern
 import org.ptolemy.ecore.kernel.Entity
 import org.ptolemy.ecore.kernel.Nameable
 import org.ptolemy.ecore.kernel.Port
+import org.ptolemy.xtext.generator.eventsupport.BeanPropertySupport
+import org.ptolemy.xtext.generator.eventsupport.EventData
+import org.ptolemy.xtext.generator.eventsupport.EventSupport
+import org.ptolemy.xtext.generator.eventsupport.ObservablePropertySupport
+import org.ptolemy.xtext.generator.eventsupport.SwingEventSupport
+import org.ptolemy.xtext.generator.eventsupport.JavafxEventSupport
 
 class ActionPatternHelper {
 	
@@ -112,12 +119,15 @@ class ActionPatternHelper {
 			val beanType = eventPattern.varRef?.inferredType
 			if (beanType != null) {
 				val eventName = eventPattern.name
-				val eventDef = if (eventPattern.property) beanType.getProperty(eventName) else beanType.getEvent(eventName)
-				if (eventDef != null) {
-					var listenerType = (if (eventPattern.property) pattern.newTypeRef("java.beans.PropertyChangeListener") else eventDef.value)
+				val listenerType = beanType.getEvent(eventName, eventPattern.property)?.getListenerType(pattern)
+				if (listenerType == null)
+					null
+				else if (impl != null)
+					listenerType
+				else {
 					// assume the event type is the type of the first parameter in the first method
-					if (impl != null) listenerType else
-					(listenerType.type as JvmDeclaredType).allFeatures.filter(JvmOperation).findFirst[! it.parameters.empty].parameters.head.parameterType
+					val firstParameter = (listenerType.type as JvmDeclaredType).allFeatures.filter(JvmOperation).findFirst[! it.parameters.empty].parameters.head
+					MappingCopier.map(firstParameter.parameterType, listenerType)
 				}
 			}
 		}
@@ -419,108 +429,39 @@ class ActionPatternHelper {
 	}
 	
 	//
-
-	def Iterable<Pair<String, JvmTypeReference>> getProperties(JvmDeclaredType type, String name) {
-		val setters = new ArrayList<JvmOperation>
-		val getters = new ArrayList<JvmOperation>
-		val properties = new ArrayList<Pair<String, JvmTypeReference>>
-		for (JvmOperation op : type.allFeatures.filter(JvmOperation)) {
-			if (if (name == null) op.setterPropertyName != null else name.equals(op.setterPropertyName)) {
-				setters += op
-			} else if (if (name == null) op.getterPropertyName != null else name.equals(op.getterPropertyName)) {
-				getters += op
-			}
-		}
-		for (JvmOperation setter : setters) {
-			val getter = getters.findFirst[ isGetterFor(setter) ]
-			if (getter != null) {
-				properties += getter.getterPropertyName -> getter.returnType
-			}
-		}
-		properties
-	}
 	
-	def Pair<String, JvmTypeReference> getProperty(JvmDeclaredType type, String propertyName) {
-		getProperties(type, propertyName).head
-	}
-	def Pair<String, JvmTypeReference> getProperty(JvmTypeReference typeRef, String eventName) {
-		if (typeRef.type instanceof JvmDeclaredType)
-			getProperty(typeRef.type as JvmDeclaredType, eventName)
-		else null
-	}
-
-	def accessorName(String name, String prefix, String suffix) {
-		if (name.startsWith(prefix) && name.length > prefix.length && Character::isUpperCase(name.charAt(prefix.length)) && (suffix == null || name.endsWith(suffix))) {
-			return name.substring(prefix.length, name.length - if (suffix != null) suffix.length else 0).toFirstLower
-		}
-		return null
-	}
-
-	def isAccessorName(String name, String prefix, String suffix) {
-		accessorName(name, prefix, suffix) != null
-	}
-
-	def setterPropertyName(JvmOperation op) {
-		if (op.parameters.size == 1) accessorName(op.simpleName, "set", null) else null
-	}
+	@Inject BeanPropertySupport beanPropertySupport
+	@Inject ObservablePropertySupport observablePropertySupport
+	@Inject SwingEventSupport swingEventSupport
+	@Inject JavafxEventSupport javafxEventSupport
 	
-	def String getterPropertyName(JvmOperation op) {
-		var getterName = null as String
-		if (op.parameters.size == 0) {
-			getterName = accessorName(op.simpleName, "get" , null)
-			if (getterName == null && "boolean".equals(op.returnType.qualifiedName)) {
-				getterName = accessorName(op.simpleName, "is", null)
+	private Collection<EventSupport> propertySupports = null
+
+	def void addEvents(JvmTypeReference typeRef, String name, boolean isProperty, Collection<EventData> events) {
+		if (propertySupports == null) {
+			propertySupports = Arrays.asList(
+				observablePropertySupport,
+				beanPropertySupport,
+				swingEventSupport,
+				javafxEventSupport
+			)
+		}
+		for (EventSupport eventSupport : propertySupports) {
+			if (eventSupport.property == isProperty) {
+				eventSupport.addEvents(typeRef, name, events);
 			}
 		}
-		getterName
 	}
 
-	def isGetterFor(JvmOperation op, JvmOperation setter) {
-		op.getterPropertyName.equals(setter.setterPropertyName) && op.returnType.qualifiedName.equals(setter.parameters.head.parameterType.qualifiedName)
-	}
-	
-	//
-	
-	def Iterable<Pair<String, JvmTypeReference>> getEvents(JvmDeclaredType type, String name) {
-		val adders = new ArrayList<JvmOperation>
-		val removers = new ArrayList<JvmOperation>
-		val events = new ArrayList<Pair<String, JvmTypeReference>>
-		for (JvmOperation op : type.allFeatures.filter(JvmOperation)) {
-			if (if (name == null) op.listenerAdderName != null else name.equals(op.listenerAdderName)) {
-				adders += op
-			} else if (if (name == null) op.listenerRemoverName != null else name.equals(op.listenerRemoverName)) {
-				removers += op
-			}
-		}
-		for (JvmOperation remover : removers) {
-			val adder = adders.findFirst[remover.isListenerRemoverFor(it)]
-			if (adder != null) {
-				events += adder.listenerAdderName -> adder.parameters.head.parameterType
-			}
-		}
+	def Iterable<EventData> getEvents(JvmTypeReference typeRef, String name, boolean isProperty) {
+		val events = new ArrayList<EventData>
+		addEvents(typeRef, name, isProperty, events)
 		events
 	}
-
-	def Pair<String, JvmTypeReference> getEvent(JvmDeclaredType type, String eventName) {
-		getEvents(type, eventName).head
-	}
-	def Pair<String, JvmTypeReference> getEvent(JvmTypeReference typeRef, String eventName) {
-		if (typeRef.type instanceof JvmDeclaredType)
-			getEvent(typeRef.type as JvmDeclaredType, eventName)
-		else null
-	}
-
-	def listenerAdderName(String eventName) { "add" + eventName.toFirstUpper + "Listener" }
-	def listenerAdderName(JvmOperation op) {
-		if (op.parameters.size == 1) accessorName(op.simpleName, "add", "Listener") else null  
-	}
-
-	def listenerRemoverName(String eventName) 	{ "remove" + eventName.toFirstUpper + "Listener" }
-	def listenerRemoverName(JvmOperation op) {
-		if (op.parameters.size == 1) accessorName(op.simpleName, "remove", "Listener") else null 
-	}
 	
-	def isListenerRemoverFor(JvmOperation op, JvmOperation adder) {
-		op.listenerRemoverName.equals(adder.listenerAdderName) && op.parameters.head.parameterType.qualifiedName.equals(adder.parameters.head.parameterType.qualifiedName)
+	def EventData getEvent(JvmTypeReference typeRef, String eventName, boolean isProperty) {
+		if (typeRef.type instanceof JvmDeclaredType)
+			getEvents(typeRef, eventName, isProperty).head
+		else null
 	}
 }

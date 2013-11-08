@@ -8,7 +8,7 @@ import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.ui.IEditorPart;
 import org.eclipse.xtext.ui.editor.LanguageSpecificURIEditorOpener;
-import org.ptolemy.graphiti.editor.ActorDiagramEditor;
+import org.ptolemy.graphiti.generic.editor.ActorDiagramEditor;
 
 public class EActorEditorOpener extends LanguageSpecificURIEditorOpener {
 

@@ -15,10 +15,10 @@ public abstract class BeanContainerAttribute extends AbstractInitializableAttrib
         super(container, name);
     }
     
-    public abstract Object getBean(String idOrPath);
+    public abstract Object getBean(String idOrPath, Class<?> c);
     
     public <T> T get(String id, Class<T> c) {
-    	Object bean = getBean(id);
+    	Object bean = getBean(id, c);
     	return (c.isInstance(bean) ? (T) bean : null);
     }
 }

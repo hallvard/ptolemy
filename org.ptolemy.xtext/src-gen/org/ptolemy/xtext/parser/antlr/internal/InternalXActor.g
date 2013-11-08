@@ -137,7 +137,7 @@ ruleActorModel returns [EObject current=null]
 	        if ($current==null) {
 	            $current = createModelElementForParent(grammarAccess.getActorModelRule());
 	        }
-       		add(
+       		set(
        			$current, 
        			"imports",
         		lv_imports_5_0, 
@@ -333,53 +333,6 @@ ruleEntityFolder returns [EObject current=null]
 ;
 
 
-
-
-
-
-
-// Entry rule entryRuleQualifiedNameWithOptionalWildcard
-entryRuleQualifiedNameWithOptionalWildcard returns [String current=null] 
-	:
-	{ newCompositeNode(grammarAccess.getQualifiedNameWithOptionalWildcardRule()); } 
-	 iv_ruleQualifiedNameWithOptionalWildcard=ruleQualifiedNameWithOptionalWildcard 
-	 { $current=$iv_ruleQualifiedNameWithOptionalWildcard.current.getText(); }  
-	 EOF 
-;
-
-// Rule QualifiedNameWithOptionalWildcard
-ruleQualifiedNameWithOptionalWildcard returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()] 
-    @init { enterRule(); 
-    }
-    @after { leaveRule(); }:
-(    this_ID_0=RULE_ID    {
-		$current.merge(this_ID_0);
-    }
-
-    { 
-    newLeafNode(this_ID_0, grammarAccess.getQualifiedNameWithOptionalWildcardAccess().getIDTerminalRuleCall_0()); 
-    }
-(
-	kw='.' 
-    {
-        $current.merge(kw);
-        newLeafNode(kw, grammarAccess.getQualifiedNameWithOptionalWildcardAccess().getFullStopKeyword_1_0()); 
-    }
-    this_ID_2=RULE_ID    {
-		$current.merge(this_ID_2);
-    }
-
-    { 
-    newLeafNode(this_ID_2, grammarAccess.getQualifiedNameWithOptionalWildcardAccess().getIDTerminalRuleCall_1_1()); 
-    }
-)*(
-	kw='.*' 
-    {
-        $current.merge(kw);
-        newLeafNode(kw, grammarAccess.getQualifiedNameWithOptionalWildcardAccess().getFullStopAsteriskKeyword_2()); 
-    }
-)?)
-    ;
 
 
 
@@ -3141,16 +3094,34 @@ ruleStateVariable returns [EObject current=null]
 )(
 (
 		{ 
-	        newCompositeNode(grammarAccess.getStateVariableAccess().getTypeJvmTypeReferenceParserRuleCall_2_0()); 
+	        newCompositeNode(grammarAccess.getStateVariableAccess().getRealmRealmParserRuleCall_2_0()); 
 	    }
-		lv_type_4_0=ruleJvmTypeReference		{
+		lv_realm_4_0=ruleRealm		{
+	        if ($current==null) {
+	            $current = createModelElementForParent(grammarAccess.getStateVariableRule());
+	        }
+       		set(
+       			$current, 
+       			"realm",
+        		lv_realm_4_0, 
+        		"Realm");
+	        afterParserOrEnumRuleCall();
+	    }
+
+)
+)?(
+(
+		{ 
+	        newCompositeNode(grammarAccess.getStateVariableAccess().getTypeJvmTypeReferenceParserRuleCall_3_0()); 
+	    }
+		lv_type_5_0=ruleJvmTypeReference		{
 	        if ($current==null) {
 	            $current = createModelElementForParent(grammarAccess.getStateVariableRule());
 	        }
        		set(
        			$current, 
        			"type",
-        		lv_type_4_0, 
+        		lv_type_5_0, 
         		"JvmTypeReference");
 	        afterParserOrEnumRuleCall();
 	    }
@@ -3159,52 +3130,147 @@ ruleStateVariable returns [EObject current=null]
 )(
 (
 		{ 
-	        newCompositeNode(grammarAccess.getStateVariableAccess().getNameValidIDParserRuleCall_3_0()); 
+	        newCompositeNode(grammarAccess.getStateVariableAccess().getNameValidIDParserRuleCall_4_0()); 
 	    }
-		lv_name_5_0=ruleValidID		{
+		lv_name_6_0=ruleValidID		{
 	        if ($current==null) {
 	            $current = createModelElementForParent(grammarAccess.getStateVariableRule());
 	        }
        		set(
        			$current, 
        			"name",
-        		lv_name_5_0, 
+        		lv_name_6_0, 
         		"ValidID");
 	        afterParserOrEnumRuleCall();
 	    }
 
 )
-)(
-    { 
-        newCompositeNode(grammarAccess.getStateVariableAccess().getOpSingleAssignParserRuleCall_4_0()); 
-    }
-ruleOpSingleAssign
-    { 
-        afterParserOrEnumRuleCall();
-    }
+)((((
 (
+		lv_binding_7_0=	':=' 
+    {
+        newLeafNode(lv_binding_7_0, grammarAccess.getStateVariableAccess().getBindingColonEqualsSignKeyword_5_0_0_0_0());
+    }
+ 
+	    {
+	        if ($current==null) {
+	            $current = createModelElement(grammarAccess.getStateVariableRule());
+	        }
+       		setWithLastConsumed($current, "binding", true, ":=");
+	    }
+
+)
+)
+    |	otherlv_8='=' 
+    {
+    	newLeafNode(otherlv_8, grammarAccess.getStateVariableAccess().getEqualsSignKeyword_5_0_0_1());
+    }
+)(
 (
 		{ 
-	        newCompositeNode(grammarAccess.getStateVariableAccess().getValueExpressionXInitExpressionParserRuleCall_4_1_0()); 
+	        newCompositeNode(grammarAccess.getStateVariableAccess().getValueExpressionXInitExpressionParserRuleCall_5_0_1_0()); 
 	    }
-		lv_valueExpression_7_0=ruleXInitExpression		{
+		lv_valueExpression_9_0=ruleXInitExpression		{
 	        if ($current==null) {
 	            $current = createModelElementForParent(grammarAccess.getStateVariableRule());
 	        }
        		set(
        			$current, 
        			"valueExpression",
-        		lv_valueExpression_7_0, 
+        		lv_valueExpression_9_0, 
         		"XInitExpression");
 	        afterParserOrEnumRuleCall();
 	    }
 
 )
-)	otherlv_8=';' 
+))?(	otherlv_10='update' 
     {
-    	newLeafNode(otherlv_8, grammarAccess.getStateVariableAccess().getSemicolonKeyword_4_2());
+    	newLeafNode(otherlv_10, grammarAccess.getStateVariableAccess().getUpdateKeyword_5_1_0());
+    }
+(
+(
+		{ 
+	        newCompositeNode(grammarAccess.getStateVariableAccess().getUpdateExpressionXExpressionParserRuleCall_5_1_1_0()); 
+	    }
+		lv_updateExpression_11_0=ruleXExpression		{
+	        if ($current==null) {
+	            $current = createModelElementForParent(grammarAccess.getStateVariableRule());
+	        }
+       		set(
+       			$current, 
+       			"updateExpression",
+        		lv_updateExpression_11_0, 
+        		"XExpression");
+	        afterParserOrEnumRuleCall();
+	    }
+
+)
+))?	otherlv_12=';' 
+    {
+    	newLeafNode(otherlv_12, grammarAccess.getStateVariableAccess().getSemicolonKeyword_5_2());
     }
 )?)
+;
+
+
+
+
+
+// Entry rule entryRuleRealm
+entryRuleRealm returns [EObject current=null] 
+	:
+	{ newCompositeNode(grammarAccess.getRealmRule()); }
+	 iv_ruleRealm=ruleRealm 
+	 { $current=$iv_ruleRealm.current; } 
+	 EOF 
+;
+
+// Rule Realm
+ruleRealm returns [EObject current=null] 
+    @init { enterRule(); 
+    }
+    @after { leaveRule(); }:
+(	otherlv_0='@' 
+    {
+    	newLeafNode(otherlv_0, grammarAccess.getRealmAccess().getCommercialAtKeyword_0());
+    }
+(
+(
+(
+		lv_key_1_1=RULE_ID
+		{
+			newLeafNode(lv_key_1_1, grammarAccess.getRealmAccess().getKeyIDTerminalRuleCall_1_0_0()); 
+		}
+		{
+	        if ($current==null) {
+	            $current = createModelElement(grammarAccess.getRealmRule());
+	        }
+       		setWithLastConsumed(
+       			$current, 
+       			"key",
+        		lv_key_1_1, 
+        		"ID");
+	    }
+
+    |		lv_key_1_2=RULE_STRING
+		{
+			newLeafNode(lv_key_1_2, grammarAccess.getRealmAccess().getKeySTRINGTerminalRuleCall_1_0_1()); 
+		}
+		{
+	        if ($current==null) {
+	            $current = createModelElement(grammarAccess.getRealmRule());
+	        }
+       		setWithLastConsumed(
+       			$current, 
+       			"key",
+        		lv_key_1_2, 
+        		"STRING");
+	    }
+
+)
+
+)
+))
 ;
 
 
@@ -5148,40 +5214,6 @@ ruleJvmFormalParameter
 
 
 
-// Entry rule entryRuleOpSingleAssign
-entryRuleOpSingleAssign returns [String current=null] 
-	:
-	{ newCompositeNode(grammarAccess.getOpSingleAssignRule()); } 
-	 iv_ruleOpSingleAssign=ruleOpSingleAssign 
-	 { $current=$iv_ruleOpSingleAssign.current.getText(); }  
-	 EOF 
-;
-
-// Rule OpSingleAssign
-ruleOpSingleAssign returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()] 
-    @init { enterRule(); 
-    }
-    @after { leaveRule(); }:
-(
-	kw=':=' 
-    {
-        $current.merge(kw);
-        newLeafNode(kw, grammarAccess.getOpSingleAssignAccess().getColonEqualsSignKeyword_0()); 
-    }
-
-    |
-	kw='=' 
-    {
-        $current.merge(kw);
-        newLeafNode(kw, grammarAccess.getOpSingleAssignAccess().getEqualsSignKeyword_1()); 
-    }
-)
-    ;
-
-
-
-
-
 // Entry rule entryRuleXExpression
 entryRuleXExpression returns [EObject current=null] 
 	:
@@ -5329,6 +5361,33 @@ ruleOpSingleAssign
 )
 ))?))
 ;
+
+
+
+
+
+// Entry rule entryRuleOpSingleAssign
+entryRuleOpSingleAssign returns [String current=null] 
+	:
+	{ newCompositeNode(grammarAccess.getOpSingleAssignRule()); } 
+	 iv_ruleOpSingleAssign=ruleOpSingleAssign 
+	 { $current=$iv_ruleOpSingleAssign.current.getText(); }  
+	 EOF 
+;
+
+// Rule OpSingleAssign
+ruleOpSingleAssign returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()] 
+    @init { enterRule(); 
+    }
+    @after { leaveRule(); }:
+
+	kw='=' 
+    {
+        $current.merge(kw);
+        newLeafNode(kw, grammarAccess.getOpSingleAssignAccess().getEqualsSignKeyword()); 
+    }
+
+    ;
 
 
 

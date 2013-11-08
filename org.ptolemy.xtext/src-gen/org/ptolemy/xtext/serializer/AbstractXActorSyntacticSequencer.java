@@ -7,7 +7,6 @@ import org.eclipse.xtext.IGrammarAccess;
 import org.eclipse.xtext.RuleCall;
 import org.eclipse.xtext.nodemodel.INode;
 import org.eclipse.xtext.serializer.analysis.GrammarAlias.AbstractElementAlias;
-import org.eclipse.xtext.serializer.analysis.GrammarAlias.AlternativeAlias;
 import org.eclipse.xtext.serializer.analysis.GrammarAlias.GroupAlias;
 import org.eclipse.xtext.serializer.analysis.GrammarAlias.TokenAlias;
 import org.eclipse.xtext.serializer.analysis.ISyntacticSequencerPDAProvider.ISynNavigable;
@@ -23,10 +22,9 @@ public abstract class AbstractXActorSyntacticSequencer extends AbstractSyntactic
 	protected AbstractElementAlias match_CompositeEntity_StructureKeyword_11_0_q;
 	protected AbstractElementAlias match_CompositeEntity_VarKeyword_9_0_q;
 	protected AbstractElementAlias match_ConversionRelation_SemicolonKeyword_3_q;
-	protected AbstractElementAlias match_ImportDirective_SemicolonKeyword_2_q;
 	protected AbstractElementAlias match_KeywordChannelSelector_AtKeyword_0_q;
-	protected AbstractElementAlias match_OpSingleAssign_ColonEqualsSignKeyword_0_or_EqualsSignKeyword_1;
 	protected AbstractElementAlias match_Schedule_FsmKeyword_1_q;
+	protected AbstractElementAlias match_StateVariable_SemicolonKeyword_5_2_q;
 	protected AbstractElementAlias match_TypedAtomicActorInstance_MAPS_TOParserRuleCall_3_1_1_1_q;
 	protected AbstractElementAlias match_TypedAtomicActorInstance_SemicolonKeyword_3_0_2_q;
 	protected AbstractElementAlias match_TypedAtomicActorInstance___EqualsSignKeyword_3_1_0_0_ActorKeyword_3_1_0_1__q;
@@ -47,10 +45,9 @@ public abstract class AbstractXActorSyntacticSequencer extends AbstractSyntactic
 		match_CompositeEntity_StructureKeyword_11_0_q = new TokenAlias(false, true, grammarAccess.getCompositeEntityAccess().getStructureKeyword_11_0());
 		match_CompositeEntity_VarKeyword_9_0_q = new TokenAlias(false, true, grammarAccess.getCompositeEntityAccess().getVarKeyword_9_0());
 		match_ConversionRelation_SemicolonKeyword_3_q = new TokenAlias(false, true, grammarAccess.getConversionRelationAccess().getSemicolonKeyword_3());
-		match_ImportDirective_SemicolonKeyword_2_q = new TokenAlias(false, true, grammarAccess.getImportDirectiveAccess().getSemicolonKeyword_2());
 		match_KeywordChannelSelector_AtKeyword_0_q = new TokenAlias(false, true, grammarAccess.getKeywordChannelSelectorAccess().getAtKeyword_0());
-		match_OpSingleAssign_ColonEqualsSignKeyword_0_or_EqualsSignKeyword_1 = new AlternativeAlias(false, false, new TokenAlias(false, false, grammarAccess.getOpSingleAssignAccess().getColonEqualsSignKeyword_0()), new TokenAlias(false, false, grammarAccess.getOpSingleAssignAccess().getEqualsSignKeyword_1()));
 		match_Schedule_FsmKeyword_1_q = new TokenAlias(false, true, grammarAccess.getScheduleAccess().getFsmKeyword_1());
+		match_StateVariable_SemicolonKeyword_5_2_q = new TokenAlias(false, true, grammarAccess.getStateVariableAccess().getSemicolonKeyword_5_2());
 		match_TypedAtomicActorInstance_MAPS_TOParserRuleCall_3_1_1_1_q = new TokenAlias(false, true, grammarAccess.getTypedAtomicActorInstanceAccess().getMAPS_TOParserRuleCall_3_1_1_1());
 		match_TypedAtomicActorInstance_SemicolonKeyword_3_0_2_q = new TokenAlias(false, true, grammarAccess.getTypedAtomicActorInstanceAccess().getSemicolonKeyword_3_0_2());
 		match_TypedAtomicActorInstance___EqualsSignKeyword_3_1_0_0_ActorKeyword_3_1_0_1__q = new GroupAlias(false, true, new TokenAlias(false, false, grammarAccess.getTypedAtomicActorInstanceAccess().getEqualsSignKeyword_3_1_0_0()), new TokenAlias(false, false, grammarAccess.getTypedAtomicActorInstanceAccess().getActorKeyword_3_1_0_1()));
@@ -99,13 +96,13 @@ public abstract class AbstractXActorSyntacticSequencer extends AbstractSyntactic
 	
 	/**
 	 * OpSingleAssign:
-	 * 	(':='|'=')
+	 * 	'='
 	 * ;
 	 */
 	protected String getOpSingleAssignToken(EObject semanticObject, RuleCall ruleCall, INode node) {
 		if (node != null)
 			return getTokenText(node);
-		return ":=";
+		return "=";
 	}
 	
 	@Override
@@ -122,14 +119,12 @@ public abstract class AbstractXActorSyntacticSequencer extends AbstractSyntactic
 				emit_CompositeEntity_VarKeyword_9_0_q(semanticObject, getLastNavigableState(), syntaxNodes);
 			else if(match_ConversionRelation_SemicolonKeyword_3_q.equals(syntax))
 				emit_ConversionRelation_SemicolonKeyword_3_q(semanticObject, getLastNavigableState(), syntaxNodes);
-			else if(match_ImportDirective_SemicolonKeyword_2_q.equals(syntax))
-				emit_ImportDirective_SemicolonKeyword_2_q(semanticObject, getLastNavigableState(), syntaxNodes);
 			else if(match_KeywordChannelSelector_AtKeyword_0_q.equals(syntax))
 				emit_KeywordChannelSelector_AtKeyword_0_q(semanticObject, getLastNavigableState(), syntaxNodes);
-			else if(match_OpSingleAssign_ColonEqualsSignKeyword_0_or_EqualsSignKeyword_1.equals(syntax))
-				emit_OpSingleAssign_ColonEqualsSignKeyword_0_or_EqualsSignKeyword_1(semanticObject, getLastNavigableState(), syntaxNodes);
 			else if(match_Schedule_FsmKeyword_1_q.equals(syntax))
 				emit_Schedule_FsmKeyword_1_q(semanticObject, getLastNavigableState(), syntaxNodes);
+			else if(match_StateVariable_SemicolonKeyword_5_2_q.equals(syntax))
+				emit_StateVariable_SemicolonKeyword_5_2_q(semanticObject, getLastNavigableState(), syntaxNodes);
 			else if(match_TypedAtomicActorInstance_MAPS_TOParserRuleCall_3_1_1_1_q.equals(syntax))
 				emit_TypedAtomicActorInstance_MAPS_TOParserRuleCall_3_1_1_1_q(semanticObject, getLastNavigableState(), syntaxNodes);
 			else if(match_TypedAtomicActorInstance_SemicolonKeyword_3_0_2_q.equals(syntax))
@@ -192,14 +187,6 @@ public abstract class AbstractXActorSyntacticSequencer extends AbstractSyntactic
 	
 	/**
 	 * Syntax:
-	 *     ';'?
-	 */
-	protected void emit_ImportDirective_SemicolonKeyword_2_q(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
-		acceptNodes(transition, nodes);
-	}
-	
-	/**
-	 * Syntax:
 	 *     'at'?
 	 */
 	protected void emit_KeywordChannelSelector_AtKeyword_0_q(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
@@ -208,17 +195,17 @@ public abstract class AbstractXActorSyntacticSequencer extends AbstractSyntactic
 	
 	/**
 	 * Syntax:
-	 *     ':=' | '='
+	 *     'fsm'?
 	 */
-	protected void emit_OpSingleAssign_ColonEqualsSignKeyword_0_or_EqualsSignKeyword_1(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
+	protected void emit_Schedule_FsmKeyword_1_q(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
 		acceptNodes(transition, nodes);
 	}
 	
 	/**
 	 * Syntax:
-	 *     'fsm'?
+	 *     ';'?
 	 */
-	protected void emit_Schedule_FsmKeyword_1_q(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
+	protected void emit_StateVariable_SemicolonKeyword_5_2_q(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
 		acceptNodes(transition, nodes);
 	}
 	

@@ -46,6 +46,8 @@ public class XActorParser extends AbstractContentAssistParser {
 					put(grammarAccess.getCaltropActorImplAccess().getAlternatives_2(), "rule__CaltropActorImpl__Alternatives_2");
 					put(grammarAccess.getCaltropActorImplAccess().getFunctionsAlternatives_2_3_0(), "rule__CaltropActorImpl__FunctionsAlternatives_2_3_0");
 					put(grammarAccess.getStateVariableAccess().getAlternatives_1(), "rule__StateVariable__Alternatives_1");
+					put(grammarAccess.getStateVariableAccess().getAlternatives_5_0_0(), "rule__StateVariable__Alternatives_5_0_0");
+					put(grammarAccess.getRealmAccess().getKeyAlternatives_1_0(), "rule__Realm__KeyAlternatives_1_0");
 					put(grammarAccess.getReActionAccess().getAlternatives(), "rule__ReAction__Alternatives");
 					put(grammarAccess.getChannelSelectorAccess().getAlternatives(), "rule__ChannelSelector__Alternatives");
 					put(grammarAccess.getExpressionChannelSelectorAccess().getAlternatives_1(), "rule__ExpressionChannelSelector__Alternatives_1");
@@ -53,7 +55,6 @@ public class XActorParser extends AbstractContentAssistParser {
 					put(grammarAccess.getEventPatternAccess().getNameAlternatives_3_0(), "rule__EventPattern__NameAlternatives_3_0");
 					put(grammarAccess.getEventPatternAccess().getQualifierAlternatives_4_1_0(), "rule__EventPattern__QualifierAlternatives_4_1_0");
 					put(grammarAccess.getXUnaryOperationAccess().getAlternatives(), "rule__XUnaryOperation__Alternatives");
-					put(grammarAccess.getOpSingleAssignAccess().getAlternatives(), "rule__OpSingleAssign__Alternatives");
 					put(grammarAccess.getXAssignmentAccess().getAlternatives(), "rule__XAssignment__Alternatives");
 					put(grammarAccess.getOpMultiAssignAccess().getAlternatives(), "rule__OpMultiAssign__Alternatives");
 					put(grammarAccess.getOpEqualityAccess().getAlternatives(), "rule__OpEquality__Alternatives");
@@ -93,7 +94,6 @@ public class XActorParser extends AbstractContentAssistParser {
 					put(grammarAccess.getChannelSelectorKeywordAccess().getAlternatives(), "rule__ChannelSelectorKeyword__Alternatives");
 					put(grammarAccess.getActorModelAccess().getGroup(), "rule__ActorModel__Group__0");
 					put(grammarAccess.getEntityFolderAccess().getGroup(), "rule__EntityFolder__Group__0");
-					put(grammarAccess.getImportDirectiveAccess().getGroup(), "rule__ImportDirective__Group__0");
 					put(grammarAccess.getQualifiedNameWithOptionalWildcardAccess().getGroup(), "rule__QualifiedNameWithOptionalWildcard__Group__0");
 					put(grammarAccess.getQualifiedNameWithOptionalWildcardAccess().getGroup_1(), "rule__QualifiedNameWithOptionalWildcard__Group_1__0");
 					put(grammarAccess.getActorRefAccess().getGroup(), "rule__ActorRef__Group__0");
@@ -174,7 +174,10 @@ public class XActorParser extends AbstractContentAssistParser {
 					put(grammarAccess.getFunctionParameterAccess().getGroup(), "rule__FunctionParameter__Group__0");
 					put(grammarAccess.getStateVariableAccess().getGroup(), "rule__StateVariable__Group__0");
 					put(grammarAccess.getStateVariableAccess().getGroup_0(), "rule__StateVariable__Group_0__0");
-					put(grammarAccess.getStateVariableAccess().getGroup_4(), "rule__StateVariable__Group_4__0");
+					put(grammarAccess.getStateVariableAccess().getGroup_5(), "rule__StateVariable__Group_5__0");
+					put(grammarAccess.getStateVariableAccess().getGroup_5_0(), "rule__StateVariable__Group_5_0__0");
+					put(grammarAccess.getStateVariableAccess().getGroup_5_1(), "rule__StateVariable__Group_5_1__0");
+					put(grammarAccess.getRealmAccess().getGroup(), "rule__Realm__Group__0");
 					put(grammarAccess.getInitActionAccess().getGroup(), "rule__InitAction__Group__0");
 					put(grammarAccess.getInitActionAccess().getGroup_1(), "rule__InitAction__Group_1__0");
 					put(grammarAccess.getInitActionAccess().getGroup_4(), "rule__InitAction__Group_4__0");
@@ -397,7 +400,6 @@ public class XActorParser extends AbstractContentAssistParser {
 					put(grammarAccess.getEntityFolderAccess().getAttributesAssignment_4(), "rule__EntityFolder__AttributesAssignment_4");
 					put(grammarAccess.getEntityFolderAccess().getEntityContainersAssignment_5_0(), "rule__EntityFolder__EntityContainersAssignment_5_0");
 					put(grammarAccess.getEntityFolderAccess().getEntitiesAssignment_5_1(), "rule__EntityFolder__EntitiesAssignment_5_1");
-					put(grammarAccess.getImportDirectiveAccess().getImportedNamespaceAssignment_1(), "rule__ImportDirective__ImportedNamespaceAssignment_1");
 					put(grammarAccess.getActorRefAccess().getRefAssignment_0(), "rule__ActorRef__RefAssignment_0");
 					put(grammarAccess.getActorRefAccess().getTypeArgumentsAssignment_1_1(), "rule__ActorRef__TypeArgumentsAssignment_1_1");
 					put(grammarAccess.getActorRefAccess().getTypeArgumentsAssignment_1_2_1(), "rule__ActorRef__TypeArgumentsAssignment_1_2_1");
@@ -499,9 +501,13 @@ public class XActorParser extends AbstractContentAssistParser {
 					put(grammarAccess.getFunctionParameterAccess().getNameAssignment_1(), "rule__FunctionParameter__NameAssignment_1");
 					put(grammarAccess.getStateVariableAccess().getAttributesAssignment_0_1(), "rule__StateVariable__AttributesAssignment_0_1");
 					put(grammarAccess.getStateVariableAccess().getConstantAssignment_1_0(), "rule__StateVariable__ConstantAssignment_1_0");
-					put(grammarAccess.getStateVariableAccess().getTypeAssignment_2(), "rule__StateVariable__TypeAssignment_2");
-					put(grammarAccess.getStateVariableAccess().getNameAssignment_3(), "rule__StateVariable__NameAssignment_3");
-					put(grammarAccess.getStateVariableAccess().getValueExpressionAssignment_4_1(), "rule__StateVariable__ValueExpressionAssignment_4_1");
+					put(grammarAccess.getStateVariableAccess().getRealmAssignment_2(), "rule__StateVariable__RealmAssignment_2");
+					put(grammarAccess.getStateVariableAccess().getTypeAssignment_3(), "rule__StateVariable__TypeAssignment_3");
+					put(grammarAccess.getStateVariableAccess().getNameAssignment_4(), "rule__StateVariable__NameAssignment_4");
+					put(grammarAccess.getStateVariableAccess().getBindingAssignment_5_0_0_0(), "rule__StateVariable__BindingAssignment_5_0_0_0");
+					put(grammarAccess.getStateVariableAccess().getValueExpressionAssignment_5_0_1(), "rule__StateVariable__ValueExpressionAssignment_5_0_1");
+					put(grammarAccess.getStateVariableAccess().getUpdateExpressionAssignment_5_1_1(), "rule__StateVariable__UpdateExpressionAssignment_5_1_1");
+					put(grammarAccess.getRealmAccess().getKeyAssignment_1(), "rule__Realm__KeyAssignment_1");
 					put(grammarAccess.getInitActionAccess().getNameAssignment_1_0(), "rule__InitAction__NameAssignment_1_0");
 					put(grammarAccess.getInitActionAccess().getOutputPatternsAssignment_4_0(), "rule__InitAction__OutputPatternsAssignment_4_0");
 					put(grammarAccess.getInitActionAccess().getOutputPatternsAssignment_4_1_1(), "rule__InitAction__OutputPatternsAssignment_4_1_1");

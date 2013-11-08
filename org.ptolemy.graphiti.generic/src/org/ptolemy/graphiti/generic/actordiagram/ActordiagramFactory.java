@@ -23,6 +23,15 @@ public interface ActordiagramFactory extends EFactory {
 	ActordiagramFactory eINSTANCE = org.ptolemy.graphiti.generic.actordiagram.impl.ActordiagramFactoryImpl.init();
 
 	/**
+	 * Returns a new object of class '<em>Icon Shape</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Icon Shape</em>'.
+	 * @generated
+	 */
+	IconShape createIconShape();
+
+	/**
 	 * Returns a new object of class '<em>Entity Shape</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

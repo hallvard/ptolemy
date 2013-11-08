@@ -1,4 +1,4 @@
-namespace hal.caltrop.actors.variants :
+namespace org.ptolemy.xtext.tests.variants :
 
 actor single1T1String<T>
 T input ==> String output :

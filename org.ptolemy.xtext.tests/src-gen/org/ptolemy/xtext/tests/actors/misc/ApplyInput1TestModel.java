@@ -48,4 +48,9 @@ public class ApplyInput1TestModel extends TypedCompositeActor {
     this.applyInputTest.getPort("input").link(r2);
     
   }
+  
+  public ApplyInput1TestModel(final CompositeEntity parent) throws NameDuplicationException, IllegalActionException {
+    this(parent, "ApplyInput1TestModel");
+    
+  }
 }

@@ -5,7 +5,10 @@
   <eClassifiers xsi:type="ecore:EClass" name="LabelShape" abstract="true">
     <eStructuralFeatures xsi:type="ecore:EReference" name="label" eType="ecore:EClass platform:/plugin/org.eclipse.graphiti.mm/model/graphiti.ecore#//algorithms/AbstractText"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="EntityShape" eSuperTypes="platform:/plugin/org.eclipse.graphiti.mm/model/graphiti.ecore#//pictograms/ContainerShape #//LabelShape"/>
+  <eClassifiers xsi:type="ecore:EClass" name="IconShape">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="icon" eType="ecore:EClass platform:/plugin/org.eclipse.graphiti.mm/model/graphiti.ecore#//algorithms/PlatformGraphicsAlgorithm"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="EntityShape" eSuperTypes="platform:/plugin/org.eclipse.graphiti.mm/model/graphiti.ecore#//pictograms/ContainerShape #//LabelShape #//IconShape"/>
   <eClassifiers xsi:type="ecore:EClass" name="EntityContainerShape" eSuperTypes="platform:/plugin/org.eclipse.graphiti.mm/model/graphiti.ecore#//pictograms/ContainerShape #//LabelShape"/>
   <eClassifiers xsi:type="ecore:EClass" name="EntityContainerDiagram" eSuperTypes="platform:/plugin/org.eclipse.graphiti.mm/model/graphiti.ecore#//pictograms/Diagram"/>
   <eClassifiers xsi:type="ecore:EClass" name="PortShape" eSuperTypes="platform:/plugin/org.eclipse.graphiti.mm/model/graphiti.ecore#//pictograms/Shape">

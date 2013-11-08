@@ -46,19 +46,29 @@ public interface EntityFolder extends EntityContainer<Port> {
 	EList<EntityFolder> getEntityContainers();
 
 	/**
-	 * Returns the value of the '<em><b>Imports</b></em>' containment reference list.
-	 * The list contents are of type {@link org.eclipse.xtext.xtype.XImportSection}.
+	 * Returns the value of the '<em><b>Imports</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Imports</em>' containment reference list isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Imports</em>' containment reference list.
+	 * @return the value of the '<em>Imports</em>' containment reference.
+	 * @see #setImports(XImportSection)
 	 * @see org.ptolemy.ecore.xactor.XactorPackage#getEntityFolder_Imports()
 	 * @model containment="true"
 	 * @generated
 	 */
-	EList<XImportSection> getImports();
+	XImportSection getImports();
+
+	/**
+	 * Sets the value of the '{@link org.ptolemy.ecore.xactor.EntityFolder#getImports <em>Imports</em>}' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Imports</em>' containment reference.
+	 * @see #getImports()
+	 * @generated
+	 */
+	void setImports(XImportSection value);
 
 } // EntityFolder

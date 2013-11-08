@@ -17,6 +17,7 @@ import org.ptolemy.graphiti.generic.diagram.features.CreatePortFeature;
 import org.ptolemy.graphiti.generic.diagram.features.DoubleClickFeature;
 import org.ptolemy.graphiti.generic.diagram.features.IEntityLayout;
 import org.ptolemy.graphiti.generic.diagram.features.editastext.AbstractEditAsTextFeature;
+import org.ptolemy.graphiti.generic.diagram.features.util.IconImageProvider;
 
 import com.google.inject.AbstractModule;
 import com.google.inject.name.Names;

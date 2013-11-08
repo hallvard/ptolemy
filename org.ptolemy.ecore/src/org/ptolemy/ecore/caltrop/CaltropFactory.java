@@ -207,6 +207,15 @@ public interface CaltropFactory extends EFactory {
 	ConversionRelation createConversionRelation();
 
 	/**
+	 * Returns a new object of class '<em>Realm</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Realm</em>'.
+	 * @generated
+	 */
+	Realm createRealm();
+
+	/**
 	 * Returns the package supported by this factory.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

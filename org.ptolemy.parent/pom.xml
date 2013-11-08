@@ -1,0 +1,49 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>org.ptolemy</groupId>
+  <artifactId>org.ptolemy.parent</artifactId>
+  <version>0.0.1-SNAPSHOT</version>
+  <packaging>pom</packaging>
+  <name>Ptolemy maven parent project</name>
+  
+  <repositories>
+  	<repository>
+  		<id>eclipse-kepler</id>
+  		<layout>p2</layout>
+  		<url>http://download.eclipse.org/releases/kepler</url>
+  	</repository>
+  	<repository>
+  		<id>kieler</id>
+  		<layout>p2</layout>
+  		<url>http://rtsys.informatik.uni-kiel.de/~kieler/updatesite/</url>
+  	</repository>
+  </repositories>
+
+  <build>
+  	<plugins>
+  		<plugin>
+  			<groupId>org.eclipse.tycho</groupId>
+  			<artifactId>tycho-maven-plugin</artifactId>
+  			<version>0.18.0</version>
+  			<extensions>true</extensions>
+  		</plugin>
+   	</plugins>
+  </build>
+
+  <modules>
+  	<module>../org.ptolemy.ecore</module>
+  	<module>../org.ptolemy.jars</module>
+  	<module>../org.ptolemy.xtext.lib</module>
+  	<module>../org.ptolemy.xtext.launch</module>
+  	<module>../org.ptolemy.xtext</module>
+  	<module>../org.ptolemy.xtext.ui</module>
+  	<module>../org.ptolemy.graphiti</module>
+  	<module>../org.ptolemy.graphiti.generic</module>
+  	<module>../org.ptolemy.graphiti.generic.kieler</module> 
+  	<module>../org.ptolemy.feature</module>
+  	<module>../org.ptolemy.updatesite</module>
+  	<module>../org.ptolemy.xtext.tests</module>
+  	<module>../org.ptolemy.xtext.tests.util</module>
+  	<module>../org.ptolemy.xtext.launch.swixml</module>
+  </modules>
+</project>

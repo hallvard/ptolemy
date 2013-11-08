@@ -6,7 +6,6 @@
  */
 package org.ptolemy.ecore.xactor;
 
-import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
@@ -134,7 +133,7 @@ public interface XactorPackage extends EPackage {
 	int ENTITY_FOLDER__ENTITY_CONTAINERS = KernelPackage.ENTITY_CONTAINER_FEATURE_COUNT + 0;
 
 	/**
-	 * The feature id for the '<em><b>Imports</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Imports</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -150,35 +149,6 @@ public interface XactorPackage extends EPackage {
 	 * @ordered
 	 */
 	int ENTITY_FOLDER_FEATURE_COUNT = KernelPackage.ENTITY_CONTAINER_FEATURE_COUNT + 2;
-
-	/**
-	 * The meta object id for the '{@link org.ptolemy.ecore.xactor.impl.ImportDirectiveImpl <em>Import Directive</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.ptolemy.ecore.xactor.impl.ImportDirectiveImpl
-	 * @see org.ptolemy.ecore.xactor.impl.XactorPackageImpl#getImportDirective()
-	 * @generated
-	 */
-	int IMPORT_DIRECTIVE = 1;
-
-	/**
-	 * The feature id for the '<em><b>Imported Namespace</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int IMPORT_DIRECTIVE__IMPORTED_NAMESPACE = 0;
-
-	/**
-	 * The number of structural features of the '<em>Import Directive</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int IMPORT_DIRECTIVE_FEATURE_COUNT = 1;
-
 
 	/**
 	 * Returns the meta object for class '{@link org.ptolemy.ecore.xactor.EntityFolder <em>Entity Folder</em>}'.
@@ -202,36 +172,15 @@ public interface XactorPackage extends EPackage {
 	EReference getEntityFolder_EntityContainers();
 
 	/**
-	 * Returns the meta object for the containment reference list '{@link org.ptolemy.ecore.xactor.EntityFolder#getImports <em>Imports</em>}'.
+	 * Returns the meta object for the containment reference '{@link org.ptolemy.ecore.xactor.EntityFolder#getImports <em>Imports</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference list '<em>Imports</em>'.
+	 * @return the meta object for the containment reference '<em>Imports</em>'.
 	 * @see org.ptolemy.ecore.xactor.EntityFolder#getImports()
 	 * @see #getEntityFolder()
 	 * @generated
 	 */
 	EReference getEntityFolder_Imports();
-
-	/**
-	 * Returns the meta object for class '{@link org.ptolemy.ecore.xactor.ImportDirective <em>Import Directive</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for class '<em>Import Directive</em>'.
-	 * @see org.ptolemy.ecore.xactor.ImportDirective
-	 * @generated
-	 */
-	EClass getImportDirective();
-
-	/**
-	 * Returns the meta object for the attribute '{@link org.ptolemy.ecore.xactor.ImportDirective#getImportedNamespace <em>Imported Namespace</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Imported Namespace</em>'.
-	 * @see org.ptolemy.ecore.xactor.ImportDirective#getImportedNamespace()
-	 * @see #getImportDirective()
-	 * @generated
-	 */
-	EAttribute getImportDirective_ImportedNamespace();
 
 	/**
 	 * Returns the factory that creates the instances of the model.
@@ -274,30 +223,12 @@ public interface XactorPackage extends EPackage {
 		EReference ENTITY_FOLDER__ENTITY_CONTAINERS = eINSTANCE.getEntityFolder_EntityContainers();
 
 		/**
-		 * The meta object literal for the '<em><b>Imports</b></em>' containment reference list feature.
+		 * The meta object literal for the '<em><b>Imports</b></em>' containment reference feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
 		EReference ENTITY_FOLDER__IMPORTS = eINSTANCE.getEntityFolder_Imports();
-
-		/**
-		 * The meta object literal for the '{@link org.ptolemy.ecore.xactor.impl.ImportDirectiveImpl <em>Import Directive</em>}' class.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @see org.ptolemy.ecore.xactor.impl.ImportDirectiveImpl
-		 * @see org.ptolemy.ecore.xactor.impl.XactorPackageImpl#getImportDirective()
-		 * @generated
-		 */
-		EClass IMPORT_DIRECTIVE = eINSTANCE.getImportDirective();
-
-		/**
-		 * The meta object literal for the '<em><b>Imported Namespace</b></em>' attribute feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EAttribute IMPORT_DIRECTIVE__IMPORTED_NAMESPACE = eINSTANCE.getImportDirective_ImportedNamespace();
 
 	}
 

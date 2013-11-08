@@ -759,6 +759,10 @@ public class KernelPackageImpl extends EPackageImpl implements KernelPackage {
 		EGenericType g2 = createEGenericType(entityEClass_P);
 		g1.getETypeArguments().add(g2);
 		entityEClass.getEGenericSuperTypes().add(g1);
+		g1 = createEGenericType(this.getIEntity());
+		g2 = createEGenericType(entityRefEClass_P);
+		g1.getETypeArguments().add(g2);
+		entityRefEClass.getEGenericSuperTypes().add(g1);
 		portEClass.getESuperTypes().add(this.getNamedObj());
 		relationEClass.getESuperTypes().add(this.getNamedObj());
 		g1 = createEGenericType(this.getEntity());

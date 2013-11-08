@@ -35,6 +35,11 @@ public class stringConstTest extends AbstractTest {
     
   }
   
+  public stringConstTest(final CompositeEntity parent) throws NameDuplicationException, IllegalActionException {
+    this(parent, "stringConstTest");
+    
+  }
+  
   protected Pair<Integer,AbstractActionImpl> _fireImpl() throws IllegalActionException {
     Pair<Integer,AbstractActionImpl> result = super._fireImpl();
     if (result != null) return result;

@@ -1,11 +1,10 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
-Bundle-Name: Ptolemy II
+Bundle-Name: Ptolemy II jars
 Bundle-SymbolicName: org.ptolemy.jars
-Bundle-Version: 1.0.0.qualifier
+Bundle-Version: 0.0.1.qualifier
 Bundle-Vendor: CHESS, UC Berkeley
-Bundle-ClassPath: .,
- lib/ptolemy-core.jar,
+Bundle-ClassPath: lib/ptolemy-core.jar,
  lib/ptolemy-ddf.jar,
  lib/ptolemy-de.jar,
  lib/ptolemy-lib.jar,

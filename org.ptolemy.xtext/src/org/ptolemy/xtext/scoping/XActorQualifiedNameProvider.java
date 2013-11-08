@@ -4,6 +4,7 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.xtext.naming.IQualifiedNameConverter;
 import org.eclipse.xtext.naming.QualifiedName;
 import org.eclipse.xtext.xbase.scoping.XbaseQualifiedNameProvider;
+import org.ptolemy.ecore.kernel.EntityRef;
 import org.ptolemy.ecore.kernel.IEntity;
 import org.ptolemy.ecore.kernel.Nameable;
 import org.ptolemy.ecore.kernel.Named;
@@ -18,15 +19,14 @@ public class XActorQualifiedNameProvider extends XbaseQualifiedNameProvider {
 
 	@Override
 	public QualifiedName getFullyQualifiedName(EObject obj) {
-		if (obj instanceof Nameable) {
+		if (obj instanceof EntityRef<?>);
+		else if (obj instanceof IEntity<?>) {
 			String name = ((Named) obj).getName();
 			if (name != null) {
-				if (obj instanceof IEntity<?>) {
-					String fullName = KernelResourceImpl.getFullName((Nameable) obj, true, false);
-					return (fullName != null ? qualifiedNameConverter.toQualifiedName(fullName) : null);
-				}
-				return QualifiedName.create(name);
+				String fullName = KernelResourceImpl.getFullName((Nameable) obj, true, false);
+				return (fullName != null ? qualifiedNameConverter.toQualifiedName(fullName) : null);
 			}
+//			return QualifiedName.create(name);
 		}
 		return super.getFullyQualifiedName(obj);
 	}

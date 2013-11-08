@@ -8,6 +8,7 @@ package org.ptolemy.ecore.kernel.impl;
 
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
+import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EReference;
@@ -15,6 +16,7 @@ import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.EObjectImpl;
 import org.eclipse.emf.ecore.util.EcoreUtil;
+import org.ptolemy.ecore.kernel.Attribute;
 import org.ptolemy.ecore.kernel.Entity;
 import org.ptolemy.ecore.kernel.EntityRef;
 import org.ptolemy.ecore.kernel.KernelPackage;
@@ -215,7 +217,6 @@ public class EntityRefImpl<P extends Port> extends EObjectImpl implements Entity
 		}
 		return false;
 	}
-
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -384,6 +385,108 @@ public class EntityRefImpl<P extends Port> extends EObjectImpl implements Entity
 				return resolved != null;
 		}
 		return super.eIsSet(featureID);
+	}
+	
+	// from IEntity
+	
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated NOT
+	 */
+	public EList<Attribute> getAttributes() {
+		resolve(false);
+		return getRef().getAttributes();
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated NOT
+	 */
+	public EList<Attribute> getAllAttributes() {
+		resolve(false);
+		return getRef().getAllAttributes();
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated NOT
+	 */
+	public EList<P> getPorts() {
+		resolve(false);
+		return getRef().getPorts();
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated NOT
+	 */
+	public EList<P> getAllPorts() {
+		resolve(false);
+		return getResolved().getAllPorts();
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated NOT
+	 */
+	public void setName(String name) {
+		throw new UnsupportedOperationException();
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated NOT
+	 */
+	public NamedObj getContainer() {
+		resolve(false);
+		return getResolved().getContainer();
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated NOT
+	 */
+	public String getName() {
+		resolve(false);
+		return getResolved().getName();
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated NOT
+	 */
+	public String getDisplayName() {
+		resolve(false);
+		return getResolved().getDisplayName();
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated NOT
+	 */
+	public String getFullName() {
+		resolve(false);
+		return getResolved().getFullName();
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated NOT
+	 */
+	public String getName(NamedObj container) {
+		resolve(false);
+		return getResolved().getName(container);
 	}
 
 } //EntityRefImpl

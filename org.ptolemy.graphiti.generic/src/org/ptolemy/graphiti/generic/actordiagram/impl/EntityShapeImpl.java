@@ -8,9 +8,11 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.graphiti.mm.algorithms.AbstractText;
+import org.eclipse.graphiti.mm.algorithms.PlatformGraphicsAlgorithm;
 import org.eclipse.graphiti.mm.pictograms.impl.ContainerShapeImpl;
 import org.ptolemy.graphiti.generic.actordiagram.ActordiagramPackage;
 import org.ptolemy.graphiti.generic.actordiagram.EntityShape;
+import org.ptolemy.graphiti.generic.actordiagram.IconShape;
 import org.ptolemy.graphiti.generic.actordiagram.LabelShape;
 
 /**
@@ -21,6 +23,7 @@ import org.ptolemy.graphiti.generic.actordiagram.LabelShape;
  * The following features are implemented:
  * <ul>
  *   <li>{@link org.ptolemy.graphiti.generic.actordiagram.impl.EntityShapeImpl#getLabel <em>Label</em>}</li>
+ *   <li>{@link org.ptolemy.graphiti.generic.actordiagram.impl.EntityShapeImpl#getIcon <em>Icon</em>}</li>
  * </ul>
  * </p>
  *
@@ -36,6 +39,16 @@ public class EntityShapeImpl extends ContainerShapeImpl implements EntityShape {
 	 * @ordered
 	 */
 	protected AbstractText label;
+
+	/**
+	 * The cached value of the '{@link #getIcon() <em>Icon</em>}' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getIcon()
+	 * @generated
+	 * @ordered
+	 */
+	protected PlatformGraphicsAlgorithm icon;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -99,12 +112,53 @@ public class EntityShapeImpl extends ContainerShapeImpl implements EntityShape {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public PlatformGraphicsAlgorithm getIcon() {
+		if (icon != null && icon.eIsProxy()) {
+			InternalEObject oldIcon = (InternalEObject)icon;
+			icon = (PlatformGraphicsAlgorithm)eResolveProxy(oldIcon);
+			if (icon != oldIcon) {
+				if (eNotificationRequired())
+					eNotify(new ENotificationImpl(this, Notification.RESOLVE, ActordiagramPackage.ENTITY_SHAPE__ICON, oldIcon, icon));
+			}
+		}
+		return icon;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public PlatformGraphicsAlgorithm basicGetIcon() {
+		return icon;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setIcon(PlatformGraphicsAlgorithm newIcon) {
+		PlatformGraphicsAlgorithm oldIcon = icon;
+		icon = newIcon;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, ActordiagramPackage.ENTITY_SHAPE__ICON, oldIcon, icon));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 			case ActordiagramPackage.ENTITY_SHAPE__LABEL:
 				if (resolve) return getLabel();
 				return basicGetLabel();
+			case ActordiagramPackage.ENTITY_SHAPE__ICON:
+				if (resolve) return getIcon();
+				return basicGetIcon();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -119,6 +173,9 @@ public class EntityShapeImpl extends ContainerShapeImpl implements EntityShape {
 		switch (featureID) {
 			case ActordiagramPackage.ENTITY_SHAPE__LABEL:
 				setLabel((AbstractText)newValue);
+				return;
+			case ActordiagramPackage.ENTITY_SHAPE__ICON:
+				setIcon((PlatformGraphicsAlgorithm)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -135,6 +192,9 @@ public class EntityShapeImpl extends ContainerShapeImpl implements EntityShape {
 			case ActordiagramPackage.ENTITY_SHAPE__LABEL:
 				setLabel((AbstractText)null);
 				return;
+			case ActordiagramPackage.ENTITY_SHAPE__ICON:
+				setIcon((PlatformGraphicsAlgorithm)null);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -149,6 +209,8 @@ public class EntityShapeImpl extends ContainerShapeImpl implements EntityShape {
 		switch (featureID) {
 			case ActordiagramPackage.ENTITY_SHAPE__LABEL:
 				return label != null;
+			case ActordiagramPackage.ENTITY_SHAPE__ICON:
+				return icon != null;
 		}
 		return super.eIsSet(featureID);
 	}
@@ -166,6 +228,12 @@ public class EntityShapeImpl extends ContainerShapeImpl implements EntityShape {
 				default: return -1;
 			}
 		}
+		if (baseClass == IconShape.class) {
+			switch (derivedFeatureID) {
+				case ActordiagramPackage.ENTITY_SHAPE__ICON: return ActordiagramPackage.ICON_SHAPE__ICON;
+				default: return -1;
+			}
+		}
 		return super.eBaseStructuralFeatureID(derivedFeatureID, baseClass);
 	}
 
@@ -179,6 +247,12 @@ public class EntityShapeImpl extends ContainerShapeImpl implements EntityShape {
 		if (baseClass == LabelShape.class) {
 			switch (baseFeatureID) {
 				case ActordiagramPackage.LABEL_SHAPE__LABEL: return ActordiagramPackage.ENTITY_SHAPE__LABEL;
+				default: return -1;
+			}
+		}
+		if (baseClass == IconShape.class) {
+			switch (baseFeatureID) {
+				case ActordiagramPackage.ICON_SHAPE__ICON: return ActordiagramPackage.ENTITY_SHAPE__ICON;
 				default: return -1;
 			}
 		}

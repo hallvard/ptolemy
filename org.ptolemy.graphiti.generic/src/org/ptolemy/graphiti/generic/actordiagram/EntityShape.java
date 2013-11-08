@@ -15,5 +15,5 @@ import org.eclipse.graphiti.mm.pictograms.ContainerShape;
  * @model
  * @generated
  */
-public interface EntityShape extends ContainerShape, LabelShape {
+public interface EntityShape extends ContainerShape, LabelShape, IconShape {
 } // EntityShape

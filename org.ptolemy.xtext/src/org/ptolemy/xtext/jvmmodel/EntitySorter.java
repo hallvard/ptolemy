@@ -13,10 +13,13 @@ public class EntitySorter {
 	
 	private Collection<IEntity<?>> entities;
 	
-	private IEntity<?> root;
+	private final IEntity<?> root;
 	
-	public EntitySorter(IEntity<?> root) {
+	private final boolean includeSuperEntities;
+	
+	public EntitySorter(IEntity<?> root, boolean includeSuperEntities) {
 		this.root = root;
+		this.includeSuperEntities = includeSuperEntities;
 	}
 
 	public Collection<IEntity<?>> sort() {
@@ -26,7 +29,7 @@ public class EntitySorter {
 	}
 	
 	private boolean accept(IEntity<?> entity) {
-		if (root.eResource() == entity.eResource() && (! entities.contains(entity))) {
+		if ((! entities.contains(entity)) && root.eResource() == entity.eResource()) {
 			return entities.add(entity);
 		}
 		return false;
@@ -34,10 +37,9 @@ public class EntitySorter {
 
 	private boolean doSwitch(IEntity<?> entity) {
 		boolean result = false;
-		if (entity instanceof Entity<?> && ((Entity<?>) entity).getSuperEntity() != null) {
+		if (includeSuperEntities && entity instanceof Entity<?> && ((Entity<?>) entity).getSuperEntity() != null) {
 			EntityRef<?> superEntity = ((Entity<?>) entity).getSuperEntity();
-			superEntity.resolve(false);
-			accept(superEntity.getRef());
+			accept(superEntity);
 		}
 		if (entity instanceof EntityContainer<?>) {
 			for (Entity<?> child : ((EntityContainer<?>) entity).getEntities()) {

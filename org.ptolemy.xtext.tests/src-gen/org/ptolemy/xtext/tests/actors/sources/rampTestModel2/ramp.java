@@ -26,4 +26,9 @@ public class ramp extends Ramp {
     super(parent, name);
     
   }
+  
+  public ramp(final CompositeEntity parent) throws NameDuplicationException, IllegalActionException {
+    this(parent, "ramp");
+    
+  }
 }

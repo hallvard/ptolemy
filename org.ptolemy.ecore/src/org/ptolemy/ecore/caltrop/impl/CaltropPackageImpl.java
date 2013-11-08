@@ -36,6 +36,8 @@ import org.ptolemy.ecore.caltrop.OutputAction;
 import org.ptolemy.ecore.caltrop.OutputPattern;
 import org.ptolemy.ecore.caltrop.PortPattern;
 import org.ptolemy.ecore.caltrop.ReAction;
+import org.ptolemy.ecore.caltrop.Realm;
+import org.ptolemy.ecore.caltrop.RealmKind;
 import org.ptolemy.ecore.caltrop.Schedule;
 import org.ptolemy.ecore.caltrop.State;
 import org.ptolemy.ecore.caltrop.StateVariable;
@@ -210,6 +212,13 @@ public class CaltropPackageImpl extends EPackageImpl implements CaltropPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	private EClass realmEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	private EEnum channelSelectorKeywordEEnum = null;
 
 	/**
@@ -364,6 +373,33 @@ public class CaltropPackageImpl extends EPackageImpl implements CaltropPackage {
 	 */
 	public EAttribute getStateVariable_Constant() {
 		return (EAttribute)stateVariableEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getStateVariable_Binding() {
+		return (EAttribute)stateVariableEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getStateVariable_UpdateExpression() {
+		return (EReference)stateVariableEClass.getEStructuralFeatures().get(2);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getStateVariable_Realm() {
+		return (EReference)stateVariableEClass.getEStructuralFeatures().get(3);
 	}
 
 	/**
@@ -848,6 +884,24 @@ public class CaltropPackageImpl extends EPackageImpl implements CaltropPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EClass getRealm() {
+		return realmEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getRealm_Key() {
+		return (EAttribute)realmEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EAttribute getConversionRelation_ValueVar() {
 		return (EAttribute)conversionRelationEClass.getEStructuralFeatures().get(0);
 	}
@@ -904,6 +958,9 @@ public class CaltropPackageImpl extends EPackageImpl implements CaltropPackage {
 
 		stateVariableEClass = createEClass(STATE_VARIABLE);
 		createEAttribute(stateVariableEClass, STATE_VARIABLE__CONSTANT);
+		createEAttribute(stateVariableEClass, STATE_VARIABLE__BINDING);
+		createEReference(stateVariableEClass, STATE_VARIABLE__UPDATE_EXPRESSION);
+		createEReference(stateVariableEClass, STATE_VARIABLE__REALM);
 
 		fireActionEClass = createEClass(FIRE_ACTION);
 		createEReference(fireActionEClass, FIRE_ACTION__INPUT_PATTERNS);
@@ -975,6 +1032,9 @@ public class CaltropPackageImpl extends EPackageImpl implements CaltropPackage {
 		createEReference(conversionRelationEClass, CONVERSION_RELATION__CONVERSION_EXPRESSION);
 		createEReference(conversionRelationEClass, CONVERSION_RELATION__GUARD_EXPRESSION);
 
+		realmEClass = createEClass(REALM);
+		createEAttribute(realmEClass, REALM__KEY);
+
 		// Create enums
 		channelSelectorKeywordEEnum = createEEnum(CHANNEL_SELECTOR_KEYWORD);
 	}
@@ -1004,8 +1064,8 @@ public class CaltropPackageImpl extends EPackageImpl implements CaltropPackage {
 
 		// Obtain other dependent packages
 		ActorPackage theActorPackage = (ActorPackage)EPackage.Registry.INSTANCE.getEPackage(ActorPackage.eNS_URI);
-		KernelPackage theKernelPackage = (KernelPackage)EPackage.Registry.INSTANCE.getEPackage(KernelPackage.eNS_URI);
 		XbasePackage theXbasePackage = (XbasePackage)EPackage.Registry.INSTANCE.getEPackage(XbasePackage.eNS_URI);
+		KernelPackage theKernelPackage = (KernelPackage)EPackage.Registry.INSTANCE.getEPackage(KernelPackage.eNS_URI);
 		TypesPackage theTypesPackage = (TypesPackage)EPackage.Registry.INSTANCE.getEPackage(TypesPackage.eNS_URI);
 
 		// Create type parameters
@@ -1054,6 +1114,9 @@ public class CaltropPackageImpl extends EPackageImpl implements CaltropPackage {
 
 		initEClass(stateVariableEClass, StateVariable.class, "StateVariable", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getStateVariable_Constant(), ecorePackage.getEBoolean(), "constant", null, 0, 1, StateVariable.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getStateVariable_Binding(), ecorePackage.getEBoolean(), "binding", null, 0, 1, StateVariable.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getStateVariable_UpdateExpression(), theXbasePackage.getXExpression(), null, "updateExpression", null, 0, 1, StateVariable.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getStateVariable_Realm(), this.getRealm(), null, "realm", null, 0, 1, StateVariable.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(fireActionEClass, FireAction.class, "FireAction", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getFireAction_InputPatterns(), this.getInputPattern(), null, "inputPatterns", null, 0, -1, FireAction.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -1132,6 +1195,9 @@ public class CaltropPackageImpl extends EPackageImpl implements CaltropPackage {
 		initEAttribute(getConversionRelation_ValueVar(), ecorePackage.getEString(), "valueVar", null, 0, 1, ConversionRelation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getConversionRelation_ConversionExpression(), theXbasePackage.getXExpression(), null, "conversionExpression", null, 0, 1, ConversionRelation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getConversionRelation_GuardExpression(), theXbasePackage.getXExpression(), null, "guardExpression", null, 0, 1, ConversionRelation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(realmEClass, Realm.class, "Realm", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getRealm_Key(), ecorePackage.getEString(), "key", null, 0, 1, Realm.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		// Initialize enums and add enum literals
 		initEEnum(channelSelectorKeywordEEnum, ChannelSelectorKeyword.class, "ChannelSelectorKeyword");

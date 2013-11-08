@@ -47,4 +47,9 @@ public class selectChannel extends SelectChannelN<Integer> {
     super(parent, name);
     
   }
+  
+  public selectChannel(final CompositeEntity parent) throws NameDuplicationException, IllegalActionException {
+    this(parent, "selectChannel");
+    
+  }
 }

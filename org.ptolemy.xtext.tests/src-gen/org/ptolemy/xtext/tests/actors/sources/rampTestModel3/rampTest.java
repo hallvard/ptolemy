@@ -35,6 +35,11 @@ public class rampTest extends AbstractTest {
     
   }
   
+  public rampTest(final CompositeEntity parent) throws NameDuplicationException, IllegalActionException {
+    this(parent, "rampTest");
+    
+  }
+  
   protected Pair<Integer,AbstractActionImpl> _fireImpl() throws IllegalActionException {
     Pair<Integer,AbstractActionImpl> result = super._fireImpl();
     if (result != null) return result;

@@ -37,7 +37,6 @@ import org.ptolemy.ecore.caltrop.OutputPattern;
 import org.ptolemy.ecore.caltrop.PortPattern;
 import org.ptolemy.ecore.caltrop.ReAction;
 import org.ptolemy.ecore.caltrop.Realm;
-import org.ptolemy.ecore.caltrop.RealmKind;
 import org.ptolemy.ecore.caltrop.Schedule;
 import org.ptolemy.ecore.caltrop.State;
 import org.ptolemy.ecore.caltrop.StateVariable;

@@ -6,7 +6,6 @@ import java.util.ArrayList
 import java.util.Collection
 import org.eclipse.xtext.common.types.JvmOperation
 import org.eclipse.xtext.common.types.JvmTypeReference
-import org.ptolemy.xtext.generator.MappingCopier
 
 public class JavafxEventSupport extends AbstractEventSupport implements EventSupport {
 	

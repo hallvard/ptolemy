@@ -46,10 +46,9 @@ import org.ptolemy.ecore.kernel.EntityContainer
 import org.ptolemy.ecore.kernel.IEntity
 import org.ptolemy.ecore.kernel.Named
 import org.ptolemy.ecore.kernel.Port
-import org.ptolemy.xtext.jvmmodel.XActorJvmModelInferrer
 import org.ptolemy.xtext.generator.eventsupport.AbstractEventSupport
 import org.ptolemy.xtext.generator.eventsupport.EventData
-import org.ptolemy.ecore.caltrop.RealmKind
+import org.ptolemy.xtext.jvmmodel.XActorJvmModelInferrer
 
 class XActorGenerator extends JvmModelGenerator {
 

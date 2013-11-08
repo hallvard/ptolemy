@@ -6,7 +6,6 @@ import java.util.Collection
 import org.eclipse.xtext.common.types.JvmDeclaredType
 import org.eclipse.xtext.common.types.JvmOperation
 import org.eclipse.xtext.common.types.JvmTypeReference
-import org.ptolemy.xtext.generator.MappingCopier
 
 public class ObservablePropertySupport extends AbstractEventSupport implements EventSupport {
 	

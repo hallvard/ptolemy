@@ -15,7 +15,6 @@ import org.eclipse.xtext.xbase.XExpression;
 import org.ptolemy.ecore.actor.impl.VariableImpl;
 import org.ptolemy.ecore.caltrop.CaltropPackage;
 import org.ptolemy.ecore.caltrop.Realm;
-import org.ptolemy.ecore.caltrop.RealmKind;
 import org.ptolemy.ecore.caltrop.StateVariable;
 
 /**

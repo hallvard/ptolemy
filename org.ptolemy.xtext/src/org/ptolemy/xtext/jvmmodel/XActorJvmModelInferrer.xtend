@@ -41,6 +41,7 @@ import org.ptolemy.ecore.actor.TypedAtomicActor
 import org.ptolemy.ecore.actor.Variable
 import org.ptolemy.ecore.caltrop.ActionPattern
 import org.ptolemy.ecore.caltrop.CaltropActorImpl
+import org.ptolemy.ecore.caltrop.ConversionRelation
 import org.ptolemy.ecore.caltrop.EventAction
 import org.ptolemy.ecore.caltrop.EventPattern
 import org.ptolemy.ecore.caltrop.ExpressionChannelSelector
@@ -50,27 +51,25 @@ import org.ptolemy.ecore.caltrop.OutputAction
 import org.ptolemy.ecore.caltrop.OutputPattern
 import org.ptolemy.ecore.caltrop.PortPattern
 import org.ptolemy.ecore.caltrop.ReAction
+import org.ptolemy.ecore.caltrop.StateVariable
 import org.ptolemy.ecore.kernel.Attribute
 import org.ptolemy.ecore.kernel.ComponentEntity
+import org.ptolemy.ecore.kernel.CompositeEntity
 import org.ptolemy.ecore.kernel.Entity
 import org.ptolemy.ecore.kernel.EntityContainer
+import org.ptolemy.ecore.kernel.EntityRef
 import org.ptolemy.ecore.kernel.IEntity
 import org.ptolemy.ecore.kernel.Nameable
+import org.ptolemy.ecore.kernel.Named
 import org.ptolemy.ecore.kernel.Port
+import org.ptolemy.ecore.kernel.Relation
 import org.ptolemy.xtext.generator.ActionPatternHelper
+import org.ptolemy.xtext.generator.MappingCopier
 import org.ptolemy.xtext.generator.TreeAppendableUtil
 import org.ptolemy.xtext.generator.TypeUtil
 import org.ptolemy.xtext.generator.WrappingAdapter
 import org.ptolemy.xtext.generator.XActorGenerator
 import org.ptolemy.xtext.validation.XActorJavaValidator
-import org.ptolemy.ecore.caltrop.ConversionRelation
-import org.ptolemy.ecore.kernel.Relation
-import org.ptolemy.ecore.kernel.Named
-import org.ptolemy.ecore.kernel.CompositeEntity
-import org.ptolemy.ecore.kernel.EntityRef
-import org.ptolemy.xtext.generator.MappingCopier
-import org.ptolemy.ecore.caltrop.RealmKind
-import org.ptolemy.ecore.caltrop.StateVariable
 
 class XActorJvmModelInferrer extends AbstractModelInferrer {
 	

@@ -12,8 +12,7 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="inferredType" eType="ecore:EClass http://www.eclipse.org/xtext/common/JavaVMTypes#//JvmTypeReference"
         transient="true" derived="true"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="JvmTypedAttribute" abstract="true" eSuperTypes="kernel.ecore#//Attribute #//JvmTypedObj"/>
-  <eClassifiers xsi:type="ecore:EClass" name="InjectableAttribute" eSuperTypes="#//JvmTypedAttribute"/>
+  <eClassifiers xsi:type="ecore:EClass" name="JvmTypedAttribute" eSuperTypes="kernel.ecore#//Attribute #//JvmTypedObj"/>
   <eClassifiers xsi:type="ecore:EClass" name="Variable" eSuperTypes="#//JvmTypedAttribute">
     <eStructuralFeatures xsi:type="ecore:EReference" name="valueExpression" eType="ecore:EClass http://www.eclipse.org/xtext/xbase/Xbase#//XExpression"
         containment="true"/>

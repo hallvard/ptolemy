@@ -1,0 +1,66 @@
+package org.ptolemy.xtext.examples.mqtt
+
+import java.lang.*
+import java.util.*
+import javafx.scene.control.*
+import javafx.scene.layout.*
+import javafx.scene.paint.*
+import javafx.scene.web.*
+import javafx.scene.chart.*
+
+component mqttplotting {
+	BorderPane {
+		maxHeight : const Double#NEGATIVE_INFINITY,
+		maxWidth 	: const Double#NEGATIVE_INFINITY,
+		minHeight 	: const Double#NEGATIVE_INFINITY,
+		minWidth 	: const Double#NEGATIVE_INFINITY,
+
+		top : HBox {
+			TextField {
+				^id : "mqttplotting_publish_topicText",
+				promptText : "Topic",
+				prefWidth 	: 300.0,
+				text : "haltraet/mqttplotting/topic1"
+			},
+			TextField {
+				^id : "mqttplotting_publish_valueText",
+				promptText : "Value",
+				prefWidth 	: 100.0,
+				text : "10"
+			},
+			Button {
+				^id : "mqttplotting_publish_publishButton", 
+				text : "Publish topic -> value pair"
+			}
+		},
+		bottom : HBox {
+			TextField {
+				^id : "mqttplotting_subscribe_topicsText",
+				promptText : "Topics (space separated)",
+				prefWidth 	: 300.0,
+				text : "haltraet/mqttplotting/topic1"
+			},
+			Button {
+				^id : "mqttplotting_subscribe_updateTopicsButton", 
+				text : "Update topics subscription"
+			}
+		},
+		center : SplitPane {
+			items : [
+				ListView {
+					^id : "mqttplotting_list",
+					prefHeight 	: 600.0,
+					prefWidth 	: 200.0
+				},
+				LineChart<Integer,Integer> {
+					^id : "mqttplotting_chart", 
+					prefHeight 	: 600.0,
+					prefWidth 	: 800.0,
+	//				title		: "XYs",
+					xAxis		: NumberAxis { label : "X", autoRanging : true },
+					yAxis		: NumberAxis { label : "Y", autoRanging : true }
+				}
+			]
+		}
+	}
+}

@@ -21,6 +21,10 @@ public class BooleanTokens extends Tokens<Boolean> {
 
 	//
 
+	public static BooleanToken create(boolean b) {
+		return new BooleanToken(b);
+	}
+	
 	public static boolean get(Token token) throws IllegalActionException {
 		return BooleanToken.convert(token).booleanValue();
 	}

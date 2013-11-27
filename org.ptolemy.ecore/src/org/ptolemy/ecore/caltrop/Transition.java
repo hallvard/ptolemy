@@ -16,7 +16,7 @@ import org.eclipse.emf.ecore.EObject;
  * <ul>
  *   <li>{@link org.ptolemy.ecore.caltrop.Transition#getSource <em>Source</em>}</li>
  *   <li>{@link org.ptolemy.ecore.caltrop.Transition#getTarget <em>Target</em>}</li>
- *   <li>{@link org.ptolemy.ecore.caltrop.Transition#getTags <em>Tags</em>}</li>
+ *   <li>{@link org.ptolemy.ecore.caltrop.Transition#getActions <em>Actions</em>}</li>
  * </ul>
  * </p>
  *
@@ -80,19 +80,19 @@ public interface Transition extends EObject {
 	void setTarget(State value);
 
 	/**
-	 * Returns the value of the '<em><b>Tags</b></em>' attribute list.
-	 * The list contents are of type {@link java.lang.String}.
+	 * Returns the value of the '<em><b>Actions</b></em>' reference list.
+	 * The list contents are of type {@link org.ptolemy.ecore.caltrop.OutputAction}.
 	 * <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of the '<em>Tags</em>' attribute list isn't clear,
+	 * If the meaning of the '<em>Actions</em>' reference list isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Tags</em>' attribute list.
-	 * @see org.ptolemy.ecore.caltrop.CaltropPackage#getTransition_Tags()
+	 * @return the value of the '<em>Actions</em>' reference list.
+	 * @see org.ptolemy.ecore.caltrop.CaltropPackage#getTransition_Actions()
 	 * @model
 	 * @generated
 	 */
-	EList<String> getTags();
+	EList<OutputAction> getActions();
 
 } // Transition

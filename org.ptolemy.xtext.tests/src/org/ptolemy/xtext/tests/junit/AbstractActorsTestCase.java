@@ -6,7 +6,6 @@ import ptolemy.actor.Manager;
 import ptolemy.actor.TypedCompositeActor;
 import ptolemy.data.IntToken;
 import ptolemy.data.expr.Parameter;
-import ptolemy.data.type.BaseType;
 import ptolemy.kernel.CompositeEntity;
 import ptolemy.kernel.Entity;
 import ptolemy.kernel.util.BasicModelErrorHandler;

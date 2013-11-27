@@ -21,6 +21,10 @@ public class DoubleTokens extends Tokens<Double> {
 	
 	//
 
+	public static DoubleToken create(double d) {
+		return new DoubleToken(d);
+	}
+
 	public static double get(Token token) throws IllegalActionException {
 		return DoubleToken.convert(token).doubleValue();
 	}

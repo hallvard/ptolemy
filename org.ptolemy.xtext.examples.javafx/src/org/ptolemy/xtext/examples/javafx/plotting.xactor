@@ -1,0 +1,36 @@
+namespace org.ptolemy.xtext.examples.javafx :
+
+import org.ptolemy.xtext.examples.javafx.scene.control.PTextInput
+import org.ptolemy.xtext.examples.javafx.scene.control.PButton
+import org.ptolemy.xtext.examples.javafx.scene.chart.PXYChartXYt
+import org.ptolemy.xtext.examples.javafx.scene.chart.PXYChartXYtc
+import org.ptolemy.xtext.examples.ui.Valve
+import org.ptolemy.xtext.examples.javafx.util.Tokenizer
+
+import ptolemy.domains.de.kernel.DEDirector
+import org.ptolemy.xtext.launch.javafx.JavafxResource
+
+network plotting :
+
+	@DEDirector director(stopWhenQueueIsEmpty=false, synchronizeToRealTime=true)
+	@JavafxResource beanResource(resource="src/org/ptolemy/xtext/examples/javafx/plotting.fxml")
+
+	entities
+		valuesText = PTextInput(id="plotting_values")
+		valuesValve = Valve<String>
+		plotButton = PButton(id="plotting_plotButton")
+		lines = Tokenizer<String>(parser=[it])
+		xys = Tokenizer<Integer>(delim=",", parser=[Integer.valueOf(it)])
+		chart = PXYChartXYt<Integer>(id="plotting_chart")
+
+	structure
+		valuesText.userInput --> valuesValve.input
+		valuesValve.output --> lines.tokens
+		plotButton.actionEvent --> valuesValve.trigger
+		lines.token --> xys.tokens
+		plotButton.actionEvent --> chart.clearAll
+		xys.token --> chart.xys
+
+end
+
+end

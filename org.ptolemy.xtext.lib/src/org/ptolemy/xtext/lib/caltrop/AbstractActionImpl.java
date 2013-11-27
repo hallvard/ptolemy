@@ -1,5 +1,7 @@
 package org.ptolemy.xtext.lib.caltrop;
 
+import org.ptolemy.xtext.lib.caltrop.tuple.Tuple3;
+
 import ptolemy.actor.IOPort;
 import ptolemy.actor.util.Dependency;
 import ptolemy.kernel.util.IllegalActionException;
@@ -18,5 +20,5 @@ public abstract class AbstractActionImpl {
 		return true;
 	}
 	
-	public abstract Pair<Pair<IOPort,IOPort>,Dependency>[] getDependencies();
+	public abstract Tuple3<IOPort,IOPort,Dependency>[] getDependencies();
 }

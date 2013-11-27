@@ -1,0 +1,23 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: org.ptolemy.xtext.examples.mqtt
+Bundle-Vendor: My Company
+Bundle-Version: 0.0.1.qualifier
+Bundle-SymbolicName: org.ptolemy.xtext.examples.mqtt
+Require-Bundle: org.ptolemy.ecore;bundle-version="0.0.1",
+ org.ptolemy.xtext,
+ org.eclipse.core.runtime,
+ org.eclipse.xtext,
+ org.eclipse.ui.workbench;resolution:=optional,
+ org.eclipse.xtext.xbase.lib;bundle-version="2.1.1",
+ org.eclipse.emf.mwe2.launch;bundle-version="2.3.0",
+ org.ptolemy.xtext.lib;bundle-version="0.0.1",
+ org.ptolemy.xtext.launch;bundle-version="0.0.1",
+ org.ptolemy.xtext.launch.javafx;bundle-version="0.0.1",
+ org.ptolemy.xtext.examples.ui;bundle-version="0.0.1",
+ org.ptolemy.xtext.examples.javafx;bundle-version="0.0.1"
+Import-Package: org.apache.log4j,
+ org.apache.commons.logging
+Bundle-RequiredExecutionEnvironment: JavaSE-1.7
+Bundle-ClassPath: .,
+ libs/xenqtt-0.9.5.jar

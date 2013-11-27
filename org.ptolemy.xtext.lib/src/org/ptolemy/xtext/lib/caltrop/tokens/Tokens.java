@@ -3,8 +3,10 @@ package org.ptolemy.xtext.lib.caltrop.tokens;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
+import ptolemy.data.BooleanToken;
 import ptolemy.data.Token;
 import ptolemy.kernel.util.IllegalActionException;
+import ptolemy.math.Complex;
 
 public abstract class Tokens<T> implements Iterable<T> {
 
@@ -70,4 +72,13 @@ public abstract class Tokens<T> implements Iterable<T> {
 			throw new UnsupportedOperationException(this.getClass() + " does not support remove");
 		}
 	}
+	
+	public static Token create(boolean b) 	{ return BooleanTokens.create(b); }
+	public static Token create(int i) 		{ return IntTokens.create(i); }
+	public static Token create(short s) 	{ return ShortTokens.create(s); }
+	public static Token create(long l)		{ return LongTokens.create(l); }
+	public static Token create(double d) 	{ return DoubleTokens.create(d); }
+	public static Token create(float f) 	{ return FloatTokens.create(f); }
+	public static Token create(Complex c) 	{ return ComplexTokens.create(c); }
+	public static Token create(String s) 	{ return BooleanTokens.create(s); }
 }

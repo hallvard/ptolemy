@@ -31,8 +31,10 @@ public class XActorGrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cColonKeyword_4 = (Keyword)cGroup.eContents().get(4);
 		private final Assignment cImportsAssignment_5 = (Assignment)cGroup.eContents().get(5);
 		private final RuleCall cImportsXImportSectionParserRuleCall_5_0 = (RuleCall)cImportsAssignment_5.eContents().get(0);
-		private final Assignment cAttributesAssignment_6 = (Assignment)cGroup.eContents().get(6);
-		private final RuleCall cAttributesInjectableAttributeParserRuleCall_6_0 = (RuleCall)cAttributesAssignment_6.eContents().get(0);
+		private final Group cGroup_6 = (Group)cGroup.eContents().get(6);
+		private final Keyword cCommercialAtKeyword_6_0 = (Keyword)cGroup_6.eContents().get(0);
+		private final Assignment cAttributesAssignment_6_1 = (Assignment)cGroup_6.eContents().get(1);
+		private final RuleCall cAttributesInjectableAttributeParserRuleCall_6_1_0 = (RuleCall)cAttributesAssignment_6_1.eContents().get(0);
 		private final Alternatives cAlternatives_7 = (Alternatives)cGroup.eContents().get(7);
 		private final Assignment cEntityContainersAssignment_7_0 = (Assignment)cAlternatives_7.eContents().get(0);
 		private final RuleCall cEntityContainersEntityFolderParserRuleCall_7_0_0 = (RuleCall)cEntityContainersAssignment_7_0.eContents().get(0);
@@ -41,12 +43,12 @@ public class XActorGrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cEndKeyword_8 = (Keyword)cGroup.eContents().get(8);
 		
 		//ActorModel returns EntityFolder:
-		//	{EntityFolder} "namespace" name=QualifiedName displayName=STRING? ":" imports=XImportSection?
-		//	attributes+=InjectableAttribute* (entityContainers+=EntityFolder | entities+=Entity)* "end";
+		//	{EntityFolder} "namespace" name=QualifiedName displayName=STRING? ":" imports=XImportSection? ("@"
+		//	attributes+=InjectableAttribute)* (entityContainers+=EntityFolder | entities+=Entity)* "end";
 		public ParserRule getRule() { return rule; }
 
-		//{EntityFolder} "namespace" name=QualifiedName displayName=STRING? ":" imports=XImportSection?
-		//attributes+=InjectableAttribute* (entityContainers+=EntityFolder | entities+=Entity)* "end"
+		//{EntityFolder} "namespace" name=QualifiedName displayName=STRING? ":" imports=XImportSection? ("@"
+		//attributes+=InjectableAttribute)* (entityContainers+=EntityFolder | entities+=Entity)* "end"
 		public Group getGroup() { return cGroup; }
 
 		//{EntityFolder}
@@ -76,11 +78,17 @@ public class XActorGrammarAccess extends AbstractGrammarElementFinder {
 		//XImportSection
 		public RuleCall getImportsXImportSectionParserRuleCall_5_0() { return cImportsXImportSectionParserRuleCall_5_0; }
 
-		//attributes+=InjectableAttribute*
-		public Assignment getAttributesAssignment_6() { return cAttributesAssignment_6; }
+		//("@" attributes+=InjectableAttribute)*
+		public Group getGroup_6() { return cGroup_6; }
+
+		//"@"
+		public Keyword getCommercialAtKeyword_6_0() { return cCommercialAtKeyword_6_0; }
+
+		//attributes+=InjectableAttribute
+		public Assignment getAttributesAssignment_6_1() { return cAttributesAssignment_6_1; }
 
 		//InjectableAttribute
-		public RuleCall getAttributesInjectableAttributeParserRuleCall_6_0() { return cAttributesInjectableAttributeParserRuleCall_6_0; }
+		public RuleCall getAttributesInjectableAttributeParserRuleCall_6_1_0() { return cAttributesInjectableAttributeParserRuleCall_6_1_0; }
 
 		//(entityContainers+=EntityFolder | entities+=Entity)*
 		public Alternatives getAlternatives_7() { return cAlternatives_7; }
@@ -110,8 +118,10 @@ public class XActorGrammarAccess extends AbstractGrammarElementFinder {
 		private final Assignment cDisplayNameAssignment_2 = (Assignment)cGroup.eContents().get(2);
 		private final RuleCall cDisplayNameSTRINGTerminalRuleCall_2_0 = (RuleCall)cDisplayNameAssignment_2.eContents().get(0);
 		private final Keyword cColonKeyword_3 = (Keyword)cGroup.eContents().get(3);
-		private final Assignment cAttributesAssignment_4 = (Assignment)cGroup.eContents().get(4);
-		private final RuleCall cAttributesInjectableAttributeParserRuleCall_4_0 = (RuleCall)cAttributesAssignment_4.eContents().get(0);
+		private final Group cGroup_4 = (Group)cGroup.eContents().get(4);
+		private final Keyword cCommercialAtKeyword_4_0 = (Keyword)cGroup_4.eContents().get(0);
+		private final Assignment cAttributesAssignment_4_1 = (Assignment)cGroup_4.eContents().get(1);
+		private final RuleCall cAttributesInjectableAttributeParserRuleCall_4_1_0 = (RuleCall)cAttributesAssignment_4_1.eContents().get(0);
 		private final Alternatives cAlternatives_5 = (Alternatives)cGroup.eContents().get(5);
 		private final Assignment cEntityContainersAssignment_5_0 = (Assignment)cAlternatives_5.eContents().get(0);
 		private final RuleCall cEntityContainersEntityFolderParserRuleCall_5_0_0 = (RuleCall)cEntityContainersAssignment_5_0.eContents().get(0);
@@ -120,12 +130,12 @@ public class XActorGrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cEndKeyword_6 = (Keyword)cGroup.eContents().get(6);
 		
 		//EntityFolder:
-		//	"namespace" name=QualifiedName displayName=STRING? ":" attributes+=InjectableAttribute*
+		//	"namespace" name=QualifiedName displayName=STRING? ":" ("@" attributes+=InjectableAttribute)*
 		//	(entityContainers+=EntityFolder | entities+=Entity)* "end";
 		public ParserRule getRule() { return rule; }
 
-		//"namespace" name=QualifiedName displayName=STRING? ":" attributes+=InjectableAttribute* (entityContainers+=EntityFolder
-		//| entities+=Entity)* "end"
+		//"namespace" name=QualifiedName displayName=STRING? ":" ("@" attributes+=InjectableAttribute)*
+		//(entityContainers+=EntityFolder | entities+=Entity)* "end"
 		public Group getGroup() { return cGroup; }
 
 		//"namespace"
@@ -146,11 +156,17 @@ public class XActorGrammarAccess extends AbstractGrammarElementFinder {
 		//":"
 		public Keyword getColonKeyword_3() { return cColonKeyword_3; }
 
-		//attributes+=InjectableAttribute*
-		public Assignment getAttributesAssignment_4() { return cAttributesAssignment_4; }
+		//("@" attributes+=InjectableAttribute)*
+		public Group getGroup_4() { return cGroup_4; }
+
+		//"@"
+		public Keyword getCommercialAtKeyword_4_0() { return cCommercialAtKeyword_4_0; }
+
+		//attributes+=InjectableAttribute
+		public Assignment getAttributesAssignment_4_1() { return cAttributesAssignment_4_1; }
 
 		//InjectableAttribute
-		public RuleCall getAttributesInjectableAttributeParserRuleCall_4_0() { return cAttributesInjectableAttributeParserRuleCall_4_0; }
+		public RuleCall getAttributesInjectableAttributeParserRuleCall_4_1_0() { return cAttributesInjectableAttributeParserRuleCall_4_1_0; }
 
 		//(entityContainers+=EntityFolder | entities+=Entity)*
 		public Alternatives getAlternatives_5() { return cAlternatives_5; }
@@ -420,8 +436,10 @@ public class XActorGrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cIsKeyword_7_0 = (Keyword)cGroup_7.eContents().get(0);
 		private final Assignment cSuperEntityAssignment_7_1 = (Assignment)cGroup_7.eContents().get(1);
 		private final RuleCall cSuperEntityActorRefParserRuleCall_7_1_0 = (RuleCall)cSuperEntityAssignment_7_1.eContents().get(0);
-		private final Assignment cAttributesAssignment_8 = (Assignment)cGroup.eContents().get(8);
-		private final RuleCall cAttributesInjectableAttributeParserRuleCall_8_0 = (RuleCall)cAttributesAssignment_8.eContents().get(0);
+		private final Group cGroup_8 = (Group)cGroup.eContents().get(8);
+		private final Keyword cCommercialAtKeyword_8_0 = (Keyword)cGroup_8.eContents().get(0);
+		private final Assignment cAttributesAssignment_8_1 = (Assignment)cGroup_8.eContents().get(1);
+		private final RuleCall cAttributesInjectableAttributeParserRuleCall_8_1_0 = (RuleCall)cAttributesAssignment_8_1.eContents().get(0);
 		private final Assignment cImplAssignment_9 = (Assignment)cGroup.eContents().get(9);
 		private final RuleCall cImplAtomicActorImplParserRuleCall_9_0 = (RuleCall)cImplAssignment_9.eContents().get(0);
 		private final Keyword cEndKeyword_10 = (Keyword)cGroup.eContents().get(10);
@@ -430,14 +448,15 @@ public class XActorGrammarAccess extends AbstractGrammarElementFinder {
 		//	{TypedAtomicActor} "actor" name=ValidID displayName=STRING? ("<" typeParameters+=TypeParameter (","
 		//	typeParameters+=TypeParameter)* ">")? ("(" attributes+=Parameter ("," attributes+=Parameter)* ")")?
 		//	((ports+=TypedInputPort ("," ports+=TypedInputPort)*)? MAPS_TO (ports+=TypedOutputPort (","
-		//	ports+=TypedOutputPort)*)?)? ("is" superEntity=ActorRef)? attributes+=InjectableAttribute* impl=AtomicActorImpl?
+		//	ports+=TypedOutputPort)*)?)? ("is" superEntity=ActorRef)? ("@" attributes+=InjectableAttribute)* impl=AtomicActorImpl?
 		//	"end";
 		public ParserRule getRule() { return rule; }
 
 		//{TypedAtomicActor} "actor" name=ValidID displayName=STRING? ("<" typeParameters+=TypeParameter (","
 		//typeParameters+=TypeParameter)* ">")? ("(" attributes+=Parameter ("," attributes+=Parameter)* ")")?
 		//((ports+=TypedInputPort ("," ports+=TypedInputPort)*)? MAPS_TO (ports+=TypedOutputPort (","
-		//ports+=TypedOutputPort)*)?)? ("is" superEntity=ActorRef)? attributes+=InjectableAttribute* impl=AtomicActorImpl? "end"
+		//ports+=TypedOutputPort)*)?)? ("is" superEntity=ActorRef)? ("@" attributes+=InjectableAttribute)* impl=AtomicActorImpl?
+		//"end"
 		public Group getGroup() { return cGroup; }
 
 		//{TypedAtomicActor}
@@ -572,11 +591,17 @@ public class XActorGrammarAccess extends AbstractGrammarElementFinder {
 		//ActorRef
 		public RuleCall getSuperEntityActorRefParserRuleCall_7_1_0() { return cSuperEntityActorRefParserRuleCall_7_1_0; }
 
-		//attributes+=InjectableAttribute*
-		public Assignment getAttributesAssignment_8() { return cAttributesAssignment_8; }
+		//("@" attributes+=InjectableAttribute)*
+		public Group getGroup_8() { return cGroup_8; }
+
+		//"@"
+		public Keyword getCommercialAtKeyword_8_0() { return cCommercialAtKeyword_8_0; }
+
+		//attributes+=InjectableAttribute
+		public Assignment getAttributesAssignment_8_1() { return cAttributesAssignment_8_1; }
 
 		//InjectableAttribute
-		public RuleCall getAttributesInjectableAttributeParserRuleCall_8_0() { return cAttributesInjectableAttributeParserRuleCall_8_0; }
+		public RuleCall getAttributesInjectableAttributeParserRuleCall_8_1_0() { return cAttributesInjectableAttributeParserRuleCall_8_1_0; }
 
 		//impl=AtomicActorImpl?
 		public Assignment getImplAssignment_9() { return cImplAssignment_9; }
@@ -662,8 +687,10 @@ public class XActorGrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cIsKeyword_3_1_2_0 = (Keyword)cGroup_3_1_2.eContents().get(0);
 		private final Assignment cSuperEntityAssignment_3_1_2_1 = (Assignment)cGroup_3_1_2.eContents().get(1);
 		private final RuleCall cSuperEntityActorRefParserRuleCall_3_1_2_1_0 = (RuleCall)cSuperEntityAssignment_3_1_2_1.eContents().get(0);
-		private final Assignment cAttributesAssignment_3_1_3 = (Assignment)cGroup_3_1.eContents().get(3);
-		private final RuleCall cAttributesInjectableAttributeParserRuleCall_3_1_3_0 = (RuleCall)cAttributesAssignment_3_1_3.eContents().get(0);
+		private final Group cGroup_3_1_3 = (Group)cGroup_3_1.eContents().get(3);
+		private final Keyword cCommercialAtKeyword_3_1_3_0 = (Keyword)cGroup_3_1_3.eContents().get(0);
+		private final Assignment cAttributesAssignment_3_1_3_1 = (Assignment)cGroup_3_1_3.eContents().get(1);
+		private final RuleCall cAttributesInjectableAttributeParserRuleCall_3_1_3_1_0 = (RuleCall)cAttributesAssignment_3_1_3_1.eContents().get(0);
 		private final Group cGroup_3_1_4 = (Group)cGroup_3_1.eContents().get(4);
 		private final Assignment cImplAssignment_3_1_4_0 = (Assignment)cGroup_3_1_4.eContents().get(0);
 		private final RuleCall cImplAtomicActorImplParserRuleCall_3_1_4_0_0 = (RuleCall)cImplAssignment_3_1_4_0.eContents().get(0);
@@ -672,13 +699,13 @@ public class XActorGrammarAccess extends AbstractGrammarElementFinder {
 		//TypedAtomicActorInstance returns TypedAtomicActor:
 		//	{TypedAtomicActor} name=ValidID displayName=STRING? ("=" superEntity=ActorRef ";"? | ("=" "actor")?
 		//	((ports+=TypedInputPort ("," ports+=TypedInputPort)*)? MAPS_TO (ports+=TypedOutputPort (","
-		//	ports+=TypedOutputPort)*)?)? ("is" superEntity=ActorRef)? attributes+=InjectableAttribute* (impl=AtomicActorImpl
+		//	ports+=TypedOutputPort)*)?)? ("is" superEntity=ActorRef)? ("@" attributes+=InjectableAttribute)* (impl=AtomicActorImpl
 		//	"end"));
 		public ParserRule getRule() { return rule; }
 
 		//{TypedAtomicActor} name=ValidID displayName=STRING? ("=" superEntity=ActorRef ";"? | ("=" "actor")?
 		//((ports+=TypedInputPort ("," ports+=TypedInputPort)*)? MAPS_TO (ports+=TypedOutputPort (","
-		//ports+=TypedOutputPort)*)?)? ("is" superEntity=ActorRef)? attributes+=InjectableAttribute* (impl=AtomicActorImpl
+		//ports+=TypedOutputPort)*)?)? ("is" superEntity=ActorRef)? ("@" attributes+=InjectableAttribute)* (impl=AtomicActorImpl
 		//"end"))
 		public Group getGroup() { return cGroup; }
 
@@ -698,8 +725,8 @@ public class XActorGrammarAccess extends AbstractGrammarElementFinder {
 		public RuleCall getDisplayNameSTRINGTerminalRuleCall_2_0() { return cDisplayNameSTRINGTerminalRuleCall_2_0; }
 
 		//"=" superEntity=ActorRef ";"? | ("=" "actor")? ((ports+=TypedInputPort ("," ports+=TypedInputPort)*)? MAPS_TO
-		//(ports+=TypedOutputPort ("," ports+=TypedOutputPort)*)?)? ("is" superEntity=ActorRef)? attributes+=InjectableAttribute*
-		//(impl=AtomicActorImpl "end")
+		//(ports+=TypedOutputPort ("," ports+=TypedOutputPort)*)?)? ("is" superEntity=ActorRef)? ("@"
+		//attributes+=InjectableAttribute)* (impl=AtomicActorImpl "end")
 		public Alternatives getAlternatives_3() { return cAlternatives_3; }
 
 		//"=" superEntity=ActorRef ";"?
@@ -718,7 +745,8 @@ public class XActorGrammarAccess extends AbstractGrammarElementFinder {
 		public Keyword getSemicolonKeyword_3_0_2() { return cSemicolonKeyword_3_0_2; }
 
 		//("=" "actor")? ((ports+=TypedInputPort ("," ports+=TypedInputPort)*)? MAPS_TO (ports+=TypedOutputPort (","
-		//ports+=TypedOutputPort)*)?)? ("is" superEntity=ActorRef)? attributes+=InjectableAttribute* (impl=AtomicActorImpl "end")
+		//ports+=TypedOutputPort)*)?)? ("is" superEntity=ActorRef)? ("@" attributes+=InjectableAttribute)* (impl=AtomicActorImpl
+		//"end")
 		public Group getGroup_3_1() { return cGroup_3_1; }
 
 		//("=" "actor")?
@@ -790,11 +818,17 @@ public class XActorGrammarAccess extends AbstractGrammarElementFinder {
 		//ActorRef
 		public RuleCall getSuperEntityActorRefParserRuleCall_3_1_2_1_0() { return cSuperEntityActorRefParserRuleCall_3_1_2_1_0; }
 
-		//attributes+=InjectableAttribute*
-		public Assignment getAttributesAssignment_3_1_3() { return cAttributesAssignment_3_1_3; }
+		//("@" attributes+=InjectableAttribute)*
+		public Group getGroup_3_1_3() { return cGroup_3_1_3; }
+
+		//"@"
+		public Keyword getCommercialAtKeyword_3_1_3_0() { return cCommercialAtKeyword_3_1_3_0; }
+
+		//attributes+=InjectableAttribute
+		public Assignment getAttributesAssignment_3_1_3_1() { return cAttributesAssignment_3_1_3_1; }
 
 		//InjectableAttribute
-		public RuleCall getAttributesInjectableAttributeParserRuleCall_3_1_3_0() { return cAttributesInjectableAttributeParserRuleCall_3_1_3_0; }
+		public RuleCall getAttributesInjectableAttributeParserRuleCall_3_1_3_1_0() { return cAttributesInjectableAttributeParserRuleCall_3_1_3_1_0; }
 
 		//impl=AtomicActorImpl "end"
 		public Group getGroup_3_1_4() { return cGroup_3_1_4; }
@@ -853,8 +887,10 @@ public class XActorGrammarAccess extends AbstractGrammarElementFinder {
 		private final Assignment cPortsAssignment_6_2_1_1 = (Assignment)cGroup_6_2_1.eContents().get(1);
 		private final RuleCall cPortsTypedOutputPortParserRuleCall_6_2_1_1_0 = (RuleCall)cPortsAssignment_6_2_1_1.eContents().get(0);
 		private final Keyword cColonKeyword_7 = (Keyword)cGroup.eContents().get(7);
-		private final Assignment cAttributesAssignment_8 = (Assignment)cGroup.eContents().get(8);
-		private final RuleCall cAttributesInjectableAttributeParserRuleCall_8_0 = (RuleCall)cAttributesAssignment_8.eContents().get(0);
+		private final Group cGroup_8 = (Group)cGroup.eContents().get(8);
+		private final Keyword cCommercialAtKeyword_8_0 = (Keyword)cGroup_8.eContents().get(0);
+		private final Assignment cAttributesAssignment_8_1 = (Assignment)cGroup_8.eContents().get(1);
+		private final RuleCall cAttributesInjectableAttributeParserRuleCall_8_1_0 = (RuleCall)cAttributesAssignment_8_1.eContents().get(0);
 		private final Group cGroup_9 = (Group)cGroup.eContents().get(9);
 		private final Keyword cVarKeyword_9_0 = (Keyword)cGroup_9.eContents().get(0);
 		private final Group cGroup_9_1 = (Group)cGroup_9.eContents().get(1);
@@ -875,15 +911,15 @@ public class XActorGrammarAccess extends AbstractGrammarElementFinder {
 		//	{TypedCompositeActor} "network" name=ValidID displayName=STRING? ("<" typeParameters+=TypeParameter (","
 		//	typeParameters+=TypeParameter)* ">")? ("(" attributes+=Parameter ("," attributes+=Parameter)* ")")?
 		//	((ports+=TypedInputPort ("," ports+=TypedInputPort)*)? MAPS_TO (ports+=TypedOutputPort (","
-		//	ports+=TypedOutputPort)*)?)? ":" attributes+=InjectableAttribute* ("var" (attributes+=Variable ";")*)? ("entities"
-		//	entities+=TypedAtomicActorInstance*) ("structure" relations+=ConversionRelation*)? "end";
+		//	ports+=TypedOutputPort)*)?)? ":" ("@" attributes+=InjectableAttribute)* ("var" (attributes+=Variable ";")*)?
+		//	("entities" entities+=TypedAtomicActorInstance*) ("structure" relations+=ConversionRelation*)? "end";
 		public ParserRule getRule() { return rule; }
 
 		//{TypedCompositeActor} "network" name=ValidID displayName=STRING? ("<" typeParameters+=TypeParameter (","
 		//typeParameters+=TypeParameter)* ">")? ("(" attributes+=Parameter ("," attributes+=Parameter)* ")")?
 		//((ports+=TypedInputPort ("," ports+=TypedInputPort)*)? MAPS_TO (ports+=TypedOutputPort (","
-		//ports+=TypedOutputPort)*)?)? ":" attributes+=InjectableAttribute* ("var" (attributes+=Variable ";")*)? ("entities"
-		//entities+=TypedAtomicActorInstance*) ("structure" relations+=ConversionRelation*)? "end"
+		//ports+=TypedOutputPort)*)?)? ":" ("@" attributes+=InjectableAttribute)* ("var" (attributes+=Variable ";")*)?
+		//("entities" entities+=TypedAtomicActorInstance*) ("structure" relations+=ConversionRelation*)? "end"
 		public Group getGroup() { return cGroup; }
 
 		//{TypedCompositeActor}
@@ -1009,11 +1045,17 @@ public class XActorGrammarAccess extends AbstractGrammarElementFinder {
 		//":"
 		public Keyword getColonKeyword_7() { return cColonKeyword_7; }
 
-		//attributes+=InjectableAttribute*
-		public Assignment getAttributesAssignment_8() { return cAttributesAssignment_8; }
+		//("@" attributes+=InjectableAttribute)*
+		public Group getGroup_8() { return cGroup_8; }
+
+		//"@"
+		public Keyword getCommercialAtKeyword_8_0() { return cCommercialAtKeyword_8_0; }
+
+		//attributes+=InjectableAttribute
+		public Assignment getAttributesAssignment_8_1() { return cAttributesAssignment_8_1; }
 
 		//InjectableAttribute
-		public RuleCall getAttributesInjectableAttributeParserRuleCall_8_0() { return cAttributesInjectableAttributeParserRuleCall_8_0; }
+		public RuleCall getAttributesInjectableAttributeParserRuleCall_8_1_0() { return cAttributesInjectableAttributeParserRuleCall_8_1_0; }
 
 		//("var" (attributes+=Variable ";")*)?
 		public Group getGroup_9() { return cGroup_9; }
@@ -1064,57 +1106,103 @@ public class XActorGrammarAccess extends AbstractGrammarElementFinder {
 	public class InjectableAttributeElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "InjectableAttribute");
 		private final Group cGroup = (Group)rule.eContents().get(1);
-		private final Keyword cHyphenMinusKeyword_0 = (Keyword)cGroup.eContents().get(0);
-		private final Assignment cTypeAssignment_1 = (Assignment)cGroup.eContents().get(1);
-		private final RuleCall cTypeJvmTypeReferenceParserRuleCall_1_0 = (RuleCall)cTypeAssignment_1.eContents().get(0);
-		private final Assignment cNameAssignment_2 = (Assignment)cGroup.eContents().get(2);
-		private final RuleCall cNameValidIDParserRuleCall_2_0 = (RuleCall)cNameAssignment_2.eContents().get(0);
-		private final Assignment cDisplayNameAssignment_3 = (Assignment)cGroup.eContents().get(3);
-		private final RuleCall cDisplayNameSTRINGTerminalRuleCall_3_0 = (RuleCall)cDisplayNameAssignment_3.eContents().get(0);
-		private final Group cGroup_4 = (Group)cGroup.eContents().get(4);
-		private final Keyword cCommercialAtKeyword_4_0 = (Keyword)cGroup_4.eContents().get(0);
-		private final Assignment cAttributesAssignment_4_1 = (Assignment)cGroup_4.eContents().get(1);
-		private final RuleCall cAttributesAnnotationAttributeParserRuleCall_4_1_0 = (RuleCall)cAttributesAssignment_4_1.eContents().get(0);
+		private final Alternatives cAlternatives_0 = (Alternatives)cGroup.eContents().get(0);
+		private final Group cGroup_0_0 = (Group)cAlternatives_0.eContents().get(0);
+		private final Assignment cTypeAssignment_0_0_0 = (Assignment)cGroup_0_0.eContents().get(0);
+		private final RuleCall cTypeJvmTypeReferenceParserRuleCall_0_0_0_0 = (RuleCall)cTypeAssignment_0_0_0.eContents().get(0);
+		private final Assignment cNameAssignment_0_0_1 = (Assignment)cGroup_0_0.eContents().get(1);
+		private final RuleCall cNameValidIDParserRuleCall_0_0_1_0 = (RuleCall)cNameAssignment_0_0_1.eContents().get(0);
+		private final Group cGroup_0_1 = (Group)cAlternatives_0.eContents().get(1);
+		private final Action cParameterAction_0_1_0 = (Action)cGroup_0_1.eContents().get(0);
+		private final Assignment cNameAssignment_0_1_1 = (Assignment)cGroup_0_1.eContents().get(1);
+		private final RuleCall cNameValidIDParserRuleCall_0_1_1_0 = (RuleCall)cNameAssignment_0_1_1.eContents().get(0);
+		private final Keyword cEqualsSignKeyword_0_1_2 = (Keyword)cGroup_0_1.eContents().get(2);
+		private final Assignment cValueExpressionAssignment_0_1_3 = (Assignment)cGroup_0_1.eContents().get(3);
+		private final RuleCall cValueExpressionXInitExpressionParserRuleCall_0_1_3_0 = (RuleCall)cValueExpressionAssignment_0_1_3.eContents().get(0);
+		private final Group cGroup_1 = (Group)cGroup.eContents().get(1);
+		private final Keyword cLeftParenthesisKeyword_1_0 = (Keyword)cGroup_1.eContents().get(0);
+		private final Assignment cAttributesAssignment_1_1 = (Assignment)cGroup_1.eContents().get(1);
+		private final RuleCall cAttributesInjectableAttributeParserRuleCall_1_1_0 = (RuleCall)cAttributesAssignment_1_1.eContents().get(0);
+		private final Group cGroup_1_2 = (Group)cGroup_1.eContents().get(2);
+		private final Keyword cCommaKeyword_1_2_0 = (Keyword)cGroup_1_2.eContents().get(0);
+		private final Assignment cAttributesAssignment_1_2_1 = (Assignment)cGroup_1_2.eContents().get(1);
+		private final RuleCall cAttributesInjectableAttributeParserRuleCall_1_2_1_0 = (RuleCall)cAttributesAssignment_1_2_1.eContents().get(0);
+		private final Keyword cRightParenthesisKeyword_1_3 = (Keyword)cGroup_1.eContents().get(3);
 		
-		//InjectableAttribute:
-		//	"-" type=JvmTypeReference name=ValidID displayName=STRING? ("@" attributes+=AnnotationAttribute)*;
+		//InjectableAttribute returns JvmTypedAttribute:
+		//	(type=JvmTypeReference name=ValidID? | {Parameter} name=ValidID "=" valueExpression=XInitExpression) ("("
+		//	attributes+=InjectableAttribute ("," attributes+=InjectableAttribute)* ")")?;
 		public ParserRule getRule() { return rule; }
 
-		//"-" type=JvmTypeReference name=ValidID displayName=STRING? ("@" attributes+=AnnotationAttribute)*
+		//(type=JvmTypeReference name=ValidID? | {Parameter} name=ValidID "=" valueExpression=XInitExpression) ("("
+		//attributes+=InjectableAttribute ("," attributes+=InjectableAttribute)* ")")?
 		public Group getGroup() { return cGroup; }
 
-		//"-"
-		public Keyword getHyphenMinusKeyword_0() { return cHyphenMinusKeyword_0; }
+		//type=JvmTypeReference name=ValidID? | {Parameter} name=ValidID "=" valueExpression=XInitExpression
+		public Alternatives getAlternatives_0() { return cAlternatives_0; }
+
+		//type=JvmTypeReference name=ValidID?
+		public Group getGroup_0_0() { return cGroup_0_0; }
 
 		//type=JvmTypeReference
-		public Assignment getTypeAssignment_1() { return cTypeAssignment_1; }
+		public Assignment getTypeAssignment_0_0_0() { return cTypeAssignment_0_0_0; }
 
 		//JvmTypeReference
-		public RuleCall getTypeJvmTypeReferenceParserRuleCall_1_0() { return cTypeJvmTypeReferenceParserRuleCall_1_0; }
+		public RuleCall getTypeJvmTypeReferenceParserRuleCall_0_0_0_0() { return cTypeJvmTypeReferenceParserRuleCall_0_0_0_0; }
 
-		//name=ValidID
-		public Assignment getNameAssignment_2() { return cNameAssignment_2; }
+		//name=ValidID?
+		public Assignment getNameAssignment_0_0_1() { return cNameAssignment_0_0_1; }
 
 		//ValidID
-		public RuleCall getNameValidIDParserRuleCall_2_0() { return cNameValidIDParserRuleCall_2_0; }
+		public RuleCall getNameValidIDParserRuleCall_0_0_1_0() { return cNameValidIDParserRuleCall_0_0_1_0; }
 
-		//displayName=STRING?
-		public Assignment getDisplayNameAssignment_3() { return cDisplayNameAssignment_3; }
+		//{Parameter} name=ValidID "=" valueExpression=XInitExpression
+		public Group getGroup_0_1() { return cGroup_0_1; }
 
-		//STRING
-		public RuleCall getDisplayNameSTRINGTerminalRuleCall_3_0() { return cDisplayNameSTRINGTerminalRuleCall_3_0; }
+		//{Parameter}
+		public Action getParameterAction_0_1_0() { return cParameterAction_0_1_0; }
 
-		//("@" attributes+=AnnotationAttribute)*
-		public Group getGroup_4() { return cGroup_4; }
+		//name=ValidID
+		public Assignment getNameAssignment_0_1_1() { return cNameAssignment_0_1_1; }
 
-		//"@"
-		public Keyword getCommercialAtKeyword_4_0() { return cCommercialAtKeyword_4_0; }
+		//ValidID
+		public RuleCall getNameValidIDParserRuleCall_0_1_1_0() { return cNameValidIDParserRuleCall_0_1_1_0; }
 
-		//attributes+=AnnotationAttribute
-		public Assignment getAttributesAssignment_4_1() { return cAttributesAssignment_4_1; }
+		//"="
+		public Keyword getEqualsSignKeyword_0_1_2() { return cEqualsSignKeyword_0_1_2; }
 
-		//AnnotationAttribute
-		public RuleCall getAttributesAnnotationAttributeParserRuleCall_4_1_0() { return cAttributesAnnotationAttributeParserRuleCall_4_1_0; }
+		//valueExpression=XInitExpression
+		public Assignment getValueExpressionAssignment_0_1_3() { return cValueExpressionAssignment_0_1_3; }
+
+		//XInitExpression
+		public RuleCall getValueExpressionXInitExpressionParserRuleCall_0_1_3_0() { return cValueExpressionXInitExpressionParserRuleCall_0_1_3_0; }
+
+		//("(" attributes+=InjectableAttribute ("," attributes+=InjectableAttribute)* ")")?
+		public Group getGroup_1() { return cGroup_1; }
+
+		//"("
+		public Keyword getLeftParenthesisKeyword_1_0() { return cLeftParenthesisKeyword_1_0; }
+
+		//attributes+=InjectableAttribute
+		public Assignment getAttributesAssignment_1_1() { return cAttributesAssignment_1_1; }
+
+		//InjectableAttribute
+		public RuleCall getAttributesInjectableAttributeParserRuleCall_1_1_0() { return cAttributesInjectableAttributeParserRuleCall_1_1_0; }
+
+		//("," attributes+=InjectableAttribute)*
+		public Group getGroup_1_2() { return cGroup_1_2; }
+
+		//","
+		public Keyword getCommaKeyword_1_2_0() { return cCommaKeyword_1_2_0; }
+
+		//attributes+=InjectableAttribute
+		public Assignment getAttributesAssignment_1_2_1() { return cAttributesAssignment_1_2_1; }
+
+		//InjectableAttribute
+		public RuleCall getAttributesInjectableAttributeParserRuleCall_1_2_1_0() { return cAttributesInjectableAttributeParserRuleCall_1_2_1_0; }
+
+		//")"
+		public Keyword getRightParenthesisKeyword_1_3() { return cRightParenthesisKeyword_1_3; }
 	}
 
 	public class VariableElements extends AbstractParserRuleElementFinder {
@@ -1127,15 +1215,15 @@ public class XActorGrammarAccess extends AbstractGrammarElementFinder {
 		private final Assignment cDisplayNameAssignment_2 = (Assignment)cGroup.eContents().get(2);
 		private final RuleCall cDisplayNameSTRINGTerminalRuleCall_2_0 = (RuleCall)cDisplayNameAssignment_2.eContents().get(0);
 		private final Group cGroup_3 = (Group)cGroup.eContents().get(3);
-		private final RuleCall cOpSingleAssignParserRuleCall_3_0 = (RuleCall)cGroup_3.eContents().get(0);
+		private final Keyword cEqualsSignKeyword_3_0 = (Keyword)cGroup_3.eContents().get(0);
 		private final Assignment cValueExpressionAssignment_3_1 = (Assignment)cGroup_3.eContents().get(1);
 		private final RuleCall cValueExpressionXInitExpressionParserRuleCall_3_1_0 = (RuleCall)cValueExpressionAssignment_3_1.eContents().get(0);
 		
 		//Variable:
-		//	type=JvmTypeReference name=ValidID displayName=STRING? (OpSingleAssign valueExpression=XInitExpression)?;
+		//	type=JvmTypeReference name=ValidID displayName=STRING? ("=" valueExpression=XInitExpression)?;
 		public ParserRule getRule() { return rule; }
 
-		//type=JvmTypeReference name=ValidID displayName=STRING? (OpSingleAssign valueExpression=XInitExpression)?
+		//type=JvmTypeReference name=ValidID displayName=STRING? ("=" valueExpression=XInitExpression)?
 		public Group getGroup() { return cGroup; }
 
 		//type=JvmTypeReference
@@ -1156,11 +1244,11 @@ public class XActorGrammarAccess extends AbstractGrammarElementFinder {
 		//STRING
 		public RuleCall getDisplayNameSTRINGTerminalRuleCall_2_0() { return cDisplayNameSTRINGTerminalRuleCall_2_0; }
 
-		//(OpSingleAssign valueExpression=XInitExpression)?
+		//("=" valueExpression=XInitExpression)?
 		public Group getGroup_3() { return cGroup_3; }
 
-		//OpSingleAssign
-		public RuleCall getOpSingleAssignParserRuleCall_3_0() { return cOpSingleAssignParserRuleCall_3_0; }
+		//"="
+		public Keyword getEqualsSignKeyword_3_0() { return cEqualsSignKeyword_3_0; }
 
 		//valueExpression=XInitExpression
 		public Assignment getValueExpressionAssignment_3_1() { return cValueExpressionAssignment_3_1; }
@@ -1233,50 +1321,6 @@ public class XActorGrammarAccess extends AbstractGrammarElementFinder {
 		public RuleCall getValueExpressionXInitExpressionParserRuleCall_3_1_0() { return cValueExpressionXInitExpressionParserRuleCall_3_1_0; }
 	}
 
-	public class AnnotationAttributeElements extends AbstractParserRuleElementFinder {
-		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "AnnotationAttribute");
-		private final Group cGroup = (Group)rule.eContents().get(1);
-		private final Assignment cTypeAssignment_0 = (Assignment)cGroup.eContents().get(0);
-		private final RuleCall cTypeJvmParameterizedTypeReferenceParserRuleCall_0_0 = (RuleCall)cTypeAssignment_0.eContents().get(0);
-		private final Assignment cNameAssignment_1 = (Assignment)cGroup.eContents().get(1);
-		private final RuleCall cNameValidIDParserRuleCall_1_0 = (RuleCall)cNameAssignment_1.eContents().get(0);
-		private final Keyword cEqualsSignKeyword_2 = (Keyword)cGroup.eContents().get(2);
-		private final Assignment cValueExpressionAssignment_3 = (Assignment)cGroup.eContents().get(3);
-		private final RuleCall cValueExpressionXInitExpressionParserRuleCall_3_0 = (RuleCall)cValueExpressionAssignment_3.eContents().get(0);
-		private final Keyword cSemicolonKeyword_4 = (Keyword)cGroup.eContents().get(4);
-		
-		//AnnotationAttribute returns Variable:
-		//	type=JvmParameterizedTypeReference? name=ValidID "=" valueExpression=XInitExpression ";";
-		public ParserRule getRule() { return rule; }
-
-		//type=JvmParameterizedTypeReference? name=ValidID "=" valueExpression=XInitExpression ";"
-		public Group getGroup() { return cGroup; }
-
-		//type=JvmParameterizedTypeReference?
-		public Assignment getTypeAssignment_0() { return cTypeAssignment_0; }
-
-		//JvmParameterizedTypeReference
-		public RuleCall getTypeJvmParameterizedTypeReferenceParserRuleCall_0_0() { return cTypeJvmParameterizedTypeReferenceParserRuleCall_0_0; }
-
-		//name=ValidID
-		public Assignment getNameAssignment_1() { return cNameAssignment_1; }
-
-		//ValidID
-		public RuleCall getNameValidIDParserRuleCall_1_0() { return cNameValidIDParserRuleCall_1_0; }
-
-		//"="
-		public Keyword getEqualsSignKeyword_2() { return cEqualsSignKeyword_2; }
-
-		//valueExpression=XInitExpression
-		public Assignment getValueExpressionAssignment_3() { return cValueExpressionAssignment_3; }
-
-		//XInitExpression
-		public RuleCall getValueExpressionXInitExpressionParserRuleCall_3_0() { return cValueExpressionXInitExpressionParserRuleCall_3_0; }
-
-		//";"
-		public Keyword getSemicolonKeyword_4() { return cSemicolonKeyword_4; }
-	}
-
 	public class TypedInputPortElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "TypedInputPort");
 		private final Group cGroup = (Group)rule.eContents().get(1);
@@ -1293,18 +1337,12 @@ public class XActorGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cNameValidIDParserRuleCall_3_0 = (RuleCall)cNameAssignment_3.eContents().get(0);
 		private final Assignment cDisplayNameAssignment_4 = (Assignment)cGroup.eContents().get(4);
 		private final RuleCall cDisplayNameSTRINGTerminalRuleCall_4_0 = (RuleCall)cDisplayNameAssignment_4.eContents().get(0);
-		private final Group cGroup_5 = (Group)cGroup.eContents().get(5);
-		private final Keyword cCommercialAtKeyword_5_0 = (Keyword)cGroup_5.eContents().get(0);
-		private final Assignment cAttributesAssignment_5_1 = (Assignment)cGroup_5.eContents().get(1);
-		private final RuleCall cAttributesAnnotationAttributeParserRuleCall_5_1_0 = (RuleCall)cAttributesAssignment_5_1.eContents().get(0);
 		
 		//TypedInputPort:
-		//	type=JvmParameterizedTypeReference ("[" rate=INT "]")? multiport?="*"? name=ValidID displayName=STRING? ("@"
-		//	attributes+=AnnotationAttribute)*;
+		//	type=JvmParameterizedTypeReference ("[" rate=INT "]")? multiport?="*"? name=ValidID displayName=STRING?;
 		public ParserRule getRule() { return rule; }
 
-		//type=JvmParameterizedTypeReference ("[" rate=INT "]")? multiport?="*"? name=ValidID displayName=STRING? ("@"
-		//attributes+=AnnotationAttribute)*
+		//type=JvmParameterizedTypeReference ("[" rate=INT "]")? multiport?="*"? name=ValidID displayName=STRING?
 		public Group getGroup() { return cGroup; }
 
 		//type=JvmParameterizedTypeReference
@@ -1345,18 +1383,6 @@ public class XActorGrammarAccess extends AbstractGrammarElementFinder {
 
 		//STRING
 		public RuleCall getDisplayNameSTRINGTerminalRuleCall_4_0() { return cDisplayNameSTRINGTerminalRuleCall_4_0; }
-
-		//("@" attributes+=AnnotationAttribute)*
-		public Group getGroup_5() { return cGroup_5; }
-
-		//"@"
-		public Keyword getCommercialAtKeyword_5_0() { return cCommercialAtKeyword_5_0; }
-
-		//attributes+=AnnotationAttribute
-		public Assignment getAttributesAssignment_5_1() { return cAttributesAssignment_5_1; }
-
-		//AnnotationAttribute
-		public RuleCall getAttributesAnnotationAttributeParserRuleCall_5_1_0() { return cAttributesAnnotationAttributeParserRuleCall_5_1_0; }
 	}
 
 	public class TypedOutputPortElements extends AbstractParserRuleElementFinder {
@@ -1375,18 +1401,12 @@ public class XActorGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cNameValidIDParserRuleCall_3_0 = (RuleCall)cNameAssignment_3.eContents().get(0);
 		private final Assignment cDisplayNameAssignment_4 = (Assignment)cGroup.eContents().get(4);
 		private final RuleCall cDisplayNameSTRINGTerminalRuleCall_4_0 = (RuleCall)cDisplayNameAssignment_4.eContents().get(0);
-		private final Group cGroup_5 = (Group)cGroup.eContents().get(5);
-		private final Keyword cCommercialAtKeyword_5_0 = (Keyword)cGroup_5.eContents().get(0);
-		private final Assignment cAttributesAssignment_5_1 = (Assignment)cGroup_5.eContents().get(1);
-		private final RuleCall cAttributesAnnotationAttributeParserRuleCall_5_1_0 = (RuleCall)cAttributesAssignment_5_1.eContents().get(0);
 		
 		//TypedOutputPort:
-		//	type=JvmParameterizedTypeReference ("[" rate=INT "]")? multiport?="*"? name=ValidID displayName=STRING? ("@"
-		//	attributes+=AnnotationAttribute)*;
+		//	type=JvmParameterizedTypeReference ("[" rate=INT "]")? multiport?="*"? name=ValidID displayName=STRING?;
 		public ParserRule getRule() { return rule; }
 
-		//type=JvmParameterizedTypeReference ("[" rate=INT "]")? multiport?="*"? name=ValidID displayName=STRING? ("@"
-		//attributes+=AnnotationAttribute)*
+		//type=JvmParameterizedTypeReference ("[" rate=INT "]")? multiport?="*"? name=ValidID displayName=STRING?
 		public Group getGroup() { return cGroup; }
 
 		//type=JvmParameterizedTypeReference
@@ -1427,18 +1447,6 @@ public class XActorGrammarAccess extends AbstractGrammarElementFinder {
 
 		//STRING
 		public RuleCall getDisplayNameSTRINGTerminalRuleCall_4_0() { return cDisplayNameSTRINGTerminalRuleCall_4_0; }
-
-		//("@" attributes+=AnnotationAttribute)*
-		public Group getGroup_5() { return cGroup_5; }
-
-		//"@"
-		public Keyword getCommercialAtKeyword_5_0() { return cCommercialAtKeyword_5_0; }
-
-		//attributes+=AnnotationAttribute
-		public Assignment getAttributesAssignment_5_1() { return cAttributesAssignment_5_1; }
-
-		//AnnotationAttribute
-		public RuleCall getAttributesAnnotationAttributeParserRuleCall_5_1_0() { return cAttributesAnnotationAttributeParserRuleCall_5_1_0; }
 	}
 
 	public class RPIDElements extends AbstractParserRuleElementFinder {
@@ -1957,7 +1965,7 @@ public class XActorGrammarAccess extends AbstractGrammarElementFinder {
 		private final Group cGroup_0 = (Group)cGroup.eContents().get(0);
 		private final Keyword cCommercialAtKeyword_0_0 = (Keyword)cGroup_0.eContents().get(0);
 		private final Assignment cAttributesAssignment_0_1 = (Assignment)cGroup_0.eContents().get(1);
-		private final RuleCall cAttributesAnnotationAttributeParserRuleCall_0_1_0 = (RuleCall)cAttributesAssignment_0_1.eContents().get(0);
+		private final RuleCall cAttributesInjectableAttributeParserRuleCall_0_1_0 = (RuleCall)cAttributesAssignment_0_1.eContents().get(0);
 		private final Alternatives cAlternatives_1 = (Alternatives)cGroup.eContents().get(1);
 		private final Assignment cConstantAssignment_1_0 = (Assignment)cAlternatives_1.eContents().get(0);
 		private final Keyword cConstantValKeyword_1_0_0 = (Keyword)cConstantAssignment_1_0.eContents().get(0);
@@ -1983,25 +1991,25 @@ public class XActorGrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cSemicolonKeyword_5_2 = (Keyword)cGroup_5.eContents().get(2);
 		
 		//StateVariable:
-		//	("@" attributes+=AnnotationAttribute)* (constant?="val" | "var") realm=Realm? type=JvmTypeReference name=ValidID
+		//	("@" attributes+=InjectableAttribute)* (constant?="val" | "var") realm=Realm? type=JvmTypeReference name=ValidID
 		//	(((binding?=":=" | "=") valueExpression=XInitExpression)? ("update" updateExpression=XExpression)? ";")?;
 		public ParserRule getRule() { return rule; }
 
-		//("@" attributes+=AnnotationAttribute)* (constant?="val" | "var") realm=Realm? type=JvmTypeReference name=ValidID
+		//("@" attributes+=InjectableAttribute)* (constant?="val" | "var") realm=Realm? type=JvmTypeReference name=ValidID
 		//(((binding?=":=" | "=") valueExpression=XInitExpression)? ("update" updateExpression=XExpression)? ";")?
 		public Group getGroup() { return cGroup; }
 
-		//("@" attributes+=AnnotationAttribute)*
+		//("@" attributes+=InjectableAttribute)*
 		public Group getGroup_0() { return cGroup_0; }
 
 		//"@"
 		public Keyword getCommercialAtKeyword_0_0() { return cCommercialAtKeyword_0_0; }
 
-		//attributes+=AnnotationAttribute
+		//attributes+=InjectableAttribute
 		public Assignment getAttributesAssignment_0_1() { return cAttributesAssignment_0_1; }
 
-		//AnnotationAttribute
-		public RuleCall getAttributesAnnotationAttributeParserRuleCall_0_1_0() { return cAttributesAnnotationAttributeParserRuleCall_0_1_0; }
+		//InjectableAttribute
+		public RuleCall getAttributesInjectableAttributeParserRuleCall_0_1_0() { return cAttributesInjectableAttributeParserRuleCall_0_1_0; }
 
 		//constant?="val" | "var"
 		public Alternatives getAlternatives_1() { return cAlternatives_1; }
@@ -2134,13 +2142,11 @@ public class XActorGrammarAccess extends AbstractGrammarElementFinder {
 		
 		//InitAction returns OutputAction:
 		//	{OutputAction} (name=ValidID ":")? "initialize" MAPS_TO (outputPatterns+=OutputPattern (","
-		//	outputPatterns+=OutputPattern)*)? ("guard" guardExpression=XExpression)? //	(attributes+=ActionVariable)*
-		//	("do" bodyExpression=XBodyExpression)? "end";
+		//	outputPatterns+=OutputPattern)*)? ("guard" guardExpression=XExpression)? ("do" bodyExpression=XBodyExpression)? "end";
 		public ParserRule getRule() { return rule; }
 
 		//{OutputAction} (name=ValidID ":")? "initialize" MAPS_TO (outputPatterns+=OutputPattern (","
-		//outputPatterns+=OutputPattern)*)? ("guard" guardExpression=XExpression)? //	(attributes+=ActionVariable)*
-		//("do" bodyExpression=XBodyExpression)? "end"
+		//outputPatterns+=OutputPattern)*)? ("guard" guardExpression=XExpression)? ("do" bodyExpression=XBodyExpression)? "end"
 		public Group getGroup() { return cGroup; }
 
 		//{OutputAction}
@@ -2393,14 +2399,14 @@ public class XActorGrammarAccess extends AbstractGrammarElementFinder {
 		//FireAction:
 		//	{FireAction} (name=QualifiedName ":")? "action" (inputPatterns+=InputPattern ("," inputPatterns+=InputPattern)*)?
 		//	MAPS_TO (outputPatterns+=OutputPattern ("," outputPatterns+=OutputPattern)*)? ("guard" guardExpression=XExpression)?
-		//	("delay" delayExpression=XExpression)? //	(attributes+=ActionVariable)*
-		//	("do" bodyExpression=XBodyExpression)? ("update" updateExpression=XBodyExpression)? "end";
+		//	("delay" delayExpression=XExpression)? ("do" bodyExpression=XBodyExpression)? ("update"
+		//	updateExpression=XBodyExpression)? "end";
 		public ParserRule getRule() { return rule; }
 
 		//{FireAction} (name=QualifiedName ":")? "action" (inputPatterns+=InputPattern ("," inputPatterns+=InputPattern)*)?
 		//MAPS_TO (outputPatterns+=OutputPattern ("," outputPatterns+=OutputPattern)*)? ("guard" guardExpression=XExpression)?
-		//("delay" delayExpression=XExpression)? //	(attributes+=ActionVariable)*
-		//("do" bodyExpression=XBodyExpression)? ("update" updateExpression=XBodyExpression)? "end"
+		//("delay" delayExpression=XExpression)? ("do" bodyExpression=XBodyExpression)? ("update"
+		//updateExpression=XBodyExpression)? "end"
 		public Group getGroup() { return cGroup; }
 
 		//{FireAction}
@@ -2877,12 +2883,14 @@ public class XActorGrammarAccess extends AbstractGrammarElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "Transition");
 		private final Group cGroup = (Group)rule.eContents().get(1);
 		private final Keyword cLeftParenthesisKeyword_0 = (Keyword)cGroup.eContents().get(0);
-		private final Assignment cTagsAssignment_1 = (Assignment)cGroup.eContents().get(1);
-		private final RuleCall cTagsQualifiedNameParserRuleCall_1_0 = (RuleCall)cTagsAssignment_1.eContents().get(0);
+		private final Assignment cActionsAssignment_1 = (Assignment)cGroup.eContents().get(1);
+		private final CrossReference cActionsOutputActionCrossReference_1_0 = (CrossReference)cActionsAssignment_1.eContents().get(0);
+		private final RuleCall cActionsOutputActionValidIDParserRuleCall_1_0_1 = (RuleCall)cActionsOutputActionCrossReference_1_0.eContents().get(1);
 		private final Group cGroup_2 = (Group)cGroup.eContents().get(2);
 		private final Keyword cCommaKeyword_2_0 = (Keyword)cGroup_2.eContents().get(0);
-		private final Assignment cTagsAssignment_2_1 = (Assignment)cGroup_2.eContents().get(1);
-		private final RuleCall cTagsQualifiedNameParserRuleCall_2_1_0 = (RuleCall)cTagsAssignment_2_1.eContents().get(0);
+		private final Assignment cActionsAssignment_2_1 = (Assignment)cGroup_2.eContents().get(1);
+		private final CrossReference cActionsOutputActionCrossReference_2_1_0 = (CrossReference)cActionsAssignment_2_1.eContents().get(0);
+		private final RuleCall cActionsOutputActionValidIDParserRuleCall_2_1_0_1 = (RuleCall)cActionsOutputActionCrossReference_2_1_0.eContents().get(1);
 		private final Keyword cRightParenthesisKeyword_3 = (Keyword)cGroup.eContents().get(3);
 		private final Keyword cHyphenMinusHyphenMinusGreaterThanSignKeyword_4 = (Keyword)cGroup.eContents().get(4);
 		private final Assignment cTargetAssignment_5 = (Assignment)cGroup.eContents().get(5);
@@ -2890,32 +2898,38 @@ public class XActorGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cTargetStateValidIDParserRuleCall_5_0_1 = (RuleCall)cTargetStateCrossReference_5_0.eContents().get(1);
 		
 		//Transition:
-		//	"(" tags+=QualifiedName ("," tags+=QualifiedName)* ")" "-->" target=[State|ValidID];
+		//	"(" actions+=[OutputAction|ValidID] ("," actions+=[OutputAction|ValidID])* ")" "-->" target=[State|ValidID];
 		public ParserRule getRule() { return rule; }
 
-		//"(" tags+=QualifiedName ("," tags+=QualifiedName)* ")" "-->" target=[State|ValidID]
+		//"(" actions+=[OutputAction|ValidID] ("," actions+=[OutputAction|ValidID])* ")" "-->" target=[State|ValidID]
 		public Group getGroup() { return cGroup; }
 
 		//"("
 		public Keyword getLeftParenthesisKeyword_0() { return cLeftParenthesisKeyword_0; }
 
-		//tags+=QualifiedName
-		public Assignment getTagsAssignment_1() { return cTagsAssignment_1; }
+		//actions+=[OutputAction|ValidID]
+		public Assignment getActionsAssignment_1() { return cActionsAssignment_1; }
 
-		//QualifiedName
-		public RuleCall getTagsQualifiedNameParserRuleCall_1_0() { return cTagsQualifiedNameParserRuleCall_1_0; }
+		//[OutputAction|ValidID]
+		public CrossReference getActionsOutputActionCrossReference_1_0() { return cActionsOutputActionCrossReference_1_0; }
 
-		//("," tags+=QualifiedName)*
+		//ValidID
+		public RuleCall getActionsOutputActionValidIDParserRuleCall_1_0_1() { return cActionsOutputActionValidIDParserRuleCall_1_0_1; }
+
+		//("," actions+=[OutputAction|ValidID])*
 		public Group getGroup_2() { return cGroup_2; }
 
 		//","
 		public Keyword getCommaKeyword_2_0() { return cCommaKeyword_2_0; }
 
-		//tags+=QualifiedName
-		public Assignment getTagsAssignment_2_1() { return cTagsAssignment_2_1; }
+		//actions+=[OutputAction|ValidID]
+		public Assignment getActionsAssignment_2_1() { return cActionsAssignment_2_1; }
 
-		//QualifiedName
-		public RuleCall getTagsQualifiedNameParserRuleCall_2_1_0() { return cTagsQualifiedNameParserRuleCall_2_1_0; }
+		//[OutputAction|ValidID]
+		public CrossReference getActionsOutputActionCrossReference_2_1_0() { return cActionsOutputActionCrossReference_2_1_0; }
+
+		//ValidID
+		public RuleCall getActionsOutputActionValidIDParserRuleCall_2_1_0_1() { return cActionsOutputActionValidIDParserRuleCall_2_1_0_1; }
 
 		//")"
 		public Keyword getRightParenthesisKeyword_3() { return cRightParenthesisKeyword_3; }
@@ -2973,12 +2987,12 @@ public class XActorGrammarAccess extends AbstractGrammarElementFinder {
 		
 		//EventAction:
 		//	{EventAction} (name=QualifiedName ":")? "event" (eventPatterns+=EventPattern ("," eventPatterns+=EventPattern)*)?
-		//	MAPS_TO (outputPatterns+=OutputPattern ("," outputPatterns+=OutputPattern)*)? ("guard" guardExpression=XExpression)? //	(attributes+=ActionVariable)*
+		//	MAPS_TO (outputPatterns+=OutputPattern ("," outputPatterns+=OutputPattern)*)? ("guard" guardExpression=XExpression)?
 		//	("do" bodyExpression=XBodyExpression)? ("update" updateExpression=XBodyExpression)? "end";
 		public ParserRule getRule() { return rule; }
 
 		//{EventAction} (name=QualifiedName ":")? "event" (eventPatterns+=EventPattern ("," eventPatterns+=EventPattern)*)?
-		//MAPS_TO (outputPatterns+=OutputPattern ("," outputPatterns+=OutputPattern)*)? ("guard" guardExpression=XExpression)? //	(attributes+=ActionVariable)*
+		//MAPS_TO (outputPatterns+=OutputPattern ("," outputPatterns+=OutputPattern)*)? ("guard" guardExpression=XExpression)?
 		//("do" bodyExpression=XBodyExpression)? ("update" updateExpression=XBodyExpression)? "end"
 		public Group getGroup() { return cGroup; }
 
@@ -3348,105 +3362,24 @@ public class XActorGrammarAccess extends AbstractGrammarElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "OpOther2");
 		private final Keyword cNumberSignKeyword = (Keyword)rule.eContents().get(1);
 		
+		////XClosure returns xbase::XExpression:
+		////	(=>({xbase::XClosure} '[')  
+		////		=>((declaredFormalParameters+=JvmFormalParameter (',' declaredFormalParameters+=JvmFormalParameter)*)? explicitSyntax?='|')? 
+		////		expression=XExpressionInClosure 
+		////	']')
+		////	;
 		//OpOther2:
 		//	"#";
 		public ParserRule getRule() { return rule; }
 
+		////XClosure returns xbase::XExpression:
+		////	(=>({xbase::XClosure} '[')  
+		////		=>((declaredFormalParameters+=JvmFormalParameter (',' declaredFormalParameters+=JvmFormalParameter)*)? explicitSyntax?='|')? 
+		////		expression=XExpressionInClosure 
+		////	']')
+		////	;
 		//"#"
 		public Keyword getNumberSignKeyword() { return cNumberSignKeyword; }
-	}
-
-	public class XClosureElements extends AbstractParserRuleElementFinder {
-		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "XClosure");
-		private final Group cGroup = (Group)rule.eContents().get(1);
-		private final Group cGroup_0 = (Group)cGroup.eContents().get(0);
-		private final Group cGroup_0_0 = (Group)cGroup_0.eContents().get(0);
-		private final Action cXClosureAction_0_0_0 = (Action)cGroup_0_0.eContents().get(0);
-		private final Keyword cLeftSquareBracketKeyword_0_0_1 = (Keyword)cGroup_0_0.eContents().get(1);
-		private final Group cGroup_1 = (Group)cGroup.eContents().get(1);
-		private final Group cGroup_1_0 = (Group)cGroup_1.eContents().get(0);
-		private final Group cGroup_1_0_0 = (Group)cGroup_1_0.eContents().get(0);
-		private final Assignment cDeclaredFormalParametersAssignment_1_0_0_0 = (Assignment)cGroup_1_0_0.eContents().get(0);
-		private final RuleCall cDeclaredFormalParametersJvmFormalParameterParserRuleCall_1_0_0_0_0 = (RuleCall)cDeclaredFormalParametersAssignment_1_0_0_0.eContents().get(0);
-		private final Group cGroup_1_0_0_1 = (Group)cGroup_1_0_0.eContents().get(1);
-		private final Keyword cCommaKeyword_1_0_0_1_0 = (Keyword)cGroup_1_0_0_1.eContents().get(0);
-		private final Assignment cDeclaredFormalParametersAssignment_1_0_0_1_1 = (Assignment)cGroup_1_0_0_1.eContents().get(1);
-		private final RuleCall cDeclaredFormalParametersJvmFormalParameterParserRuleCall_1_0_0_1_1_0 = (RuleCall)cDeclaredFormalParametersAssignment_1_0_0_1_1.eContents().get(0);
-		private final Assignment cExplicitSyntaxAssignment_1_0_1 = (Assignment)cGroup_1_0.eContents().get(1);
-		private final Keyword cExplicitSyntaxVerticalLineKeyword_1_0_1_0 = (Keyword)cExplicitSyntaxAssignment_1_0_1.eContents().get(0);
-		private final Assignment cExpressionAssignment_2 = (Assignment)cGroup.eContents().get(2);
-		private final RuleCall cExpressionXExpressionInClosureParserRuleCall_2_0 = (RuleCall)cExpressionAssignment_2.eContents().get(0);
-		private final Keyword cRightSquareBracketKeyword_3 = (Keyword)cGroup.eContents().get(3);
-		
-		////	|
-		////	(=>({xbase::XClosure} 'lambda') '('=>((declaredFormalParameters+=JvmFormalParameter (',' declaredFormalParameters+=JvmFormalParameter)*)? explicitSyntax?=')')
-		////		':'
-		////		expression=XBodyExpression
-		////		'end'
-		////	)
-		//XClosure returns xbase::XExpression:
-		//	=> ({xbase::XClosure} "[") => ((declaredFormalParameters+=JvmFormalParameter (","
-		//	declaredFormalParameters+=JvmFormalParameter)*)? explicitSyntax?="|")? expression=XExpressionInClosure "]";
-		public ParserRule getRule() { return rule; }
-
-		//=> ({xbase::XClosure} "[") => ((declaredFormalParameters+=JvmFormalParameter (","
-		//declaredFormalParameters+=JvmFormalParameter)*)? explicitSyntax?="|")? expression=XExpressionInClosure "]"
-		public Group getGroup() { return cGroup; }
-
-		//=> ({xbase::XClosure} "[")
-		public Group getGroup_0() { return cGroup_0; }
-
-		//{xbase::XClosure} "["
-		public Group getGroup_0_0() { return cGroup_0_0; }
-
-		//{xbase::XClosure}
-		public Action getXClosureAction_0_0_0() { return cXClosureAction_0_0_0; }
-
-		//"["
-		public Keyword getLeftSquareBracketKeyword_0_0_1() { return cLeftSquareBracketKeyword_0_0_1; }
-
-		//=> ((declaredFormalParameters+=JvmFormalParameter ("," declaredFormalParameters+=JvmFormalParameter)*)?
-		//explicitSyntax?="|")?
-		public Group getGroup_1() { return cGroup_1; }
-
-		//(declaredFormalParameters+=JvmFormalParameter ("," declaredFormalParameters+=JvmFormalParameter)*)? explicitSyntax?="|"
-		public Group getGroup_1_0() { return cGroup_1_0; }
-
-		//(declaredFormalParameters+=JvmFormalParameter ("," declaredFormalParameters+=JvmFormalParameter)*)?
-		public Group getGroup_1_0_0() { return cGroup_1_0_0; }
-
-		//declaredFormalParameters+=JvmFormalParameter
-		public Assignment getDeclaredFormalParametersAssignment_1_0_0_0() { return cDeclaredFormalParametersAssignment_1_0_0_0; }
-
-		//JvmFormalParameter
-		public RuleCall getDeclaredFormalParametersJvmFormalParameterParserRuleCall_1_0_0_0_0() { return cDeclaredFormalParametersJvmFormalParameterParserRuleCall_1_0_0_0_0; }
-
-		//("," declaredFormalParameters+=JvmFormalParameter)*
-		public Group getGroup_1_0_0_1() { return cGroup_1_0_0_1; }
-
-		//","
-		public Keyword getCommaKeyword_1_0_0_1_0() { return cCommaKeyword_1_0_0_1_0; }
-
-		//declaredFormalParameters+=JvmFormalParameter
-		public Assignment getDeclaredFormalParametersAssignment_1_0_0_1_1() { return cDeclaredFormalParametersAssignment_1_0_0_1_1; }
-
-		//JvmFormalParameter
-		public RuleCall getDeclaredFormalParametersJvmFormalParameterParserRuleCall_1_0_0_1_1_0() { return cDeclaredFormalParametersJvmFormalParameterParserRuleCall_1_0_0_1_1_0; }
-
-		//explicitSyntax?="|"
-		public Assignment getExplicitSyntaxAssignment_1_0_1() { return cExplicitSyntaxAssignment_1_0_1; }
-
-		//"|"
-		public Keyword getExplicitSyntaxVerticalLineKeyword_1_0_1_0() { return cExplicitSyntaxVerticalLineKeyword_1_0_1_0; }
-
-		//expression=XExpressionInClosure
-		public Assignment getExpressionAssignment_2() { return cExpressionAssignment_2; }
-
-		//XExpressionInClosure
-		public RuleCall getExpressionXExpressionInClosureParserRuleCall_2_0() { return cExpressionXExpressionInClosureParserRuleCall_2_0; }
-
-		//"]"
-		public Keyword getRightSquareBracketKeyword_3() { return cRightSquareBracketKeyword_3; }
 	}
 	
 	
@@ -3493,7 +3426,6 @@ public class XActorGrammarAccess extends AbstractGrammarElementFinder {
 	private VariableElements pVariable;
 	private XInitExpressionElements pXInitExpression;
 	private ParameterElements pParameter;
-	private AnnotationAttributeElements pAnnotationAttribute;
 	private TypedInputPortElements pTypedInputPort;
 	private TypedOutputPortElements pTypedOutputPort;
 	private RPIDElements pRPID;
@@ -3524,7 +3456,6 @@ public class XActorGrammarAccess extends AbstractGrammarElementFinder {
 	private XUnaryOperationElements pXUnaryOperation;
 	private XOther2OperatorExpressionElements pXOther2OperatorExpression;
 	private OpOther2Elements pOpOther2;
-	private XClosureElements pXClosure;
 	
 	private final Grammar grammar;
 
@@ -3565,8 +3496,8 @@ public class XActorGrammarAccess extends AbstractGrammarElementFinder {
 
 	
 	//ActorModel returns EntityFolder:
-	//	{EntityFolder} "namespace" name=QualifiedName displayName=STRING? ":" imports=XImportSection?
-	//	attributes+=InjectableAttribute* (entityContainers+=EntityFolder | entities+=Entity)* "end";
+	//	{EntityFolder} "namespace" name=QualifiedName displayName=STRING? ":" imports=XImportSection? ("@"
+	//	attributes+=InjectableAttribute)* (entityContainers+=EntityFolder | entities+=Entity)* "end";
 	public ActorModelElements getActorModelAccess() {
 		return (pActorModel != null) ? pActorModel : (pActorModel = new ActorModelElements());
 	}
@@ -3576,7 +3507,7 @@ public class XActorGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//EntityFolder:
-	//	"namespace" name=QualifiedName displayName=STRING? ":" attributes+=InjectableAttribute*
+	//	"namespace" name=QualifiedName displayName=STRING? ":" ("@" attributes+=InjectableAttribute)*
 	//	(entityContainers+=EntityFolder | entities+=Entity)* "end";
 	public EntityFolderElements getEntityFolderAccess() {
 		return (pEntityFolder != null) ? pEntityFolder : (pEntityFolder = new EntityFolderElements());
@@ -3641,7 +3572,7 @@ public class XActorGrammarAccess extends AbstractGrammarElementFinder {
 	//	{TypedAtomicActor} "actor" name=ValidID displayName=STRING? ("<" typeParameters+=TypeParameter (","
 	//	typeParameters+=TypeParameter)* ">")? ("(" attributes+=Parameter ("," attributes+=Parameter)* ")")?
 	//	((ports+=TypedInputPort ("," ports+=TypedInputPort)*)? MAPS_TO (ports+=TypedOutputPort (","
-	//	ports+=TypedOutputPort)*)?)? ("is" superEntity=ActorRef)? attributes+=InjectableAttribute* impl=AtomicActorImpl?
+	//	ports+=TypedOutputPort)*)?)? ("is" superEntity=ActorRef)? ("@" attributes+=InjectableAttribute)* impl=AtomicActorImpl?
 	//	"end";
 	public TypedAtomicActorElements getTypedAtomicActorAccess() {
 		return (pTypedAtomicActor != null) ? pTypedAtomicActor : (pTypedAtomicActor = new TypedAtomicActorElements());
@@ -3664,7 +3595,7 @@ public class XActorGrammarAccess extends AbstractGrammarElementFinder {
 	//TypedAtomicActorInstance returns TypedAtomicActor:
 	//	{TypedAtomicActor} name=ValidID displayName=STRING? ("=" superEntity=ActorRef ";"? | ("=" "actor")?
 	//	((ports+=TypedInputPort ("," ports+=TypedInputPort)*)? MAPS_TO (ports+=TypedOutputPort (","
-	//	ports+=TypedOutputPort)*)?)? ("is" superEntity=ActorRef)? attributes+=InjectableAttribute* (impl=AtomicActorImpl
+	//	ports+=TypedOutputPort)*)?)? ("is" superEntity=ActorRef)? ("@" attributes+=InjectableAttribute)* (impl=AtomicActorImpl
 	//	"end"));
 	public TypedAtomicActorInstanceElements getTypedAtomicActorInstanceAccess() {
 		return (pTypedAtomicActorInstance != null) ? pTypedAtomicActorInstance : (pTypedAtomicActorInstance = new TypedAtomicActorInstanceElements());
@@ -3678,8 +3609,8 @@ public class XActorGrammarAccess extends AbstractGrammarElementFinder {
 	//	{TypedCompositeActor} "network" name=ValidID displayName=STRING? ("<" typeParameters+=TypeParameter (","
 	//	typeParameters+=TypeParameter)* ">")? ("(" attributes+=Parameter ("," attributes+=Parameter)* ")")?
 	//	((ports+=TypedInputPort ("," ports+=TypedInputPort)*)? MAPS_TO (ports+=TypedOutputPort (","
-	//	ports+=TypedOutputPort)*)?)? ":" attributes+=InjectableAttribute* ("var" (attributes+=Variable ";")*)? ("entities"
-	//	entities+=TypedAtomicActorInstance*) ("structure" relations+=ConversionRelation*)? "end";
+	//	ports+=TypedOutputPort)*)?)? ":" ("@" attributes+=InjectableAttribute)* ("var" (attributes+=Variable ";")*)?
+	//	("entities" entities+=TypedAtomicActorInstance*) ("structure" relations+=ConversionRelation*)? "end";
 	public CompositeEntityElements getCompositeEntityAccess() {
 		return (pCompositeEntity != null) ? pCompositeEntity : (pCompositeEntity = new CompositeEntityElements());
 	}
@@ -3688,8 +3619,9 @@ public class XActorGrammarAccess extends AbstractGrammarElementFinder {
 		return getCompositeEntityAccess().getRule();
 	}
 
-	//InjectableAttribute:
-	//	"-" type=JvmTypeReference name=ValidID displayName=STRING? ("@" attributes+=AnnotationAttribute)*;
+	//InjectableAttribute returns JvmTypedAttribute:
+	//	(type=JvmTypeReference name=ValidID? | {Parameter} name=ValidID "=" valueExpression=XInitExpression) ("("
+	//	attributes+=InjectableAttribute ("," attributes+=InjectableAttribute)* ")")?;
 	public InjectableAttributeElements getInjectableAttributeAccess() {
 		return (pInjectableAttribute != null) ? pInjectableAttribute : (pInjectableAttribute = new InjectableAttributeElements());
 	}
@@ -3699,7 +3631,7 @@ public class XActorGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//Variable:
-	//	type=JvmTypeReference name=ValidID displayName=STRING? (OpSingleAssign valueExpression=XInitExpression)?;
+	//	type=JvmTypeReference name=ValidID displayName=STRING? ("=" valueExpression=XInitExpression)?;
 	public VariableElements getVariableAccess() {
 		return (pVariable != null) ? pVariable : (pVariable = new VariableElements());
 	}
@@ -3728,19 +3660,8 @@ public class XActorGrammarAccess extends AbstractGrammarElementFinder {
 		return getParameterAccess().getRule();
 	}
 
-	//AnnotationAttribute returns Variable:
-	//	type=JvmParameterizedTypeReference? name=ValidID "=" valueExpression=XInitExpression ";";
-	public AnnotationAttributeElements getAnnotationAttributeAccess() {
-		return (pAnnotationAttribute != null) ? pAnnotationAttribute : (pAnnotationAttribute = new AnnotationAttributeElements());
-	}
-	
-	public ParserRule getAnnotationAttributeRule() {
-		return getAnnotationAttributeAccess().getRule();
-	}
-
 	//TypedInputPort:
-	//	type=JvmParameterizedTypeReference ("[" rate=INT "]")? multiport?="*"? name=ValidID displayName=STRING? ("@"
-	//	attributes+=AnnotationAttribute)*;
+	//	type=JvmParameterizedTypeReference ("[" rate=INT "]")? multiport?="*"? name=ValidID displayName=STRING?;
 	public TypedInputPortElements getTypedInputPortAccess() {
 		return (pTypedInputPort != null) ? pTypedInputPort : (pTypedInputPort = new TypedInputPortElements());
 	}
@@ -3750,8 +3671,7 @@ public class XActorGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//TypedOutputPort:
-	//	type=JvmParameterizedTypeReference ("[" rate=INT "]")? multiport?="*"? name=ValidID displayName=STRING? ("@"
-	//	attributes+=AnnotationAttribute)*;
+	//	type=JvmParameterizedTypeReference ("[" rate=INT "]")? multiport?="*"? name=ValidID displayName=STRING?;
 	public TypedOutputPortElements getTypedOutputPortAccess() {
 		return (pTypedOutputPort != null) ? pTypedOutputPort : (pTypedOutputPort = new TypedOutputPortElements());
 	}
@@ -3847,7 +3767,7 @@ public class XActorGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//StateVariable:
-	//	("@" attributes+=AnnotationAttribute)* (constant?="val" | "var") realm=Realm? type=JvmTypeReference name=ValidID
+	//	("@" attributes+=InjectableAttribute)* (constant?="val" | "var") realm=Realm? type=JvmTypeReference name=ValidID
 	//	(((binding?=":=" | "=") valueExpression=XInitExpression)? ("update" updateExpression=XExpression)? ";")?;
 	public StateVariableElements getStateVariableAccess() {
 		return (pStateVariable != null) ? pStateVariable : (pStateVariable = new StateVariableElements());
@@ -3869,8 +3789,7 @@ public class XActorGrammarAccess extends AbstractGrammarElementFinder {
 
 	//InitAction returns OutputAction:
 	//	{OutputAction} (name=ValidID ":")? "initialize" MAPS_TO (outputPatterns+=OutputPattern (","
-	//	outputPatterns+=OutputPattern)*)? ("guard" guardExpression=XExpression)? //	(attributes+=ActionVariable)*
-	//	("do" bodyExpression=XBodyExpression)? "end";
+	//	outputPatterns+=OutputPattern)*)? ("guard" guardExpression=XExpression)? ("do" bodyExpression=XBodyExpression)? "end";
 	public InitActionElements getInitActionAccess() {
 		return (pInitAction != null) ? pInitAction : (pInitAction = new InitActionElements());
 	}
@@ -3904,8 +3823,8 @@ public class XActorGrammarAccess extends AbstractGrammarElementFinder {
 	//FireAction:
 	//	{FireAction} (name=QualifiedName ":")? "action" (inputPatterns+=InputPattern ("," inputPatterns+=InputPattern)*)?
 	//	MAPS_TO (outputPatterns+=OutputPattern ("," outputPatterns+=OutputPattern)*)? ("guard" guardExpression=XExpression)?
-	//	("delay" delayExpression=XExpression)? //	(attributes+=ActionVariable)*
-	//	("do" bodyExpression=XBodyExpression)? ("update" updateExpression=XBodyExpression)? "end";
+	//	("delay" delayExpression=XExpression)? ("do" bodyExpression=XBodyExpression)? ("update"
+	//	updateExpression=XBodyExpression)? "end";
 	public FireActionElements getFireActionAccess() {
 		return (pFireAction != null) ? pFireAction : (pFireAction = new FireActionElements());
 	}
@@ -3997,7 +3916,7 @@ public class XActorGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//Transition:
-	//	"(" tags+=QualifiedName ("," tags+=QualifiedName)* ")" "-->" target=[State|ValidID];
+	//	"(" actions+=[OutputAction|ValidID] ("," actions+=[OutputAction|ValidID])* ")" "-->" target=[State|ValidID];
 	public TransitionElements getTransitionAccess() {
 		return (pTransition != null) ? pTransition : (pTransition = new TransitionElements());
 	}
@@ -4008,7 +3927,7 @@ public class XActorGrammarAccess extends AbstractGrammarElementFinder {
 
 	//EventAction:
 	//	{EventAction} (name=QualifiedName ":")? "event" (eventPatterns+=EventPattern ("," eventPatterns+=EventPattern)*)?
-	//	MAPS_TO (outputPatterns+=OutputPattern ("," outputPatterns+=OutputPattern)*)? ("guard" guardExpression=XExpression)? //	(attributes+=ActionVariable)*
+	//	MAPS_TO (outputPatterns+=OutputPattern ("," outputPatterns+=OutputPattern)*)? ("guard" guardExpression=XExpression)?
 	//	("do" bodyExpression=XBodyExpression)? ("update" updateExpression=XBodyExpression)? "end";
 	public EventActionElements getEventActionAccess() {
 		return (pEventAction != null) ? pEventAction : (pEventAction = new EventActionElements());
@@ -4054,6 +3973,12 @@ public class XActorGrammarAccess extends AbstractGrammarElementFinder {
 		return getXOther2OperatorExpressionAccess().getRule();
 	}
 
+	////XClosure returns xbase::XExpression:
+	////	(=>({xbase::XClosure} '[')  
+	////		=>((declaredFormalParameters+=JvmFormalParameter (',' declaredFormalParameters+=JvmFormalParameter)*)? explicitSyntax?='|')? 
+	////		expression=XExpressionInClosure 
+	////	']')
+	////	;
 	//OpOther2:
 	//	"#";
 	public OpOther2Elements getOpOther2Access() {
@@ -4062,23 +3987,6 @@ public class XActorGrammarAccess extends AbstractGrammarElementFinder {
 	
 	public ParserRule getOpOther2Rule() {
 		return getOpOther2Access().getRule();
-	}
-
-	////	|
-	////	(=>({xbase::XClosure} 'lambda') '('=>((declaredFormalParameters+=JvmFormalParameter (',' declaredFormalParameters+=JvmFormalParameter)*)? explicitSyntax?=')')
-	////		':'
-	////		expression=XBodyExpression
-	////		'end'
-	////	)
-	//XClosure returns xbase::XExpression:
-	//	=> ({xbase::XClosure} "[") => ((declaredFormalParameters+=JvmFormalParameter (","
-	//	declaredFormalParameters+=JvmFormalParameter)*)? explicitSyntax?="|")? expression=XExpressionInClosure "]";
-	public XClosureElements getXClosureAccess() {
-		return (pXClosure != null) ? pXClosure : (pXClosure = new XClosureElements());
-	}
-	
-	public ParserRule getXClosureRule() {
-		return getXClosureAccess().getRule();
 	}
 
 	//XExpression:
@@ -4357,6 +4265,17 @@ public class XActorGrammarAccess extends AbstractGrammarElementFinder {
 	
 	public ParserRule getXListLiteralRule() {
 		return getXListLiteralAccess().getRule();
+	}
+
+	//XClosure returns XExpression:
+	//	=> ({XClosure} "[") => ((declaredFormalParameters+=JvmFormalParameter (","
+	//	declaredFormalParameters+=JvmFormalParameter)*)? explicitSyntax?="|")? expression=XExpressionInClosure "]";
+	public XbaseGrammarAccess.XClosureElements getXClosureAccess() {
+		return gaXbase.getXClosureAccess();
+	}
+	
+	public ParserRule getXClosureRule() {
+		return getXClosureAccess().getRule();
 	}
 
 	//XExpressionInClosure returns XExpression:

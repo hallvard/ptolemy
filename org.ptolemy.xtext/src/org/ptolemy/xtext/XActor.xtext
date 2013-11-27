@@ -18,7 +18,7 @@ import "http://www.eclipse.org/xtext/xbase/Xbase" as xbase
 ActorModel returns EntityFolder: {EntityFolder}
 	'namespace' name=QualifiedName (displayName=STRING)? ':'
 	(imports = XImportSection)?
-	(attributes+=InjectableAttribute)*
+	('@' attributes+=InjectableAttribute)*
 	(
 	(entityContainers+=EntityFolder) |
 	(entities+=Entity)
@@ -27,7 +27,7 @@ ActorModel returns EntityFolder: {EntityFolder}
 
 EntityFolder:
 	'namespace' name=QualifiedName (displayName=STRING)? ':'
-	(attributes+=InjectableAttribute)*
+	('@' attributes+=InjectableAttribute)*
 	(
 	(entityContainers+=EntityFolder) |
 	(entities+=Entity)
@@ -61,7 +61,7 @@ TypedAtomicActor: {TypedAtomicActor}
 	('(' attributes+=Parameter (',' attributes+=Parameter)* ')')?
 	((ports+=TypedInputPort (',' ports+=TypedInputPort)*)? MAPS_TO (ports+=TypedOutputPort (',' ports+=TypedOutputPort)*)?)?
 	('is' superEntity=ActorRef)?
-	(attributes+=InjectableAttribute)*
+	('@' attributes+=InjectableAttribute)*
 	(impl=AtomicActorImpl)?
 	'end';
 
@@ -75,7 +75,7 @@ TypedAtomicActorInstance returns TypedAtomicActor: {TypedAtomicActor}
 	(('=' 'actor')?
 	((ports+=TypedInputPort (',' ports+=TypedInputPort)*)? MAPS_TO (ports+=TypedOutputPort (',' ports+=TypedOutputPort)*)?)?
 	('is' superEntity=ActorRef)?
-	(attributes+=InjectableAttribute)*
+	('@' attributes+=InjectableAttribute)*
 	(impl=AtomicActorImpl 'end')
 	))
 	;
@@ -86,44 +86,38 @@ CompositeEntity:
 	('<' typeParameters+=TypeParameter (',' typeParameters+=TypeParameter)* '>')?
 	('(' attributes+=Parameter (',' attributes+=Parameter)* ')')?
 	((ports+=TypedInputPort (',' ports+=TypedInputPort)*)? MAPS_TO (ports+=TypedOutputPort (',' ports+=TypedOutputPort)*)?)? ':'
-	(attributes+=InjectableAttribute)*
+	('@' attributes+=InjectableAttribute)*
 	('var' (attributes+=Variable ';')*)?
 	('entities' (entities+=TypedAtomicActorInstance)*)
 	('structure' (relations+=ConversionRelation)*)?
 	'end';
 
-InjectableAttribute:
-	'-' type=JvmTypeReference name=ValidID (displayName=STRING)?
-	('@' attributes+=AnnotationAttribute)*
+InjectableAttribute returns JvmTypedAttribute :
+	((type=JvmTypeReference (name=ValidID)?) | 
+	({Parameter} name=ValidID '=' valueExpression=XInitExpression))
+	('(' attributes+=InjectableAttribute (',' attributes+=InjectableAttribute)* ')')?
 	;
 
 Variable:
 	type=JvmTypeReference name=ValidID (displayName=STRING)?
-	(OpSingleAssign valueExpression=XInitExpression)?;
+	('=' valueExpression=XInitExpression)?;
 
 XInitExpression returns xbase::XExpression:
 	XOrExpression
 	;
 
 Parameter returns ActorParameter:
-	type=JvmTypeReference
-	name=ValidID (displayName=STRING)?
+	type=JvmTypeReference name=ValidID (displayName=STRING)?
 	('=' valueExpression=XInitExpression)?;
-
-AnnotationAttribute returns Variable:
-	(type=JvmParameterizedTypeReference)? name=ValidID '=' valueExpression=XInitExpression ';'
-	;
 
 TypedInputPort:
 	type=JvmParameterizedTypeReference ('[' rate=INT ']')? (multiport?='*')?
 	name=ValidID (displayName=STRING)?
-	('@' attributes+=AnnotationAttribute)*
 	;
 
 TypedOutputPort:
 	type=JvmParameterizedTypeReference ('[' rate=INT ']')? (multiport?='*')?
 	name=ValidID (displayName=STRING)?
-	('@' attributes+=AnnotationAttribute)*
 	;
 
 RPID:
@@ -170,7 +164,7 @@ FunctionParameter returns JvmTypedObj:
 ;
 
 StateVariable:
-	('@' attributes+=AnnotationAttribute)*
+	('@' attributes+=InjectableAttribute)*
 	(constant?='val'|'var') (realm=Realm)? type=JvmTypeReference name=ValidID (((binding?=':='|'=') valueExpression=XInitExpression)? ('update' updateExpression=XExpression)? ';')?;
 
 Realm:
@@ -182,7 +176,6 @@ InitAction returns OutputAction: {OutputAction}
 	'initialize'
 	MAPS_TO (outputPatterns+=OutputPattern (',' outputPatterns+=OutputPattern)*)?
 	('guard' guardExpression=XExpression)?
-//	(attributes+=ActionVariable)*
 	('do' bodyExpression=XBodyExpression)?
 	'end';
 
@@ -202,7 +195,6 @@ FireAction: {FireAction}
 	MAPS_TO (outputPatterns+=OutputPattern (',' outputPatterns+=OutputPattern)*)?	
 	('guard' guardExpression=XExpression)?
 	('delay' delayExpression=XExpression)?
-//	(attributes+=ActionVariable)*
 	('do' bodyExpression=XBodyExpression)?
 	('update' updateExpression=XBodyExpression)?
 	'end';
@@ -244,7 +236,7 @@ State:
 ;
 
 Transition:
-	'(' tags+=QualifiedName (',' tags+=QualifiedName)* ')' '-->' target=[State|ValidID]
+	'(' actions+=[OutputAction|ValidID] (',' actions+=[OutputAction|ValidID])* ')' '-->' target=[State|ValidID]
 ;
 
 EventAction: {EventAction}
@@ -252,7 +244,6 @@ EventAction: {EventAction}
 	'event' (eventPatterns+=EventPattern (',' eventPatterns+=EventPattern)*)?
 	MAPS_TO (outputPatterns+=OutputPattern (',' outputPatterns+=OutputPattern)*)?
 	('guard' guardExpression=XExpression)?
-//	(attributes+=ActionVariable)*
 	('do' bodyExpression=XBodyExpression)?
 	('update' updateExpression=XBodyExpression)?
 	'end';
@@ -277,15 +268,9 @@ XOther2OperatorExpression returns xbase::XExpression:
 OpOther2:
 	'#';
 
-XClosure returns xbase::XExpression:
-	(=>({xbase::XClosure} '[')  
-		=>((declaredFormalParameters+=JvmFormalParameter (',' declaredFormalParameters+=JvmFormalParameter)*)? explicitSyntax?='|')? 
-		expression=XExpressionInClosure 
-	']')
-//	|
-//	(=>({xbase::XClosure} 'lambda') '('=>((declaredFormalParameters+=JvmFormalParameter (',' declaredFormalParameters+=JvmFormalParameter)*)? explicitSyntax?=')')
-//		':'
-//		expression=XBodyExpression
-//		'end'
-//	)
-	;
+//XClosure returns xbase::XExpression:
+//	(=>({xbase::XClosure} '[')  
+//		=>((declaredFormalParameters+=JvmFormalParameter (',' declaredFormalParameters+=JvmFormalParameter)*)? explicitSyntax?='|')? 
+//		expression=XExpressionInClosure 
+//	']')
+//	;

@@ -1,7 +1,6 @@
 package org.ptolemy.xtext.lib.caltrop.tokens;
 
 import ptolemy.data.FloatToken;
-import ptolemy.data.IntToken;
 import ptolemy.data.Token;
 import ptolemy.kernel.util.IllegalActionException;
 
@@ -22,8 +21,12 @@ public class FloatTokens extends Tokens<Float> {
 
 	//
 
+	public static FloatToken create(float f) {
+		return new FloatToken(f);
+	}
+
 	public static float get(Token token) throws IllegalActionException {
-		return IntToken.convert(token).intValue();
+		return FloatToken.convert(token).intValue();
 	}
 	
 	public static float[] copyInto(Token[] tokens, int repeat, int offset, float[] values) throws IllegalActionException {

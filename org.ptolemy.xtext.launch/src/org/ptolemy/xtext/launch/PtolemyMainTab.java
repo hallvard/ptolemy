@@ -50,12 +50,6 @@ import ptolemy.actor.TypedCompositeActor;
 public class PtolemyMainTab extends JavaMainTab implements ILaunchConfigurationTab {
 
 	public static String ACTOR_TYPE_KEY = "ACTOR_TYPE_KEY";
-
-	public static String DIRECTOR_TYPE_KEY = "DIRECTOR_TYPE_KEY";
-
-	public static String RESOURCE_TYPE_KEY = "RESOURCE_TYPE_KEY";
-	
-	public static String RESOURCE_PATH_KEY = "RESOURCE_PATH_KEY";
 	
 	static String getStringAttributeValue(ILaunchConfiguration configuration, String attribute, String def) {
 		try {
@@ -69,27 +63,11 @@ public class PtolemyMainTab extends JavaMainTab implements ILaunchConfigurationT
 		return getStringAttributeValue(configuration, ACTOR_TYPE_KEY, null);
 	}
 
-	public static String getDirectorClassName(ILaunchConfiguration configuration) {
-		return getStringAttributeValue(configuration, DIRECTOR_TYPE_KEY, null);
-	}
-	
-	public static String getResourcePathKey(ResourceContribution resourceContribution) {
-		return resourceContribution.getName() + "." + RESOURCE_PATH_KEY;
-	}
-
-	public static String getResourcePath(ResourceContribution resourceContribution, ILaunchConfiguration configuration) {
-		return getStringAttributeValue(configuration, getResourcePathKey(resourceContribution), null);
-	}
-
 	//
 
 	private Text mainClassNameText;
 
 	private Text actorClassNameText;
-	
-	private Combo directorClassNameText;
-
-	private Text[] resourcePathTexts;
 
 	@Override
 	public void createControl(Composite parent) {
@@ -136,59 +114,6 @@ public class PtolemyMainTab extends JavaMainTab implements ILaunchConfigurationT
 				selectType("Actor class", TypedCompositeActor.class, ACTOR_TYPE_KEY, actorClassNameText);
 			}
 		});
-
-		label = new Label(comp, SWT.NULL);
-		label.setText("Director class:");
-
-		directorClassNameText = new Combo(comp, SWT.BORDER | SWT.DROP_DOWN);
-		gd = new GridData(GridData.FILL_HORIZONTAL);
-		directorClassNameText.setLayoutData(gd);
-		directorClassNameText.addModifyListener(new ModifyListener() {
-			public void modifyText(ModifyEvent e) {
-				updateLaunchConfigurationDialog();
-			}
-		});
-		directorClassNameText.add("ptolemy.domains.de.kernel.DEDirector");
-		directorClassNameText.add("ptolemy.domains.sdf.kernel.SDFDirector");
-		directorClassNameText.select(0);
-		directorClassNameText.addSelectionListener(new SelectionAdapter() {
-			@Override
-			public void widgetSelected(SelectionEvent e) {
-				updateLaunchConfigurationDialog();
-			}
-		});
-		button = new Button(comp, SWT.PUSH);
-		button.setText("Browse...");
-		button.addSelectionListener(new SelectionAdapter() {
-			public void widgetSelected(SelectionEvent e) {
-				selectType("Director class", Director.class, DIRECTOR_TYPE_KEY, directorClassNameText);
-			}
-		});
-
-		ResourceContribution[] resourceContributions = Activator.getDefault().getResourceContributions();
-		resourcePathTexts = new Text[resourceContributions.length];
-		for (int i = 0; i < resourceContributions.length; i++) {
-			final ResourceContribution resourceContribution = resourceContributions[i];
-			label = new Label(comp, SWT.NULL);
-			label.setText(resourceContribution.getName() + " resource file name:");
-			
-			final Text resourcePathText = new Text(comp, SWT.BORDER | SWT.SINGLE);
-			gd = new GridData(GridData.FILL_HORIZONTAL);
-			resourcePathText.setLayoutData(gd);
-			resourcePathText.addModifyListener(new ModifyListener() {
-				public void modifyText(ModifyEvent e) {
-					updateLaunchConfigurationDialog();
-				}
-			});
-			button = new Button(comp, SWT.PUSH);
-			button.setText("Browse...");
-			button.addSelectionListener(new SelectionAdapter() {
-				public void widgetSelected(SelectionEvent e) {
-					selectResource("Resource path", getResourcePathKey(resourceContribution), resourcePathText);
-				}
-			});
-			resourcePathTexts[i] = resourcePathText;
-		}
 
 		setControl(comp);
 	}
@@ -275,9 +200,6 @@ public class PtolemyMainTab extends JavaMainTab implements ILaunchConfigurationT
 		if (! checkNonNull(configuration, ACTOR_TYPE_KEY, "No actor class")) {
 			return false;
 		}
-		if (! checkNonNull(configuration, DIRECTOR_TYPE_KEY, "No director class")) {
-			return false;
-		}
 		return true;
 	}
 
@@ -287,11 +209,6 @@ public class PtolemyMainTab extends JavaMainTab implements ILaunchConfigurationT
 		configuration.setAttribute(IJavaLaunchConfigurationConstants.ATTR_MAIN_TYPE_NAME, fMainText.getText().trim());
 
 		setStringAttribute(configuration, ACTOR_TYPE_KEY, actorClassNameText.getText());
-		setStringAttribute(configuration, DIRECTOR_TYPE_KEY, directorClassNameText.getText());
-		ResourceContribution[] resourceContributions = Activator.getDefault().getResourceContributions();
-		for (int i = 0; i < resourceContributions.length; i++) {
-			setStringAttribute(configuration, getResourcePathKey(resourceContributions[i]), resourcePathTexts[i].getText());
-		}
 	}
 
 	protected void updateStringWidget(Widget textWidget, String value) {
@@ -316,10 +233,5 @@ public class PtolemyMainTab extends JavaMainTab implements ILaunchConfigurationT
 	public void initializeFrom(ILaunchConfiguration configuration) {
 		super.initializeFrom(configuration);
 		updateStringWidget(configuration, ACTOR_TYPE_KEY, actorClassNameText);
-		updateStringWidget(configuration, DIRECTOR_TYPE_KEY, directorClassNameText);
-		ResourceContribution[] resourceContributions = Activator.getDefault().getResourceContributions();
-		for (int i = 0; i < resourceContributions.length; i++) {
-			updateStringWidget(configuration, getResourcePathKey(resourceContributions[i]), resourcePathTexts[i]);
-		}
 	}
 }

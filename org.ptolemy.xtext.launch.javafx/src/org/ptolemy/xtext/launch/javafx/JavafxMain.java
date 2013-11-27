@@ -2,19 +2,15 @@ package org.ptolemy.xtext.launch.javafx;
 
 import javafx.application.Application;
 import javafx.application.Platform;
-import javafx.event.EventHandler;
 import javafx.stage.Stage;
-import javafx.stage.WindowEvent;
 
 import org.ptolemy.xtext.launch.BeanContainerAttributeImpl;
 import org.ptolemy.xtext.launch.PtolemyMain;
 import org.ptolemy.xtext.lib.caltrop.RealmHandler;
 
+import ptolemy.actor.CompositeActor;
 import ptolemy.actor.Manager;
-import ptolemy.actor.TypedCompositeActor;
-import ptolemy.kernel.util.IllegalActionException;
 import ptolemy.kernel.util.KernelException;
-import ptolemy.kernel.util.NameDuplicationException;
 
 import com.sun.javafx.application.PlatformImpl;
 
@@ -35,7 +31,7 @@ public class JavafxMain extends Application {
 	};
 
 	private Manager manager;
-	private TypedCompositeActor model;
+	private CompositeActor model;
 
 	@Override
 	public void init() {
@@ -43,8 +39,8 @@ public class JavafxMain extends Application {
 
 		PtolemyMain.main(new PtolemyMain() {
 			
-			protected TypedCompositeActor setUpModel(Class<?> actorClass, Class<?> directorClass) throws Exception {
-				JavafxMain.this.model = super.setUpModel(actorClass, directorClass);
+			protected CompositeActor setUpModel(Class<?> actorClass) throws Exception {
+				JavafxMain.this.model = super.setUpModel(actorClass);
 				return model;
 			}
 			

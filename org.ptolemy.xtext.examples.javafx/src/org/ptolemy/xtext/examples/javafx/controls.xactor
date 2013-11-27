@@ -10,20 +10,41 @@ import javafx.concurrent.Worker
 import javafx.scene.control.Button
 import javafx.scene.control.ListView
 import javafx.scene.control.SelectionModel
-import javafx.scene.control.TextField
 import javafx.scene.web.WebView
 import org.eclipse.xtext.xbase.lib.Pair
+import javafx.scene.control.TextInputControl
 
-actor PTextField(String id)
+actor PTextInput(String id)
 String systemOutput ==> String userInput :
-	val @javafx TextField textField = get(id, TextField);
-	var @javafx String text := textField.text update textField.text = text;
+	val @javafx TextInputControl textInput = get(id, TextInputControl);
+	var @javafx String text := textInput.text update textInput.text = text;
 	initialize ==> [text] end
 	action [string] ==>	do
 		text = string
+	end 
+	event textInput.text [propertyEvent] ==> [text] 
 	end
-	event textField.text [propertyEvent] ==> [text] end
-	event textField!^action [actionEvent] ==> [text] end
+end
+
+actor PTextValueInput<T>(String id, (String) => T parser, (T)=>String unparser) 
+T systemOutput ==> T userInput :
+	val @javafx TextInputControl textInput = get(id, TextInputControl);
+	var @javafx String text := null update textInput.text = text;
+	var @javafx Exception exception = null update null;
+	initialize ==> [parser.apply(text)] end
+	action [value] ==>	do
+		text = unparser.apply(value)
+	end
+	event textInput.text [propertyEvent] ==> [value] when exception != null
+	do
+		var T value = null
+		try {
+			value = parser.apply(text)
+		}
+		catch (Exception e) {
+			exception = e;
+		}
+	end
 end
 
 actor PButton(String id)
@@ -94,7 +115,7 @@ actor PBrowser(String id) URL systemOutput ==> URL userInput :
 	action [url] ==>
 		do page = url
 	end
-	event pageLoader.state [property] when property.getValue == Worker.State.SUCCEEDED ==> [createURL(webView.engine.location)] end
+	event pageLoader.state [property] when property.value3 == Worker.State.SUCCEEDED ==> [createURL(webView.engine.location)] end
 	function createURL(String location) --> URL :
 		try { new URL(location) }
 		catch (MalformedURLException mue) {}
@@ -107,14 +128,14 @@ actor PBrowser(String id) URL systemOutput ==> URL userInput :
 	end
 end
 
-actor PCollection<T>(String id) Collection<T> systemOutput ==> T userInput :
+actor PCollection<T>(String id) Collection<T> systemOutput, T append, T remove ==> T userInput :
 	val @javafx ListView<T> list = get(id, ListView);
 	val @javafx SelectionModel<T> selectionModel = list.selectionModel;
-	var @javafx List<T> items := list.items update {
+	var @javafx List<T> items = list.items update {
 		list.items.setAll(items)
 	};
 	var @javafx Pair<T, Integer> selection := new Pair<T, Integer>(selectionModel.selectedItem, selectionModel.selectedIndex) update {
-		val index = if (selection.key != null && ( selection.value < 0 ) ) {
+		val index = if (selection.key != null && (selection.value < 0)) {
 			items.indexOf(selection.key)
 		} else {
 			selection.value
@@ -124,8 +145,14 @@ actor PCollection<T>(String id) Collection<T> systemOutput ==> T userInput :
 	action [values] ==>
 		do
 			items = new ArrayList<T>(values)
-			selection = selection.key -> ( -1 )
-end
+			selection = selection.key -> -1
+	end
+	action append:[value] ==>
+		do
+			items = new ArrayList<T>(items)
+			items.add(value)
+			selection = value -> (items.size - 1)
+	end
 	event selectionModel.selectedItem [listSelectionEvent] ==> [selectionModel.selectedItem]
 	end 
 end

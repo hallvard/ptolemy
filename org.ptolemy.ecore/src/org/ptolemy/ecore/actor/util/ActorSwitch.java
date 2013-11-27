@@ -9,7 +9,6 @@ package org.ptolemy.ecore.actor.util;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.util.Switch;
-import org.ptolemy.ecore.actor.*;
 import org.ptolemy.ecore.actor.AbstractIOPort;
 import org.ptolemy.ecore.actor.AbstractTypedIOPort;
 import org.ptolemy.ecore.actor.Actor;
@@ -19,7 +18,7 @@ import org.ptolemy.ecore.actor.AtomicActor;
 import org.ptolemy.ecore.actor.AtomicActorImpl;
 import org.ptolemy.ecore.actor.CompositeActor;
 import org.ptolemy.ecore.actor.IOPort;
-import org.ptolemy.ecore.actor.InjectableAttribute;
+import org.ptolemy.ecore.actor.JavaActorImpl;
 import org.ptolemy.ecore.actor.JvmTypedAttribute;
 import org.ptolemy.ecore.actor.JvmTypedObj;
 import org.ptolemy.ecore.actor.Parameter;
@@ -130,19 +129,6 @@ public class ActorSwitch<T> extends Switch<T> {
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
-			case ActorPackage.INJECTABLE_ATTRIBUTE: {
-				InjectableAttribute injectableAttribute = (InjectableAttribute)theEObject;
-				T result = caseInjectableAttribute(injectableAttribute);
-				if (result == null) result = caseJvmTypedAttribute(injectableAttribute);
-				if (result == null) result = caseAttribute(injectableAttribute);
-				if (result == null) result = caseJvmTypedObj(injectableAttribute);
-				if (result == null) result = caseNamedObj(injectableAttribute);
-				if (result == null) result = caseTypeable(injectableAttribute);
-				if (result == null) result = caseNameable(injectableAttribute);
-				if (result == null) result = caseNamed(injectableAttribute);
-				if (result == null) result = defaultCase(theEObject);
-				return result;
-			}
 			case ActorPackage.VARIABLE: {
 				Variable variable = (Variable)theEObject;
 				T result = caseVariable(variable);
@@ -174,6 +160,9 @@ public class ActorSwitch<T> extends Switch<T> {
 				ActorRef<?> actorRef = (ActorRef<?>)theEObject;
 				T result = caseActorRef(actorRef);
 				if (result == null) result = caseEntityRef(actorRef);
+				if (result == null) result = caseIEntity(actorRef);
+				if (result == null) result = caseNameable(actorRef);
+				if (result == null) result = caseNamed(actorRef);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -378,21 +367,6 @@ public class ActorSwitch<T> extends Switch<T> {
 	 * @generated
 	 */
 	public T caseJvmTypedAttribute(JvmTypedAttribute object) {
-		return null;
-	}
-
-	/**
-	 * Returns the result of interpreting the object as an instance of '<em>Injectable Attribute</em>'.
-	 * <!-- begin-user-doc -->
-	 * This implementation returns null;
-	 * returning a non-null result will terminate the switch.
-	 * <!-- end-user-doc -->
-	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>Injectable Attribute</em>'.
-	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-	 * @generated
-	 */
-	public T caseInjectableAttribute(InjectableAttribute object) {
 		return null;
 	}
 

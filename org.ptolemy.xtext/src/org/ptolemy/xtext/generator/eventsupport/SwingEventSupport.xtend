@@ -26,7 +26,8 @@ public class SwingEventSupport extends AbstractEventSupport implements EventSupp
 		for (JvmOperation remover : removers) {
 			val adder = adders.findFirst[remover.isListenerRemoverFor(it)]
 			if (adder != null) {
-				val eventData = new SwingEventData(typeRef, name, copyType(adder.parameters.head.parameterType, typeRef))
+				val listenerType = adder.parameters.head.parameterType
+				val eventData = new SwingEventData(typeRef, name, copyType(listenerType, typeRef))
 				injector.injectMembers(eventData)
 				events += eventData
 			}

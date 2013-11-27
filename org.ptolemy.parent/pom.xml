@@ -24,7 +24,7 @@
   		<plugin>
   			<groupId>org.eclipse.tycho</groupId>
   			<artifactId>tycho-maven-plugin</artifactId>
-  			<version>0.18.0</version>
+  			<version>0.19.0</version>
   			<extensions>true</extensions>
   		</plugin>
    	</plugins>
@@ -40,10 +40,11 @@
   	<module>../org.ptolemy.graphiti</module>
   	<module>../org.ptolemy.graphiti.generic</module>
   	<module>../org.ptolemy.graphiti.generic.kieler</module> 
+  	<module>../org.ptolemy.xtext.launch.swixml</module>
+  	<module>../org.ptolemy.xtext.launch.javafx</module>
   	<module>../org.ptolemy.feature</module>
   	<module>../org.ptolemy.updatesite</module>
   	<module>../org.ptolemy.xtext.tests</module>
   	<module>../org.ptolemy.xtext.tests.util</module>
-  	<module>../org.ptolemy.xtext.launch.swixml</module>
   </modules>
 </project>

@@ -10,7 +10,6 @@ import org.eclipse.emf.common.notify.Adapter;
 import org.eclipse.emf.common.notify.Notifier;
 import org.eclipse.emf.common.notify.impl.AdapterFactoryImpl;
 import org.eclipse.emf.ecore.EObject;
-import org.ptolemy.ecore.actor.*;
 import org.ptolemy.ecore.actor.AbstractIOPort;
 import org.ptolemy.ecore.actor.AbstractTypedIOPort;
 import org.ptolemy.ecore.actor.Actor;
@@ -20,7 +19,7 @@ import org.ptolemy.ecore.actor.AtomicActor;
 import org.ptolemy.ecore.actor.AtomicActorImpl;
 import org.ptolemy.ecore.actor.CompositeActor;
 import org.ptolemy.ecore.actor.IOPort;
-import org.ptolemy.ecore.actor.InjectableAttribute;
+import org.ptolemy.ecore.actor.JavaActorImpl;
 import org.ptolemy.ecore.actor.JvmTypedAttribute;
 import org.ptolemy.ecore.actor.JvmTypedObj;
 import org.ptolemy.ecore.actor.Parameter;
@@ -115,10 +114,6 @@ public class ActorAdapterFactory extends AdapterFactoryImpl {
 				return createJvmTypedAttributeAdapter();
 			}
 			@Override
-			public Adapter caseInjectableAttribute(InjectableAttribute object) {
-				return createInjectableAttributeAdapter();
-			}
-			@Override
 			public Adapter caseVariable(Variable object) {
 				return createVariableAdapter();
 			}
@@ -203,6 +198,10 @@ public class ActorAdapterFactory extends AdapterFactoryImpl {
 				return createAttributeAdapter();
 			}
 			@Override
+			public <P extends Port> Adapter caseIEntity(IEntity<P> object) {
+				return createIEntityAdapter();
+			}
+			@Override
 			public <P extends Port> Adapter caseEntityRef(EntityRef<P> object) {
 				return createEntityRefAdapter();
 			}
@@ -213,10 +212,6 @@ public class ActorAdapterFactory extends AdapterFactoryImpl {
 			@Override
 			public Adapter caseComponentPort(ComponentPort object) {
 				return createComponentPortAdapter();
-			}
-			@Override
-			public <P extends Port> Adapter caseIEntity(IEntity<P> object) {
-				return createIEntityAdapter();
 			}
 			@Override
 			public Adapter caseEntityRefOwner(EntityRefOwner object) {
@@ -297,20 +292,6 @@ public class ActorAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createJvmTypedAttributeAdapter() {
-		return null;
-	}
-
-	/**
-	 * Creates a new adapter for an object of class '{@link org.ptolemy.ecore.actor.InjectableAttribute <em>Injectable Attribute</em>}'.
-	 * <!-- begin-user-doc -->
-	 * This default implementation returns null so that we can easily ignore cases;
-	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
-	 * <!-- end-user-doc -->
-	 * @return the new adapter.
-	 * @see org.ptolemy.ecore.actor.InjectableAttribute
-	 * @generated
-	 */
-	public Adapter createInjectableAttributeAdapter() {
 		return null;
 	}
 

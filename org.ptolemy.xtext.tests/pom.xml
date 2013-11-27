@@ -25,6 +25,13 @@
 			<url>http://www.fornax-platform.org/m2/repository</url>
 		</pluginRepository>
 		 -->
+		<!-- 
+		<pluginRepository>
+    		<id>fornax-snapshots</id>
+    		<url>http://www.fornax-platform.org/archiva/repository/snapshots/</url>
+    		<snapshots><enabled>true</enabled></snapshots>
+  		</pluginRepository>
+		 -->
 		<pluginRepository>
 			<id>fornax-nexus-repo</id>
 			<name>Alternative fornax Plugin Repository</name>
@@ -37,7 +44,7 @@
   		<plugin>
   			<groupId>org.fornax.toolsupport</groupId>
   			<artifactId>fornax-oaw-m2-plugin</artifactId>
-  			<version>3.2.0</version>
+  			<version>3.3.0</version>
   			<configuration>
   				<workflowEngine>mwe2</workflowEngine>
         		<workflowDescriptor>../org.ptolemy.xtext.tests/tests/org/ptolemy/xtext/Generator.mwe2</workflowDescriptor>
@@ -45,7 +52,7 @@
     		</configuration>
     		<executions>
           		<execution>
-            		<phase>generate-test-sources</phase>
+            		<phase>generate-sources</phase>
             		<goals>
               			<goal>run-workflow</goal>
             		</goals>

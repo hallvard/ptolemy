@@ -9,18 +9,18 @@ import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import org.ptolemy.xtext.lib.caltrop.tuple.Tuple2;
+import org.ptolemy.xtext.lib.caltrop.tuple.Tuple3;
+
 import ptolemy.actor.Actor;
 import ptolemy.actor.IOPort;
-import ptolemy.actor.Manager;
 import ptolemy.actor.NoRoomException;
 import ptolemy.actor.TypedAtomicActor;
 import ptolemy.actor.util.BooleanDependency;
 import ptolemy.actor.util.CausalityInterface;
 import ptolemy.actor.util.Dependency;
 import ptolemy.actor.util.Time;
-import ptolemy.data.BooleanToken;
 import ptolemy.data.Token;
-import ptolemy.data.expr.Parameter;
 import ptolemy.kernel.CompositeEntity;
 import ptolemy.kernel.Port;
 import ptolemy.kernel.util.IllegalActionException;
@@ -132,7 +132,7 @@ public abstract class AbstractCaltropActor extends TypedAtomicActor {
 	}
 	
 	protected boolean hasToken(IOPort port, int channel, int count) throws IllegalActionException {
-		boolean hasToken = count == 1 ? port.hasToken(channel) : port.hasToken(channel, count);
+		boolean hasToken = channel < port.getWidth() && (count == 1 ? port.hasToken(channel) : port.hasToken(channel, count));
 		if (hasToken) {
 			debug("Found " + count + " tokens on " + logPort(port), null);
 		} else {
@@ -180,13 +180,15 @@ public abstract class AbstractCaltropActor extends TypedAtomicActor {
 	}
 	
 	protected Object[] getEvent(Object source, String name, String qualifier) throws IllegalActionException {
-		Iterator<EventQueue.Entry> entries = _eventQueue.entriesBefore(getDirector().getModelTime().getLongValue());
-		while (entries.hasNext()) {
-			EventQueue.Entry entry = entries.next();
-			Object[] match = entry.match(source, name, qualifier);
-			if (match != null) {
-				debug("Matched " + name + "." + qualifier + " event @ " + entry.time, null);
-				return match;
+		if (_eventQueue != null) {
+			Iterator<EventQueue.Entry> entries = _eventQueue.entriesBefore(getDirector().getModelTime().getLongValue());
+			while (entries.hasNext()) {
+				EventQueue.Entry entry = entries.next();
+				Object[] match = entry.match(source, name, qualifier);
+				if (match != null) {
+					debug("Matched " + name + "." + qualifier + " event @ " + entry.time, null);
+					return match;
+				}
 			}
 		}
 		return null;
@@ -206,13 +208,13 @@ public abstract class AbstractCaltropActor extends TypedAtomicActor {
 		_initializeImpl();
 	}
 
-	protected int currentState = -1;
+	protected int _currentState = -1;
 
-	protected Pair<Integer, AbstractActionImpl> _fireImpl() throws IllegalActionException {
+	protected Tuple2<Integer, AbstractActionImpl> _fireImpl() throws IllegalActionException {
 		return null;
 	}
 
-	private Pair<Integer, AbstractActionImpl> stateAction = null;
+	private Tuple2<Integer, AbstractActionImpl> _stateAction = null;
 
 	@Override
 	public void fire() throws IllegalActionException {
@@ -221,9 +223,11 @@ public abstract class AbstractCaltropActor extends TypedAtomicActor {
 			_sendQueue.clearUnsorted();
 			_sendQueue.sendCurrent(getDirector().getModelTime().getLongValue());
 		}
-		stateAction = _fireImpl();
-		if (stateAction != null) {
-			AbstractActionImpl actionImpl = stateAction.getValue();
+		trace("Firing @ " + getDirector().getModelTime().getLongValue(), null);
+		_stateAction = _fireImpl();
+		if (_stateAction != null) {
+			debug("Triggering " + (_stateAction.getValue1() < 0 ? _stateAction.getValue2() : _stateAction), null);
+			AbstractActionImpl actionImpl = _stateAction.getValue2();
 			actionImpl.body();
 			actionImpl.output();
 		}
@@ -247,9 +251,12 @@ public abstract class AbstractCaltropActor extends TypedAtomicActor {
 		}
 		step++;
 		boolean result = true;
-		if (stateAction != null) {
-			result = stateAction.getValue().update();
-			currentState = stateAction.getKey();
+		if (_stateAction != null) {
+			result = _stateAction.getValue2().update();
+			_currentState = _stateAction.getValue1();
+			if (_currentState >= 0) {
+				debug("Changed to state #" + _currentState, null);
+			}
 		}
 		long nextSendTime = (_sendQueue != null ?_sendQueue.getNextTime() : -1);
 		long nextEventTime = (_eventQueue != null ?_eventQueue.getNextTime() : -1);
@@ -282,18 +289,18 @@ public abstract class AbstractCaltropActor extends TypedAtomicActor {
 			return BooleanDependency.valueOf(false);
 		}
 		
-		private Collection<Pair<Pair<IOPort, IOPort>, Dependency>> dependencies = new ArrayList<Pair<Pair<IOPort,IOPort>,Dependency>>();
+		private Collection<Tuple3<IOPort, IOPort, Dependency>> dependencies = new ArrayList<Tuple3<IOPort,IOPort,Dependency>>();
 		
-		public void addDependency(Pair<Pair<IOPort, IOPort>, Dependency> dependency) {
+		public void addDependency(Tuple3<IOPort, IOPort, Dependency> dependency) {
 			dependencies.add(dependency);
 		}
 
-		public void addDependencies(Pair<Pair<IOPort, IOPort>, Dependency>... dependencies) {
+		public void addDependencies(Tuple3<IOPort, IOPort, Dependency>... dependencies) {
 			this.dependencies.addAll(Arrays.asList(dependencies));
 		}
 
 		public void addDependency(IOPort inputPort, IOPort outputPort, Dependency dependency) {
-			dependencies.add(new Pair.Impl<Pair<IOPort,IOPort>, Dependency>(new Pair.Impl<IOPort, IOPort>(inputPort, outputPort), dependency));
+			dependencies.add(new Tuple3<IOPort,IOPort, Dependency>(inputPort, outputPort, dependency));
 		}
 		
 		@Override
@@ -301,13 +308,12 @@ public abstract class AbstractCaltropActor extends TypedAtomicActor {
 			Collection<IOPort> result = new ArrayList<IOPort>(); 
 			if (port instanceof IOPort) {
 				IOPort ioPort = (IOPort) port;
-				for (Pair<Pair<IOPort, IOPort>, Dependency> dependency : dependencies) {
-					Pair<IOPort, IOPort> key = dependency.getKey();
-					if (ioPort.isInput() && key.getKey() == ioPort) {
-						result.add(key.getValue());
+				for (Tuple3<IOPort, IOPort, Dependency> dependency : dependencies) {
+					if (ioPort.isInput() && dependency.getValue1() == ioPort) {
+						result.add(dependency.getValue2());
 					}
-					if (ioPort.isOutput() && key.getValue() == ioPort) {
-						result.add(key.getKey());
+					if (ioPort.isOutput() && dependency.getValue2() == ioPort) {
+						result.add(dependency.getValue1());
 					}
 				}
 			}
@@ -342,10 +348,9 @@ public abstract class AbstractCaltropActor extends TypedAtomicActor {
 
 		@Override
 		public Dependency getDependency(IOPort inputPort, IOPort outputPort) throws IllegalActionException {
-			for (Pair<Pair<IOPort, IOPort>, Dependency> dependency : dependencies) {
-				Pair<IOPort, IOPort> key = dependency.getKey();
-				if (key.getKey() == inputPort && key.getValue() == outputPort) {
-					return dependency.getValue();
+			for (Tuple3<IOPort, IOPort, Dependency> dependency : dependencies) {
+				if (dependency.getValue1() == inputPort && dependency.getValue2() == outputPort) {
+					return dependency.getValue3();
 				}
 			}
 			return getDefaultDependency();

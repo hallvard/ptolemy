@@ -1,0 +1,139 @@
+namespace org.ptolemy.xtext.examples.mqtt :
+
+import net.sf.xenqtt.client.Subscription
+import java.util.List
+import net.sf.xenqtt.message.QoS
+import net.sf.xenqtt.client.PublishMessage
+import org.ptolemy.xtext.lib.caltrop.tuple.Tuple2
+
+actor MqttSubscriber<T>(String clientId=fullName, String brokerUrl, int messageHandlerThreadPoolSize=2, String initialTopics, (byte[]) => T bytesParser)
+String topics ==> Tuple2<Long,T> timedValue, String transition :
+
+	val XenqttClient mqttClient = new XenqttClient(brokerUrl, messageHandlerThreadPoolSize);
+	val List<Subscription> subscriptions = newArrayList;
+
+	procedure unsubscribe() :
+		val List<String> topics = newArrayList
+		for (subscription : subscriptions) {
+			topics += subscription.topic
+		}
+		mqttClient.asyncMqttClient.unsubscribe(topics.toArray(newArrayOfSize(topics.size)))
+		subscriptions.clear
+	end
+
+	procedure subscribe(String topics) :
+		unsubscribe
+		if (topics != null && topics.trim.length > 0) {
+			for (topic : topics.split(" ")) {
+				subscriptions += new Subscription(topic, QoS.AT_LEAST_ONCE)
+			}
+			mqttClient.asyncMqttClient.subscribe(subscriptions)
+		} 
+	end
+
+	function isSubscribing(String topic) --> boolean :
+		subscriptions.exists[Subscription s | s.topic.equals(topic)]
+	end
+
+	procedure connect() :
+		mqttClient.asyncMqttClient.connect(clientId, true)
+	end
+
+	initialize ==> do
+		connect
+	end
+	
+	subscribe : action [topics] ==> do
+		subscribe(topics)
+	end
+
+
+	publishReceived : event mqttClient!publishReceived  [eventArgs] ==> [new Tuple2(message.receivedTimestamp, value)]
+	do
+		val PublishMessage message = eventArgs.value2
+		val T value = bytesParser.apply(message.payload)
+		value
+		message.ack
+	end
+	
+	connected : event mqttClient!connected [eventArgs] ==> transition : ["connected"] do
+		subscribe(initialTopics)
+	end
+
+	disconnected : event mqttClient!disconnected [eventArgs] ==> transition : ["disconnected"] do
+		connect
+	end
+
+	event mqttClient!subscribed [eventArgs] ==> do
+		debug("Subscribed to " + eventArgs.value3.join(", ") [Subscription s | s.topic], null)
+	end
+
+	// overrides Initializable.wrapup
+	procedure wrapup() :
+		unsubscribe
+		mqttClient.asyncMqttClient.disconnect
+	end
+
+	// state machine
+	
+	schedule connectingState :
+		connectingState (connected) --> connectedState;
+		connectedState
+			(subscribe, publishReceived) --> connectedState | 
+			(disconnected) --> connectingState;  
+	end
+
+end
+
+actor MqttPublisher<T>(String clientId=fullName, String brokerUrl, int messageHandlerThreadPoolSize=2, (T) => byte[] valueSerializer)
+Tuple2<String,T> topicValues ==> String transition :
+
+	val XenqttClient mqttClient = new XenqttClient(brokerUrl, messageHandlerThreadPoolSize);
+
+	procedure publish(Tuple2<String,T> topicValue) :
+		val byte[] bytes = valueSerializer.apply(topicValue.value2)
+		if (bytes != null && bytes.length > 0) {
+			mqttClient.asyncMqttClient.publish(new PublishMessage(topicValue.value1, QoS.AT_LEAST_ONCE, bytes))
+		}
+	end
+
+	procedure connect() :
+		mqttClient.asyncMqttClient.connect(clientId, true)
+	end
+
+	initialize ==> do
+		connect
+	end
+	
+	publish : action [topicValue] ==> do
+		publish(topicValue)
+	end
+
+	connected : event mqttClient!connected [eventArgs] ==> transition : ["connected"] do
+	end
+
+	disconnected : event mqttClient!disconnected [eventArgs] ==> transition : ["disconnected"] do
+		connect
+	end
+
+	event mqttClient!published [eventArgs] ==> do
+		val PublishMessage message = eventArgs.value2
+		debug("Published " + message.payloadString + "@" + message.topic, null)
+	end
+
+	// overrides Initializable.wrapup
+	procedure wrapup() :
+		mqttClient.asyncMqttClient.disconnect
+	end
+
+	// state machine
+	
+	schedule connectingState :
+		connectingState (connected) --> connectedState;
+		connectedState (publish) --> connectedState;  
+		connectedState (disconnected) --> connectingState;  
+	end
+
+end
+
+end

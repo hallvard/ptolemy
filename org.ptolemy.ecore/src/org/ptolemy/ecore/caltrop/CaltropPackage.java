@@ -1478,13 +1478,13 @@ public interface CaltropPackage extends EPackage {
 	int TRANSITION__TARGET = 1;
 
 	/**
-	 * The feature id for the '<em><b>Tags</b></em>' attribute list.
+	 * The feature id for the '<em><b>Actions</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int TRANSITION__TAGS = 2;
+	int TRANSITION__ACTIONS = 2;
 
 	/**
 	 * The number of structural features of the '<em>Transition</em>' class.
@@ -2378,15 +2378,15 @@ public interface CaltropPackage extends EPackage {
 	EReference getTransition_Target();
 
 	/**
-	 * Returns the meta object for the attribute list '{@link org.ptolemy.ecore.caltrop.Transition#getTags <em>Tags</em>}'.
+	 * Returns the meta object for the reference list '{@link org.ptolemy.ecore.caltrop.Transition#getActions <em>Actions</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute list '<em>Tags</em>'.
-	 * @see org.ptolemy.ecore.caltrop.Transition#getTags()
+	 * @return the meta object for the reference list '<em>Actions</em>'.
+	 * @see org.ptolemy.ecore.caltrop.Transition#getActions()
 	 * @see #getTransition()
 	 * @generated
 	 */
-	EAttribute getTransition_Tags();
+	EReference getTransition_Actions();
 
 	/**
 	 * Returns the meta object for class '{@link org.ptolemy.ecore.caltrop.EventAction <em>Event Action</em>}'.
@@ -3047,12 +3047,12 @@ public interface CaltropPackage extends EPackage {
 		EReference TRANSITION__TARGET = eINSTANCE.getTransition_Target();
 
 		/**
-		 * The meta object literal for the '<em><b>Tags</b></em>' attribute list feature.
+		 * The meta object literal for the '<em><b>Actions</b></em>' reference list feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EAttribute TRANSITION__TAGS = eINSTANCE.getTransition_Tags();
+		EReference TRANSITION__ACTIONS = eINSTANCE.getTransition_Actions();
 
 		/**
 		 * The meta object literal for the '{@link org.ptolemy.ecore.caltrop.impl.EventActionImpl <em>Event Action</em>}' class.

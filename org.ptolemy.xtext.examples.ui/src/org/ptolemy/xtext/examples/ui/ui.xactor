@@ -21,24 +21,52 @@ T* setValue ==> T value :
 end
 
 actor CollectionVariable<T>
-T add, T remove ==> Collection<T> value :
-	var Collection<T> currentItems = new ArrayList<T>();
-	action add: [item] ==> [currentItems = newItems] when (! contains)
+Object clearAll, Collection<T> setAll, T add, Collection<T> addAll, T remove, Collection<T> removeAll ==> Collection<T> value :
+	var Collection<T> currentItems = newArrayList;
+	action clearAll: [flag] ==> [currentItems = newArrayList] when (flag != null && ! Boolean.FALSE.equals(flag))
+	end
+	action setAll: [items] ==> [currentItems = newItems] when (! changes)
 	do
-		val boolean contains = currentItems.contains(item)
-		val Collection<T> newItems = if (! contains) {
+		val boolean changes = currentItems.equals(items)
+		val Collection<T> newItems = if (! changes) new ArrayList<T>(items)
+		newItems
+	end
+	action add: [item] ==> [currentItems = newItems] when (! changes)
+	do
+		val boolean changes = currentItems.contains(item)
+		val Collection<T> newItems = if (! changes) {
 			val Collection<T> items = new ArrayList<T>(currentItems)
 			items.add(item)
 			items
 		}
 		newItems
 	end
-	action remove: [item] ==> [currentItems = newItems] when contains
+	action addAll: [items] ==> [currentItems = newItems] when (! changes)
 	do
-		val boolean contains = currentItems.contains(item)
-		val Collection<T> newItems = if (contains) {
+		val boolean changes = currentItems.containsAll(items)
+		val Collection<T> newItems = if (! changes) {
+			val Collection<T> items = new ArrayList<T>(currentItems)
+			items.addAll(items)
+			items
+		}
+		newItems
+	end
+	action remove: [item] ==> [currentItems = newItems] when changes
+	do
+		val boolean changes = currentItems.contains(item)
+		val Collection<T> newItems = if (changes) {
 			val Collection<T> items = new ArrayList<T>(currentItems)
 			items.remove(item)
+			items
+		}
+		newItems
+	end
+	action removeAll: [items] ==> [currentItems = newItems] when (changes)
+	do
+		val boolean changes = currentItems.exists[T item | items.contains(item)]
+		val Collection<T> newItems = if (! changes) {
+			val Collection<T> items = new ArrayList<T>(currentItems)
+			items.removeAll(items)
 			items
 		}
 		newItems
@@ -46,15 +74,19 @@ T add, T remove ==> Collection<T> value :
 end
 
 actor Converter<T,S>((T) => S fun) T input ==> S output, Exception exception :
+	function apply(T t) --> S:
+		fun.apply(t)
+	end
 	action input: [input] ==> [value] when exception == null, [exception] when exception != null
 	do
 		var Exception exception = null
 		var S value = null
 		try {
-			value = fun.apply(input)
+			value = apply(input)
 		} catch (Exception e) {
 			exception = e
 		}
+		value exception
 	end
 end
 

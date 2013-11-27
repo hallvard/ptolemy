@@ -227,79 +227,6 @@ public interface ActorPackage extends EPackage {
 	int JVM_TYPED_ATTRIBUTE_FEATURE_COUNT = KernelPackage.ATTRIBUTE_FEATURE_COUNT + 2;
 
 	/**
-	 * The meta object id for the '{@link org.ptolemy.ecore.actor.impl.InjectableAttributeImpl <em>Injectable Attribute</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.ptolemy.ecore.actor.impl.InjectableAttributeImpl
-	 * @see org.ptolemy.ecore.actor.impl.ActorPackageImpl#getInjectableAttribute()
-	 * @generated
-	 */
-	int INJECTABLE_ATTRIBUTE = 3;
-
-	/**
-	 * The feature id for the '<em><b>Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int INJECTABLE_ATTRIBUTE__NAME = JVM_TYPED_ATTRIBUTE__NAME;
-
-	/**
-	 * The feature id for the '<em><b>Display Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int INJECTABLE_ATTRIBUTE__DISPLAY_NAME = JVM_TYPED_ATTRIBUTE__DISPLAY_NAME;
-
-	/**
-	 * The feature id for the '<em><b>Attributes</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int INJECTABLE_ATTRIBUTE__ATTRIBUTES = JVM_TYPED_ATTRIBUTE__ATTRIBUTES;
-
-	/**
-	 * The feature id for the '<em><b>Inherits From</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int INJECTABLE_ATTRIBUTE__INHERITS_FROM = JVM_TYPED_ATTRIBUTE__INHERITS_FROM;
-
-	/**
-	 * The feature id for the '<em><b>Type</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int INJECTABLE_ATTRIBUTE__TYPE = JVM_TYPED_ATTRIBUTE__TYPE;
-
-	/**
-	 * The feature id for the '<em><b>Inferred Type</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int INJECTABLE_ATTRIBUTE__INFERRED_TYPE = JVM_TYPED_ATTRIBUTE__INFERRED_TYPE;
-
-	/**
-	 * The number of structural features of the '<em>Injectable Attribute</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int INJECTABLE_ATTRIBUTE_FEATURE_COUNT = JVM_TYPED_ATTRIBUTE_FEATURE_COUNT + 0;
-
-	/**
 	 * The meta object id for the '{@link org.ptolemy.ecore.actor.impl.VariableImpl <em>Variable</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -307,7 +234,7 @@ public interface ActorPackage extends EPackage {
 	 * @see org.ptolemy.ecore.actor.impl.ActorPackageImpl#getVariable()
 	 * @generated
 	 */
-	int VARIABLE = 4;
+	int VARIABLE = 3;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -389,7 +316,7 @@ public interface ActorPackage extends EPackage {
 	 * @see org.ptolemy.ecore.actor.impl.ActorPackageImpl#getParameter()
 	 * @generated
 	 */
-	int PARAMETER = 5;
+	int PARAMETER = 4;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -471,7 +398,7 @@ public interface ActorPackage extends EPackage {
 	 * @see org.ptolemy.ecore.actor.impl.ActorPackageImpl#getActorRef()
 	 * @generated
 	 */
-	int ACTOR_REF = 6;
+	int ACTOR_REF = 5;
 
 	/**
 	 * The feature id for the '<em><b>Owner</b></em>' container reference.
@@ -535,7 +462,7 @@ public interface ActorPackage extends EPackage {
 	 * @see org.ptolemy.ecore.actor.impl.ActorPackageImpl#getParameterBinding()
 	 * @generated
 	 */
-	int PARAMETER_BINDING = 7;
+	int PARAMETER_BINDING = 6;
 
 	/**
 	 * The feature id for the '<em><b>Parameter Ref</b></em>' reference.
@@ -572,7 +499,7 @@ public interface ActorPackage extends EPackage {
 	 * @see org.ptolemy.ecore.actor.impl.ActorPackageImpl#getAbstractIOPort()
 	 * @generated
 	 */
-	int ABSTRACT_IO_PORT = 8;
+	int ABSTRACT_IO_PORT = 7;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -708,7 +635,7 @@ public interface ActorPackage extends EPackage {
 	 * @see org.ptolemy.ecore.actor.impl.ActorPackageImpl#getIOPort()
 	 * @generated
 	 */
-	int IO_PORT = 9;
+	int IO_PORT = 8;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -853,7 +780,7 @@ public interface ActorPackage extends EPackage {
 	 * @see org.ptolemy.ecore.actor.impl.ActorPackageImpl#getAbstractTypedIOPort()
 	 * @generated
 	 */
-	int ABSTRACT_TYPED_IO_PORT = 10;
+	int ABSTRACT_TYPED_IO_PORT = 9;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -1007,7 +934,7 @@ public interface ActorPackage extends EPackage {
 	 * @see org.ptolemy.ecore.actor.impl.ActorPackageImpl#getTypedIOPort()
 	 * @generated
 	 */
-	int TYPED_IO_PORT = 11;
+	int TYPED_IO_PORT = 10;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -1170,7 +1097,7 @@ public interface ActorPackage extends EPackage {
 	 * @see org.ptolemy.ecore.actor.impl.ActorPackageImpl#getActor()
 	 * @generated
 	 */
-	int ACTOR = 12;
+	int ACTOR = 11;
 
 	/**
 	 * The number of structural features of the '<em>Actor</em>' class.
@@ -1189,7 +1116,7 @@ public interface ActorPackage extends EPackage {
 	 * @see org.ptolemy.ecore.actor.impl.ActorPackageImpl#getAtomicActor()
 	 * @generated
 	 */
-	int ATOMIC_ACTOR = 13;
+	int ATOMIC_ACTOR = 12;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -1334,7 +1261,7 @@ public interface ActorPackage extends EPackage {
 	 * @see org.ptolemy.ecore.actor.impl.ActorPackageImpl#getAtomicActorImpl()
 	 * @generated
 	 */
-	int ATOMIC_ACTOR_IMPL = 14;
+	int ATOMIC_ACTOR_IMPL = 13;
 
 	/**
 	 * The feature id for the '<em><b>Container</b></em>' container reference.
@@ -1362,7 +1289,7 @@ public interface ActorPackage extends EPackage {
 	 * @see org.ptolemy.ecore.actor.impl.ActorPackageImpl#getJavaActorImpl()
 	 * @generated
 	 */
-	int JAVA_ACTOR_IMPL = 15;
+	int JAVA_ACTOR_IMPL = 14;
 
 	/**
 	 * The feature id for the '<em><b>Container</b></em>' container reference.
@@ -1399,7 +1326,7 @@ public interface ActorPackage extends EPackage {
 	 * @see org.ptolemy.ecore.actor.impl.ActorPackageImpl#getTypeParameterized()
 	 * @generated
 	 */
-	int TYPE_PARAMETERIZED = 16;
+	int TYPE_PARAMETERIZED = 15;
 
 	/**
 	 * The feature id for the '<em><b>Type Parameters</b></em>' containment reference list.
@@ -1427,7 +1354,7 @@ public interface ActorPackage extends EPackage {
 	 * @see org.ptolemy.ecore.actor.impl.ActorPackageImpl#getTypeParameter()
 	 * @generated
 	 */
-	int TYPE_PARAMETER = 17;
+	int TYPE_PARAMETER = 16;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -1464,7 +1391,7 @@ public interface ActorPackage extends EPackage {
 	 * @see org.ptolemy.ecore.actor.impl.ActorPackageImpl#getTypedAtomicActor()
 	 * @generated
 	 */
-	int TYPED_ATOMIC_ACTOR = 18;
+	int TYPED_ATOMIC_ACTOR = 17;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -1618,7 +1545,7 @@ public interface ActorPackage extends EPackage {
 	 * @see org.ptolemy.ecore.actor.impl.ActorPackageImpl#getCompositeActor()
 	 * @generated
 	 */
-	int COMPOSITE_ACTOR = 19;
+	int COMPOSITE_ACTOR = 18;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -1799,7 +1726,7 @@ public interface ActorPackage extends EPackage {
 	 * @see org.ptolemy.ecore.actor.impl.ActorPackageImpl#getTypedCompositeActor()
 	 * @generated
 	 */
-	int TYPED_COMPOSITE_ACTOR = 20;
+	int TYPED_COMPOSITE_ACTOR = 19;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -1989,7 +1916,7 @@ public interface ActorPackage extends EPackage {
 	 * @see org.ptolemy.ecore.actor.impl.ActorPackageImpl#getIOPortKind()
 	 * @generated
 	 */
-	int IO_PORT_KIND = 21;
+	int IO_PORT_KIND = 20;
 
 
 	/**
@@ -2043,16 +1970,6 @@ public interface ActorPackage extends EPackage {
 	 * @generated
 	 */
 	EClass getJvmTypedAttribute();
-
-	/**
-	 * Returns the meta object for class '{@link org.ptolemy.ecore.actor.InjectableAttribute <em>Injectable Attribute</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for class '<em>Injectable Attribute</em>'.
-	 * @see org.ptolemy.ecore.actor.InjectableAttribute
-	 * @generated
-	 */
-	EClass getInjectableAttribute();
 
 	/**
 	 * Returns the meta object for class '{@link org.ptolemy.ecore.actor.Variable <em>Variable</em>}'.
@@ -2477,16 +2394,6 @@ public interface ActorPackage extends EPackage {
 		 * @generated
 		 */
 		EClass JVM_TYPED_ATTRIBUTE = eINSTANCE.getJvmTypedAttribute();
-
-		/**
-		 * The meta object literal for the '{@link org.ptolemy.ecore.actor.impl.InjectableAttributeImpl <em>Injectable Attribute</em>}' class.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @see org.ptolemy.ecore.actor.impl.InjectableAttributeImpl
-		 * @see org.ptolemy.ecore.actor.impl.ActorPackageImpl#getInjectableAttribute()
-		 * @generated
-		 */
-		EClass INJECTABLE_ATTRIBUTE = eINSTANCE.getInjectableAttribute();
 
 		/**
 		 * The meta object literal for the '{@link org.ptolemy.ecore.actor.impl.VariableImpl <em>Variable</em>}' class.

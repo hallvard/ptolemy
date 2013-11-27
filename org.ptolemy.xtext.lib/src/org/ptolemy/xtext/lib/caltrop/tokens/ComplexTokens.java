@@ -17,6 +17,10 @@ public class ComplexTokens extends Tokens<ptolemy.math.Complex> {
 	
 	//
 
+	public static ComplexToken create(ptolemy.math.Complex c) {
+		return new ComplexToken(c);
+	}
+
 	public static ptolemy.math.Complex get(Token token) throws IllegalActionException {
 		return ComplexToken.convert(token).complexValue();
 	}

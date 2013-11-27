@@ -2,8 +2,8 @@ package org.ptolemy.xtext.generator.eventsupport
 
 import org.eclipse.xtext.common.types.JvmDeclaredType
 import org.eclipse.xtext.common.types.JvmOperation
-import org.eclipse.xtext.xbase.lib.Pair
 import org.eclipse.xtext.common.types.JvmTypeReference
+import org.eclipse.xtext.xbase.lib.Pair
 import org.ptolemy.xtext.generator.MappingCopier
 
 public class AbstractEventSupport {
@@ -15,7 +15,7 @@ public class AbstractEventSupport {
 	def copyType(JvmTypeReference type, JvmTypeReference... contextTypes) {
 		MappingCopier.map(type, true, contextTypes)
 	}
-	
+
 	def accessorName(String name, String prefix, String suffix) {
 		if (prefix == null && suffix != null && name.endsWith(suffix)) {
 			name.substring(0, name.length - suffix.length)

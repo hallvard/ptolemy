@@ -21,8 +21,8 @@ import org.ptolemy.ecore.actor.AtomicActor;
 import org.ptolemy.ecore.actor.CompositeActor;
 import org.ptolemy.ecore.actor.IOPort;
 import org.ptolemy.ecore.actor.IOPortKind;
-import org.ptolemy.ecore.actor.InjectableAttribute;
 import org.ptolemy.ecore.actor.JavaActorImpl;
+import org.ptolemy.ecore.actor.JvmTypedAttribute;
 import org.ptolemy.ecore.actor.JvmTypedObj;
 import org.ptolemy.ecore.actor.Parameter;
 import org.ptolemy.ecore.actor.ParameterBinding;
@@ -78,7 +78,7 @@ public class ActorFactoryImpl extends EFactoryImpl implements ActorFactory {
 	public EObject create(EClass eClass) {
 		switch (eClass.getClassifierID()) {
 			case ActorPackage.JVM_TYPED_OBJ: return createJvmTypedObj();
-			case ActorPackage.INJECTABLE_ATTRIBUTE: return createInjectableAttribute();
+			case ActorPackage.JVM_TYPED_ATTRIBUTE: return createJvmTypedAttribute();
 			case ActorPackage.VARIABLE: return createVariable();
 			case ActorPackage.PARAMETER: return createParameter();
 			case ActorPackage.ACTOR_REF: return createActorRef();
@@ -142,9 +142,9 @@ public class ActorFactoryImpl extends EFactoryImpl implements ActorFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public InjectableAttribute createInjectableAttribute() {
-		InjectableAttributeImpl injectableAttribute = new InjectableAttributeImpl();
-		return injectableAttribute;
+	public JvmTypedAttribute createJvmTypedAttribute() {
+		JvmTypedAttributeImpl jvmTypedAttribute = new JvmTypedAttributeImpl();
+		return jvmTypedAttribute;
 	}
 
 	/**

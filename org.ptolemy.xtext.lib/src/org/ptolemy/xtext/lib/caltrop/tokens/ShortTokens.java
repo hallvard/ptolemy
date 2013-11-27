@@ -21,6 +21,10 @@ public class ShortTokens extends Tokens<Short> {
 
 	//
 
+	public static ShortToken create(short s) {
+		return new ShortToken(s);
+	}
+
 	public static short get(Token token) throws IllegalActionException {
 		return ShortToken.convert(token).shortValue();
 	}

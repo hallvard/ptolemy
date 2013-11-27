@@ -3,9 +3,30 @@
 */
 package org.ptolemy.xtext.ui.labeling;
 
+import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.edit.ui.provider.AdapterFactoryLabelProvider;
+import org.eclipse.xtext.xbase.XBlockExpression;
+import org.eclipse.xtext.xbase.XClosure;
 import org.eclipse.xtext.xbase.ui.labeling.XbaseLabelProvider; 
- 
+import org.ptolemy.ecore.actor.AbstractIOPort;
+import org.ptolemy.ecore.actor.AtomicActor;
+import org.ptolemy.ecore.actor.CompositeActor;
+import org.ptolemy.ecore.actor.Parameter;
+import org.ptolemy.ecore.actor.ParameterBinding;
+import org.ptolemy.ecore.actor.Variable;
+import org.ptolemy.ecore.caltrop.ActionPattern;
+import org.ptolemy.ecore.caltrop.EventAction;
+import org.ptolemy.ecore.caltrop.FunctionDeclaration;
+import org.ptolemy.ecore.caltrop.OutputAction;
+import org.ptolemy.ecore.caltrop.OutputPattern;
+import org.ptolemy.ecore.kernel.Attribute;
+import org.ptolemy.ecore.kernel.Entity;
+import org.ptolemy.ecore.kernel.Named;
+import org.ptolemy.ecore.kernel.NamedObj;
+import org.ptolemy.ecore.kernel.Port;
+import org.ptolemy.ecore.kernel.Relation;
+import org.ptolemy.ecore.xactor.EntityFolder;
+
 import com.google.inject.Inject;
 
 /**
@@ -20,15 +41,82 @@ public class XActorLabelProvider extends XbaseLabelProvider {
 		super(delegate);
 	}
 
-/*
-	//Labels and icons can be computed like this:
+	// text methods
 	
-	String text(MyModel ele) {
-	  return "my "+ele.getName();
+	protected String joinStrings(Iterable<String> parts, String separator) {
+		String result = "";
+		for (String part : parts) {
+			if (part != null) {
+				if (result.length() > 0 && separator != null) {
+					result += separator;
+				}
+				result += part;
+			}
+		}
+		return result;
 	}
-	 
-    String image(MyModel ele) {
-      return "MyModel.gif";
-    }
-*/
+
+	protected String joinStrings(String separator, String... parts) {
+		String result = "";
+		for (String part : parts) {
+			if (part != null) {
+				if (result.length() > 0 && separator != null) {
+					result += separator;
+				}
+				result += part;
+			}
+		}
+		return result;
+	}
+
+	protected String joinNamed(Iterable<? extends Named> parts, String separator) {
+		String result = "";
+		for (Named part : parts) {
+			if (part.getName() != null) {
+				if (result.length() > 0 && separator != null) {
+					result += separator;
+				}
+				result += part.getName();
+			}
+		}
+		return result;
+	}
+	
+	protected String text(String prefix, NamedObj named) {
+		return joinStrings(" ", prefix, named.getName());
+	}
+
+	protected String text(Entity<?> 		named) { return text("entity", 		named);}
+	protected String text(AtomicActor<?> 	named) { return text("actor", 		named);}
+	protected String text(CompositeActor<?> named) { return text("composite", 	named);}
+	protected String text(EntityFolder 		named) { return text("namespace", 	named);}
+	protected String text(Attribute			named) { return text("attribute", 	named);}
+	protected String text(Variable			named) { return text("variable", 	named);}
+	protected String text(Parameter			named) { return text("parameter", 	named);}
+	
+	protected String text(Port port) {
+		return text("port", port) + (port instanceof AbstractIOPort && ((AbstractIOPort) port).isMultiport() ? "*" : "");
+	}
+
+	protected String text(Relation	relation) {
+		return joinStrings("relation", relation.getName(), relation.getSourcePort().getName(), "-> ") + joinNamed(relation.getTargetPorts(), ",");
+	}
+
+	protected String text(ParameterBinding	parameterBinding) {
+		return text("parameter", parameterBinding.getParameterRef()) + "=";
+	}
+
+	protected String text(OutputAction		 	named) { return text("action", 	named);}
+	protected String text(EventAction		 	named) { return text("event", 		named);}
+	protected String text(FunctionDeclaration 	named) { return text("function", 	named);}
+
+	protected String text(ActionPattern pattern) {
+		EList<String> patternVariables = pattern.getPatternVariables();
+		return (pattern instanceof OutputPattern ? "==> " : "") + "[" + joinStrings(patternVariables, ", ") + "]";
+	}
+	
+	// XExpressions
+
+	protected String text(XBlockExpression expr) { return "block" + expr.getExpressions().size();}
+	protected String text(XClosure expr) { return "lambda" + expr.getDeclaredFormalParameters().size();}
 }

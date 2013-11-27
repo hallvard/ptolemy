@@ -16,6 +16,8 @@ import ptolemy.kernel.util.NamedObj;
 
 public class SwixmlResource extends BeanResource {
 
+	// -Dcom.apple.awt.CocoaComponent.CompatibilityMode=false
+
     public SwixmlResource(NamedObj container, String name) throws IllegalActionException, NameDuplicationException {
         super(container, name);
     }

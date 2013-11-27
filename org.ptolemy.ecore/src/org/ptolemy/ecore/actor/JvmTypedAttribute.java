@@ -15,7 +15,7 @@ import org.ptolemy.ecore.kernel.Attribute;
  *
  *
  * @see org.ptolemy.ecore.actor.ActorPackage#getJvmTypedAttribute()
- * @model abstract="true"
+ * @model
  * @generated
  */
 public interface JvmTypedAttribute extends Attribute, JvmTypedObj {

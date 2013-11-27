@@ -4,14 +4,10 @@ package org.ptolemy.ecore.actor.impl;
 
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
-
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
-
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
-
 import org.eclipse.xtext.common.types.JvmParameterizedTypeReference;
-
 import org.ptolemy.ecore.actor.AbstractIOPort;
 import org.ptolemy.ecore.actor.ActorPackage;
 import org.ptolemy.ecore.actor.JavaActorImpl;

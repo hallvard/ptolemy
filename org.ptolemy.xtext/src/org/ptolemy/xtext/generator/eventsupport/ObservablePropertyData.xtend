@@ -8,7 +8,7 @@ import org.ptolemy.xtext.generator.TreeAppendableUtil
 class ObservablePropertyData extends EventData {
 
 	public new(JvmTypeReference typeRef, String name, JvmTypeReference listenerType) {
-		super(typeRef, name, listenerType)
+		super(typeRef, name, listenerType, "changed", 3)
 	}
 
 	@Inject extension TreeAppendableUtil

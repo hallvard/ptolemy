@@ -122,10 +122,10 @@ public abstract class NamedObjImpl extends EObjectImpl implements NamedObj {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
+	 * @generated NOT
 	 */
 	public String getName() {
-		return name;
+		return (name != null ? name : (inheritsFrom != null ? inheritsFrom.getName() : null));
 	}
 
 	/**
@@ -143,10 +143,10 @@ public abstract class NamedObjImpl extends EObjectImpl implements NamedObj {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
+	 * @generated NOT
 	 */
 	public String getDisplayName() {
-		return displayName;
+		return (displayName != null ? displayName : (inheritsFrom != null ? inheritsFrom.getDisplayName() : null));
 	}
 
 	/**
@@ -408,40 +408,5 @@ public abstract class NamedObjImpl extends EObjectImpl implements NamedObj {
 	protected static <T extends Nameable> T getNamed(String name, NamedObj named, EStructuralFeature feature) {
 		return getNamed(name, (EList<T>) named.eGet(feature));
 	}
-	
-	//
-	
-//	protected String getDefaultBaseName() {
-//		return "named";
-//	}
-//
-//	protected boolean isSameKind(Nameable named) {
-//		return true;
-//	}
-//	
-//	protected EList<? extends Nameable> getSameObjects() {
-//		return (EList<? extends Nameable>) eContainer.eGet(eContainingFeature());
-//	}
-//
-//	protected String getDefaultName() {
-//		if (getInheritsFrom() != null) {
-//			return getInheritsFrom().getName();
-//		}
-//		if (getContainer() == null) {
-//			return null;
-//		}
-//		EList<? extends Nameable> nameds = getSameObjects();
-//		int pos = 0, count = 0;
-//		for (Nameable named: nameds) {
-//			if (isSameKind(named)) {
-//				count++;
-//				if (named == this) {
-//					pos = count;
-//				}
-//			}
-//		}
-//		String baseName = getDefaultBaseName();
-//		return baseName + (count == 1 ? "" : pos);
-//	}
 
 } //NamedObjImpl

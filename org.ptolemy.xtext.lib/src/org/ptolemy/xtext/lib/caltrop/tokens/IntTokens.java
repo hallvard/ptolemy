@@ -1,5 +1,6 @@
 package org.ptolemy.xtext.lib.caltrop.tokens;
 
+import ptolemy.data.BooleanToken;
 import ptolemy.data.IntToken;
 import ptolemy.data.Token;
 import ptolemy.kernel.util.IllegalActionException;
@@ -20,6 +21,10 @@ public class IntTokens extends Tokens<Integer> {
 	}
 
 	//
+
+	public static IntToken create(int i) {
+		return new IntToken(i);
+	}
 
 	public static int get(Token token) throws IllegalActionException {
 		return IntToken.convert(token).intValue();

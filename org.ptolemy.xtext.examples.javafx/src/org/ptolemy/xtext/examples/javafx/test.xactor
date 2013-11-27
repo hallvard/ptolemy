@@ -1,0 +1,37 @@
+namespace org.ptolemy.xtext.examples.javafx.test :
+
+import javafx.scene.control.Button
+import javafx.scene.control.TextInputControl
+import org.ptolemy.xtext.examples.javafx.TestObservable
+
+actor PTest1(String id)
+String systemOutput ==> String userInput :
+	val @javafx TextInputControl textInput = get(id, TextInputControl);
+	var @javafx String text := textInput.text update textInput.text = text;
+	initialize ==> [text] end
+	action [string] ==>	do
+		text = string
+	end 
+	event textInput.text [changeEventArgs] ==> [text] 
+	end
+end
+
+actor PTest2(String id)
+Object* enable ==> Object actionEvent :
+	val @javafx Button button = get(id, Button);
+	var @javafx boolean enabled = ! button.disabled update button.disable = ! enabled;
+	action [enable] any ==>	do
+		val Object value = enable.values.head
+		enabled = value != null && (value != Boolean::FALSE) && (! (value instanceof Exception))
+	end
+	event button!^action [actionEvent] ==> [actionEvent] end
+end
+
+actor PTest3(String id)
+ ==> Object output :
+	val TestObservable observable = new TestObservable();
+	event observable!listenerMethod1 [arg] ==> [arg] end
+	event observable!listenerMethod2 [arg] ==> [arg] end
+end
+
+end

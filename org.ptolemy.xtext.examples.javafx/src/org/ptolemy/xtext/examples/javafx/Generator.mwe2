@@ -16,9 +16,9 @@ Workflow {
 
 	component = org.eclipse.xtext.mwe.Reader {
 		register = org.ptolemy.xtext.XActorStandaloneSetup {}
-		path = "../org.ptolemy.xtext.examples.ui.swing/src/org/ptolemy/xtext/examples/swing"
+		path = "../org.ptolemy.xtext.examples.javafx/src/org/ptolemy/xtext/examples/javafx"
 		uriFilter = org.eclipse.xtext.mwe.NameBasedFilter {
-			regularExpression = ".*\\.xactor$"
+			regularExpression = "test\\.xactor$" // ".*\\.xactor$"
 		}
 		loadResource = {
 			slot = "model"

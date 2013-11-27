@@ -1,0 +1,69 @@
+namespace org.ptolemy.xtext.examples.mqtt :
+
+import org.ptolemy.xtext.examples.javafx.scene.control.PTextInput
+import org.ptolemy.xtext.examples.javafx.scene.control.PButton
+import org.ptolemy.xtext.examples.javafx.scene.control.PButtonValve
+import org.ptolemy.xtext.examples.javafx.scene.control.PCollection
+import org.ptolemy.xtext.examples.javafx.scene.chart.PXYChartXYp
+import org.ptolemy.xtext.examples.ui.CollectionVariable
+import org.ptolemy.xtext.examples.ui.Converter
+import org.ptolemy.xtext.examples.ui.Valve
+
+import org.ptolemy.xtext.examples.mqtt.MqttSubscriber
+import org.ptolemy.xtext.examples.mqtt.MqttPublisher
+
+import org.ptolemy.xtext.examples.mqtt.util.TupleSplitter2p
+import org.ptolemy.xtext.examples.mqtt.util.TupleMerger2p
+
+import ptolemy.domains.de.kernel.DEDirector
+import org.ptolemy.xtext.launch.javafx.JavafxResource
+import java.nio.charset.Charset
+import org.ptolemy.xtext.lib.caltrop.tuple.Tuple2
+
+network mqttplotting :
+
+	@DEDirector director(stopWhenQueueIsEmpty=false, synchronizeToRealTime=true)
+	@JavafxResource beanResource(resource="src/org/ptolemy/xtext/examples/mqtt/mqttplotting.fxml")
+
+	entities
+		publishTopicText = PTextInput(id="mqttplotting_publish_topicText")
+		publishValueText = PTextInput(id="mqttplotting_publish_valueText")
+		tupleMerger = TupleMerger2p<String,String>
+		publishButtonValve = PButtonValve<Tuple2<String,String>>(id="mqttplotting_publish_publishButton")
+		mqttPublisher = MqttPublisher<String>(brokerUrl="tcp://m2m.eclipse.org:1883",valueSerializer=[String s | s.bytes])
+
+		topicsText = PTextInput(id="mqttplotting_subscribe_topicsText")
+		topicsValve = Valve<String>
+		updateTopicsButton = PButton(id="mqttplotting_subscribe_updateTopicsButton")
+		mqttSubscriber = MqttSubscriber<String>(brokerUrl="tcp://m2m.eclipse.org:1883",bytesParser=[byte[] bytes | new String(bytes, Charset.forName("UTF-8"))])
+		values = CollectionVariable<Tuple2<Long,String>>
+		list = PCollection<Tuple2<Long,String>>(id="mqttplotting_list")
+		valueConverter = actor ==> is Converter<Tuple2<Long,String>, Tuple2<Long,Integer>>(fun=[Tuple2<Long,String> it | new Tuple2<Long,Integer>(it.value1-startTime, Integer.valueOf(it.value2))]) :
+			val long startTime = -1;
+			// override to record time of first conversion
+			function apply(Tuple2<Long,String> tuple) --> S:
+				if (startTime < 0)
+					startTime = System.currentTimeMillis
+				super.apply(tuple)
+			end
+		end
+		tupleSplitter = TupleSplitter2p<Long,Integer>
+		chart = PXYChartXYp<Long,Integer>(id="mqttplotting_chart")
+
+	structure
+		publishTopicText.userInput --> tupleMerger.value1
+		publishValueText.userInput --> tupleMerger.value2
+		tupleMerger.tuple --> publishButtonValve.input
+		publishButtonValve.output --> mqttPublisher.topicValues
+
+		topicsText.userInput --> topicsValve.input
+		updateTopicsButton.actionEvent --> topicsValve.trigger, values.clearAll, chart.clearAll
+		topicsValve.output --> mqttSubscriber.topics
+		mqttSubscriber.timedValue --> values.add, valueConverter.input
+		values.value --> list.systemOutput
+		valueConverter.output --> tupleSplitter.tuple
+		tupleSplitter.value1 --> chart.xs
+		tupleSplitter.value2 --> chart.ys
+end
+
+end

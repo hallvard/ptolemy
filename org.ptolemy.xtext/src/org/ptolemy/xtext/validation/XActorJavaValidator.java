@@ -96,6 +96,14 @@ public class XActorJavaValidator extends AbstractXActorJavaValidator {
 	}
 
 	@Check
+	public void checkPatternPort(PortPattern portPattern) {
+		Port port = portPattern.getPortRef();
+		if (port == null) {
+//			error("A port pattern must have a port.", CaltropPackage.eINSTANCE.getPortPattern_PortRef());
+		}
+	}
+	
+	@Check
 	public void checkMultiportPattern(PortPattern portPattern) {
 		Port port = portPattern.getPortRef();
 		if (port instanceof AbstractIOPort) {

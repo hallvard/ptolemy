@@ -18,7 +18,7 @@ public class PtolemyTabGroup extends AbstractLaunchConfigurationTabGroup {
 		ILaunchConfigurationTab[] tabs = new ILaunchConfigurationTab[] {
 			createPtolemyMainTab(),
 //			new JavaMainTab(),
-//			new JavaArgumentsTab(),
+			new JavaArgumentsTab(),
 			new JavaJRETab(),
 			new JavaClasspathTab(),
 			new SourceLookupTab(),

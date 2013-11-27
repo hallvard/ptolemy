@@ -1,7 +1,5 @@
 package org.ptolemy.xtext.launch;
 
-import java.io.File;
-
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.debug.core.ILaunch;
@@ -25,38 +23,7 @@ public class PtolemyLaunchConfigurationDelegate extends JavaLaunchDelegate {
 	@Override
 	public String getProgramArguments(ILaunchConfiguration configuration) throws CoreException {
 		String actorClassName = PtolemyMainTab.getActorClassName(configuration);
-		String directorClassName = PtolemyMainTab.getDirectorClassName(configuration);
-		String additionalArgs = actorClassName + " " + directorClassName + " ";
-		for (ResourceContribution resourceContribution : Activator.getDefault().getResourceContributions()) {
-			String resourceClassName = resourceContribution.getResourceContributor().getResourceClass().getName();
-			String resourcePath = PtolemyMainTab.getResourcePath(resourceContribution, configuration);
-			if (resourceClassName != null && resourcePath != null && resourcePath.trim().length() > 0) {
-				additionalArgs += resourceClassName + " " + resourcePath + " ";
-			}
-		}
+		String additionalArgs = actorClassName + " ";
 		return 	additionalArgs + super.getProgramArguments(configuration);
-	}
-
-	@Override
-	public String getVMArguments(ILaunchConfiguration configuration) throws CoreException {
-		String additionalArgs = "";
-		for (ResourceContribution resourceContribution : Activator.getDefault().getResourceContributions()) {
-			String additionalVMArgs = resourceContribution.getResourceContributor().getAdditionalVMArguments();
-			if (additionalVMArgs != null) {
-				additionalArgs += additionalVMArgs + " ";
-			}
-		}
-		String loggingArg = null;
-		for (ResourceContribution resourceContribution : Activator.getDefault().getResourceContributions()) {
-			String resourceClassName = resourceContribution.getResourceContributor().getResourceClass().getName();
-			String resourcePath = PtolemyMainTab.getResourcePath(resourceContribution, configuration);
-			if (resourceClassName != null && resourcePath != null && resourcePath.trim().length() > 0 && loggingArg == null) {
-				File propertiesFile = new File(resourcePath + ".logging.properties");
-				if (propertiesFile.exists()) {
-					loggingArg = "-Djava.util.logging.config.file=" + propertiesFile.getAbsolutePath() + " ";
-				}
-			}
-		}
-		return 	additionalArgs + (loggingArg != null ? loggingArg : "") + super.getVMArguments(configuration);
 	}
 }

@@ -1,0 +1,40 @@
+package org.ptolemy.xtext.examples.javafx
+
+import java.lang.*
+import java.util.*
+import javafx.scene.control.*
+import javafx.scene.layout.*
+import javafx.scene.paint.*
+import javafx.scene.web.*
+import javafx.scene.chart.*
+
+component plotting {
+	SplitPane {
+		maxHeight : const Double#NEGATIVE_INFINITY,
+		maxWidth 	: const Double#NEGATIVE_INFINITY,
+		minHeight 	: const Double#NEGATIVE_INFINITY,
+		minWidth 	: const Double#NEGATIVE_INFINITY,
+		items : [
+			VBox {
+				TextArea {
+					^id : "plotting_values", 
+					prefHeight 	: 700.0,
+					prefWidth 	: 200.0
+				},
+				Button {
+					^id : "plotting_plotButton", 
+					mnemonicParsing : false,
+					text : "Plot"
+				}
+			},
+			LineChart<Integer,Integer> {
+				^id : "plotting_chart", 
+				prefHeight 	: 800.0,
+				prefWidth 	: 800.0,
+//				title		: "XYs",
+				xAxis		: NumberAxis { label : "X", autoRanging : true },
+				yAxis		: NumberAxis { label : "Y", autoRanging : true }
+			}
+		]
+	}
+}

@@ -1,5 +1,8 @@
 package org.ptolemy.xtext.lib.caltrop;
 
+import org.ptolemy.xtext.lib.caltrop.tuple.Tuple2;
+import org.ptolemy.xtext.lib.caltrop.tuple.Tuple3;
+
 import ptolemy.actor.IOPort;
 import ptolemy.actor.TypedIOPort;
 import ptolemy.actor.util.BooleanDependency;
@@ -12,17 +15,17 @@ import ptolemy.kernel.util.NameDuplicationException;
 
 public abstract class AbstractConversionRelationActor<T, S> extends AbstractCaltropActor {
 
-	protected TypedIOPort input, output;
+	protected CaltropIOPort input, output;
 
-	protected TypedIOPort _createInputPort() throws NameDuplicationException, IllegalActionException {
-		TypedIOPort port = new TypedIOPort(this, "input", true, false);
+	protected CaltropIOPort _createInputPort() throws NameDuplicationException, IllegalActionException {
+		CaltropIOPort port = new CaltropIOPort(this, "input", true, false);
 		port.setMultiport(false);
 		// subclass must ensure to set type
 		return port;
 	}
 
-	protected TypedIOPort _createOutputPort() throws NameDuplicationException, IllegalActionException {
-		TypedIOPort port = new TypedIOPort(this, "output", false, true);
+	protected CaltropIOPort _createOutputPort() throws NameDuplicationException, IllegalActionException {
+		CaltropIOPort port = new CaltropIOPort(this, "output", false, true);
 		port.setMultiport(false);
 		// subclass must ensure to set type
 		return port;
@@ -38,8 +41,8 @@ public abstract class AbstractConversionRelationActor<T, S> extends AbstractCalt
 		this.output = _createOutputPort();
 	}
 
-	protected Pair<Integer,AbstractActionImpl> _fireImpl() throws IllegalActionException {
-		if (_actionImpls[0].match()) return new Pair.Impl<Integer, AbstractActionImpl>(-1, _actionImpls[0]);
+	protected Tuple2<Integer,AbstractActionImpl> _fireImpl() throws IllegalActionException {
+		if (_actionImpls[0].match()) return new Tuple2<Integer, AbstractActionImpl>(-1, _actionImpls[0]);
 		return null;
 	}
 
@@ -71,9 +74,9 @@ public abstract class AbstractConversionRelationActor<T, S> extends AbstractCalt
 			send(AbstractConversionRelationActor.this.output, 0, _createOutputToken(output), -1);
 		}
 
-		public Pair<Pair<IOPort,IOPort>,Dependency>[] getDependencies() {
-			return new Pair[]{
-					new Pair.Impl(new Pair.Impl(AbstractConversionRelationActor.this.input, AbstractConversionRelationActor.this.output), BooleanDependency.valueOf(true)), new Pair.Impl(new Pair.Impl(AbstractConversionRelationActor.this.input, AbstractConversionRelationActor.this.output), BooleanDependency.valueOf(true)), 
+		public Tuple3<IOPort,IOPort,Dependency>[] getDependencies() {
+			return new Tuple3[]{
+					new Tuple3(AbstractConversionRelationActor.this.input, AbstractConversionRelationActor.this.output, BooleanDependency.valueOf(true)), new Tuple3(AbstractConversionRelationActor.this.input, AbstractConversionRelationActor.this.output, BooleanDependency.valueOf(true)), 
 			};
 		}
 	}

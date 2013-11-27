@@ -1,0 +1,805 @@
+<?xml version="1.0" encoding="ASCII"?>
+<xmi:XMI xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:actordiagram="org.ptolemy.graphiti.generic.actordiagram" xmlns:al="http://eclipse.org/graphiti/mm/algorithms" xmlns:pi="http://eclipse.org/graphiti/mm/pictograms">
+  <actordiagram:EntityContainerDiagram visible="true" gridUnit="10" diagramTypeId="xactor" name="mqttplotting.xactor_diagram" snapToGrid="true" pictogramLinks="/0/@children.0/@link /1/@link" version="0.10.0">
+    <graphicsAlgorithm xsi:type="al:Rectangle" background="/0/@colors.1" foreground="/0/@colors.0" lineWidth="1" transparency="0.0" width="1000" height="1000"/>
+    <link>
+      <businessObjects href="mqttplotting.xactor#/0"/>
+    </link>
+    <children xsi:type="actordiagram:EntityShape" visible="true" active="true" label="/0/@children.0/@graphicsAlgorithm/@graphicsAlgorithmChildren.1">
+      <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="94" height="76" x="-13" y="-15">
+        <graphicsAlgorithmChildren xsi:type="al:Rectangle" background="/0/@colors.3" foreground="/0/@colors.2" lineWidth="2" transparency="0.0" width="70" height="50" x="12" y="14"/>
+        <graphicsAlgorithmChildren xsi:type="al:Text" foreground="/0/@colors.2" lineWidth="1" filled="false" transparency="0.0" width="70" height="14" x="12" font="/0/@fonts.0" value="mqttplotting"/>
+        <graphicsAlgorithmChildren xsi:type="al:PlatformGraphicsAlgorithm" lineWidth="1" transparency="0.0" width="70" height="50" x="12" y="12"/>
+      </graphicsAlgorithm>
+      <link>
+        <businessObjects href="mqttplotting.xactor#/0/@entities[name='mqttplotting']"/>
+      </link>
+      <anchors xsi:type="pi:ChopboxAnchor" referencedGraphicsAlgorithm="/0/@children.0/@graphicsAlgorithm/@graphicsAlgorithmChildren.0"/>
+    </children>
+    <colors red="227" green="238" blue="249"/>
+    <colors red="255" green="255" blue="255"/>
+    <colors red="98" green="131" blue="167"/>
+    <colors red="187" green="218" blue="247"/>
+    <fonts name="Arial" size="8" bold="true"/>
+  </actordiagram:EntityContainerDiagram>
+  <actordiagram:EntityContainerDiagram visible="true" gridUnit="10" diagramTypeId="xactor" name="org.ptolemy.xtext.examples.mqtt.mqttplotting" snapToGrid="true" pictogramLinks="/1/@children.0/@link /1/@children.0/@children.0/@link /1/@children.0/@children.1/@link /1/@children.1/@link /1/@children.1/@children.0/@link /1/@children.1/@children.1/@link /1/@children.2/@link /1/@children.2/@children.0/@link /1/@children.2/@children.1/@link /1/@children.2/@children.2/@link /1/@children.3/@link /1/@children.3/@children.0/@link /1/@children.3/@children.1/@link /1/@children.4/@link /1/@children.4/@children.0/@link /1/@children.4/@children.1/@link /1/@children.5/@link /1/@children.5/@children.0/@link /1/@children.5/@children.1/@link /1/@children.6/@link /1/@children.6/@children.0/@link /1/@children.6/@children.1/@link /1/@children.6/@children.2/@link /1/@children.7/@link /1/@children.7/@children.0/@link /1/@children.7/@children.1/@link /1/@children.8/@link /1/@children.8/@children.0/@link /1/@children.8/@children.1/@link /1/@children.8/@children.2/@link /1/@children.9/@link /1/@children.9/@children.0/@link /1/@children.9/@children.1/@link /1/@children.9/@children.2/@link /1/@children.9/@children.3/@link /1/@children.9/@children.4/@link /1/@children.9/@children.5/@link /1/@children.9/@children.6/@link /1/@children.10/@link /1/@children.10/@children.0/@link /1/@children.10/@children.1/@link /1/@children.11/@link /1/@children.11/@children.0/@link /1/@children.11/@children.1/@link /1/@children.11/@children.2/@link /1/@children.12/@link /1/@children.12/@children.0/@link /1/@children.12/@children.1/@link /1/@children.12/@children.2/@link /1/@children.13/@link /1/@children.13/@children.0/@link /1/@children.13/@children.1/@link /1/@children.13/@children.2/@link /1/@children.13/@children.3/@link /1/@children.13/@children.4/@link /1/@connections.0/@link /1/@connections.1/@link /1/@connections.2/@link /1/@connections.3/@link /1/@connections.4/@link /1/@connections.5/@link /1/@connections.6/@link /1/@connections.7/@link /1/@connections.8/@link /1/@connections.9/@link /1/@connections.10/@link /1/@connections.11/@link" version="0.10.0">
+    <graphicsAlgorithm xsi:type="al:Rectangle" background="/1/@colors.1" foreground="/1/@colors.0" lineWidth="1" transparency="0.0" width="1000" height="1000"/>
+    <link>
+      <businessObjects href="mqttplotting.xactor#/0/@entities[name='mqttplotting']"/>
+    </link>
+    <children xsi:type="actordiagram:EntityShape" visible="true" active="true" label="/1/@children.0/@graphicsAlgorithm/@graphicsAlgorithmChildren.1">
+      <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="94" height="76" x="450" y="330">
+        <graphicsAlgorithmChildren xsi:type="al:Rectangle" background="/1/@colors.3" foreground="/1/@colors.2" lineWidth="2" transparency="0.0" width="70" height="50" x="12" y="14"/>
+        <graphicsAlgorithmChildren xsi:type="al:Text" foreground="/1/@colors.2" lineWidth="1" filled="false" transparency="0.0" width="70" height="14" x="12" font="/1/@fonts.0" value="publishTopicText"/>
+        <graphicsAlgorithmChildren xsi:type="al:PlatformGraphicsAlgorithm" lineWidth="1" transparency="0.0" width="70" height="50" x="12" y="12" id="@platform:/resource/org.ptolemy.xtext.examples.javafx/src/org/ptolemy/xtext/examples/javafx/PTextInput.png"/>
+      </graphicsAlgorithm>
+      <link>
+        <businessObjects href="mqttplotting.xactor#/0/@entities[name='mqttplotting']/@entities[name='publishTopicText']"/>
+      </link>
+      <anchors xsi:type="pi:ChopboxAnchor" referencedGraphicsAlgorithm="/1/@children.0/@graphicsAlgorithm/@graphicsAlgorithmChildren.0"/>
+      <children xsi:type="actordiagram:PortShape" visible="true" active="true" alignment="ALIGNMENT_LEFT" orientation="ALIGNMENT_RIGHT" outsideAnchor="/1/@children.0/@children.0/@anchors.0" size="12" locked="true">
+        <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="12" height="12" x="2" y="33">
+          <graphicsAlgorithmChildren xsi:type="actordiagram:PortGA" background="/1/@colors.6" foreground="/1/@colors.5" lineStyle="UNSPECIFIED" width="12" height="12"/>
+        </graphicsAlgorithm>
+        <link>
+          <businessObjects href="mqttplotting.xactor#/0/@entities[name='mqttplotting']/@entities[name='publishTopicText']/@inheritedPorts[name='systemOutput']"/>
+        </link>
+        <anchors xsi:type="actordiagram:PortAnchor" visible="true" active="true" referencedGraphicsAlgorithm="/1/@children.0/@children.0/@graphicsAlgorithm" relativeHeight="0.5" alignment="ALIGNMENT_LEFT">
+          <graphicsAlgorithm xsi:type="al:Rectangle" background="/1/@colors.4" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="2" height="2"/>
+        </anchors>
+        <anchors xsi:type="pi:ChopboxAnchor" referencedGraphicsAlgorithm="/1/@children.0/@children.0/@graphicsAlgorithm"/>
+      </children>
+      <children xsi:type="actordiagram:PortShape" visible="true" active="true" alignment="ALIGNMENT_RIGHT" orientation="ALIGNMENT_RIGHT" outsideAnchor="/1/@children.0/@children.1/@anchors.0" size="12" locked="true">
+        <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="12" height="12" x="80" y="33">
+          <graphicsAlgorithmChildren xsi:type="actordiagram:PortGA" background="/1/@colors.6" foreground="/1/@colors.5" lineStyle="UNSPECIFIED" width="12" height="12"/>
+        </graphicsAlgorithm>
+        <link>
+          <businessObjects href="mqttplotting.xactor#/0/@entities[name='mqttplotting']/@entities[name='publishTopicText']/@inheritedPorts[name='userInput']"/>
+        </link>
+        <anchors xsi:type="actordiagram:PortAnchor" visible="true" active="true" outgoingConnections="/1/@connections.0" referencedGraphicsAlgorithm="/1/@children.0/@children.1/@graphicsAlgorithm" relativeWidth="1.0" relativeHeight="0.5" alignment="ALIGNMENT_RIGHT">
+          <graphicsAlgorithm xsi:type="al:Rectangle" background="/1/@colors.4" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="2" height="2"/>
+        </anchors>
+        <anchors xsi:type="pi:ChopboxAnchor" referencedGraphicsAlgorithm="/1/@children.0/@children.1/@graphicsAlgorithm"/>
+      </children>
+    </children>
+    <children xsi:type="actordiagram:EntityShape" visible="true" active="true" label="/1/@children.1/@graphicsAlgorithm/@graphicsAlgorithmChildren.1">
+      <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="94" height="76" x="450" y="440">
+        <graphicsAlgorithmChildren xsi:type="al:Rectangle" background="/1/@colors.3" foreground="/1/@colors.2" lineWidth="2" transparency="0.0" width="70" height="50" x="12" y="14"/>
+        <graphicsAlgorithmChildren xsi:type="al:Text" foreground="/1/@colors.2" lineWidth="1" filled="false" transparency="0.0" width="70" height="14" x="12" font="/1/@fonts.0" value="publishValueText"/>
+        <graphicsAlgorithmChildren xsi:type="al:PlatformGraphicsAlgorithm" lineWidth="1" transparency="0.0" width="70" height="50" x="12" y="12" id="@platform:/resource/org.ptolemy.xtext.examples.javafx/src/org/ptolemy/xtext/examples/javafx/PTextInput.png"/>
+      </graphicsAlgorithm>
+      <link>
+        <businessObjects href="mqttplotting.xactor#/0/@entities[name='mqttplotting']/@entities[name='publishValueText']"/>
+      </link>
+      <anchors xsi:type="pi:ChopboxAnchor" referencedGraphicsAlgorithm="/1/@children.1/@graphicsAlgorithm/@graphicsAlgorithmChildren.0"/>
+      <children xsi:type="actordiagram:PortShape" visible="true" active="true" alignment="ALIGNMENT_LEFT" orientation="ALIGNMENT_RIGHT" outsideAnchor="/1/@children.1/@children.0/@anchors.0" size="12" locked="true">
+        <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="12" height="12" x="2" y="33">
+          <graphicsAlgorithmChildren xsi:type="actordiagram:PortGA" background="/1/@colors.6" foreground="/1/@colors.5" lineStyle="UNSPECIFIED" width="12" height="12"/>
+        </graphicsAlgorithm>
+        <link>
+          <businessObjects href="mqttplotting.xactor#/0/@entities[name='mqttplotting']/@entities[name='publishValueText']/@inheritedPorts[name='systemOutput']"/>
+        </link>
+        <anchors xsi:type="actordiagram:PortAnchor" visible="true" active="true" referencedGraphicsAlgorithm="/1/@children.1/@children.0/@graphicsAlgorithm" relativeHeight="0.5" alignment="ALIGNMENT_LEFT">
+          <graphicsAlgorithm xsi:type="al:Rectangle" background="/1/@colors.4" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="2" height="2"/>
+        </anchors>
+        <anchors xsi:type="pi:ChopboxAnchor" referencedGraphicsAlgorithm="/1/@children.1/@children.0/@graphicsAlgorithm"/>
+      </children>
+      <children xsi:type="actordiagram:PortShape" visible="true" active="true" alignment="ALIGNMENT_RIGHT" orientation="ALIGNMENT_RIGHT" outsideAnchor="/1/@children.1/@children.1/@anchors.0" size="12" locked="true">
+        <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="12" height="12" x="80" y="33">
+          <graphicsAlgorithmChildren xsi:type="actordiagram:PortGA" background="/1/@colors.6" foreground="/1/@colors.5" lineStyle="UNSPECIFIED" width="12" height="12"/>
+        </graphicsAlgorithm>
+        <link>
+          <businessObjects href="mqttplotting.xactor#/0/@entities[name='mqttplotting']/@entities[name='publishValueText']/@inheritedPorts[name='userInput']"/>
+        </link>
+        <anchors xsi:type="actordiagram:PortAnchor" visible="true" active="true" outgoingConnections="/1/@connections.1" referencedGraphicsAlgorithm="/1/@children.1/@children.1/@graphicsAlgorithm" relativeWidth="1.0" relativeHeight="0.5" alignment="ALIGNMENT_RIGHT">
+          <graphicsAlgorithm xsi:type="al:Rectangle" background="/1/@colors.4" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="2" height="2"/>
+        </anchors>
+        <anchors xsi:type="pi:ChopboxAnchor" referencedGraphicsAlgorithm="/1/@children.1/@children.1/@graphicsAlgorithm"/>
+      </children>
+    </children>
+    <children xsi:type="actordiagram:EntityShape" visible="true" active="true" label="/1/@children.2/@graphicsAlgorithm/@graphicsAlgorithmChildren.1">
+      <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="94" height="76" x="310" y="380">
+        <graphicsAlgorithmChildren xsi:type="al:Rectangle" background="/1/@colors.3" foreground="/1/@colors.2" lineWidth="2" transparency="0.0" width="70" height="50" x="12" y="14"/>
+        <graphicsAlgorithmChildren xsi:type="al:Text" foreground="/1/@colors.2" lineWidth="1" filled="false" transparency="0.0" width="70" height="14" x="12" font="/1/@fonts.0" value="pairMerger"/>
+        <graphicsAlgorithmChildren xsi:type="al:PlatformGraphicsAlgorithm" lineWidth="1" transparency="0.0" width="70" height="50" x="12" y="12"/>
+      </graphicsAlgorithm>
+      <link>
+        <businessObjects href="mqttplotting.xactor#/0/@entities[name='mqttplotting']/@entities[name='pairMerger']"/>
+      </link>
+      <anchors xsi:type="pi:ChopboxAnchor" referencedGraphicsAlgorithm="/1/@children.2/@graphicsAlgorithm/@graphicsAlgorithmChildren.0"/>
+      <children xsi:type="actordiagram:PortShape" visible="true" active="true" alignment="ALIGNMENT_RIGHT" orientation="ALIGNMENT_LEFT" outsideAnchor="/1/@children.2/@children.0/@anchors.0" size="12" locked="true">
+        <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="12" height="12" x="80" y="20">
+          <graphicsAlgorithmChildren xsi:type="actordiagram:PortGA" background="/1/@colors.6" foreground="/1/@colors.5" lineStyle="UNSPECIFIED" width="12" height="12"/>
+        </graphicsAlgorithm>
+        <link>
+          <businessObjects href="mqttplotting.xactor#/0/@entities[name='mqttplotting']/@entities[name='pairMerger']/@inheritedPorts[name='key']"/>
+        </link>
+        <anchors xsi:type="actordiagram:PortAnchor" visible="true" active="true" incomingConnections="/1/@connections.0" referencedGraphicsAlgorithm="/1/@children.2/@children.0/@graphicsAlgorithm" relativeWidth="1.0" relativeHeight="0.5" alignment="ALIGNMENT_RIGHT">
+          <graphicsAlgorithm xsi:type="al:Rectangle" background="/1/@colors.4" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="2" height="2"/>
+        </anchors>
+        <anchors xsi:type="pi:ChopboxAnchor" referencedGraphicsAlgorithm="/1/@children.2/@children.0/@graphicsAlgorithm"/>
+      </children>
+      <children xsi:type="actordiagram:PortShape" visible="true" active="true" alignment="ALIGNMENT_RIGHT" orientation="ALIGNMENT_LEFT" outsideAnchor="/1/@children.2/@children.1/@anchors.0" size="12" locked="true">
+        <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="12" height="12" x="80" y="45">
+          <graphicsAlgorithmChildren xsi:type="actordiagram:PortGA" background="/1/@colors.6" foreground="/1/@colors.5" lineStyle="UNSPECIFIED" width="12" height="12"/>
+        </graphicsAlgorithm>
+        <link>
+          <businessObjects href="mqttplotting.xactor#/0/@entities[name='mqttplotting']/@entities[name='pairMerger']/@inheritedPorts[name='value']"/>
+        </link>
+        <anchors xsi:type="actordiagram:PortAnchor" visible="true" active="true" incomingConnections="/1/@connections.1" referencedGraphicsAlgorithm="/1/@children.2/@children.1/@graphicsAlgorithm" relativeWidth="1.0" relativeHeight="0.5" alignment="ALIGNMENT_RIGHT">
+          <graphicsAlgorithm xsi:type="al:Rectangle" background="/1/@colors.4" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="2" height="2"/>
+        </anchors>
+        <anchors xsi:type="pi:ChopboxAnchor" referencedGraphicsAlgorithm="/1/@children.2/@children.1/@graphicsAlgorithm"/>
+      </children>
+      <children xsi:type="actordiagram:PortShape" visible="true" active="true" alignment="ALIGNMENT_LEFT" orientation="ALIGNMENT_LEFT" outsideAnchor="/1/@children.2/@children.2/@anchors.0" size="12" locked="true">
+        <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="12" height="12" x="2" y="33">
+          <graphicsAlgorithmChildren xsi:type="actordiagram:PortGA" background="/1/@colors.6" foreground="/1/@colors.5" lineStyle="UNSPECIFIED" width="12" height="12"/>
+        </graphicsAlgorithm>
+        <link>
+          <businessObjects href="mqttplotting.xactor#/0/@entities[name='mqttplotting']/@entities[name='pairMerger']/@inheritedPorts[name='pair']"/>
+        </link>
+        <anchors xsi:type="actordiagram:PortAnchor" visible="true" active="true" outgoingConnections="/1/@connections.2" referencedGraphicsAlgorithm="/1/@children.2/@children.2/@graphicsAlgorithm" relativeHeight="0.5" alignment="ALIGNMENT_LEFT">
+          <graphicsAlgorithm xsi:type="al:Rectangle" background="/1/@colors.4" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="2" height="2"/>
+        </anchors>
+        <anchors xsi:type="pi:ChopboxAnchor" referencedGraphicsAlgorithm="/1/@children.2/@children.2/@graphicsAlgorithm"/>
+      </children>
+    </children>
+    <children xsi:type="actordiagram:EntityShape" visible="true" active="true" label="/1/@children.3/@graphicsAlgorithm/@graphicsAlgorithmChildren.1">
+      <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="94" height="76" x="160" y="380">
+        <graphicsAlgorithmChildren xsi:type="al:Rectangle" background="/1/@colors.3" foreground="/1/@colors.2" lineWidth="2" transparency="0.0" width="70" height="50" x="12" y="14"/>
+        <graphicsAlgorithmChildren xsi:type="al:Text" foreground="/1/@colors.2" lineWidth="1" filled="false" transparency="0.0" width="70" height="14" x="12" font="/1/@fonts.0" value="publishButtonValve"/>
+        <graphicsAlgorithmChildren xsi:type="al:PlatformGraphicsAlgorithm" lineWidth="1" transparency="0.0" width="70" height="50" x="12" y="12" id="@platform:/resource/org.ptolemy.xtext.examples.javafx/src/org/ptolemy/xtext/examples/javafx/PButtonValve.png"/>
+      </graphicsAlgorithm>
+      <link>
+        <businessObjects href="mqttplotting.xactor#/0/@entities[name='mqttplotting']/@entities[name='publishButtonValve']"/>
+      </link>
+      <anchors xsi:type="pi:ChopboxAnchor" referencedGraphicsAlgorithm="/1/@children.3/@graphicsAlgorithm/@graphicsAlgorithmChildren.0"/>
+      <children xsi:type="actordiagram:PortShape" visible="true" active="true" alignment="ALIGNMENT_RIGHT" orientation="ALIGNMENT_LEFT" outsideAnchor="/1/@children.3/@children.0/@anchors.0" size="12" locked="true">
+        <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="12" height="12" x="80" y="33">
+          <graphicsAlgorithmChildren xsi:type="actordiagram:PortGA" background="/1/@colors.6" foreground="/1/@colors.5" lineStyle="UNSPECIFIED" width="12" height="12"/>
+        </graphicsAlgorithm>
+        <link>
+          <businessObjects href="mqttplotting.xactor#/0/@entities[name='mqttplotting']/@entities[name='publishButtonValve']/@inheritedPorts[name='input']"/>
+        </link>
+        <anchors xsi:type="actordiagram:PortAnchor" visible="true" active="true" incomingConnections="/1/@connections.2" referencedGraphicsAlgorithm="/1/@children.3/@children.0/@graphicsAlgorithm" relativeWidth="1.0" relativeHeight="0.5" alignment="ALIGNMENT_RIGHT">
+          <graphicsAlgorithm xsi:type="al:Rectangle" background="/1/@colors.4" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="2" height="2"/>
+        </anchors>
+        <anchors xsi:type="pi:ChopboxAnchor" referencedGraphicsAlgorithm="/1/@children.3/@children.0/@graphicsAlgorithm"/>
+      </children>
+      <children xsi:type="actordiagram:PortShape" visible="true" active="true" alignment="ALIGNMENT_LEFT" orientation="ALIGNMENT_LEFT" outsideAnchor="/1/@children.3/@children.1/@anchors.0" size="12" locked="true">
+        <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="12" height="12" x="2" y="33">
+          <graphicsAlgorithmChildren xsi:type="actordiagram:PortGA" background="/1/@colors.6" foreground="/1/@colors.5" lineStyle="UNSPECIFIED" width="12" height="12"/>
+        </graphicsAlgorithm>
+        <link>
+          <businessObjects href="mqttplotting.xactor#/0/@entities[name='mqttplotting']/@entities[name='publishButtonValve']/@inheritedPorts[name='output']"/>
+        </link>
+        <anchors xsi:type="actordiagram:PortAnchor" visible="true" active="true" outgoingConnections="/1/@connections.3" referencedGraphicsAlgorithm="/1/@children.3/@children.1/@graphicsAlgorithm" relativeHeight="0.5" alignment="ALIGNMENT_LEFT">
+          <graphicsAlgorithm xsi:type="al:Rectangle" background="/1/@colors.4" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="2" height="2"/>
+        </anchors>
+        <anchors xsi:type="pi:ChopboxAnchor" referencedGraphicsAlgorithm="/1/@children.3/@children.1/@graphicsAlgorithm"/>
+      </children>
+    </children>
+    <children xsi:type="actordiagram:EntityShape" visible="true" active="true" label="/1/@children.4/@graphicsAlgorithm/@graphicsAlgorithmChildren.1">
+      <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="94" height="76" x="-90" y="440">
+        <graphicsAlgorithmChildren xsi:type="al:Rectangle" background="/1/@colors.3" foreground="/1/@colors.2" lineWidth="2" transparency="0.0" width="70" height="50" x="12" y="14"/>
+        <graphicsAlgorithmChildren xsi:type="al:Text" foreground="/1/@colors.2" lineWidth="1" filled="false" transparency="0.0" width="70" height="14" x="12" font="/1/@fonts.0" value="mqttPublisher"/>
+        <graphicsAlgorithmChildren xsi:type="al:PlatformGraphicsAlgorithm" lineWidth="1" transparency="0.0" width="70" height="50" x="12" y="12"/>
+      </graphicsAlgorithm>
+      <link>
+        <businessObjects href="mqttplotting.xactor#/0/@entities[name='mqttplotting']/@entities[name='mqttPublisher']"/>
+      </link>
+      <anchors xsi:type="pi:ChopboxAnchor" referencedGraphicsAlgorithm="/1/@children.4/@graphicsAlgorithm/@graphicsAlgorithmChildren.0"/>
+      <children xsi:type="actordiagram:PortShape" visible="true" active="true" alignment="ALIGNMENT_LEFT" orientation="ALIGNMENT_RIGHT" outsideAnchor="/1/@children.4/@children.0/@anchors.0" size="12" locked="true">
+        <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="12" height="12" x="2" y="33">
+          <graphicsAlgorithmChildren xsi:type="actordiagram:PortGA" background="/1/@colors.6" foreground="/1/@colors.5" lineStyle="UNSPECIFIED" width="12" height="12"/>
+        </graphicsAlgorithm>
+        <link>
+          <businessObjects href="mqttplotting.xactor#/0/@entities[name='mqttplotting']/@entities[name='mqttPublisher']/@inheritedPorts[name='topicValues']"/>
+        </link>
+        <anchors xsi:type="actordiagram:PortAnchor" visible="true" active="true" incomingConnections="/1/@connections.3" referencedGraphicsAlgorithm="/1/@children.4/@children.0/@graphicsAlgorithm" relativeHeight="0.5" alignment="ALIGNMENT_LEFT">
+          <graphicsAlgorithm xsi:type="al:Rectangle" background="/1/@colors.4" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="2" height="2"/>
+        </anchors>
+        <anchors xsi:type="pi:ChopboxAnchor" referencedGraphicsAlgorithm="/1/@children.4/@children.0/@graphicsAlgorithm"/>
+      </children>
+      <children xsi:type="actordiagram:PortShape" visible="true" active="true" alignment="ALIGNMENT_BOTTOM" orientation="ALIGNMENT_BOTTOM" outsideAnchor="/1/@children.4/@children.1/@anchors.0" size="12" locked="true">
+        <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="12" height="12" x="41" y="62">
+          <graphicsAlgorithmChildren xsi:type="actordiagram:PortGA" background="/1/@colors.6" foreground="/1/@colors.5" lineStyle="UNSPECIFIED" width="12" height="12"/>
+        </graphicsAlgorithm>
+        <link>
+          <businessObjects href="mqttplotting.xactor#/0/@entities[name='mqttplotting']/@entities[name='mqttPublisher']/@inheritedPorts[name='transition']"/>
+        </link>
+        <anchors xsi:type="actordiagram:PortAnchor" visible="true" active="true" referencedGraphicsAlgorithm="/1/@children.4/@children.1/@graphicsAlgorithm" relativeWidth="0.5" relativeHeight="1.0" alignment="ALIGNMENT_BOTTOM">
+          <graphicsAlgorithm xsi:type="al:Rectangle" background="/1/@colors.4" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="2" height="2"/>
+        </anchors>
+        <anchors xsi:type="pi:ChopboxAnchor" referencedGraphicsAlgorithm="/1/@children.4/@children.1/@graphicsAlgorithm"/>
+      </children>
+    </children>
+    <children xsi:type="actordiagram:EntityShape" visible="true" active="true" label="/1/@children.5/@graphicsAlgorithm/@graphicsAlgorithmChildren.1">
+      <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="94" height="76" x="450" y="10">
+        <graphicsAlgorithmChildren xsi:type="al:Rectangle" background="/1/@colors.3" foreground="/1/@colors.2" lineWidth="2" transparency="0.0" width="70" height="50" x="12" y="14"/>
+        <graphicsAlgorithmChildren xsi:type="al:Text" foreground="/1/@colors.2" lineWidth="1" filled="false" transparency="0.0" width="70" height="14" x="12" font="/1/@fonts.0" value="topicsText"/>
+        <graphicsAlgorithmChildren xsi:type="al:PlatformGraphicsAlgorithm" lineWidth="1" transparency="0.0" width="70" height="50" x="12" y="12" id="@platform:/resource/org.ptolemy.xtext.examples.javafx/src/org/ptolemy/xtext/examples/javafx/PTextInput.png"/>
+      </graphicsAlgorithm>
+      <link>
+        <businessObjects href="mqttplotting.xactor#/0/@entities[name='mqttplotting']/@entities[name='topicsText']"/>
+      </link>
+      <anchors xsi:type="pi:ChopboxAnchor" referencedGraphicsAlgorithm="/1/@children.5/@graphicsAlgorithm/@graphicsAlgorithmChildren.0"/>
+      <children xsi:type="actordiagram:PortShape" visible="true" active="true" alignment="ALIGNMENT_LEFT" orientation="ALIGNMENT_RIGHT" outsideAnchor="/1/@children.5/@children.0/@anchors.0" size="12" locked="true">
+        <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="12" height="12" x="2" y="33">
+          <graphicsAlgorithmChildren xsi:type="actordiagram:PortGA" background="/1/@colors.6" foreground="/1/@colors.5" lineStyle="UNSPECIFIED" width="12" height="12"/>
+        </graphicsAlgorithm>
+        <link>
+          <businessObjects href="mqttplotting.xactor#/0/@entities[name='mqttplotting']/@entities[name='topicsText']/@inheritedPorts[name='systemOutput']"/>
+        </link>
+        <anchors xsi:type="actordiagram:PortAnchor" visible="true" active="true" referencedGraphicsAlgorithm="/1/@children.5/@children.0/@graphicsAlgorithm" relativeHeight="0.5" alignment="ALIGNMENT_LEFT">
+          <graphicsAlgorithm xsi:type="al:Rectangle" background="/1/@colors.4" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="2" height="2"/>
+        </anchors>
+        <anchors xsi:type="pi:ChopboxAnchor" referencedGraphicsAlgorithm="/1/@children.5/@children.0/@graphicsAlgorithm"/>
+      </children>
+      <children xsi:type="actordiagram:PortShape" visible="true" active="true" alignment="ALIGNMENT_RIGHT" orientation="ALIGNMENT_RIGHT" outsideAnchor="/1/@children.5/@children.1/@anchors.0" size="12" locked="true">
+        <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="12" height="12" x="80" y="33">
+          <graphicsAlgorithmChildren xsi:type="actordiagram:PortGA" background="/1/@colors.6" foreground="/1/@colors.5" lineStyle="UNSPECIFIED" width="12" height="12"/>
+        </graphicsAlgorithm>
+        <link>
+          <businessObjects href="mqttplotting.xactor#/0/@entities[name='mqttplotting']/@entities[name='topicsText']/@inheritedPorts[name='userInput']"/>
+        </link>
+        <anchors xsi:type="actordiagram:PortAnchor" visible="true" active="true" outgoingConnections="/1/@connections.4" referencedGraphicsAlgorithm="/1/@children.5/@children.1/@graphicsAlgorithm" relativeWidth="1.0" relativeHeight="0.5" alignment="ALIGNMENT_RIGHT">
+          <graphicsAlgorithm xsi:type="al:Rectangle" background="/1/@colors.4" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="2" height="2"/>
+        </anchors>
+        <anchors xsi:type="pi:ChopboxAnchor" referencedGraphicsAlgorithm="/1/@children.5/@children.1/@graphicsAlgorithm"/>
+      </children>
+    </children>
+    <children xsi:type="actordiagram:EntityShape" visible="true" active="true" label="/1/@children.6/@graphicsAlgorithm/@graphicsAlgorithmChildren.1">
+      <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="94" height="76" x="270" y="-60">
+        <graphicsAlgorithmChildren xsi:type="al:Rectangle" background="/1/@colors.3" foreground="/1/@colors.2" lineWidth="2" transparency="0.0" width="70" height="50" x="12" y="14"/>
+        <graphicsAlgorithmChildren xsi:type="al:Text" foreground="/1/@colors.2" lineWidth="1" filled="false" transparency="0.0" width="70" height="14" x="12" font="/1/@fonts.0" value="topicsValve"/>
+        <graphicsAlgorithmChildren xsi:type="al:PlatformGraphicsAlgorithm" lineWidth="1" transparency="0.0" width="70" height="50" x="12" y="12" id="@platform:/resource/org.ptolemy.xtext.examples.ui/src/org/ptolemy/xtext/examples/ui/Valve.png"/>
+      </graphicsAlgorithm>
+      <link>
+        <businessObjects href="mqttplotting.xactor#/0/@entities[name='mqttplotting']/@entities[name='topicsValve']"/>
+      </link>
+      <anchors xsi:type="pi:ChopboxAnchor" referencedGraphicsAlgorithm="/1/@children.6/@graphicsAlgorithm/@graphicsAlgorithmChildren.0"/>
+      <children xsi:type="actordiagram:PortShape" visible="true" active="true" alignment="ALIGNMENT_RIGHT" orientation="ALIGNMENT_LEFT" outsideAnchor="/1/@children.6/@children.0/@anchors.0" size="12" locked="true">
+        <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="12" height="12" x="80" y="33">
+          <graphicsAlgorithmChildren xsi:type="actordiagram:PortGA" background="/1/@colors.6" foreground="/1/@colors.5" lineStyle="UNSPECIFIED" width="12" height="12"/>
+        </graphicsAlgorithm>
+        <link>
+          <businessObjects href="mqttplotting.xactor#/0/@entities[name='mqttplotting']/@entities[name='topicsValve']/@inheritedPorts[name='input']"/>
+        </link>
+        <anchors xsi:type="actordiagram:PortAnchor" visible="true" active="true" incomingConnections="/1/@connections.4" referencedGraphicsAlgorithm="/1/@children.6/@children.0/@graphicsAlgorithm" relativeWidth="1.0" relativeHeight="0.5" alignment="ALIGNMENT_RIGHT">
+          <graphicsAlgorithm xsi:type="al:Rectangle" background="/1/@colors.4" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="2" height="2"/>
+        </anchors>
+        <anchors xsi:type="pi:ChopboxAnchor" referencedGraphicsAlgorithm="/1/@children.6/@children.0/@graphicsAlgorithm"/>
+      </children>
+      <children xsi:type="actordiagram:PortShape" visible="true" active="true" alignment="ALIGNMENT_TOP" orientation="ALIGNMENT_BOTTOM" outsideAnchor="/1/@children.6/@children.1/@anchors.0" size="12" locked="true">
+        <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="12" height="12" x="41" y="4">
+          <graphicsAlgorithmChildren xsi:type="actordiagram:PortGA" background="/1/@colors.6" foreground="/1/@colors.5" lineStyle="UNSPECIFIED" width="12" height="12"/>
+        </graphicsAlgorithm>
+        <link>
+          <businessObjects href="mqttplotting.xactor#/0/@entities[name='mqttplotting']/@entities[name='topicsValve']/@inheritedPorts[name='trigger']"/>
+        </link>
+        <anchors xsi:type="actordiagram:PortAnchor" visible="true" active="true" incomingConnections="/1/@connections.5" referencedGraphicsAlgorithm="/1/@children.6/@children.1/@graphicsAlgorithm" relativeWidth="0.5" alignment="ALIGNMENT_TOP">
+          <graphicsAlgorithm xsi:type="al:Rectangle" background="/1/@colors.4" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="2" height="2"/>
+        </anchors>
+        <anchors xsi:type="pi:ChopboxAnchor" referencedGraphicsAlgorithm="/1/@children.6/@children.1/@graphicsAlgorithm"/>
+      </children>
+      <children xsi:type="actordiagram:PortShape" visible="true" active="true" alignment="ALIGNMENT_LEFT" orientation="ALIGNMENT_LEFT" outsideAnchor="/1/@children.6/@children.2/@anchors.0" size="12" locked="true">
+        <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="12" height="12" x="2" y="33">
+          <graphicsAlgorithmChildren xsi:type="actordiagram:PortGA" background="/1/@colors.6" foreground="/1/@colors.5" lineStyle="UNSPECIFIED" width="12" height="12"/>
+        </graphicsAlgorithm>
+        <link>
+          <businessObjects href="mqttplotting.xactor#/0/@entities[name='mqttplotting']/@entities[name='topicsValve']/@inheritedPorts[name='output']"/>
+        </link>
+        <anchors xsi:type="actordiagram:PortAnchor" visible="true" active="true" outgoingConnections="/1/@connections.6" referencedGraphicsAlgorithm="/1/@children.6/@children.2/@graphicsAlgorithm" relativeHeight="0.5" alignment="ALIGNMENT_LEFT">
+          <graphicsAlgorithm xsi:type="al:Rectangle" background="/1/@colors.4" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="2" height="2"/>
+        </anchors>
+        <anchors xsi:type="pi:ChopboxAnchor" referencedGraphicsAlgorithm="/1/@children.6/@children.2/@graphicsAlgorithm"/>
+      </children>
+    </children>
+    <children xsi:type="actordiagram:EntityShape" visible="true" active="true" label="/1/@children.7/@graphicsAlgorithm/@graphicsAlgorithmChildren.1">
+      <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="94" height="76" x="253" y="-150">
+        <graphicsAlgorithmChildren xsi:type="al:Rectangle" background="/1/@colors.3" foreground="/1/@colors.2" lineWidth="2" transparency="0.0" width="70" height="50" x="12" y="14"/>
+        <graphicsAlgorithmChildren xsi:type="al:Text" foreground="/1/@colors.2" lineWidth="1" filled="false" transparency="0.0" width="70" height="14" x="12" font="/1/@fonts.0" value="updateTopicsButton"/>
+        <graphicsAlgorithmChildren xsi:type="al:PlatformGraphicsAlgorithm" lineWidth="1" transparency="0.0" width="70" height="50" x="12" y="12" id="@platform:/resource/org.ptolemy.xtext.examples.javafx/src/org/ptolemy/xtext/examples/javafx/PButton.png"/>
+      </graphicsAlgorithm>
+      <link>
+        <businessObjects href="mqttplotting.xactor#/0/@entities[name='mqttplotting']/@entities[name='updateTopicsButton']"/>
+      </link>
+      <anchors xsi:type="pi:ChopboxAnchor" referencedGraphicsAlgorithm="/1/@children.7/@graphicsAlgorithm/@graphicsAlgorithmChildren.0"/>
+      <children xsi:type="actordiagram:PortShape" visible="true" active="true" alignment="ALIGNMENT_BOTTOM" orientation="ALIGNMENT_TOP" outsideAnchor="/1/@children.7/@children.0/@anchors.0" size="12" filled="true" locked="true">
+        <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="12" height="12" x="23" y="62">
+          <graphicsAlgorithmChildren xsi:type="actordiagram:PortGA" background="/1/@colors.7" foreground="/1/@colors.5" lineStyle="UNSPECIFIED" width="12" height="12"/>
+        </graphicsAlgorithm>
+        <link>
+          <businessObjects href="mqttplotting.xactor#/0/@entities[name='mqttplotting']/@entities[name='updateTopicsButton']/@inheritedPorts[name='enable']"/>
+        </link>
+        <anchors xsi:type="actordiagram:PortAnchor" visible="true" active="true" referencedGraphicsAlgorithm="/1/@children.7/@children.0/@graphicsAlgorithm" relativeWidth="0.5" relativeHeight="1.0" alignment="ALIGNMENT_BOTTOM">
+          <graphicsAlgorithm xsi:type="al:Rectangle" background="/1/@colors.4" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="2" height="2"/>
+        </anchors>
+        <anchors xsi:type="pi:ChopboxAnchor" referencedGraphicsAlgorithm="/1/@children.7/@children.0/@graphicsAlgorithm"/>
+      </children>
+      <children xsi:type="actordiagram:PortShape" visible="true" active="true" alignment="ALIGNMENT_BOTTOM" orientation="ALIGNMENT_BOTTOM" outsideAnchor="/1/@children.7/@children.1/@anchors.0" size="12" locked="true">
+        <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="12" height="12" x="58" y="62">
+          <graphicsAlgorithmChildren xsi:type="actordiagram:PortGA" background="/1/@colors.6" foreground="/1/@colors.5" lineStyle="UNSPECIFIED" width="12" height="12"/>
+        </graphicsAlgorithm>
+        <link>
+          <businessObjects href="mqttplotting.xactor#/0/@entities[name='mqttplotting']/@entities[name='updateTopicsButton']/@inheritedPorts[name='actionEvent']"/>
+        </link>
+        <anchors xsi:type="actordiagram:PortAnchor" visible="true" active="true" outgoingConnections="/1/@connections.5" referencedGraphicsAlgorithm="/1/@children.7/@children.1/@graphicsAlgorithm" relativeWidth="0.5" relativeHeight="1.0" alignment="ALIGNMENT_BOTTOM">
+          <graphicsAlgorithm xsi:type="al:Rectangle" background="/1/@colors.4" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="2" height="2"/>
+        </anchors>
+        <anchors xsi:type="pi:ChopboxAnchor" referencedGraphicsAlgorithm="/1/@children.7/@children.1/@graphicsAlgorithm"/>
+      </children>
+    </children>
+    <children xsi:type="actordiagram:EntityShape" visible="true" active="true" label="/1/@children.8/@graphicsAlgorithm/@graphicsAlgorithmChildren.1">
+      <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="94" height="76" x="-100" y="110">
+        <graphicsAlgorithmChildren xsi:type="al:Rectangle" background="/1/@colors.3" foreground="/1/@colors.2" lineWidth="2" transparency="0.0" width="70" height="50" x="12" y="14"/>
+        <graphicsAlgorithmChildren xsi:type="al:Text" foreground="/1/@colors.2" lineWidth="1" filled="false" transparency="0.0" width="70" height="14" x="12" font="/1/@fonts.0" value="mqttSubscriber"/>
+        <graphicsAlgorithmChildren xsi:type="al:PlatformGraphicsAlgorithm" lineWidth="1" transparency="0.0" width="70" height="50" x="12" y="12"/>
+      </graphicsAlgorithm>
+      <link>
+        <businessObjects href="mqttplotting.xactor#/0/@entities[name='mqttplotting']/@entities[name='mqttSubscriber']"/>
+      </link>
+      <anchors xsi:type="pi:ChopboxAnchor" referencedGraphicsAlgorithm="/1/@children.8/@graphicsAlgorithm/@graphicsAlgorithmChildren.0"/>
+      <children xsi:type="actordiagram:PortShape" visible="true" active="true" alignment="ALIGNMENT_LEFT" orientation="ALIGNMENT_RIGHT" outsideAnchor="/1/@children.8/@children.0/@anchors.0" size="12" locked="true">
+        <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="12" height="12" x="2" y="33">
+          <graphicsAlgorithmChildren xsi:type="actordiagram:PortGA" background="/1/@colors.6" foreground="/1/@colors.5" lineStyle="UNSPECIFIED" width="12" height="12"/>
+        </graphicsAlgorithm>
+        <link>
+          <businessObjects href="mqttplotting.xactor#/0/@entities[name='mqttplotting']/@entities[name='mqttSubscriber']/@inheritedPorts[name='topics']"/>
+        </link>
+        <anchors xsi:type="actordiagram:PortAnchor" visible="true" active="true" incomingConnections="/1/@connections.6" referencedGraphicsAlgorithm="/1/@children.8/@children.0/@graphicsAlgorithm" relativeHeight="0.5" alignment="ALIGNMENT_LEFT">
+          <graphicsAlgorithm xsi:type="al:Rectangle" background="/1/@colors.4" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="2" height="2"/>
+        </anchors>
+        <anchors xsi:type="pi:ChopboxAnchor" referencedGraphicsAlgorithm="/1/@children.8/@children.0/@graphicsAlgorithm"/>
+      </children>
+      <children xsi:type="actordiagram:PortShape" visible="true" active="true" alignment="ALIGNMENT_RIGHT" orientation="ALIGNMENT_RIGHT" outsideAnchor="/1/@children.8/@children.1/@anchors.0" size="12" locked="true">
+        <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="12" height="12" x="80" y="33">
+          <graphicsAlgorithmChildren xsi:type="actordiagram:PortGA" background="/1/@colors.6" foreground="/1/@colors.5" lineStyle="UNSPECIFIED" width="12" height="12"/>
+        </graphicsAlgorithm>
+        <link>
+          <businessObjects href="mqttplotting.xactor#/0/@entities[name='mqttplotting']/@entities[name='mqttSubscriber']/@inheritedPorts[name='timedValue']"/>
+        </link>
+        <anchors xsi:type="actordiagram:PortAnchor" visible="true" active="true" outgoingConnections="/1/@connections.7" referencedGraphicsAlgorithm="/1/@children.8/@children.1/@graphicsAlgorithm" relativeWidth="1.0" relativeHeight="0.5" alignment="ALIGNMENT_RIGHT">
+          <graphicsAlgorithm xsi:type="al:Rectangle" background="/1/@colors.4" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="2" height="2"/>
+        </anchors>
+        <anchors xsi:type="pi:ChopboxAnchor" referencedGraphicsAlgorithm="/1/@children.8/@children.1/@graphicsAlgorithm"/>
+      </children>
+      <children xsi:type="actordiagram:PortShape" visible="true" active="true" alignment="ALIGNMENT_BOTTOM" orientation="ALIGNMENT_BOTTOM" outsideAnchor="/1/@children.8/@children.2/@anchors.0" size="12" locked="true">
+        <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="12" height="12" x="41" y="62">
+          <graphicsAlgorithmChildren xsi:type="actordiagram:PortGA" background="/1/@colors.6" foreground="/1/@colors.5" lineStyle="UNSPECIFIED" width="12" height="12"/>
+        </graphicsAlgorithm>
+        <link>
+          <businessObjects href="mqttplotting.xactor#/0/@entities[name='mqttplotting']/@entities[name='mqttSubscriber']/@inheritedPorts[name='transition']"/>
+        </link>
+        <anchors xsi:type="actordiagram:PortAnchor" visible="true" active="true" referencedGraphicsAlgorithm="/1/@children.8/@children.2/@graphicsAlgorithm" relativeWidth="0.5" relativeHeight="1.0" alignment="ALIGNMENT_BOTTOM">
+          <graphicsAlgorithm xsi:type="al:Rectangle" background="/1/@colors.4" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="2" height="2"/>
+        </anchors>
+        <anchors xsi:type="pi:ChopboxAnchor" referencedGraphicsAlgorithm="/1/@children.8/@children.2/@graphicsAlgorithm"/>
+      </children>
+    </children>
+    <children xsi:type="actordiagram:EntityShape" visible="true" active="true" label="/1/@children.9/@graphicsAlgorithm/@graphicsAlgorithmChildren.1">
+      <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="94" height="76" x="50" y="110">
+        <graphicsAlgorithmChildren xsi:type="al:Rectangle" background="/1/@colors.3" foreground="/1/@colors.2" lineWidth="2" transparency="0.0" width="70" height="50" x="12" y="14"/>
+        <graphicsAlgorithmChildren xsi:type="al:Text" foreground="/1/@colors.2" lineWidth="1" filled="false" transparency="0.0" width="70" height="14" x="12" font="/1/@fonts.0" value="values"/>
+        <graphicsAlgorithmChildren xsi:type="al:PlatformGraphicsAlgorithm" lineWidth="1" transparency="0.0" width="70" height="50" x="12" y="12" id="@platform:/resource/org.ptolemy.xtext.examples.ui/src/org/ptolemy/xtext/examples/ui/CollectionVariable.png"/>
+      </graphicsAlgorithm>
+      <link>
+        <businessObjects href="mqttplotting.xactor#/0/@entities[name='mqttplotting']/@entities[name='values']"/>
+      </link>
+      <anchors xsi:type="pi:ChopboxAnchor" referencedGraphicsAlgorithm="/1/@children.9/@graphicsAlgorithm/@graphicsAlgorithmChildren.0"/>
+      <children xsi:type="actordiagram:PortShape" visible="true" active="true" alignment="ALIGNMENT_BOTTOM" orientation="ALIGNMENT_TOP" outsideAnchor="/1/@children.9/@children.0/@anchors.0" size="12" locked="true">
+        <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="12" height="12" x="41" y="62">
+          <graphicsAlgorithmChildren xsi:type="actordiagram:PortGA" background="/1/@colors.6" foreground="/1/@colors.5" lineStyle="UNSPECIFIED" width="12" height="12"/>
+        </graphicsAlgorithm>
+        <link>
+          <businessObjects href="mqttplotting.xactor#/0/@entities[name='mqttplotting']/@entities[name='values']/@inheritedPorts[name='clearAll']"/>
+        </link>
+        <anchors xsi:type="actordiagram:PortAnchor" visible="true" active="true" referencedGraphicsAlgorithm="/1/@children.9/@children.0/@graphicsAlgorithm" relativeWidth="0.5" relativeHeight="1.0" alignment="ALIGNMENT_BOTTOM">
+          <graphicsAlgorithm xsi:type="al:Rectangle" background="/1/@colors.4" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="2" height="2"/>
+        </anchors>
+        <anchors xsi:type="pi:ChopboxAnchor" referencedGraphicsAlgorithm="/1/@children.9/@children.0/@graphicsAlgorithm"/>
+      </children>
+      <children xsi:type="actordiagram:PortShape" visible="true" active="true" alignment="ALIGNMENT_LEFT" orientation="ALIGNMENT_RIGHT" outsideAnchor="/1/@children.9/@children.1/@anchors.0" size="12" locked="true">
+        <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="12" height="12" x="2" y="13">
+          <graphicsAlgorithmChildren xsi:type="actordiagram:PortGA" background="/1/@colors.6" foreground="/1/@colors.5" lineStyle="UNSPECIFIED" width="12" height="12"/>
+        </graphicsAlgorithm>
+        <link>
+          <businessObjects href="mqttplotting.xactor#/0/@entities[name='mqttplotting']/@entities[name='values']/@inheritedPorts[name='setAll']"/>
+        </link>
+        <anchors xsi:type="actordiagram:PortAnchor" visible="true" active="true" referencedGraphicsAlgorithm="/1/@children.9/@children.1/@graphicsAlgorithm" relativeHeight="0.5" alignment="ALIGNMENT_LEFT">
+          <graphicsAlgorithm xsi:type="al:Rectangle" background="/1/@colors.4" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="2" height="2"/>
+        </anchors>
+        <anchors xsi:type="pi:ChopboxAnchor" referencedGraphicsAlgorithm="/1/@children.9/@children.1/@graphicsAlgorithm"/>
+      </children>
+      <children xsi:type="actordiagram:PortShape" visible="true" active="true" alignment="ALIGNMENT_LEFT" orientation="ALIGNMENT_RIGHT" outsideAnchor="/1/@children.9/@children.2/@anchors.0" size="12" locked="true">
+        <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="12" height="12" x="2" y="23">
+          <graphicsAlgorithmChildren xsi:type="actordiagram:PortGA" background="/1/@colors.6" foreground="/1/@colors.5" lineStyle="UNSPECIFIED" width="12" height="12"/>
+        </graphicsAlgorithm>
+        <link>
+          <businessObjects href="mqttplotting.xactor#/0/@entities[name='mqttplotting']/@entities[name='values']/@inheritedPorts[name='add']"/>
+        </link>
+        <anchors xsi:type="actordiagram:PortAnchor" visible="true" active="true" incomingConnections="/1/@connections.7" referencedGraphicsAlgorithm="/1/@children.9/@children.2/@graphicsAlgorithm" relativeHeight="0.5" alignment="ALIGNMENT_LEFT">
+          <graphicsAlgorithm xsi:type="al:Rectangle" background="/1/@colors.4" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="2" height="2"/>
+        </anchors>
+        <anchors xsi:type="pi:ChopboxAnchor" referencedGraphicsAlgorithm="/1/@children.9/@children.2/@graphicsAlgorithm"/>
+      </children>
+      <children xsi:type="actordiagram:PortShape" visible="true" active="true" alignment="ALIGNMENT_LEFT" orientation="ALIGNMENT_RIGHT" outsideAnchor="/1/@children.9/@children.3/@anchors.0" size="12" locked="true">
+        <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="12" height="12" x="2" y="33">
+          <graphicsAlgorithmChildren xsi:type="actordiagram:PortGA" background="/1/@colors.6" foreground="/1/@colors.5" lineStyle="UNSPECIFIED" width="12" height="12"/>
+        </graphicsAlgorithm>
+        <link>
+          <businessObjects href="mqttplotting.xactor#/0/@entities[name='mqttplotting']/@entities[name='values']/@inheritedPorts[name='addAll']"/>
+        </link>
+        <anchors xsi:type="actordiagram:PortAnchor" visible="true" active="true" referencedGraphicsAlgorithm="/1/@children.9/@children.3/@graphicsAlgorithm" relativeHeight="0.5" alignment="ALIGNMENT_LEFT">
+          <graphicsAlgorithm xsi:type="al:Rectangle" background="/1/@colors.4" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="2" height="2"/>
+        </anchors>
+        <anchors xsi:type="pi:ChopboxAnchor" referencedGraphicsAlgorithm="/1/@children.9/@children.3/@graphicsAlgorithm"/>
+      </children>
+      <children xsi:type="actordiagram:PortShape" visible="true" active="true" alignment="ALIGNMENT_LEFT" orientation="ALIGNMENT_RIGHT" outsideAnchor="/1/@children.9/@children.4/@anchors.0" size="12" locked="true">
+        <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="12" height="12" x="2" y="43">
+          <graphicsAlgorithmChildren xsi:type="actordiagram:PortGA" background="/1/@colors.6" foreground="/1/@colors.5" lineStyle="UNSPECIFIED" width="12" height="12"/>
+        </graphicsAlgorithm>
+        <link>
+          <businessObjects href="mqttplotting.xactor#/0/@entities[name='mqttplotting']/@entities[name='values']/@inheritedPorts[name='remove']"/>
+        </link>
+        <anchors xsi:type="actordiagram:PortAnchor" visible="true" active="true" referencedGraphicsAlgorithm="/1/@children.9/@children.4/@graphicsAlgorithm" relativeHeight="0.5" alignment="ALIGNMENT_LEFT">
+          <graphicsAlgorithm xsi:type="al:Rectangle" background="/1/@colors.4" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="2" height="2"/>
+        </anchors>
+        <anchors xsi:type="pi:ChopboxAnchor" referencedGraphicsAlgorithm="/1/@children.9/@children.4/@graphicsAlgorithm"/>
+      </children>
+      <children xsi:type="actordiagram:PortShape" visible="true" active="true" alignment="ALIGNMENT_LEFT" orientation="ALIGNMENT_RIGHT" outsideAnchor="/1/@children.9/@children.5/@anchors.0" size="12" locked="true">
+        <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="12" height="12" x="2" y="53">
+          <graphicsAlgorithmChildren xsi:type="actordiagram:PortGA" background="/1/@colors.6" foreground="/1/@colors.5" lineStyle="UNSPECIFIED" width="12" height="12"/>
+        </graphicsAlgorithm>
+        <link>
+          <businessObjects href="mqttplotting.xactor#/0/@entities[name='mqttplotting']/@entities[name='values']/@inheritedPorts[name='removeAll']"/>
+        </link>
+        <anchors xsi:type="actordiagram:PortAnchor" visible="true" active="true" referencedGraphicsAlgorithm="/1/@children.9/@children.5/@graphicsAlgorithm" relativeHeight="0.5" alignment="ALIGNMENT_LEFT">
+          <graphicsAlgorithm xsi:type="al:Rectangle" background="/1/@colors.4" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="2" height="2"/>
+        </anchors>
+        <anchors xsi:type="pi:ChopboxAnchor" referencedGraphicsAlgorithm="/1/@children.9/@children.5/@graphicsAlgorithm"/>
+      </children>
+      <children xsi:type="actordiagram:PortShape" visible="true" active="true" alignment="ALIGNMENT_RIGHT" orientation="ALIGNMENT_RIGHT" outsideAnchor="/1/@children.9/@children.6/@anchors.0" size="12" locked="true">
+        <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="12" height="12" x="80" y="33">
+          <graphicsAlgorithmChildren xsi:type="actordiagram:PortGA" background="/1/@colors.6" foreground="/1/@colors.5" lineStyle="UNSPECIFIED" width="12" height="12"/>
+        </graphicsAlgorithm>
+        <link>
+          <businessObjects href="mqttplotting.xactor#/0/@entities[name='mqttplotting']/@entities[name='values']/@inheritedPorts[name='value']"/>
+        </link>
+        <anchors xsi:type="actordiagram:PortAnchor" visible="true" active="true" outgoingConnections="/1/@connections.8" referencedGraphicsAlgorithm="/1/@children.9/@children.6/@graphicsAlgorithm" relativeWidth="1.0" relativeHeight="0.5" alignment="ALIGNMENT_RIGHT">
+          <graphicsAlgorithm xsi:type="al:Rectangle" background="/1/@colors.4" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="2" height="2"/>
+        </anchors>
+        <anchors xsi:type="pi:ChopboxAnchor" referencedGraphicsAlgorithm="/1/@children.9/@children.6/@graphicsAlgorithm"/>
+      </children>
+    </children>
+    <children xsi:type="actordiagram:EntityShape" visible="true" active="true" label="/1/@children.10/@graphicsAlgorithm/@graphicsAlgorithmChildren.1">
+      <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="94" height="76" x="450" y="110">
+        <graphicsAlgorithmChildren xsi:type="al:Rectangle" background="/1/@colors.3" foreground="/1/@colors.2" lineWidth="2" transparency="0.0" width="70" height="50" x="12" y="14"/>
+        <graphicsAlgorithmChildren xsi:type="al:Text" foreground="/1/@colors.2" lineWidth="1" filled="false" transparency="0.0" width="70" height="14" x="12" font="/1/@fonts.0" value="list"/>
+        <graphicsAlgorithmChildren xsi:type="al:PlatformGraphicsAlgorithm" lineWidth="1" transparency="0.0" width="70" height="50" x="12" y="12" id="@platform:/resource/org.ptolemy.xtext.examples.javafx/src/org/ptolemy/xtext/examples/javafx/PCollection.png"/>
+      </graphicsAlgorithm>
+      <link>
+        <businessObjects href="mqttplotting.xactor#/0/@entities[name='mqttplotting']/@entities[name='list']"/>
+      </link>
+      <anchors xsi:type="pi:ChopboxAnchor" referencedGraphicsAlgorithm="/1/@children.10/@graphicsAlgorithm/@graphicsAlgorithmChildren.0"/>
+      <children xsi:type="actordiagram:PortShape" visible="true" active="true" alignment="ALIGNMENT_LEFT" orientation="ALIGNMENT_RIGHT" outsideAnchor="/1/@children.10/@children.0/@anchors.0" size="12" locked="true">
+        <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="12" height="12" x="2" y="33">
+          <graphicsAlgorithmChildren xsi:type="actordiagram:PortGA" background="/1/@colors.6" foreground="/1/@colors.5" lineStyle="UNSPECIFIED" width="12" height="12"/>
+        </graphicsAlgorithm>
+        <link>
+          <businessObjects href="mqttplotting.xactor#/0/@entities[name='mqttplotting']/@entities[name='list']/@inheritedPorts[name='systemOutput']"/>
+        </link>
+        <anchors xsi:type="actordiagram:PortAnchor" visible="true" active="true" incomingConnections="/1/@connections.8" referencedGraphicsAlgorithm="/1/@children.10/@children.0/@graphicsAlgorithm" relativeHeight="0.5" alignment="ALIGNMENT_LEFT">
+          <graphicsAlgorithm xsi:type="al:Rectangle" background="/1/@colors.4" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="2" height="2"/>
+        </anchors>
+        <anchors xsi:type="pi:ChopboxAnchor" referencedGraphicsAlgorithm="/1/@children.10/@children.0/@graphicsAlgorithm"/>
+      </children>
+      <children xsi:type="actordiagram:PortShape" visible="true" active="true" alignment="ALIGNMENT_RIGHT" orientation="ALIGNMENT_RIGHT" outsideAnchor="/1/@children.10/@children.1/@anchors.0" size="12" locked="true">
+        <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="12" height="12" x="80" y="33">
+          <graphicsAlgorithmChildren xsi:type="actordiagram:PortGA" background="/1/@colors.6" foreground="/1/@colors.5" lineStyle="UNSPECIFIED" width="12" height="12"/>
+        </graphicsAlgorithm>
+        <link>
+          <businessObjects href="mqttplotting.xactor#/0/@entities[name='mqttplotting']/@entities[name='list']/@inheritedPorts[name='userInput']"/>
+        </link>
+        <anchors xsi:type="actordiagram:PortAnchor" visible="true" active="true" referencedGraphicsAlgorithm="/1/@children.10/@children.1/@graphicsAlgorithm" relativeWidth="1.0" relativeHeight="0.5" alignment="ALIGNMENT_RIGHT">
+          <graphicsAlgorithm xsi:type="al:Rectangle" background="/1/@colors.4" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="2" height="2"/>
+        </anchors>
+        <anchors xsi:type="pi:ChopboxAnchor" referencedGraphicsAlgorithm="/1/@children.10/@children.1/@graphicsAlgorithm"/>
+      </children>
+    </children>
+    <children xsi:type="actordiagram:EntityShape" visible="true" active="true" label="/1/@children.11/@graphicsAlgorithm/@graphicsAlgorithmChildren.1">
+      <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="94" height="76" x="160" y="210">
+        <graphicsAlgorithmChildren xsi:type="al:Rectangle" background="/1/@colors.3" foreground="/1/@colors.2" lineWidth="2" transparency="0.0" width="70" height="50" x="12" y="14"/>
+        <graphicsAlgorithmChildren xsi:type="al:Text" foreground="/1/@colors.2" lineWidth="1" filled="false" transparency="0.0" width="70" height="14" x="12" font="/1/@fonts.0" value="valueConverter"/>
+        <graphicsAlgorithmChildren xsi:type="al:PlatformGraphicsAlgorithm" lineWidth="1" transparency="0.0" width="70" height="50" x="12" y="12" id="@platform:/resource/org.ptolemy.xtext.examples.ui/src/org/ptolemy/xtext/examples/ui/Converter.png"/>
+      </graphicsAlgorithm>
+      <link>
+        <businessObjects href="mqttplotting.xactor#/0/@entities[name='mqttplotting']/@entities[name='valueConverter']"/>
+      </link>
+      <anchors xsi:type="pi:ChopboxAnchor" referencedGraphicsAlgorithm="/1/@children.11/@graphicsAlgorithm/@graphicsAlgorithmChildren.0"/>
+      <children xsi:type="actordiagram:PortShape" visible="true" active="true" alignment="ALIGNMENT_LEFT" orientation="ALIGNMENT_RIGHT" outsideAnchor="/1/@children.11/@children.0/@anchors.0" size="12" locked="true">
+        <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="12" height="12" x="2" y="33">
+          <graphicsAlgorithmChildren xsi:type="actordiagram:PortGA" background="/1/@colors.6" foreground="/1/@colors.5" lineStyle="UNSPECIFIED" width="12" height="12"/>
+        </graphicsAlgorithm>
+        <link>
+          <businessObjects href="mqttplotting.xactor#/0/@entities[name='mqttplotting']/@entities[name='valueConverter']/@inheritedPorts[name='input']"/>
+        </link>
+        <anchors xsi:type="actordiagram:PortAnchor" visible="true" active="true" referencedGraphicsAlgorithm="/1/@children.11/@children.0/@graphicsAlgorithm" relativeHeight="0.5" alignment="ALIGNMENT_LEFT">
+          <graphicsAlgorithm xsi:type="al:Rectangle" background="/1/@colors.4" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="2" height="2"/>
+        </anchors>
+        <anchors xsi:type="pi:ChopboxAnchor" referencedGraphicsAlgorithm="/1/@children.11/@children.0/@graphicsAlgorithm"/>
+      </children>
+      <children xsi:type="actordiagram:PortShape" visible="true" active="true" alignment="ALIGNMENT_RIGHT" orientation="ALIGNMENT_RIGHT" outsideAnchor="/1/@children.11/@children.1/@anchors.0" size="12" locked="true">
+        <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="12" height="12" x="80" y="33">
+          <graphicsAlgorithmChildren xsi:type="actordiagram:PortGA" background="/1/@colors.6" foreground="/1/@colors.5" lineStyle="UNSPECIFIED" width="12" height="12"/>
+        </graphicsAlgorithm>
+        <link>
+          <businessObjects href="mqttplotting.xactor#/0/@entities[name='mqttplotting']/@entities[name='valueConverter']/@inheritedPorts[name='output']"/>
+        </link>
+        <anchors xsi:type="actordiagram:PortAnchor" visible="true" active="true" outgoingConnections="/1/@connections.9" referencedGraphicsAlgorithm="/1/@children.11/@children.1/@graphicsAlgorithm" relativeWidth="1.0" relativeHeight="0.5" alignment="ALIGNMENT_RIGHT">
+          <graphicsAlgorithm xsi:type="al:Rectangle" background="/1/@colors.4" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="2" height="2"/>
+        </anchors>
+        <anchors xsi:type="pi:ChopboxAnchor" referencedGraphicsAlgorithm="/1/@children.11/@children.1/@graphicsAlgorithm"/>
+      </children>
+      <children xsi:type="actordiagram:PortShape" visible="true" active="true" alignment="ALIGNMENT_BOTTOM" orientation="ALIGNMENT_BOTTOM" outsideAnchor="/1/@children.11/@children.2/@anchors.0" size="12" locked="true">
+        <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="12" height="12" x="41" y="62">
+          <graphicsAlgorithmChildren xsi:type="actordiagram:PortGA" background="/1/@colors.6" foreground="/1/@colors.5" lineStyle="UNSPECIFIED" width="12" height="12"/>
+        </graphicsAlgorithm>
+        <link>
+          <businessObjects href="mqttplotting.xactor#/0/@entities[name='mqttplotting']/@entities[name='valueConverter']/@inheritedPorts[name='exception']"/>
+        </link>
+        <anchors xsi:type="actordiagram:PortAnchor" visible="true" active="true" referencedGraphicsAlgorithm="/1/@children.11/@children.2/@graphicsAlgorithm" relativeWidth="0.5" relativeHeight="1.0" alignment="ALIGNMENT_BOTTOM">
+          <graphicsAlgorithm xsi:type="al:Rectangle" background="/1/@colors.4" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="2" height="2"/>
+        </anchors>
+        <anchors xsi:type="pi:ChopboxAnchor" referencedGraphicsAlgorithm="/1/@children.11/@children.2/@graphicsAlgorithm"/>
+      </children>
+    </children>
+    <children xsi:type="actordiagram:EntityShape" visible="true" active="true" label="/1/@children.12/@graphicsAlgorithm/@graphicsAlgorithmChildren.1">
+      <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="94" height="76" x="300" y="210">
+        <graphicsAlgorithmChildren xsi:type="al:Rectangle" background="/1/@colors.3" foreground="/1/@colors.2" lineWidth="2" transparency="0.0" width="70" height="50" x="12" y="14"/>
+        <graphicsAlgorithmChildren xsi:type="al:Text" foreground="/1/@colors.2" lineWidth="1" filled="false" transparency="0.0" width="70" height="14" x="12" font="/1/@fonts.0" value="pairSplitter"/>
+        <graphicsAlgorithmChildren xsi:type="al:PlatformGraphicsAlgorithm" lineWidth="1" transparency="0.0" width="70" height="50" x="12" y="12"/>
+      </graphicsAlgorithm>
+      <link>
+        <businessObjects href="mqttplotting.xactor#/0/@entities[name='mqttplotting']/@entities[name='pairSplitter']"/>
+      </link>
+      <anchors xsi:type="pi:ChopboxAnchor" referencedGraphicsAlgorithm="/1/@children.12/@graphicsAlgorithm/@graphicsAlgorithmChildren.0"/>
+      <children xsi:type="actordiagram:PortShape" visible="true" active="true" alignment="ALIGNMENT_LEFT" orientation="ALIGNMENT_RIGHT" outsideAnchor="/1/@children.12/@children.0/@anchors.0" size="12" locked="true">
+        <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="12" height="12" x="2" y="33">
+          <graphicsAlgorithmChildren xsi:type="actordiagram:PortGA" background="/1/@colors.6" foreground="/1/@colors.5" lineStyle="UNSPECIFIED" width="12" height="12"/>
+        </graphicsAlgorithm>
+        <link>
+          <businessObjects href="mqttplotting.xactor#/0/@entities[name='mqttplotting']/@entities[name='pairSplitter']/@inheritedPorts[name='input']"/>
+        </link>
+        <anchors xsi:type="actordiagram:PortAnchor" visible="true" active="true" incomingConnections="/1/@connections.9" referencedGraphicsAlgorithm="/1/@children.12/@children.0/@graphicsAlgorithm" relativeHeight="0.5" alignment="ALIGNMENT_LEFT">
+          <graphicsAlgorithm xsi:type="al:Rectangle" background="/1/@colors.4" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="2" height="2"/>
+        </anchors>
+        <anchors xsi:type="pi:ChopboxAnchor" referencedGraphicsAlgorithm="/1/@children.12/@children.0/@graphicsAlgorithm"/>
+      </children>
+      <children xsi:type="actordiagram:PortShape" visible="true" active="true" alignment="ALIGNMENT_RIGHT" orientation="ALIGNMENT_RIGHT" outsideAnchor="/1/@children.12/@children.1/@anchors.0" size="12" locked="true">
+        <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="12" height="12" x="80" y="20">
+          <graphicsAlgorithmChildren xsi:type="actordiagram:PortGA" background="/1/@colors.6" foreground="/1/@colors.5" lineStyle="UNSPECIFIED" width="12" height="12"/>
+        </graphicsAlgorithm>
+        <link>
+          <businessObjects href="mqttplotting.xactor#/0/@entities[name='mqttplotting']/@entities[name='pairSplitter']/@inheritedPorts[name='output1']"/>
+        </link>
+        <anchors xsi:type="actordiagram:PortAnchor" visible="true" active="true" outgoingConnections="/1/@connections.10" referencedGraphicsAlgorithm="/1/@children.12/@children.1/@graphicsAlgorithm" relativeWidth="1.0" relativeHeight="0.5" alignment="ALIGNMENT_RIGHT">
+          <graphicsAlgorithm xsi:type="al:Rectangle" background="/1/@colors.4" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="2" height="2"/>
+        </anchors>
+        <anchors xsi:type="pi:ChopboxAnchor" referencedGraphicsAlgorithm="/1/@children.12/@children.1/@graphicsAlgorithm"/>
+      </children>
+      <children xsi:type="actordiagram:PortShape" visible="true" active="true" alignment="ALIGNMENT_RIGHT" orientation="ALIGNMENT_RIGHT" outsideAnchor="/1/@children.12/@children.2/@anchors.0" size="12" locked="true">
+        <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="12" height="12" x="80" y="45">
+          <graphicsAlgorithmChildren xsi:type="actordiagram:PortGA" background="/1/@colors.6" foreground="/1/@colors.5" lineStyle="UNSPECIFIED" width="12" height="12"/>
+        </graphicsAlgorithm>
+        <link>
+          <businessObjects href="mqttplotting.xactor#/0/@entities[name='mqttplotting']/@entities[name='pairSplitter']/@inheritedPorts[name='output2']"/>
+        </link>
+        <anchors xsi:type="actordiagram:PortAnchor" visible="true" active="true" outgoingConnections="/1/@connections.11" referencedGraphicsAlgorithm="/1/@children.12/@children.2/@graphicsAlgorithm" relativeWidth="1.0" relativeHeight="0.5" alignment="ALIGNMENT_RIGHT">
+          <graphicsAlgorithm xsi:type="al:Rectangle" background="/1/@colors.4" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="2" height="2"/>
+        </anchors>
+        <anchors xsi:type="pi:ChopboxAnchor" referencedGraphicsAlgorithm="/1/@children.12/@children.2/@graphicsAlgorithm"/>
+      </children>
+    </children>
+    <children xsi:type="actordiagram:EntityShape" visible="true" active="true" label="/1/@children.13/@graphicsAlgorithm/@graphicsAlgorithmChildren.1">
+      <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="94" height="76" x="450" y="210">
+        <graphicsAlgorithmChildren xsi:type="al:Rectangle" background="/1/@colors.3" foreground="/1/@colors.2" lineWidth="2" transparency="0.0" width="70" height="50" x="12" y="14"/>
+        <graphicsAlgorithmChildren xsi:type="al:Text" foreground="/1/@colors.2" lineWidth="1" filled="false" transparency="0.0" width="70" height="14" x="12" font="/1/@fonts.0" value="chart"/>
+        <graphicsAlgorithmChildren xsi:type="al:PlatformGraphicsAlgorithm" lineWidth="1" transparency="0.0" width="70" height="50" x="12" y="12"/>
+      </graphicsAlgorithm>
+      <link>
+        <businessObjects href="mqttplotting.xactor#/0/@entities[name='mqttplotting']/@entities[name='chart']"/>
+      </link>
+      <anchors xsi:type="pi:ChopboxAnchor" referencedGraphicsAlgorithm="/1/@children.13/@graphicsAlgorithm/@graphicsAlgorithmChildren.0"/>
+      <children xsi:type="actordiagram:PortShape" visible="true" active="true" alignment="ALIGNMENT_LEFT" orientation="ALIGNMENT_RIGHT" outsideAnchor="/1/@children.13/@children.0/@anchors.0" size="12" locked="true">
+        <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="12" height="12" x="2" y="20">
+          <graphicsAlgorithmChildren xsi:type="actordiagram:PortGA" background="/1/@colors.6" foreground="/1/@colors.5" lineStyle="UNSPECIFIED" width="12" height="12"/>
+        </graphicsAlgorithm>
+        <link>
+          <businessObjects href="mqttplotting.xactor#/0/@entities[name='mqttplotting']/@entities[name='chart']/@inheritedPorts[name='xs']"/>
+        </link>
+        <anchors xsi:type="actordiagram:PortAnchor" visible="true" active="true" incomingConnections="/1/@connections.10" referencedGraphicsAlgorithm="/1/@children.13/@children.0/@graphicsAlgorithm" relativeHeight="0.5" alignment="ALIGNMENT_LEFT">
+          <graphicsAlgorithm xsi:type="al:Rectangle" background="/1/@colors.4" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="2" height="2"/>
+        </anchors>
+        <anchors xsi:type="pi:ChopboxAnchor" referencedGraphicsAlgorithm="/1/@children.13/@children.0/@graphicsAlgorithm"/>
+      </children>
+      <children xsi:type="actordiagram:PortShape" visible="true" active="true" alignment="ALIGNMENT_LEFT" orientation="ALIGNMENT_RIGHT" outsideAnchor="/1/@children.13/@children.1/@anchors.0" size="12" locked="true">
+        <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="12" height="12" x="2" y="45">
+          <graphicsAlgorithmChildren xsi:type="actordiagram:PortGA" background="/1/@colors.6" foreground="/1/@colors.5" lineStyle="UNSPECIFIED" width="12" height="12"/>
+        </graphicsAlgorithm>
+        <link>
+          <businessObjects href="mqttplotting.xactor#/0/@entities[name='mqttplotting']/@entities[name='chart']/@inheritedPorts[name='ys']"/>
+        </link>
+        <anchors xsi:type="actordiagram:PortAnchor" visible="true" active="true" incomingConnections="/1/@connections.11" referencedGraphicsAlgorithm="/1/@children.13/@children.1/@graphicsAlgorithm" relativeHeight="0.5" alignment="ALIGNMENT_LEFT">
+          <graphicsAlgorithm xsi:type="al:Rectangle" background="/1/@colors.4" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="2" height="2"/>
+        </anchors>
+        <anchors xsi:type="pi:ChopboxAnchor" referencedGraphicsAlgorithm="/1/@children.13/@children.1/@graphicsAlgorithm"/>
+      </children>
+      <children xsi:type="actordiagram:PortShape" visible="true" active="true" alignment="ALIGNMENT_BOTTOM" orientation="ALIGNMENT_TOP" outsideAnchor="/1/@children.13/@children.2/@anchors.0" size="12" locked="true">
+        <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="12" height="12" x="17" y="62">
+          <graphicsAlgorithmChildren xsi:type="actordiagram:PortGA" background="/1/@colors.6" foreground="/1/@colors.5" lineStyle="UNSPECIFIED" width="12" height="12"/>
+        </graphicsAlgorithm>
+        <link>
+          <businessObjects href="mqttplotting.xactor#/0/@entities[name='mqttplotting']/@entities[name='chart']/@inheritedPorts[name='seriesNum']"/>
+        </link>
+        <anchors xsi:type="actordiagram:PortAnchor" visible="true" active="true" referencedGraphicsAlgorithm="/1/@children.13/@children.2/@graphicsAlgorithm" relativeWidth="0.5" relativeHeight="1.0" alignment="ALIGNMENT_BOTTOM">
+          <graphicsAlgorithm xsi:type="al:Rectangle" background="/1/@colors.4" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="2" height="2"/>
+        </anchors>
+        <anchors xsi:type="pi:ChopboxAnchor" referencedGraphicsAlgorithm="/1/@children.13/@children.2/@graphicsAlgorithm"/>
+      </children>
+      <children xsi:type="actordiagram:PortShape" visible="true" active="true" alignment="ALIGNMENT_BOTTOM" orientation="ALIGNMENT_TOP" outsideAnchor="/1/@children.13/@children.3/@anchors.0" size="12" locked="true">
+        <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="12" height="12" x="40" y="62">
+          <graphicsAlgorithmChildren xsi:type="actordiagram:PortGA" background="/1/@colors.6" foreground="/1/@colors.5" lineStyle="UNSPECIFIED" width="12" height="12"/>
+        </graphicsAlgorithm>
+        <link>
+          <businessObjects href="mqttplotting.xactor#/0/@entities[name='mqttplotting']/@entities[name='chart']/@inheritedPorts[name='clear']"/>
+        </link>
+        <anchors xsi:type="actordiagram:PortAnchor" visible="true" active="true" referencedGraphicsAlgorithm="/1/@children.13/@children.3/@graphicsAlgorithm" relativeWidth="0.5" relativeHeight="1.0" alignment="ALIGNMENT_BOTTOM">
+          <graphicsAlgorithm xsi:type="al:Rectangle" background="/1/@colors.4" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="2" height="2"/>
+        </anchors>
+        <anchors xsi:type="pi:ChopboxAnchor" referencedGraphicsAlgorithm="/1/@children.13/@children.3/@graphicsAlgorithm"/>
+      </children>
+      <children xsi:type="actordiagram:PortShape" visible="true" active="true" alignment="ALIGNMENT_BOTTOM" orientation="ALIGNMENT_TOP" outsideAnchor="/1/@children.13/@children.4/@anchors.0" size="12" locked="true">
+        <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="12" height="12" x="63" y="62">
+          <graphicsAlgorithmChildren xsi:type="actordiagram:PortGA" background="/1/@colors.6" foreground="/1/@colors.5" lineStyle="UNSPECIFIED" width="12" height="12"/>
+        </graphicsAlgorithm>
+        <link>
+          <businessObjects href="mqttplotting.xactor#/0/@entities[name='mqttplotting']/@entities[name='chart']/@inheritedPorts[name='clearAll']"/>
+        </link>
+        <anchors xsi:type="actordiagram:PortAnchor" visible="true" active="true" referencedGraphicsAlgorithm="/1/@children.13/@children.4/@graphicsAlgorithm" relativeWidth="0.5" relativeHeight="1.0" alignment="ALIGNMENT_BOTTOM">
+          <graphicsAlgorithm xsi:type="al:Rectangle" background="/1/@colors.4" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="2" height="2"/>
+        </anchors>
+        <anchors xsi:type="pi:ChopboxAnchor" referencedGraphicsAlgorithm="/1/@children.13/@children.4/@graphicsAlgorithm"/>
+      </children>
+    </children>
+    <connections xsi:type="actordiagram:RelationConnection" visible="true" active="true" start="/1/@children.0/@children.1/@anchors.0" end="/1/@children.2/@children.0/@anchors.0">
+      <graphicsAlgorithm xsi:type="al:Polyline" foreground="/1/@colors.2" lineWidth="2" filled="false" transparency="0.0"/>
+      <link>
+        <businessObjects href="mqttplotting.xactor#/0/@entities[name='mqttplotting']/@relations.0"/>
+      </link>
+      <anchors xsi:type="pi:BoxRelativeAnchor" visible="true" active="true" referencedGraphicsAlgorithm="/1/@connections.0/@graphicsAlgorithm" relativeWidth="0.5" relativeHeight="0.5">
+        <graphicsAlgorithm xsi:type="al:Rectangle" lineStyle="UNSPECIFIED" filled="true" lineVisible="true" width="15" height="15" x="-2" y="-2"/>
+      </anchors>
+      <bendpoints x="563" y="370"/>
+      <bendpoints x="563" y="406"/>
+    </connections>
+    <connections xsi:type="actordiagram:RelationConnection" visible="true" active="true" start="/1/@children.1/@children.1/@anchors.0" end="/1/@children.2/@children.1/@anchors.0">
+      <graphicsAlgorithm xsi:type="al:Polyline" foreground="/1/@colors.2" lineWidth="2" filled="false" transparency="0.0"/>
+      <link>
+        <businessObjects href="mqttplotting.xactor#/0/@entities[name='mqttplotting']/@relations.1"/>
+      </link>
+      <anchors xsi:type="pi:BoxRelativeAnchor" visible="true" active="true" referencedGraphicsAlgorithm="/1/@connections.1/@graphicsAlgorithm" relativeWidth="0.5" relativeHeight="0.5">
+        <graphicsAlgorithm xsi:type="al:Rectangle" lineStyle="UNSPECIFIED" filled="true" lineVisible="true" width="15" height="15" x="-2" y="-2"/>
+      </anchors>
+      <bendpoints x="544" y="479"/>
+      <bendpoints x="561" y="479"/>
+      <bendpoints x="561" y="432"/>
+    </connections>
+    <connections xsi:type="actordiagram:RelationConnection" visible="true" active="true" start="/1/@children.2/@children.2/@anchors.0" end="/1/@children.3/@children.0/@anchors.0">
+      <graphicsAlgorithm xsi:type="al:Polyline" foreground="/1/@colors.2" lineWidth="2" filled="false" transparency="0.0"/>
+      <link>
+        <businessObjects href="mqttplotting.xactor#/0/@entities[name='mqttplotting']/@relations.2"/>
+      </link>
+      <anchors xsi:type="pi:BoxRelativeAnchor" visible="true" active="true" referencedGraphicsAlgorithm="/1/@connections.2/@graphicsAlgorithm" relativeWidth="0.5" relativeHeight="0.5">
+        <graphicsAlgorithm xsi:type="al:Rectangle" lineStyle="UNSPECIFIED" filled="true" lineVisible="true" width="15" height="15" x="-2" y="-2"/>
+      </anchors>
+    </connections>
+    <connections xsi:type="actordiagram:RelationConnection" visible="true" active="true" start="/1/@children.3/@children.1/@anchors.0" end="/1/@children.4/@children.0/@anchors.0">
+      <graphicsAlgorithm xsi:type="al:Polyline" foreground="/1/@colors.2" lineWidth="2" filled="false" transparency="0.0"/>
+      <link>
+        <businessObjects href="mqttplotting.xactor#/0/@entities[name='mqttplotting']/@relations.3"/>
+      </link>
+      <anchors xsi:type="pi:BoxRelativeAnchor" visible="true" active="true" referencedGraphicsAlgorithm="/1/@connections.3/@graphicsAlgorithm" relativeWidth="0.5" relativeHeight="0.5">
+        <graphicsAlgorithm xsi:type="al:Rectangle" lineStyle="UNSPECIFIED" filled="true" lineVisible="true" width="15" height="15" x="-2" y="-2"/>
+      </anchors>
+      <bendpoints x="-123" y="420"/>
+      <bendpoints x="-123" y="479"/>
+    </connections>
+    <connections xsi:type="actordiagram:RelationConnection" visible="true" active="true" start="/1/@children.5/@children.1/@anchors.0" end="/1/@children.6/@children.0/@anchors.0">
+      <graphicsAlgorithm xsi:type="al:Polyline" foreground="/1/@colors.2" lineWidth="2" filled="false" transparency="0.0"/>
+      <link>
+        <businessObjects href="mqttplotting.xactor#/0/@entities[name='mqttplotting']/@relations.4"/>
+      </link>
+      <anchors xsi:type="pi:BoxRelativeAnchor" visible="true" active="true" referencedGraphicsAlgorithm="/1/@connections.4/@graphicsAlgorithm" relativeWidth="0.5" relativeHeight="0.5">
+        <graphicsAlgorithm xsi:type="al:Rectangle" lineStyle="UNSPECIFIED" filled="true" lineVisible="true" width="15" height="15" x="-2" y="-2"/>
+      </anchors>
+      <bendpoints x="564" y="49"/>
+      <bendpoints x="564" y="-21"/>
+    </connections>
+    <connections xsi:type="actordiagram:RelationConnection" visible="true" active="true" start="/1/@children.7/@children.1/@anchors.0" end="/1/@children.6/@children.1/@anchors.0">
+      <graphicsAlgorithm xsi:type="al:Polyline" foreground="/1/@colors.2" lineWidth="2" filled="false" transparency="0.0"/>
+      <link>
+        <businessObjects href="mqttplotting.xactor#/0/@entities[name='mqttplotting']/@relations.5"/>
+      </link>
+      <anchors xsi:type="pi:BoxRelativeAnchor" visible="true" active="true" referencedGraphicsAlgorithm="/1/@connections.5/@graphicsAlgorithm" relativeWidth="0.5" relativeHeight="0.5">
+        <graphicsAlgorithm xsi:type="al:Rectangle" lineStyle="UNSPECIFIED" filled="true" lineVisible="true" width="15" height="15" x="-2" y="-2"/>
+      </anchors>
+    </connections>
+    <connections xsi:type="actordiagram:RelationConnection" visible="true" active="true" start="/1/@children.6/@children.2/@anchors.0" end="/1/@children.8/@children.0/@anchors.0">
+      <graphicsAlgorithm xsi:type="al:Polyline" foreground="/1/@colors.2" lineWidth="2" filled="false" transparency="0.0"/>
+      <link>
+        <businessObjects href="mqttplotting.xactor#/0/@entities[name='mqttplotting']/@relations.6"/>
+      </link>
+      <anchors xsi:type="pi:BoxRelativeAnchor" visible="true" active="true" referencedGraphicsAlgorithm="/1/@connections.6/@graphicsAlgorithm" relativeWidth="0.5" relativeHeight="0.5">
+        <graphicsAlgorithm xsi:type="al:Rectangle" lineStyle="UNSPECIFIED" filled="true" lineVisible="true" width="15" height="15" x="-2" y="-2"/>
+      </anchors>
+      <bendpoints x="-136" y="-20"/>
+      <bendpoints x="-136" y="150"/>
+    </connections>
+    <connections xsi:type="actordiagram:RelationConnection" visible="true" active="true" start="/1/@children.8/@children.1/@anchors.0" end="/1/@children.9/@children.2/@anchors.0">
+      <graphicsAlgorithm xsi:type="al:Polyline" foreground="/1/@colors.2" lineWidth="2" filled="false" transparency="0.0"/>
+      <link>
+        <businessObjects href="mqttplotting.xactor#/0/@entities[name='mqttplotting']/@relations.7"/>
+      </link>
+      <anchors xsi:type="pi:BoxRelativeAnchor" visible="true" active="true" referencedGraphicsAlgorithm="/1/@connections.7/@graphicsAlgorithm" relativeWidth="0.5" relativeHeight="0.5">
+        <graphicsAlgorithm xsi:type="al:Rectangle" lineStyle="UNSPECIFIED" filled="true" lineVisible="true" width="15" height="15" x="-2" y="-2"/>
+      </anchors>
+    </connections>
+    <connections xsi:type="actordiagram:RelationConnection" visible="true" active="true" start="/1/@children.9/@children.6/@anchors.0" end="/1/@children.10/@children.0/@anchors.0">
+      <graphicsAlgorithm xsi:type="al:Polyline" foreground="/1/@colors.2" lineWidth="2" filled="false" transparency="0.0"/>
+      <link>
+        <businessObjects href="mqttplotting.xactor#/0/@entities[name='mqttplotting']/@relations.8"/>
+      </link>
+      <anchors xsi:type="pi:BoxRelativeAnchor" visible="true" active="true" referencedGraphicsAlgorithm="/1/@connections.8/@graphicsAlgorithm" relativeWidth="0.5" relativeHeight="0.5">
+        <graphicsAlgorithm xsi:type="al:Rectangle" lineStyle="UNSPECIFIED" filled="true" lineVisible="true" width="15" height="15" x="-2" y="-2"/>
+      </anchors>
+    </connections>
+    <connections xsi:type="actordiagram:RelationConnection" visible="true" active="true" start="/1/@children.11/@children.1/@anchors.0" end="/1/@children.12/@children.0/@anchors.0">
+      <graphicsAlgorithm xsi:type="al:Polyline" foreground="/1/@colors.2" lineWidth="2" filled="false" transparency="0.0"/>
+      <link>
+        <businessObjects href="mqttplotting.xactor#/0/@entities[name='mqttplotting']/@relations.9"/>
+      </link>
+      <anchors xsi:type="pi:BoxRelativeAnchor" visible="true" active="true" referencedGraphicsAlgorithm="/1/@connections.9/@graphicsAlgorithm" relativeWidth="0.5" relativeHeight="0.5">
+        <graphicsAlgorithm xsi:type="al:Rectangle" lineStyle="UNSPECIFIED" filled="true" lineVisible="true" width="15" height="15" x="-2" y="-2"/>
+      </anchors>
+    </connections>
+    <connections xsi:type="actordiagram:RelationConnection" visible="true" active="true" start="/1/@children.12/@children.1/@anchors.0" end="/1/@children.13/@children.0/@anchors.0">
+      <graphicsAlgorithm xsi:type="al:Polyline" foreground="/1/@colors.2" lineWidth="2" filled="false" transparency="0.0"/>
+      <link>
+        <businessObjects href="mqttplotting.xactor#/0/@entities[name='mqttplotting']/@relations.10"/>
+      </link>
+      <anchors xsi:type="pi:BoxRelativeAnchor" visible="true" active="true" referencedGraphicsAlgorithm="/1/@connections.10/@graphicsAlgorithm" relativeWidth="0.5" relativeHeight="0.5">
+        <graphicsAlgorithm xsi:type="al:Rectangle" lineStyle="UNSPECIFIED" filled="true" lineVisible="true" width="15" height="15" x="-2" y="-2"/>
+      </anchors>
+    </connections>
+    <connections xsi:type="actordiagram:RelationConnection" visible="true" active="true" start="/1/@children.12/@children.2/@anchors.0" end="/1/@children.13/@children.1/@anchors.0">
+      <graphicsAlgorithm xsi:type="al:Polyline" foreground="/1/@colors.2" lineWidth="2" filled="false" transparency="0.0"/>
+      <link>
+        <businessObjects href="mqttplotting.xactor#/0/@entities[name='mqttplotting']/@relations.11"/>
+      </link>
+      <anchors xsi:type="pi:BoxRelativeAnchor" visible="true" active="true" referencedGraphicsAlgorithm="/1/@connections.11/@graphicsAlgorithm" relativeWidth="0.5" relativeHeight="0.5">
+        <graphicsAlgorithm xsi:type="al:Rectangle" lineStyle="UNSPECIFIED" filled="true" lineVisible="true" width="15" height="15" x="-2" y="-2"/>
+      </anchors>
+    </connections>
+    <colors red="227" green="238" blue="249"/>
+    <colors red="255" green="255" blue="255"/>
+    <colors red="98" green="131" blue="167"/>
+    <colors red="187" green="218" blue="247"/>
+    <colors/>
+    <colors red="156" green="156" blue="156"/>
+    <colors red="217" green="217" blue="217"/>
+    <colors red="251" green="251" blue="251"/>
+    <fonts name="Arial" size="8" bold="true"/>
+  </actordiagram:EntityContainerDiagram>
+</xmi:XMI>

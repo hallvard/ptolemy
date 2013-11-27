@@ -32,7 +32,7 @@ import org.ptolemy.ecore.kernel.impl.AttributeImpl;
  *
  * @generated
  */
-public abstract class JvmTypedAttributeImpl extends AttributeImpl implements JvmTypedAttribute {
+public class JvmTypedAttributeImpl extends AttributeImpl implements JvmTypedAttribute {
 	/**
 	 * The cached value of the '{@link #getType() <em>Type</em>}' containment reference.
 	 * <!-- begin-user-doc -->
@@ -118,7 +118,7 @@ public abstract class JvmTypedAttributeImpl extends AttributeImpl implements Jvm
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
+	 * @generated NOT
 	 */
 	public JvmTypeReference getInferredType() {
 		if (inferredType != null && inferredType.eIsProxy()) {
@@ -129,7 +129,7 @@ public abstract class JvmTypedAttributeImpl extends AttributeImpl implements Jvm
 					eNotify(new ENotificationImpl(this, Notification.RESOLVE, ActorPackage.JVM_TYPED_ATTRIBUTE__INFERRED_TYPE, oldInferredType, inferredType));
 			}
 		}
-		return inferredType;
+		return (inferredType != null ? inferredType : inferType());
 	}
 
 	/**
@@ -156,12 +156,10 @@ public abstract class JvmTypedAttributeImpl extends AttributeImpl implements Jvm
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
+	 * @generated NOT
 	 */
 	public JvmTypeReference inferType() {
-		// TODO: implement this method
-		// Ensure that you remove @generated or mark it @generated NOT
-		throw new UnsupportedOperationException();
+		return type;
 	}
 
 	/**

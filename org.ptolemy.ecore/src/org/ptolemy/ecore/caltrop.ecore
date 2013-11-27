@@ -109,7 +109,8 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="source" eType="#//State"
         eOpposite="#//State/transitions"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="target" eType="#//State"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="tags" upperBound="-1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="actions" upperBound="-1"
+        eType="#//OutputAction"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="EventAction" eSuperTypes="#//ReAction">
     <eStructuralFeatures xsi:type="ecore:EReference" name="eventPatterns" upperBound="-1"

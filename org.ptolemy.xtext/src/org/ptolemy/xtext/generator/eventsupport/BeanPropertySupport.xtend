@@ -34,7 +34,8 @@ public class BeanPropertySupport extends AbstractEventSupport implements EventSu
 		for (JvmOperation setter : setters) {
 			val getter = getters.findFirst[ isGetterFor(setter) ]
 			if (getter != null) {
-				val propertyData = new BeanPropertyData(typeRef, getter.getterPropertyName, copyType(addRemoveListenerMethods.key.parameters.head.parameterType))
+				val listenerType = copyType(addRemoveListenerMethods.key.parameters.head.parameterType)
+				val propertyData = new BeanPropertyData(typeRef, getter.getterPropertyName, listenerType)
 				injector.injectMembers(propertyData)
 				properties += propertyData 
 			}

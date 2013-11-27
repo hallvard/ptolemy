@@ -4,6 +4,7 @@ import java.util.Map;
 
 import org.eclipse.xtext.xbase.lib.Inline;
 import org.eclipse.xtext.xbase.lib.Pure;
+import org.ptolemy.xtext.lib.caltrop.tuple.Tuple1;
 
 import com.google.common.collect.Iterables;
 
@@ -49,5 +50,11 @@ public class Extensions {
 	@Inline(value="($1 >> $2) & 1")
 	public static int operator_index(int i, int bit) {
 		return (i >> bit) & 1;
+	}
+	
+	@Pure
+	@Inline(value="$1.getValue($2)")
+	public static Object operator_index(Tuple1<?> tuple, int i) {
+		return tuple.getValue(i);
 	}
 }

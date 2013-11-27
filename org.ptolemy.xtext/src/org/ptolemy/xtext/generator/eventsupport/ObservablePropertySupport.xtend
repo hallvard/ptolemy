@@ -21,7 +21,8 @@ public class ObservablePropertySupport extends AbstractEventSupport implements E
 				if (observableType.type instanceof JvmDeclaredType) {
 					val addRemoveListenerMethods = addRemoveListenerMethods(observableType.type as JvmDeclaredType, "", "javafx.beans.value.ChangeListener")
 					if (addRemoveListenerMethods != null) {
-						val propertyData = new ObservablePropertyData(typeRef, op.observableGetterName, copyType(addRemoveListenerMethods.key.parameters.head.parameterType, typeRef, observableType))
+						val listenerType = addRemoveListenerMethods.key.parameters.head.parameterType
+						val propertyData = new ObservablePropertyData(typeRef, op.observableGetterName, copyType(listenerType, typeRef, observableType))
 						injector.injectMembers(propertyData)
 						properties += propertyData 
 					}

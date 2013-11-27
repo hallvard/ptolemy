@@ -10,7 +10,6 @@ import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EEnum;
 import org.eclipse.emf.ecore.EGenericType;
-import org.eclipse.emf.ecore.EOperation;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.ETypeParameter;
@@ -28,7 +27,6 @@ import org.ptolemy.ecore.actor.AtomicActorImpl;
 import org.ptolemy.ecore.actor.CompositeActor;
 import org.ptolemy.ecore.actor.IOPort;
 import org.ptolemy.ecore.actor.IOPortKind;
-import org.ptolemy.ecore.actor.InjectableAttribute;
 import org.ptolemy.ecore.actor.JavaActorImpl;
 import org.ptolemy.ecore.actor.JvmTypedAttribute;
 import org.ptolemy.ecore.actor.JvmTypedObj;
@@ -70,13 +68,6 @@ public class ActorPackageImpl extends EPackageImpl implements ActorPackage {
 	 * @generated
 	 */
 	private EClass jvmTypedAttributeEClass = null;
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	private EClass injectableAttributeEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -312,15 +303,6 @@ public class ActorPackageImpl extends EPackageImpl implements ActorPackage {
 	 */
 	public EClass getJvmTypedAttribute() {
 		return jvmTypedAttributeEClass;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EClass getInjectableAttribute() {
-		return injectableAttributeEClass;
 	}
 
 	/**
@@ -665,8 +647,6 @@ public class ActorPackageImpl extends EPackageImpl implements ActorPackage {
 
 		jvmTypedAttributeEClass = createEClass(JVM_TYPED_ATTRIBUTE);
 
-		injectableAttributeEClass = createEClass(INJECTABLE_ATTRIBUTE);
-
 		variableEClass = createEClass(VARIABLE);
 		createEReference(variableEClass, VARIABLE__VALUE_EXPRESSION);
 
@@ -773,7 +753,6 @@ public class ActorPackageImpl extends EPackageImpl implements ActorPackage {
 		jvmTypedObjEClass.getESuperTypes().add(this.getTypeable());
 		jvmTypedAttributeEClass.getESuperTypes().add(theKernelPackage.getAttribute());
 		jvmTypedAttributeEClass.getESuperTypes().add(this.getJvmTypedObj());
-		injectableAttributeEClass.getESuperTypes().add(this.getJvmTypedAttribute());
 		variableEClass.getESuperTypes().add(this.getJvmTypedAttribute());
 		parameterEClass.getESuperTypes().add(this.getVariable());
 		g1 = createEGenericType(theKernelPackage.getEntityRef());
@@ -836,9 +815,7 @@ public class ActorPackageImpl extends EPackageImpl implements ActorPackage {
 
 		addEOperation(jvmTypedObjEClass, theTypesPackage.getJvmTypeReference(), "inferType", 0, 1, IS_UNIQUE, IS_ORDERED);
 
-		initEClass(jvmTypedAttributeEClass, JvmTypedAttribute.class, "JvmTypedAttribute", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-
-		initEClass(injectableAttributeEClass, InjectableAttribute.class, "InjectableAttribute", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEClass(jvmTypedAttributeEClass, JvmTypedAttribute.class, "JvmTypedAttribute", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
 		initEClass(variableEClass, Variable.class, "Variable", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getVariable_ValueExpression(), theXbasePackage.getXExpression(), null, "valueExpression", null, 0, 1, Variable.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

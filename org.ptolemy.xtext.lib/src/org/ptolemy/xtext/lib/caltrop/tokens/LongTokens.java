@@ -21,6 +21,10 @@ public class LongTokens extends Tokens<Long> {
 
 	//
 
+	public static LongToken create(long l) {
+		return new LongToken(l);
+	}
+
 	public static long get(Token token) throws IllegalActionException {
 		return LongToken.convert(token).longValue();
 	}

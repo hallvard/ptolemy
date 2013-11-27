@@ -3,7 +3,11 @@
 */
 package org.ptolemy.xtext.ui.outline;
 
+import org.eclipse.xtext.ui.editor.outline.IOutlineNode;
 import org.eclipse.xtext.ui.editor.outline.impl.DefaultOutlineTreeProvider;
+import org.ptolemy.ecore.actor.AtomicActor;
+import org.ptolemy.ecore.kernel.Attribute;
+import org.ptolemy.ecore.kernel.Port;
 
 /**
  * customization of the default outline structure
@@ -11,4 +15,20 @@ import org.eclipse.xtext.ui.editor.outline.impl.DefaultOutlineTreeProvider;
  */
 public class XActorOutlineTreeProvider extends DefaultOutlineTreeProvider {
 	
+	// _children methods
+	
+	protected void _createChildren(IOutlineNode parent, AtomicActor<?> actor) {
+		if (actor.getSuperEntity() != null) {
+			createNode(parent, actor.getSuperEntity());
+		}
+		for (Attribute attribute : actor.getAttributes()) {
+			createNode(parent, attribute);
+		}
+		for (Port port : actor.getPorts()) {
+			createNode(parent, port);
+		}
+		if (actor.getImpl() != null) {
+			_createChildren(parent, actor.getImpl());
+		}
+	}
 }

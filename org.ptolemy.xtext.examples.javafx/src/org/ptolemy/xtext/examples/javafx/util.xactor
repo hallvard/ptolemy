@@ -1,0 +1,17 @@
+namespace org.ptolemy.xtext.examples.javafx.util :
+
+import java.util.StringTokenizer
+import java.util.Collection
+
+actor Tokenizer<T>(String delim="\n", (String)=>T parser)
+String tokens ==> T token :
+	action [lines] ==> [tokens] repeat tokens.size
+	do
+		val StringTokenizer tokenizer = new StringTokenizer(lines, delim)
+		val Collection<T> tokens = <T>newArrayList
+		while (tokenizer.hasMoreTokens)
+			tokens += parser.apply(tokenizer.nextToken)
+	end
+end
+
+end

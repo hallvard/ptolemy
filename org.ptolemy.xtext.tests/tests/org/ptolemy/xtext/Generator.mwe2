@@ -3,7 +3,7 @@ module org.ptolemy.xtext.tests.Generator
 import org.eclipse.emf.mwe.utils.*
 
 var testsProjectDir = "../org.ptolemy.xtext.tests"
-var testsPackageDir = "org/ptolemy/xtext"
+var testsPackageDir = "org/ptolemy/xtext/tests"
 var outlet.src.test.dir = "${testsProjectDir}/src-gen"
 
 Workflow {

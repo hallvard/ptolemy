@@ -18,7 +18,6 @@ import org.eclipse.xtext.xbase.compiler.output.ITreeAppendable
 import org.eclipse.xtext.xbase.jvmmodel.JvmModelAssociator
 import org.eclipse.xtext.xbase.jvmmodel.JvmTypesBuilder
 import org.ptolemy.ecore.actor.AbstractIOPort
-import org.ptolemy.ecore.actor.InjectableAttribute
 import org.ptolemy.ecore.actor.Typeable
 import org.ptolemy.ecore.actor.Variable
 import org.ptolemy.ecore.caltrop.ActionPattern
@@ -36,9 +35,11 @@ import org.ptolemy.ecore.kernel.Port
 import org.ptolemy.xtext.generator.eventsupport.BeanPropertySupport
 import org.ptolemy.xtext.generator.eventsupport.EventData
 import org.ptolemy.xtext.generator.eventsupport.EventSupport
+import org.ptolemy.xtext.generator.eventsupport.JavafxEventSupport
+import org.ptolemy.xtext.generator.eventsupport.ListenerMethodEventSupport
 import org.ptolemy.xtext.generator.eventsupport.ObservablePropertySupport
 import org.ptolemy.xtext.generator.eventsupport.SwingEventSupport
-import org.ptolemy.xtext.generator.eventsupport.JavafxEventSupport
+import java.util.Map
 
 class ActionPatternHelper {
 	
@@ -48,10 +49,6 @@ class ActionPatternHelper {
 
 	def isTokenVariable(EObject eObject) {
 		eObject instanceof Variable && eObject.eContainer() instanceof Entity<?>
-	}
-
-	def isInjectedValue(EObject eObject) {
-		eObject instanceof InjectableAttribute && eObject.eContainer() instanceof Entity<?>
 	}
 
     def isMultiport(PortPattern pattern, Port port) {
@@ -74,7 +71,13 @@ class ActionPatternHelper {
 	}
 
 	def methodName(Nameable named, String format) {
-		methodName(named.name, format)
+		var nameString = named.name
+		var namedObj = named.container
+		while (namedObj != null && (! (namedObj instanceof Entity<?>))) {
+			nameString = namedObj.name + "_" + nameString
+			namedObj = namedObj.container
+		}
+		methodName(nameString, format)
 	}
 	
 	def type(PortPattern pattern, boolean multi, Boolean impl) {
@@ -109,30 +112,6 @@ class ActionPatternHelper {
 			context.newTypeRef(int)
 	}
 
-	def type(ActionPattern pattern, Boolean impl) {
-		if (pattern instanceof PortPattern) {
-			val portPattern = pattern as PortPattern
-			val port = portPattern.portRef
-			portPattern.type(portPattern.isMultiport(port), impl)
-		} else if (pattern instanceof EventPattern) {
-			val eventPattern = pattern as EventPattern
-			val beanType = eventPattern.varRef?.inferredType
-			if (beanType != null) {
-				val eventName = eventPattern.name
-				val listenerType = beanType.getEvent(eventName, eventPattern.property)?.getListenerType(pattern)
-				if (listenerType == null)
-					null
-				else if (impl != null)
-					listenerType
-				else {
-					// assume the event type is the type of the first parameter in the first method
-					val firstParameter = (listenerType.type as JvmDeclaredType).allFeatures.filter(JvmOperation).findFirst[! it.parameters.empty].parameters.head
-					MappingCopier.map(firstParameter.parameterType, listenerType)
-				}
-			}
-		}
-	}
-	
 	@Inject extension TreeAppendableUtil
 	
 	def boolean isChannelSelectorKeyword(ChannelSelector channelSelector, ChannelSelectorKeyword keyword) {
@@ -200,17 +179,25 @@ class ActionPatternHelper {
 		'''«pattern.portRef.methodName("_create%sToken")»'''
 	}
 
-	def void generatePatternMatchPart(InputPattern pattern, Port port, JvmExecutable method, ITreeAppendable it) {
-		val repeatVar = (if (pattern.isRepeat()) it.declareSyntheticVariable(pattern, "_" + port.name + "Repeat") else "1")
+	def getPatternVariable(EObject model, String base, ITreeAppendable treeAppendable, Map<String,String> variables) {
+		var variable = variables?.get(base)
+		if (variable == null) {
+			variable = treeAppendable.declareSyntheticVariable(model, base)
+			variables?.put(base, variable)
+		}
+		variable
+	}
+
+	def void generatePatternMatchPart(InputPattern pattern, Port port, JvmExecutable method, ITreeAppendable it, Map<String,String> variables) {
+		val repeatVar = (if (pattern.isRepeat()) getPatternVariable(pattern, "_" + port.name + "Repeat", it, variables) else "1")
 		if (pattern.isRepeat()) {
-//			pattern.repeatExpression.toJavaStatement(it, true) newLine
 			it << '''int «repeatVar»''' << " = "
 			methodCall(pattern.repeatExpression, it)
 			it << ";"
 		}
 		val isMultiport = pattern.isMultiport(port)
-		val widthVar = it.declareSyntheticVariable(pattern, "_" + port.name + "Width")
-		val channelsVar = it.declareSyntheticVariable(pattern, "_" + port.name + "Channels")
+		val widthVar = getPatternVariable(pattern, "_" + port.name + "Width", it, variables)
+		val channelsVar = getPatternVariable(pattern, "_" + port.name + "Channels", it, variables)
 		if (isMultiport) {
 			it << '''int «widthVar» = «pattern.portAccess».getWidth();'''
 			generateChannelsList(pattern, channelsVar, repeatVar, widthVar, it)
@@ -219,17 +206,17 @@ class ActionPatternHelper {
 				it << ''' «variable» = channelMap(«channelsVar»);'''
 			}
 		}
-		val channelVar = if (isMultiport) it.declareSyntheticVariable(pattern, "_" + port.name + "Channel") else "0"
+		val channelVar = if (isMultiport) getPatternVariable(pattern, "_" + port.name + "Channel", it, variables) else "0"
 		if (isMultiport) {
 			it << '''for (int «channelVar» : «channelsVar») {'''
 		}
-		val arrayVar = it.declareSyntheticVariable(pattern, "_" + port.name + "Array")
+		val arrayVar = getPatternVariable(pattern, "_" + port.name + "Array", it, variables)
 		if (pattern.isRepeat() || pattern.size() > 1) {
 			it << '''if (! hasToken(«pattern.portAccess», «channelVar», «repeatVar» * «pattern.size()»)) return false;'''
-			it -> pattern << "ptolemy.data.Token" << '''[] «arrayVar» = «pattern.portAccess».get(«channelVar», «repeatVar» * «pattern.size()»);'''
+			it << "ptolemy.data.Token" << '''[] «arrayVar» = «pattern.portAccess».get(«channelVar», «repeatVar» * «pattern.size()»);'''
 		}
 		for (variable : pattern.variables) {
-			val varVar = if (isMultiport) it.declareSyntheticVariable(pattern, "_" + variable) else variable
+			val varVar = if (isMultiport) getPatternVariable(pattern, "_" + variable, it, variables) else variable
 			inputPatternVariable(variable, varVar, arrayVar, channelVar, repeatVar, pattern, port, it);
 			if (isMultiport) {
 				it << '''«variable».put(«channelVar», «varVar»);'''
@@ -243,8 +230,8 @@ class ActionPatternHelper {
 		}
 	}
 
-	def void generatePatternMatchPart(EventPattern pattern, Variable varRef, JvmExecutable method, ITreeAppendable it) {
-		val eventVar = it.declareSyntheticVariable(pattern, "event")
+	def void generatePatternMatchPart(EventPattern pattern, Variable varRef, JvmExecutable method, ITreeAppendable it, Map<String,String> variables) {
+		val eventVar = getPatternVariable(pattern, "event", it, variables)
 		it << '''Object[] «eventVar» = getEvent(«varRef.name», "«pattern.name»", «if (pattern.qualifier != null) '''"«pattern.qualifier»"''' else "null"»);'''
 		it << '''if («eventVar» == null) return false;'''
 		var num = 0;
@@ -318,7 +305,7 @@ class ActionPatternHelper {
 	}
 
 	def attributeValueExpression(String valueExpression, JvmTypeReference type, EObject context, ITreeAppendable it) {
-		//
+		it << valueExpression
 	}
 
 	def void generatePatternOutputPart(OutputPattern pattern, String delayVar, ITreeAppendable it) {
@@ -327,6 +314,9 @@ class ActionPatternHelper {
 			it << '''int «repeatVar»''' << " = " methodCall(pattern.repeatExpression, it) it << ";"
 		}
 		val port = pattern.portRef
+		if (port == null) {
+			return
+		}
 		val widthVar = it.declareSyntheticVariable(pattern, "_" + port.name + "Width")
 		val channelsVar = it.declareSyntheticVariable(pattern, "_" + port.name + "Channels")
 		val isMultiport = pattern.isMultiport(port)
@@ -398,7 +388,7 @@ class ActionPatternHelper {
 		}
 		if (pattern.isRepeat()) {
 			val arrayVar = it.declareSyntheticVariable(pattern, "_" + "tokenArray")
-			it -> pattern << tokenType << '''[] «arrayVar» = new ''' << tokenType << '''[«valueExpressions.size()» * «repeatVar»];'''
+			it -> pattern << "ptolemy.data.Token" << '''[] «arrayVar» = new ''' << "ptolemy.data.Token" << '''[«valueExpressions.size()» * «repeatVar»];'''
 			val forVar = it.declareSyntheticVariable(pattern, "_" + "token")
 			it << '''for (int «forVar» = 0; «forVar» < «repeatVar»; «forVar»++) {'''
 			for (valueExpression : valueExpressions) {
@@ -430,10 +420,47 @@ class ActionPatternHelper {
 	
 	//
 	
-	@Inject BeanPropertySupport beanPropertySupport
-	@Inject ObservablePropertySupport observablePropertySupport
-	@Inject SwingEventSupport swingEventSupport
-	@Inject JavafxEventSupport javafxEventSupport
+	def type(ActionPattern pattern, Boolean impl) {
+		if (pattern instanceof PortPattern) {
+			val portPattern = pattern as PortPattern
+			val port = portPattern.portRef
+			portPattern.type(portPattern.isMultiport(port), impl)
+		} else if (pattern instanceof EventPattern) {
+			val eventPattern = pattern as EventPattern
+			val beanType = eventPattern.varRef?.inferredType
+			if (beanType != null && beanType.type instanceof JvmDeclaredType) {
+				val eventData = beanType.getEvent(eventPattern.name, eventPattern.property)
+				if (eventData == null)
+					null
+				else if (impl != null)
+					eventData.listenerType
+				else if (eventData.listenerMethod != null) {
+					val listenerType = eventData.listenerType
+					val parameters = eventData.listenerMethod.parameters
+					if (parameters.size == 1)
+						MappingCopier.map(parameters.head.parameterType, true, listenerType)
+					else {
+						val parameterTypes = parameters.map[parameterType]
+						val typeParameters = parameterTypes.map[MappingCopier.map(it, false, listenerType)].toList
+						val typeParametersArray = typeParameters.toArray(<JvmTypeReference>newArrayOfSize(typeParameters.size))
+						pattern.newTypeRef("org.ptolemy.xtext.lib.caltrop.tuple.Tuple" + parameterTypes.size, typeParametersArray)
+					}
+				}
+			}
+		}
+	}
+
+	def getEvent(JvmTypeReference typeRef, String eventName, boolean isProperty) {
+		val events = new ArrayList<EventData>
+		addEvents(typeRef, eventName, isProperty, events)
+		events.head
+	}
+
+	@Inject private BeanPropertySupport beanPropertySupport
+	@Inject private ObservablePropertySupport observablePropertySupport
+	@Inject private SwingEventSupport swingEventSupport
+	@Inject private JavafxEventSupport javafxEventSupport
+	@Inject private ListenerMethodEventSupport listenerMethodEventSupport
 	
 	private Collection<EventSupport> propertySupports = null
 
@@ -443,7 +470,8 @@ class ActionPatternHelper {
 				observablePropertySupport,
 				beanPropertySupport,
 				swingEventSupport,
-				javafxEventSupport
+				javafxEventSupport,
+				listenerMethodEventSupport
 			)
 		}
 		for (EventSupport eventSupport : propertySupports) {
@@ -451,17 +479,5 @@ class ActionPatternHelper {
 				eventSupport.addEvents(typeRef, name, events);
 			}
 		}
-	}
-
-	def Iterable<EventData> getEvents(JvmTypeReference typeRef, String name, boolean isProperty) {
-		val events = new ArrayList<EventData>
-		addEvents(typeRef, name, isProperty, events)
-		events
-	}
-	
-	def EventData getEvent(JvmTypeReference typeRef, String eventName, boolean isProperty) {
-		if (typeRef.type instanceof JvmDeclaredType)
-			getEvents(typeRef, eventName, isProperty).head
-		else null
 	}
 }

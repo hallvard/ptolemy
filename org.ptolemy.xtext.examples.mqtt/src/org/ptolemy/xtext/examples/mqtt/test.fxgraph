@@ -1,0 +1,36 @@
+package org.ptolemy.xtext.examples.mqtt
+
+import java.lang.*
+import java.util.*
+import javafx.scene.control.*
+import javafx.scene.layout.*
+import javafx.scene.paint.*
+import javafx.scene.web.*
+import javafx.scene.chart.*
+
+component mqttplotting {
+	BorderPane {
+		maxHeight : const Double#NEGATIVE_INFINITY,
+		maxWidth 	: const Double#NEGATIVE_INFINITY,
+		minHeight 	: const Double#NEGATIVE_INFINITY,
+		minWidth 	: const Double#NEGATIVE_INFINITY,
+
+		top : HBox {
+			TextField {
+				^id : "testText",
+				promptText : "Topic",
+				prefWidth 	: 300.0,
+				text : ""
+			},
+			Button {
+				^id : "testButton", 
+				text : "Test"
+			}
+		},
+		center : ListView {
+			^id : "testList",
+			prefHeight 	: 600.0,
+			prefWidth 	: 200.0
+		}
+	}
+}

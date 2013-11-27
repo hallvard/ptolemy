@@ -757,8 +757,8 @@ public class CaltropPackageImpl extends EPackageImpl implements CaltropPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getTransition_Tags() {
-		return (EAttribute)transitionEClass.getEStructuralFeatures().get(2);
+	public EReference getTransition_Actions() {
+		return (EReference)transitionEClass.getEStructuralFeatures().get(2);
 	}
 
 	/**
@@ -1012,7 +1012,7 @@ public class CaltropPackageImpl extends EPackageImpl implements CaltropPackage {
 		transitionEClass = createEClass(TRANSITION);
 		createEReference(transitionEClass, TRANSITION__SOURCE);
 		createEReference(transitionEClass, TRANSITION__TARGET);
-		createEAttribute(transitionEClass, TRANSITION__TAGS);
+		createEReference(transitionEClass, TRANSITION__ACTIONS);
 
 		eventActionEClass = createEClass(EVENT_ACTION);
 		createEReference(eventActionEClass, EVENT_ACTION__EVENT_PATTERNS);
@@ -1176,7 +1176,7 @@ public class CaltropPackageImpl extends EPackageImpl implements CaltropPackage {
 		initEClass(transitionEClass, Transition.class, "Transition", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getTransition_Source(), this.getState(), this.getState_Transitions(), "source", null, 0, 1, Transition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getTransition_Target(), this.getState(), null, "target", null, 0, 1, Transition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getTransition_Tags(), ecorePackage.getEString(), "tags", null, 0, -1, Transition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getTransition_Actions(), this.getOutputAction(), null, "actions", null, 0, -1, Transition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(eventActionEClass, EventAction.class, "EventAction", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getEventAction_EventPatterns(), this.getEventPattern(), null, "eventPatterns", null, 0, -1, EventAction.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

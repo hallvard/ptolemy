@@ -5,6 +5,7 @@ import java.util.Map
 import javafx.scene.chart.PieChart
 import javafx.scene.chart.XYChart
 import org.eclipse.xtext.xbase.lib.Pair
+import java.util.Queue
 
 actor PPieChartPairs(String id)
 Pair<String,Double> data ==> :
@@ -32,26 +33,105 @@ String name, double value ==> :
 	end
 end
 
-actor PXYChartXsYs<X,Y>(String id)
-X xs, Y ys, int seriesNum, Object clear ==> :
+actor PAbstractXYChart<X,Y>
+Object clearAll ==> :
 	val @javafx XYChart<X,Y> xyChart = get(id, XYChart);
+	var Queue<Integer> clearedSeries = newLinkedList;
+	var Queue<Pair<Integer,XYChart.Data<X,Y>>> newDataSet = newLinkedList;
+	
+	var @javafx boolean clearSeries := false update {
+		if (clearedSeries.size == 0) {
+			xyChart.data.clear
+		} else while (clearedSeries.size > 0) {
+			series(clearedSeries.remove).data.clear
+		}
+	};
+	var @javafx boolean updateSeries := false update {
+		while (newDataSet.size > 0) {
+			val Pair<Integer,XYChart.Data<X,Y>> newData = newDataSet.remove
+			series(newData.key).data += newData.value
+		}
+	};
+	function series(int seriesNum) --> XYChart.Series<X,Y> :
+		while (seriesNum >= xyChart.data.size) {
+			xyChart.data += new XYChart.Series<X,Y>()
+		}
+		xyChart.data.get(seriesNum)
+	end
+	function getId() --> String :
+		null
+	end
+
+	procedure clearSeries(Object flag, int seriesNum) :
+		if (flag != null && (! Boolean.FALSE.equals(flag))) {
+			if (seriesNum >= 0) {
+				clearedSeries += seriesNum
+			}
+			clearSeries = true
+		}
+	end
+	procedure addData(X x, Y y, int seriesNum) :
+		newDataSet += seriesNum -> new XYChart.Data<X,Y>(x, y)
+		updateSeries = true
+	end
+
+	action clearAll:[b] ==> do
+		clearSeries(b, -1)
+	end
+end
+
+actor PXYChartXYt<XY>(String id)
+XY xys, int seriesNum, Object clearSeries ==> is PAbstractXYChart<XY,XY> :
 	var int currentSeriesNum = 0;
-	var @javafx boolean clearSeries update series(currentSeriesNum).data.clear;
-	var @javafx XYChart.Data<X,Y> newData update series(currentSeriesNum).data += newData;
+
+	function getId() --> String :
+		id
+	end
+
+	action seriesNum:[i] ==> do
+		currentSeriesNum = i
+	end
+	action clearSeries:[b] ==> do
+		clearSeries(b, currentSeriesNum)
+	end
+	action xys:[x,y] ==> do
+		addData(x, y, currentSeriesNum)
+	end
+end
+
+actor PXYChartXYtc<XY>(String id)
+XY* xys, Object* clearSeries ==> is PAbstractXYChart<XY,XY> :
+	function getId() --> String :
+		id
+	end
+	action clearSeries:[b] any ==> do
+		for (int chan : b) {
+			clearSeries(b#chan, chan)
+		}
+	end
+	action xys:[x,y] any ==> do
+		for (int chan : x) {
+			addData(x#chan, y#chan, chan)
+		}
+	end
+end
+
+actor PXYChartXYp<X,Y>(String id)
+X xs, Y ys, int seriesNum, Object clear ==> is PAbstractXYChart<X,Y> :
+	var int currentSeriesNum = 0;
+
+	function getId() --> String :
+		id
+	end
+
 	action seriesNum:[i] ==> do
 		currentSeriesNum = i
 	end
 	action clear:[b] ==> do
-		clearSeries = (b != null && (! Boolean.FALSE.equals(b)))
+		clearSeries(b, currentSeriesNum)
 	end
 	action [x],[y] ==> do
-		newData = new XYChart.Data<X,Y>(x, y)
-	end
-	function series(int seriesNum) --> XYChart.Series<X,Y> :
-		while (xyChart.data.size <= seriesNum) {
-			xyChart.data += new XYChart.Series<X,Y>()
-		}
-		xyChart.data.get(seriesNum)
+		addData(x, y, currentSeriesNum)
 	end
 end
 

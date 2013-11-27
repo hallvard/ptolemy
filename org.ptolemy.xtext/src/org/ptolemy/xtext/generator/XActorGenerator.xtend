@@ -28,7 +28,7 @@ import org.eclipse.xtext.xbase.jvmmodel.ILogicalContainerProvider
 import org.eclipse.xtext.xbase.jvmmodel.JvmTypesBuilder
 import org.ptolemy.ecore.actor.AbstractIOPort
 import org.ptolemy.ecore.actor.AtomicActorImpl
-import org.ptolemy.ecore.actor.InjectableAttribute
+import org.ptolemy.ecore.actor.JvmTypedAttribute
 import org.ptolemy.ecore.actor.JvmTypedObj
 import org.ptolemy.ecore.actor.Parameter
 import org.ptolemy.ecore.actor.Typeable
@@ -46,9 +46,9 @@ import org.ptolemy.ecore.kernel.EntityContainer
 import org.ptolemy.ecore.kernel.IEntity
 import org.ptolemy.ecore.kernel.Named
 import org.ptolemy.ecore.kernel.Port
-import org.ptolemy.xtext.generator.eventsupport.AbstractEventSupport
 import org.ptolemy.xtext.generator.eventsupport.EventData
 import org.ptolemy.xtext.jvmmodel.XActorJvmModelInferrer
+import java.util.Collection
 
 class XActorGenerator extends JvmModelGenerator {
 
@@ -81,12 +81,12 @@ class XActorGenerator extends JvmModelGenerator {
 		val sourceElement = primarySourceElement
 		// change the types of token variables to Parameter
 		if (sourceElement.isTokenVariable) {
-			field = EcoreUtil::copy(it)
+			field = EcoreUtil.copy(it)
 			field.type = sourceElement.newTypeRef("ptolemy.data.expr.Variable")
 			field.final = true
-		} else if (sourceElement.isInjectedValue) {
-			field = EcoreUtil::copy(it)
-			field.final = false
+//		} else if (sourceElement.isInjectedValue) {
+//			field = EcoreUtil.copy(it)
+//			field.final = false
 		}
 		return super._generateMember(field, appendable, genConfig)
 	}
@@ -95,19 +95,42 @@ class XActorGenerator extends JvmModelGenerator {
 	@Inject extension ActionPatternHelper
 
 	def pAttributeType(Attribute attribute) {
-		attribute.newTypeRef("ptolemy.data.expr." + if (attribute instanceof Parameter) "Parameter" else "Variable")
+		if (attribute instanceof JvmTypedAttribute && (! (attribute instanceof Variable)))
+			(attribute as JvmTypedAttribute).inferredType
+		else
+			attribute.newTypeRef("ptolemy.data.expr." + if (attribute instanceof Parameter) "Parameter" else "Variable")
 	}
 
-	def void generateCreateAttributeMethodBody(Attribute attribute, String varName, ITreeAppendable it) {
+	def void generateCreateAttributeMethodBody(Attribute attribute, String varName, String ownerName, boolean topLevel, ITreeAppendable it) {
 		val typeRef = attribute.pAttributeType
-		it -> attribute << typeRef << " ";
-		if (attribute instanceof Variable) {
-			it -> attribute << '''«varName» = new ''' << typeRef << '''(this, "«attribute.name»");'''
+		it -> attribute << typeRef << ''' «varName» = '''
+		if (! topLevel) {
+			it -> attribute << "(" << typeRef << ''') «ownerName».getAttribute("«attribute.name»");'''
+			it << '''if («varName» == null) {'''
+			it << '''	«varName» = '''
 		}
-		if (attribute instanceof Typeable) {
-			it << '''«varName».setTypeEquals('''
-			appendPTypeExpression(attribute as Typeable, it)
-			it << ");"
+		it -> attribute << "new " << typeRef << '''(«ownerName», "«attribute.name»");'''
+		if (! topLevel) {
+			it << "}"
+		}
+		if (attribute instanceof Variable) {
+			val variable = attribute as Variable
+			if (topLevel) {
+				it << '''«varName».setTypeEquals('''
+				appendPTypeExpression(variable, it)
+				it << ");"
+			}
+			if (! topLevel) {
+				it << varName << ".setToken("
+				val valueExpr = '''«attribute.methodName("_initial%sAttributeValue")»()'''
+				generateCreateTokenExpr(valueExpr, variable, it)				
+				it << ");"
+			}
+		}
+		if (topLevel) {
+		   	for (childAttribute : attribute.attributes) {
+				it << '''«childAttribute.methodName("_create%sAttribute")»(«varName»);'''
+		   	}
 		}
 		it << '''return «varName»;'''
 	}
@@ -116,18 +139,21 @@ class XActorGenerator extends JvmModelGenerator {
 		val type = type(typed)
 		val simpleName = type.jvm2pTypeSimpleName
 		if (simpleName != null) {
-			it << TypeUtil::TOKEN_CONST_PREFIX << simpleName.toUpperCase
+			it << TypeUtil.TOKEN_CONST_PREFIX << simpleName.toUpperCase
 		}
 		else {
-			it -> typed << '''new «TypeUtil::TYPE_PACKAGE_PREFIX»ObjectType(''' << type.type << ".class)"
-//			val qName = type.qualifiedName
-//			val pos = qName.indexOf("<")
-//			(if (pos < 0) qName else qName.substring(0, pos)) + ".class"
+			it -> typed << '''new «TypeUtil.TYPE_PACKAGE_PREFIX»ObjectType(''' << type.type << ".class)"
 		}
 	}
 
-	def void generateInitAttributeMethodBody(InjectableAttribute injectable, String varName, ITreeAppendable it) {
-		//
+	def void generateCreateTokenExpr(String valueExpr, Typeable typed, ITreeAppendable it) {
+		val type = type(typed)
+		val tokenType = type.jvm2pTokenType(typed)
+		it -> typed << "new " << tokenType << '''(«valueExpr»'''
+		if (type.is2ObjectTokenType) {
+		 	it << ", " << type.type << ".class"
+		}
+		it << ")"
 	}
 
 	def void generateInitAttributeMethodBody(Variable variable, XExpression expression, String varName, ITreeAppendable it) {
@@ -138,12 +164,13 @@ class XActorGenerator extends JvmModelGenerator {
 		generateVariableInitExpression(expression, variable.type, it)
 		it << (if (varName != null) "))") << "; "
 	}
+
 	def void generateSetVariableValueMethodBody(Variable variable, ITreeAppendable it) {
 		it << '''this.«variable.name».setToken(«variable.methodName("_create%sToken")»(«variable.name»));'''
 	}
 
 	def void generateCreatePortMethodBody(Port port, String name, String varName, ITreeAppendable it) {
-		it -> port << "ptolemy.actor.TypedIOPort" << ''' «varName» = new ''' << "ptolemy.actor.TypedIOPort" << '''(this, "«if (name != null) name else port.name»"'''
+		it -> port << portImplType(port) << ''' «varName» = new ''' << portImplType(port) << '''(this, "«if (name != null) name else port.name»"'''
 		if (port instanceof AbstractIOPort) {
 			val ioPort = port as AbstractIOPort
 			it << ''', «ioPort.input», «ioPort.output»'''
@@ -167,8 +194,8 @@ class XActorGenerator extends JvmModelGenerator {
 		it << '''return «varName»;'''
 	}
 
-	def void generateSyntheticCreatePortMethodBody(Typeable typed, String name, String methodName, String varName, ITreeAppendable it) {
-		it -> typed << "ptolemy.actor.TypedIOPort" << ''' «varName» = super.«methodName»();''';
+	def void generateSyntheticCreatePortMethodBody(Typeable typed, String name, String methodName, String varName, boolean input, ITreeAppendable it) {
+		it -> typed << portImplType(typed, input) << ''' «varName» = super.«methodName»();''';
 		it << '''«varName».setTypeEquals('''
 		appendPTypeExpression(typed, it)
 		it << ");"
@@ -183,16 +210,6 @@ class XActorGenerator extends JvmModelGenerator {
 		it << '''return «altVarName»;'''
 	}
 
-	def void generateCreateTokenMethodBody(String valueExpr, JvmTypedObj jvmTyped, ITreeAppendable it) {
-		val portType = type(jvmTyped)
-		val tokenType = portType.jvm2pTokenType(jvmTyped)
-		it -> jvmTyped << "return new " << tokenType << '''(«valueExpr»'''
-		if (portType.is2ObjectTokenType) {
-		 	it << ", " << portType.type << ".class"
-		}
-		it << ");"
-	}
-
 	def void generateGetTokenValueMethodBody(String valueExpr, JvmTypedObj jvmTyped, ITreeAppendable it) {
 		it << "return "
 		tokenValueExpression(valueExpr, type(jvmTyped), jvmTyped, it)		
@@ -204,7 +221,7 @@ class XActorGenerator extends JvmModelGenerator {
 		attributeValueExpression(valueExpr, type(jvmTyped), jvmTyped, it)		
 		it << "; "
 	}
-	
+
 //	def void generateSendTokenMethodBody(JvmTypedObj jvmTyped, String channelExpr, boolean array, ITreeAppendable it) {
 //		it << '''send(this.«jvmTyped.name», «channelExpr», «jvmTyped.name»'''
 //		if (array) {
@@ -214,7 +231,6 @@ class XActorGenerator extends JvmModelGenerator {
 //	}
 
 	def void generateActorConstructorBody(IEntity<? extends Port> entity, JvmExecutable op, ITreeAppendable it) {
-		it << "super(parent, name);"
 		for (attribute : entity.attributes) {
 			it << '''this.«attribute.name» = «attribute.methodName("_create%sAttribute")»();'''
 		}
@@ -254,12 +270,7 @@ class XActorGenerator extends JvmModelGenerator {
 				}
 			}
 		}
-//		else if (! op.containerType.isAbstract) {
-//			it << '''this._impl = new «op.containerType.simpleName»Impl(this'''
-//			it << entity.actorImplConstructorParameters.join(", ", ", ", "") [simpleName]
-//			it << "); "
-//		}
-		for (attribute : entity.attributes) {
+		for (attribute : entity.attributes.filter(Variable)) {
 			it << '''«attribute.methodName("_set%sValue")»(«attribute.methodName("_initial%sAttributeValue")»());'''
 		}
 	}
@@ -311,13 +322,17 @@ class XActorGenerator extends JvmModelGenerator {
 		indexedName(named.eContainingFeature.name, named)
 	}
 
-	def String actionRef(OutputAction action) {
+	def int actionNum(OutputAction action) {
 		val actorImpl = action.eContainer as CaltropActorImpl<?>
 		var actionNum = actorImpl.initActions.indexOf(action)
 		if (actionNum < 0) {
 			actionNum = actorImpl.initActions.size() + actorImpl.actions.indexOf(action)
 		}
-		'''_actionImpls[«actionNum»]'''
+		actionNum
+	}
+
+	def String actionRef(OutputAction action) {
+		'''_actionImpls[«actionNum(action)»]'''
 	}
 
 	def void generateInitializeImplBody(CaltropActorImpl<? extends AbstractIOPort> impl, JvmGenericType implClass, ITreeAppendable it) {
@@ -336,7 +351,7 @@ class XActorGenerator extends JvmModelGenerator {
 		«ENDFOR»'''
 		
 		if (impl.schedule != null) {
-			it << '''currentState = «impl.schedule.states.indexOf(impl.schedule.initial)»;'''
+			it << '''_currentState = «impl.schedule.states.indexOf(impl.schedule.initial)»;'''
 		}
 	}
 
@@ -395,9 +410,12 @@ class XActorGenerator extends JvmModelGenerator {
 				it << '''this.«name» = this.«declaration.previousValueName»;'''
 			}
 		}
+		for (port : impl.container.ports.filter[it instanceof AbstractIOPort && (it as AbstractIOPort).input]) {
+			it << '''«port.name».rollbackGet();'''
+		}
 		if (impl.schedule != null) {
 			val states = impl.schedule.states
-			it << "switch (currentState) {"
+			it << "switch (_currentState) {"
 			for (state : states) {
 				it << '''case «states.indexOf(state)»:''' newLine
 				generateStateMatchBody(state, impl.actions, op, it)
@@ -405,35 +423,30 @@ class XActorGenerator extends JvmModelGenerator {
 			}
 			it << "}"
 		} else {
-			generateStateMatchBody(impl, impl.actions, -1, it)
+			generateStateMatchBody(impl, impl.actions, -1, op, it)
 		}
 		it << "return null;"
 	}
 	
-	def generateStateMatchBody(State state, Iterable<? extends OutputAction> actions, JvmExecutable operation, ITreeAppendable it) {
+	def generateStateMatchBody(State state, Iterable<? extends OutputAction> actions, JvmOperation op, ITreeAppendable it) {
 		for (transition : state.transitions) {
-			generateStateMatchBody(state, actions.filter[name == null || transition.tags.accepts(name)], state.schedule.states.indexOf(transition.target), it)
+			generateStateMatchBody(state, actions.filter[name == null || transition.actions.contains(it)], state.schedule.states.indexOf(transition.target), op, it)
 		}
 	}
 
-	def boolean accepts(Iterable<String> tags, String actionName) {
-		for (tag : tags) {
-			if (actionName.startsWith(tag) && (actionName.length() == tag.length() || actionName.charAt(tag.length()) == '.')) {
-				return true;
-			}
-		}
-		return false;
+	def boolean accepts(Collection<OutputAction> actions, OutputAction action) {
+		actions.contains(action)
 	}
 
-	def generateStateMatchBody(EObject context, Iterable<? extends OutputAction> actions, int targetStateNum, ITreeAppendable it) {
-		val pairType = findDeclaredType("org.ptolemy.xtext.lib.caltrop.Pair", context)
+	def generateStateMatchBody(EObject context, Iterable<? extends OutputAction> actions, int targetStateNum, JvmOperation op, ITreeAppendable it) {
+		val tupleType = op.returnType
 		for (action : actions) {
-			it << '''if («actionRef(action)».match()) return new ''' << pairType << '''.Impl(«targetStateNum», «actionRef(action)»);'''
+			it -> context << '''if («actionRef(action)».match()) return new ''' << tupleType << '''(«targetStateNum», «actionRef(action)»);'''
 		}
 	}
 	
 	def <T> int indexOf(Iterable<? extends T> col, T element) {
-		return Iterables::indexOf(col)[it == element]
+		return Iterables.indexOf(col)[it == element]
 	}
 
 	def Iterable<EventPattern> eventPatternsForVariable(Iterable<ReAction> actions, StateVariable declaration) {
@@ -446,10 +459,13 @@ class XActorGenerator extends JvmModelGenerator {
 
 	def void generateEventListenerMethodBody(EventPattern eventPattern, JvmOperation op, ITreeAppendable it) {
 		val timestampExpression = if (eventPattern.timeExpression != null) '''_timestamp(«op.parameters.head.simpleName»)''' else "0"
-		it << '''postEvent(«timestampExpression», «eventPattern.varRef.previousValueName», "«eventPattern.name»", "«op.simpleName»", «op.parameters.join(",") [simpleName]»);'''
+		it << '''postEvent(«timestampExpression», «eventPattern.varRef.previousValueName», "«eventPattern.name»", "«op.simpleName»", '''
+		if (op.parameters.size > 1) {
+			it -> eventPattern << "new " << eventPattern.type(null) << "("
+		}
+		it << (if (op.parameters.size > 0) '''«op.parameters.join(",") [simpleName]»''' else "null") << if (op.parameters.size > 1) ")"
+		it << ");"
 	}
-
-	@Inject extension AbstractEventSupport
 
 	def void generatePreStateVariableChangeBody(StateVariable declaration, CaltropActorImpl<? extends AbstractIOPort> impl, ITreeAppendable it) {
 		val variablePatterns = impl.actions.eventPatternsForVariable(declaration)
@@ -538,13 +554,13 @@ class XActorGenerator extends JvmModelGenerator {
 	}
 
 	def void generateActionMatchBody(OutputAction action, JvmExecutable op, ITreeAppendable it) {
+		val Map<String, String> patternVariables = null
 		for (pattern : action.inputPatterns) {
-			val port = pattern.portRef
-			generatePatternMatchPart(pattern, port, op, it)
+			generatePatternMatchPart(pattern, pattern.portRef, op, it, patternVariables)
 		}
 		if (action instanceof EventAction) {
 			for (pattern : (action as EventAction).eventPatterns) {
-				generatePatternMatchPart(pattern, pattern.varRef, op, it)
+				generatePatternMatchPart(pattern, pattern.varRef, op, it, patternVariables)
 			}
 		}
 		declareThisVariables(op.declaringType, it)
@@ -588,6 +604,13 @@ class XActorGenerator extends JvmModelGenerator {
 	}
 
 	def void generateActionUpdateBody(OutputAction action, JvmGenericType implClass, ITreeAppendable it) {
+		it << "if (! super.update()) return false;"
+		for (pattern : action.inputPatterns) {
+			val port = pattern.portRef
+			if (port instanceof AbstractIOPort && (port as AbstractIOPort).input) {
+				it << '''«pattern.portAccess».commitGet();'''
+			}
+		}
 		if (action.updateExpression != null) {
 			declareThisVariables(implClass, it)
 			action.updateExpression.toJavaStatement(it, true) newLine

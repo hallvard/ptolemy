@@ -11,7 +11,6 @@ import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
-import org.eclipse.xtext.common.types.JvmTypeReference;
 import org.eclipse.xtext.xbase.XExpression;
 import org.ptolemy.ecore.actor.ActorPackage;
 import org.ptolemy.ecore.actor.Variable;
@@ -62,23 +61,6 @@ public class VariableImpl extends JvmTypedAttributeImpl implements Variable {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated NOT
-	 */
-	public JvmTypeReference getInferredType() {
-		if (inferredType != null && inferredType.eIsProxy()) {
-			InternalEObject oldInferredType = (InternalEObject)inferredType;
-			inferredType = (JvmTypeReference)eResolveProxy(oldInferredType);
-			if (inferredType != oldInferredType) {
-				if (eNotificationRequired())
-					eNotify(new ENotificationImpl(this, Notification.RESOLVE, ActorPackage.VARIABLE__INFERRED_TYPE, oldInferredType, inferredType));
-			}
-		}
-		return (inferredType != null ? inferredType : inferType());
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	public XExpression getValueExpression() {
@@ -117,15 +99,6 @@ public class VariableImpl extends JvmTypedAttributeImpl implements Variable {
 		}
 		else if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, ActorPackage.VARIABLE__VALUE_EXPRESSION, newValueExpression, newValueExpression));
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated NOT
-	 */
-	public JvmTypeReference inferType() {
-		return type;
 	}
 
 	/**

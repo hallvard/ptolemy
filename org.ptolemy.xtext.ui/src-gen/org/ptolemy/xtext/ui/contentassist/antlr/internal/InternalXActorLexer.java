@@ -1052,10 +1052,10 @@ public class InternalXActorLexer extends Lexer {
         try {
             int _type = T__57;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.ptolemy.xtext.ui/src-gen/org/ptolemy/xtext/ui/contentassist/antlr/internal/InternalXActor.g:55:7: ( ',' )
-            // ../org.ptolemy.xtext.ui/src-gen/org/ptolemy/xtext/ui/contentassist/antlr/internal/InternalXActor.g:55:9: ','
+            // ../org.ptolemy.xtext.ui/src-gen/org/ptolemy/xtext/ui/contentassist/antlr/internal/InternalXActor.g:55:7: ( '@' )
+            // ../org.ptolemy.xtext.ui/src-gen/org/ptolemy/xtext/ui/contentassist/antlr/internal/InternalXActor.g:55:9: '@'
             {
-            match(','); 
+            match('@'); 
 
             }
 
@@ -1072,10 +1072,10 @@ public class InternalXActorLexer extends Lexer {
         try {
             int _type = T__58;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.ptolemy.xtext.ui/src-gen/org/ptolemy/xtext/ui/contentassist/antlr/internal/InternalXActor.g:56:7: ( '(' )
-            // ../org.ptolemy.xtext.ui/src-gen/org/ptolemy/xtext/ui/contentassist/antlr/internal/InternalXActor.g:56:9: '('
+            // ../org.ptolemy.xtext.ui/src-gen/org/ptolemy/xtext/ui/contentassist/antlr/internal/InternalXActor.g:56:7: ( ',' )
+            // ../org.ptolemy.xtext.ui/src-gen/org/ptolemy/xtext/ui/contentassist/antlr/internal/InternalXActor.g:56:9: ','
             {
-            match('('); 
+            match(','); 
 
             }
 
@@ -1092,10 +1092,10 @@ public class InternalXActorLexer extends Lexer {
         try {
             int _type = T__59;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.ptolemy.xtext.ui/src-gen/org/ptolemy/xtext/ui/contentassist/antlr/internal/InternalXActor.g:57:7: ( ')' )
-            // ../org.ptolemy.xtext.ui/src-gen/org/ptolemy/xtext/ui/contentassist/antlr/internal/InternalXActor.g:57:9: ')'
+            // ../org.ptolemy.xtext.ui/src-gen/org/ptolemy/xtext/ui/contentassist/antlr/internal/InternalXActor.g:57:7: ( '(' )
+            // ../org.ptolemy.xtext.ui/src-gen/org/ptolemy/xtext/ui/contentassist/antlr/internal/InternalXActor.g:57:9: '('
             {
-            match(')'); 
+            match('('); 
 
             }
 
@@ -1112,11 +1112,10 @@ public class InternalXActorLexer extends Lexer {
         try {
             int _type = T__60;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.ptolemy.xtext.ui/src-gen/org/ptolemy/xtext/ui/contentassist/antlr/internal/InternalXActor.g:58:7: ( 'actor' )
-            // ../org.ptolemy.xtext.ui/src-gen/org/ptolemy/xtext/ui/contentassist/antlr/internal/InternalXActor.g:58:9: 'actor'
+            // ../org.ptolemy.xtext.ui/src-gen/org/ptolemy/xtext/ui/contentassist/antlr/internal/InternalXActor.g:58:7: ( ')' )
+            // ../org.ptolemy.xtext.ui/src-gen/org/ptolemy/xtext/ui/contentassist/antlr/internal/InternalXActor.g:58:9: ')'
             {
-            match("actor"); 
-
+            match(')'); 
 
             }
 
@@ -1133,10 +1132,10 @@ public class InternalXActorLexer extends Lexer {
         try {
             int _type = T__61;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.ptolemy.xtext.ui/src-gen/org/ptolemy/xtext/ui/contentassist/antlr/internal/InternalXActor.g:59:7: ( 'is' )
-            // ../org.ptolemy.xtext.ui/src-gen/org/ptolemy/xtext/ui/contentassist/antlr/internal/InternalXActor.g:59:9: 'is'
+            // ../org.ptolemy.xtext.ui/src-gen/org/ptolemy/xtext/ui/contentassist/antlr/internal/InternalXActor.g:59:7: ( 'actor' )
+            // ../org.ptolemy.xtext.ui/src-gen/org/ptolemy/xtext/ui/contentassist/antlr/internal/InternalXActor.g:59:9: 'actor'
             {
-            match("is"); 
+            match("actor"); 
 
 
             }
@@ -1154,10 +1153,11 @@ public class InternalXActorLexer extends Lexer {
         try {
             int _type = T__62;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.ptolemy.xtext.ui/src-gen/org/ptolemy/xtext/ui/contentassist/antlr/internal/InternalXActor.g:60:7: ( ';' )
-            // ../org.ptolemy.xtext.ui/src-gen/org/ptolemy/xtext/ui/contentassist/antlr/internal/InternalXActor.g:60:9: ';'
+            // ../org.ptolemy.xtext.ui/src-gen/org/ptolemy/xtext/ui/contentassist/antlr/internal/InternalXActor.g:60:7: ( 'is' )
+            // ../org.ptolemy.xtext.ui/src-gen/org/ptolemy/xtext/ui/contentassist/antlr/internal/InternalXActor.g:60:9: 'is'
             {
-            match(';'); 
+            match("is"); 
+
 
             }
 
@@ -1174,11 +1174,10 @@ public class InternalXActorLexer extends Lexer {
         try {
             int _type = T__63;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.ptolemy.xtext.ui/src-gen/org/ptolemy/xtext/ui/contentassist/antlr/internal/InternalXActor.g:61:7: ( 'network' )
-            // ../org.ptolemy.xtext.ui/src-gen/org/ptolemy/xtext/ui/contentassist/antlr/internal/InternalXActor.g:61:9: 'network'
+            // ../org.ptolemy.xtext.ui/src-gen/org/ptolemy/xtext/ui/contentassist/antlr/internal/InternalXActor.g:61:7: ( ';' )
+            // ../org.ptolemy.xtext.ui/src-gen/org/ptolemy/xtext/ui/contentassist/antlr/internal/InternalXActor.g:61:9: ';'
             {
-            match("network"); 
-
+            match(';'); 
 
             }
 
@@ -1195,10 +1194,10 @@ public class InternalXActorLexer extends Lexer {
         try {
             int _type = T__64;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.ptolemy.xtext.ui/src-gen/org/ptolemy/xtext/ui/contentassist/antlr/internal/InternalXActor.g:62:7: ( 'entities' )
-            // ../org.ptolemy.xtext.ui/src-gen/org/ptolemy/xtext/ui/contentassist/antlr/internal/InternalXActor.g:62:9: 'entities'
+            // ../org.ptolemy.xtext.ui/src-gen/org/ptolemy/xtext/ui/contentassist/antlr/internal/InternalXActor.g:62:7: ( 'network' )
+            // ../org.ptolemy.xtext.ui/src-gen/org/ptolemy/xtext/ui/contentassist/antlr/internal/InternalXActor.g:62:9: 'network'
             {
-            match("entities"); 
+            match("network"); 
 
 
             }
@@ -1216,10 +1215,10 @@ public class InternalXActorLexer extends Lexer {
         try {
             int _type = T__65;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.ptolemy.xtext.ui/src-gen/org/ptolemy/xtext/ui/contentassist/antlr/internal/InternalXActor.g:63:7: ( 'structure' )
-            // ../org.ptolemy.xtext.ui/src-gen/org/ptolemy/xtext/ui/contentassist/antlr/internal/InternalXActor.g:63:9: 'structure'
+            // ../org.ptolemy.xtext.ui/src-gen/org/ptolemy/xtext/ui/contentassist/antlr/internal/InternalXActor.g:63:7: ( 'entities' )
+            // ../org.ptolemy.xtext.ui/src-gen/org/ptolemy/xtext/ui/contentassist/antlr/internal/InternalXActor.g:63:9: 'entities'
             {
-            match("structure"); 
+            match("entities"); 
 
 
             }
@@ -1237,10 +1236,11 @@ public class InternalXActorLexer extends Lexer {
         try {
             int _type = T__66;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.ptolemy.xtext.ui/src-gen/org/ptolemy/xtext/ui/contentassist/antlr/internal/InternalXActor.g:64:7: ( '@' )
-            // ../org.ptolemy.xtext.ui/src-gen/org/ptolemy/xtext/ui/contentassist/antlr/internal/InternalXActor.g:64:9: '@'
+            // ../org.ptolemy.xtext.ui/src-gen/org/ptolemy/xtext/ui/contentassist/antlr/internal/InternalXActor.g:64:7: ( 'structure' )
+            // ../org.ptolemy.xtext.ui/src-gen/org/ptolemy/xtext/ui/contentassist/antlr/internal/InternalXActor.g:64:9: 'structure'
             {
-            match('@'); 
+            match("structure"); 
+
 
             }
 
@@ -2195,10 +2195,10 @@ public class InternalXActorLexer extends Lexer {
         try {
             int _type = RULE_HEX;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.ptolemy.xtext.ui/src-gen/org/ptolemy/xtext/ui/contentassist/antlr/internal/InternalXActor.g:34958:10: ( ( '0x' | '0X' ) ( '0' .. '9' | 'a' .. 'f' | 'A' .. 'F' | '_' )+ ( '#' ( ( 'b' | 'B' ) ( 'i' | 'I' ) | ( 'l' | 'L' ) ) )? )
-            // ../org.ptolemy.xtext.ui/src-gen/org/ptolemy/xtext/ui/contentassist/antlr/internal/InternalXActor.g:34958:12: ( '0x' | '0X' ) ( '0' .. '9' | 'a' .. 'f' | 'A' .. 'F' | '_' )+ ( '#' ( ( 'b' | 'B' ) ( 'i' | 'I' ) | ( 'l' | 'L' ) ) )?
+            // ../org.ptolemy.xtext.ui/src-gen/org/ptolemy/xtext/ui/contentassist/antlr/internal/InternalXActor.g:35106:10: ( ( '0x' | '0X' ) ( '0' .. '9' | 'a' .. 'f' | 'A' .. 'F' | '_' )+ ( '#' ( ( 'b' | 'B' ) ( 'i' | 'I' ) | ( 'l' | 'L' ) ) )? )
+            // ../org.ptolemy.xtext.ui/src-gen/org/ptolemy/xtext/ui/contentassist/antlr/internal/InternalXActor.g:35106:12: ( '0x' | '0X' ) ( '0' .. '9' | 'a' .. 'f' | 'A' .. 'F' | '_' )+ ( '#' ( ( 'b' | 'B' ) ( 'i' | 'I' ) | ( 'l' | 'L' ) ) )?
             {
-            // ../org.ptolemy.xtext.ui/src-gen/org/ptolemy/xtext/ui/contentassist/antlr/internal/InternalXActor.g:34958:12: ( '0x' | '0X' )
+            // ../org.ptolemy.xtext.ui/src-gen/org/ptolemy/xtext/ui/contentassist/antlr/internal/InternalXActor.g:35106:12: ( '0x' | '0X' )
             int alt1=2;
             int LA1_0 = input.LA(1);
 
@@ -2226,7 +2226,7 @@ public class InternalXActorLexer extends Lexer {
             }
             switch (alt1) {
                 case 1 :
-                    // ../org.ptolemy.xtext.ui/src-gen/org/ptolemy/xtext/ui/contentassist/antlr/internal/InternalXActor.g:34958:13: '0x'
+                    // ../org.ptolemy.xtext.ui/src-gen/org/ptolemy/xtext/ui/contentassist/antlr/internal/InternalXActor.g:35106:13: '0x'
                     {
                     match("0x"); 
 
@@ -2234,7 +2234,7 @@ public class InternalXActorLexer extends Lexer {
                     }
                     break;
                 case 2 :
-                    // ../org.ptolemy.xtext.ui/src-gen/org/ptolemy/xtext/ui/contentassist/antlr/internal/InternalXActor.g:34958:18: '0X'
+                    // ../org.ptolemy.xtext.ui/src-gen/org/ptolemy/xtext/ui/contentassist/antlr/internal/InternalXActor.g:35106:18: '0X'
                     {
                     match("0X"); 
 
@@ -2244,7 +2244,7 @@ public class InternalXActorLexer extends Lexer {
 
             }
 
-            // ../org.ptolemy.xtext.ui/src-gen/org/ptolemy/xtext/ui/contentassist/antlr/internal/InternalXActor.g:34958:24: ( '0' .. '9' | 'a' .. 'f' | 'A' .. 'F' | '_' )+
+            // ../org.ptolemy.xtext.ui/src-gen/org/ptolemy/xtext/ui/contentassist/antlr/internal/InternalXActor.g:35106:24: ( '0' .. '9' | 'a' .. 'f' | 'A' .. 'F' | '_' )+
             int cnt2=0;
             loop2:
             do {
@@ -2282,7 +2282,7 @@ public class InternalXActorLexer extends Lexer {
                 cnt2++;
             } while (true);
 
-            // ../org.ptolemy.xtext.ui/src-gen/org/ptolemy/xtext/ui/contentassist/antlr/internal/InternalXActor.g:34958:58: ( '#' ( ( 'b' | 'B' ) ( 'i' | 'I' ) | ( 'l' | 'L' ) ) )?
+            // ../org.ptolemy.xtext.ui/src-gen/org/ptolemy/xtext/ui/contentassist/antlr/internal/InternalXActor.g:35106:58: ( '#' ( ( 'b' | 'B' ) ( 'i' | 'I' ) | ( 'l' | 'L' ) ) )?
             int alt4=2;
             int LA4_0 = input.LA(1);
 
@@ -2291,10 +2291,10 @@ public class InternalXActorLexer extends Lexer {
             }
             switch (alt4) {
                 case 1 :
-                    // ../org.ptolemy.xtext.ui/src-gen/org/ptolemy/xtext/ui/contentassist/antlr/internal/InternalXActor.g:34958:59: '#' ( ( 'b' | 'B' ) ( 'i' | 'I' ) | ( 'l' | 'L' ) )
+                    // ../org.ptolemy.xtext.ui/src-gen/org/ptolemy/xtext/ui/contentassist/antlr/internal/InternalXActor.g:35106:59: '#' ( ( 'b' | 'B' ) ( 'i' | 'I' ) | ( 'l' | 'L' ) )
                     {
                     match('#'); 
-                    // ../org.ptolemy.xtext.ui/src-gen/org/ptolemy/xtext/ui/contentassist/antlr/internal/InternalXActor.g:34958:63: ( ( 'b' | 'B' ) ( 'i' | 'I' ) | ( 'l' | 'L' ) )
+                    // ../org.ptolemy.xtext.ui/src-gen/org/ptolemy/xtext/ui/contentassist/antlr/internal/InternalXActor.g:35106:63: ( ( 'b' | 'B' ) ( 'i' | 'I' ) | ( 'l' | 'L' ) )
                     int alt3=2;
                     int LA3_0 = input.LA(1);
 
@@ -2312,7 +2312,7 @@ public class InternalXActorLexer extends Lexer {
                     }
                     switch (alt3) {
                         case 1 :
-                            // ../org.ptolemy.xtext.ui/src-gen/org/ptolemy/xtext/ui/contentassist/antlr/internal/InternalXActor.g:34958:64: ( 'b' | 'B' ) ( 'i' | 'I' )
+                            // ../org.ptolemy.xtext.ui/src-gen/org/ptolemy/xtext/ui/contentassist/antlr/internal/InternalXActor.g:35106:64: ( 'b' | 'B' ) ( 'i' | 'I' )
                             {
                             if ( input.LA(1)=='B'||input.LA(1)=='b' ) {
                                 input.consume();
@@ -2336,7 +2336,7 @@ public class InternalXActorLexer extends Lexer {
                             }
                             break;
                         case 2 :
-                            // ../org.ptolemy.xtext.ui/src-gen/org/ptolemy/xtext/ui/contentassist/antlr/internal/InternalXActor.g:34958:84: ( 'l' | 'L' )
+                            // ../org.ptolemy.xtext.ui/src-gen/org/ptolemy/xtext/ui/contentassist/antlr/internal/InternalXActor.g:35106:84: ( 'l' | 'L' )
                             {
                             if ( input.LA(1)=='L'||input.LA(1)=='l' ) {
                                 input.consume();
@@ -2375,11 +2375,11 @@ public class InternalXActorLexer extends Lexer {
         try {
             int _type = RULE_INT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.ptolemy.xtext.ui/src-gen/org/ptolemy/xtext/ui/contentassist/antlr/internal/InternalXActor.g:34960:10: ( '0' .. '9' ( '0' .. '9' | '_' )* )
-            // ../org.ptolemy.xtext.ui/src-gen/org/ptolemy/xtext/ui/contentassist/antlr/internal/InternalXActor.g:34960:12: '0' .. '9' ( '0' .. '9' | '_' )*
+            // ../org.ptolemy.xtext.ui/src-gen/org/ptolemy/xtext/ui/contentassist/antlr/internal/InternalXActor.g:35108:10: ( '0' .. '9' ( '0' .. '9' | '_' )* )
+            // ../org.ptolemy.xtext.ui/src-gen/org/ptolemy/xtext/ui/contentassist/antlr/internal/InternalXActor.g:35108:12: '0' .. '9' ( '0' .. '9' | '_' )*
             {
             matchRange('0','9'); 
-            // ../org.ptolemy.xtext.ui/src-gen/org/ptolemy/xtext/ui/contentassist/antlr/internal/InternalXActor.g:34960:21: ( '0' .. '9' | '_' )*
+            // ../org.ptolemy.xtext.ui/src-gen/org/ptolemy/xtext/ui/contentassist/antlr/internal/InternalXActor.g:35108:21: ( '0' .. '9' | '_' )*
             loop5:
             do {
                 int alt5=2;
@@ -2428,11 +2428,11 @@ public class InternalXActorLexer extends Lexer {
         try {
             int _type = RULE_DECIMAL;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.ptolemy.xtext.ui/src-gen/org/ptolemy/xtext/ui/contentassist/antlr/internal/InternalXActor.g:34962:14: ( RULE_INT ( ( 'e' | 'E' ) ( '+' | '-' )? RULE_INT )? ( ( 'b' | 'B' ) ( 'i' | 'I' | 'd' | 'D' ) | ( 'l' | 'L' | 'd' | 'D' | 'f' | 'F' ) )? )
-            // ../org.ptolemy.xtext.ui/src-gen/org/ptolemy/xtext/ui/contentassist/antlr/internal/InternalXActor.g:34962:16: RULE_INT ( ( 'e' | 'E' ) ( '+' | '-' )? RULE_INT )? ( ( 'b' | 'B' ) ( 'i' | 'I' | 'd' | 'D' ) | ( 'l' | 'L' | 'd' | 'D' | 'f' | 'F' ) )?
+            // ../org.ptolemy.xtext.ui/src-gen/org/ptolemy/xtext/ui/contentassist/antlr/internal/InternalXActor.g:35110:14: ( RULE_INT ( ( 'e' | 'E' ) ( '+' | '-' )? RULE_INT )? ( ( 'b' | 'B' ) ( 'i' | 'I' | 'd' | 'D' ) | ( 'l' | 'L' | 'd' | 'D' | 'f' | 'F' ) )? )
+            // ../org.ptolemy.xtext.ui/src-gen/org/ptolemy/xtext/ui/contentassist/antlr/internal/InternalXActor.g:35110:16: RULE_INT ( ( 'e' | 'E' ) ( '+' | '-' )? RULE_INT )? ( ( 'b' | 'B' ) ( 'i' | 'I' | 'd' | 'D' ) | ( 'l' | 'L' | 'd' | 'D' | 'f' | 'F' ) )?
             {
             mRULE_INT(); 
-            // ../org.ptolemy.xtext.ui/src-gen/org/ptolemy/xtext/ui/contentassist/antlr/internal/InternalXActor.g:34962:25: ( ( 'e' | 'E' ) ( '+' | '-' )? RULE_INT )?
+            // ../org.ptolemy.xtext.ui/src-gen/org/ptolemy/xtext/ui/contentassist/antlr/internal/InternalXActor.g:35110:25: ( ( 'e' | 'E' ) ( '+' | '-' )? RULE_INT )?
             int alt7=2;
             int LA7_0 = input.LA(1);
 
@@ -2441,7 +2441,7 @@ public class InternalXActorLexer extends Lexer {
             }
             switch (alt7) {
                 case 1 :
-                    // ../org.ptolemy.xtext.ui/src-gen/org/ptolemy/xtext/ui/contentassist/antlr/internal/InternalXActor.g:34962:26: ( 'e' | 'E' ) ( '+' | '-' )? RULE_INT
+                    // ../org.ptolemy.xtext.ui/src-gen/org/ptolemy/xtext/ui/contentassist/antlr/internal/InternalXActor.g:35110:26: ( 'e' | 'E' ) ( '+' | '-' )? RULE_INT
                     {
                     if ( input.LA(1)=='E'||input.LA(1)=='e' ) {
                         input.consume();
@@ -2452,7 +2452,7 @@ public class InternalXActorLexer extends Lexer {
                         recover(mse);
                         throw mse;}
 
-                    // ../org.ptolemy.xtext.ui/src-gen/org/ptolemy/xtext/ui/contentassist/antlr/internal/InternalXActor.g:34962:36: ( '+' | '-' )?
+                    // ../org.ptolemy.xtext.ui/src-gen/org/ptolemy/xtext/ui/contentassist/antlr/internal/InternalXActor.g:35110:36: ( '+' | '-' )?
                     int alt6=2;
                     int LA6_0 = input.LA(1);
 
@@ -2485,7 +2485,7 @@ public class InternalXActorLexer extends Lexer {
 
             }
 
-            // ../org.ptolemy.xtext.ui/src-gen/org/ptolemy/xtext/ui/contentassist/antlr/internal/InternalXActor.g:34962:58: ( ( 'b' | 'B' ) ( 'i' | 'I' | 'd' | 'D' ) | ( 'l' | 'L' | 'd' | 'D' | 'f' | 'F' ) )?
+            // ../org.ptolemy.xtext.ui/src-gen/org/ptolemy/xtext/ui/contentassist/antlr/internal/InternalXActor.g:35110:58: ( ( 'b' | 'B' ) ( 'i' | 'I' | 'd' | 'D' ) | ( 'l' | 'L' | 'd' | 'D' | 'f' | 'F' ) )?
             int alt8=3;
             int LA8_0 = input.LA(1);
 
@@ -2497,7 +2497,7 @@ public class InternalXActorLexer extends Lexer {
             }
             switch (alt8) {
                 case 1 :
-                    // ../org.ptolemy.xtext.ui/src-gen/org/ptolemy/xtext/ui/contentassist/antlr/internal/InternalXActor.g:34962:59: ( 'b' | 'B' ) ( 'i' | 'I' | 'd' | 'D' )
+                    // ../org.ptolemy.xtext.ui/src-gen/org/ptolemy/xtext/ui/contentassist/antlr/internal/InternalXActor.g:35110:59: ( 'b' | 'B' ) ( 'i' | 'I' | 'd' | 'D' )
                     {
                     if ( input.LA(1)=='B'||input.LA(1)=='b' ) {
                         input.consume();
@@ -2521,7 +2521,7 @@ public class InternalXActorLexer extends Lexer {
                     }
                     break;
                 case 2 :
-                    // ../org.ptolemy.xtext.ui/src-gen/org/ptolemy/xtext/ui/contentassist/antlr/internal/InternalXActor.g:34962:87: ( 'l' | 'L' | 'd' | 'D' | 'f' | 'F' )
+                    // ../org.ptolemy.xtext.ui/src-gen/org/ptolemy/xtext/ui/contentassist/antlr/internal/InternalXActor.g:35110:87: ( 'l' | 'L' | 'd' | 'D' | 'f' | 'F' )
                     {
                     if ( input.LA(1)=='D'||input.LA(1)=='F'||input.LA(1)=='L'||input.LA(1)=='d'||input.LA(1)=='f'||input.LA(1)=='l' ) {
                         input.consume();
@@ -2554,10 +2554,10 @@ public class InternalXActorLexer extends Lexer {
         try {
             int _type = RULE_ID;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.ptolemy.xtext.ui/src-gen/org/ptolemy/xtext/ui/contentassist/antlr/internal/InternalXActor.g:34964:9: ( ( '^' )? ( 'a' .. 'z' | 'A' .. 'Z' | '$' | '_' ) ( 'a' .. 'z' | 'A' .. 'Z' | '$' | '_' | '0' .. '9' )* )
-            // ../org.ptolemy.xtext.ui/src-gen/org/ptolemy/xtext/ui/contentassist/antlr/internal/InternalXActor.g:34964:11: ( '^' )? ( 'a' .. 'z' | 'A' .. 'Z' | '$' | '_' ) ( 'a' .. 'z' | 'A' .. 'Z' | '$' | '_' | '0' .. '9' )*
+            // ../org.ptolemy.xtext.ui/src-gen/org/ptolemy/xtext/ui/contentassist/antlr/internal/InternalXActor.g:35112:9: ( ( '^' )? ( 'a' .. 'z' | 'A' .. 'Z' | '$' | '_' ) ( 'a' .. 'z' | 'A' .. 'Z' | '$' | '_' | '0' .. '9' )* )
+            // ../org.ptolemy.xtext.ui/src-gen/org/ptolemy/xtext/ui/contentassist/antlr/internal/InternalXActor.g:35112:11: ( '^' )? ( 'a' .. 'z' | 'A' .. 'Z' | '$' | '_' ) ( 'a' .. 'z' | 'A' .. 'Z' | '$' | '_' | '0' .. '9' )*
             {
-            // ../org.ptolemy.xtext.ui/src-gen/org/ptolemy/xtext/ui/contentassist/antlr/internal/InternalXActor.g:34964:11: ( '^' )?
+            // ../org.ptolemy.xtext.ui/src-gen/org/ptolemy/xtext/ui/contentassist/antlr/internal/InternalXActor.g:35112:11: ( '^' )?
             int alt9=2;
             int LA9_0 = input.LA(1);
 
@@ -2566,7 +2566,7 @@ public class InternalXActorLexer extends Lexer {
             }
             switch (alt9) {
                 case 1 :
-                    // ../org.ptolemy.xtext.ui/src-gen/org/ptolemy/xtext/ui/contentassist/antlr/internal/InternalXActor.g:34964:11: '^'
+                    // ../org.ptolemy.xtext.ui/src-gen/org/ptolemy/xtext/ui/contentassist/antlr/internal/InternalXActor.g:35112:11: '^'
                     {
                     match('^'); 
 
@@ -2584,7 +2584,7 @@ public class InternalXActorLexer extends Lexer {
                 recover(mse);
                 throw mse;}
 
-            // ../org.ptolemy.xtext.ui/src-gen/org/ptolemy/xtext/ui/contentassist/antlr/internal/InternalXActor.g:34964:44: ( 'a' .. 'z' | 'A' .. 'Z' | '$' | '_' | '0' .. '9' )*
+            // ../org.ptolemy.xtext.ui/src-gen/org/ptolemy/xtext/ui/contentassist/antlr/internal/InternalXActor.g:35112:44: ( 'a' .. 'z' | 'A' .. 'Z' | '$' | '_' | '0' .. '9' )*
             loop10:
             do {
                 int alt10=2;
@@ -2633,10 +2633,10 @@ public class InternalXActorLexer extends Lexer {
         try {
             int _type = RULE_STRING;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.ptolemy.xtext.ui/src-gen/org/ptolemy/xtext/ui/contentassist/antlr/internal/InternalXActor.g:34966:13: ( ( '\"' ( '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | 'u' | '\"' | '\\'' | '\\\\' ) | ~ ( ( '\\\\' | '\"' ) ) )* '\"' | '\\'' ( '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | 'u' | '\"' | '\\'' | '\\\\' ) | ~ ( ( '\\\\' | '\\'' ) ) )* '\\'' ) )
-            // ../org.ptolemy.xtext.ui/src-gen/org/ptolemy/xtext/ui/contentassist/antlr/internal/InternalXActor.g:34966:15: ( '\"' ( '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | 'u' | '\"' | '\\'' | '\\\\' ) | ~ ( ( '\\\\' | '\"' ) ) )* '\"' | '\\'' ( '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | 'u' | '\"' | '\\'' | '\\\\' ) | ~ ( ( '\\\\' | '\\'' ) ) )* '\\'' )
+            // ../org.ptolemy.xtext.ui/src-gen/org/ptolemy/xtext/ui/contentassist/antlr/internal/InternalXActor.g:35114:13: ( ( '\"' ( '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | 'u' | '\"' | '\\'' | '\\\\' ) | ~ ( ( '\\\\' | '\"' ) ) )* '\"' | '\\'' ( '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | 'u' | '\"' | '\\'' | '\\\\' ) | ~ ( ( '\\\\' | '\\'' ) ) )* '\\'' ) )
+            // ../org.ptolemy.xtext.ui/src-gen/org/ptolemy/xtext/ui/contentassist/antlr/internal/InternalXActor.g:35114:15: ( '\"' ( '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | 'u' | '\"' | '\\'' | '\\\\' ) | ~ ( ( '\\\\' | '\"' ) ) )* '\"' | '\\'' ( '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | 'u' | '\"' | '\\'' | '\\\\' ) | ~ ( ( '\\\\' | '\\'' ) ) )* '\\'' )
             {
-            // ../org.ptolemy.xtext.ui/src-gen/org/ptolemy/xtext/ui/contentassist/antlr/internal/InternalXActor.g:34966:15: ( '\"' ( '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | 'u' | '\"' | '\\'' | '\\\\' ) | ~ ( ( '\\\\' | '\"' ) ) )* '\"' | '\\'' ( '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | 'u' | '\"' | '\\'' | '\\\\' ) | ~ ( ( '\\\\' | '\\'' ) ) )* '\\'' )
+            // ../org.ptolemy.xtext.ui/src-gen/org/ptolemy/xtext/ui/contentassist/antlr/internal/InternalXActor.g:35114:15: ( '\"' ( '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | 'u' | '\"' | '\\'' | '\\\\' ) | ~ ( ( '\\\\' | '\"' ) ) )* '\"' | '\\'' ( '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | 'u' | '\"' | '\\'' | '\\\\' ) | ~ ( ( '\\\\' | '\\'' ) ) )* '\\'' )
             int alt13=2;
             int LA13_0 = input.LA(1);
 
@@ -2654,10 +2654,10 @@ public class InternalXActorLexer extends Lexer {
             }
             switch (alt13) {
                 case 1 :
-                    // ../org.ptolemy.xtext.ui/src-gen/org/ptolemy/xtext/ui/contentassist/antlr/internal/InternalXActor.g:34966:16: '\"' ( '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | 'u' | '\"' | '\\'' | '\\\\' ) | ~ ( ( '\\\\' | '\"' ) ) )* '\"'
+                    // ../org.ptolemy.xtext.ui/src-gen/org/ptolemy/xtext/ui/contentassist/antlr/internal/InternalXActor.g:35114:16: '\"' ( '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | 'u' | '\"' | '\\'' | '\\\\' ) | ~ ( ( '\\\\' | '\"' ) ) )* '\"'
                     {
                     match('\"'); 
-                    // ../org.ptolemy.xtext.ui/src-gen/org/ptolemy/xtext/ui/contentassist/antlr/internal/InternalXActor.g:34966:20: ( '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | 'u' | '\"' | '\\'' | '\\\\' ) | ~ ( ( '\\\\' | '\"' ) ) )*
+                    // ../org.ptolemy.xtext.ui/src-gen/org/ptolemy/xtext/ui/contentassist/antlr/internal/InternalXActor.g:35114:20: ( '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | 'u' | '\"' | '\\'' | '\\\\' ) | ~ ( ( '\\\\' | '\"' ) ) )*
                     loop11:
                     do {
                         int alt11=3;
@@ -2673,7 +2673,7 @@ public class InternalXActorLexer extends Lexer {
 
                         switch (alt11) {
                     	case 1 :
-                    	    // ../org.ptolemy.xtext.ui/src-gen/org/ptolemy/xtext/ui/contentassist/antlr/internal/InternalXActor.g:34966:21: '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | 'u' | '\"' | '\\'' | '\\\\' )
+                    	    // ../org.ptolemy.xtext.ui/src-gen/org/ptolemy/xtext/ui/contentassist/antlr/internal/InternalXActor.g:35114:21: '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | 'u' | '\"' | '\\'' | '\\\\' )
                     	    {
                     	    match('\\'); 
                     	    if ( input.LA(1)=='\"'||input.LA(1)=='\''||input.LA(1)=='\\'||input.LA(1)=='b'||input.LA(1)=='f'||input.LA(1)=='n'||input.LA(1)=='r'||(input.LA(1)>='t' && input.LA(1)<='u') ) {
@@ -2689,7 +2689,7 @@ public class InternalXActorLexer extends Lexer {
                     	    }
                     	    break;
                     	case 2 :
-                    	    // ../org.ptolemy.xtext.ui/src-gen/org/ptolemy/xtext/ui/contentassist/antlr/internal/InternalXActor.g:34966:66: ~ ( ( '\\\\' | '\"' ) )
+                    	    // ../org.ptolemy.xtext.ui/src-gen/org/ptolemy/xtext/ui/contentassist/antlr/internal/InternalXActor.g:35114:66: ~ ( ( '\\\\' | '\"' ) )
                     	    {
                     	    if ( (input.LA(1)>='\u0000' && input.LA(1)<='!')||(input.LA(1)>='#' && input.LA(1)<='[')||(input.LA(1)>=']' && input.LA(1)<='\uFFFF') ) {
                     	        input.consume();
@@ -2714,10 +2714,10 @@ public class InternalXActorLexer extends Lexer {
                     }
                     break;
                 case 2 :
-                    // ../org.ptolemy.xtext.ui/src-gen/org/ptolemy/xtext/ui/contentassist/antlr/internal/InternalXActor.g:34966:86: '\\'' ( '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | 'u' | '\"' | '\\'' | '\\\\' ) | ~ ( ( '\\\\' | '\\'' ) ) )* '\\''
+                    // ../org.ptolemy.xtext.ui/src-gen/org/ptolemy/xtext/ui/contentassist/antlr/internal/InternalXActor.g:35114:86: '\\'' ( '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | 'u' | '\"' | '\\'' | '\\\\' ) | ~ ( ( '\\\\' | '\\'' ) ) )* '\\''
                     {
                     match('\''); 
-                    // ../org.ptolemy.xtext.ui/src-gen/org/ptolemy/xtext/ui/contentassist/antlr/internal/InternalXActor.g:34966:91: ( '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | 'u' | '\"' | '\\'' | '\\\\' ) | ~ ( ( '\\\\' | '\\'' ) ) )*
+                    // ../org.ptolemy.xtext.ui/src-gen/org/ptolemy/xtext/ui/contentassist/antlr/internal/InternalXActor.g:35114:91: ( '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | 'u' | '\"' | '\\'' | '\\\\' ) | ~ ( ( '\\\\' | '\\'' ) ) )*
                     loop12:
                     do {
                         int alt12=3;
@@ -2733,7 +2733,7 @@ public class InternalXActorLexer extends Lexer {
 
                         switch (alt12) {
                     	case 1 :
-                    	    // ../org.ptolemy.xtext.ui/src-gen/org/ptolemy/xtext/ui/contentassist/antlr/internal/InternalXActor.g:34966:92: '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | 'u' | '\"' | '\\'' | '\\\\' )
+                    	    // ../org.ptolemy.xtext.ui/src-gen/org/ptolemy/xtext/ui/contentassist/antlr/internal/InternalXActor.g:35114:92: '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | 'u' | '\"' | '\\'' | '\\\\' )
                     	    {
                     	    match('\\'); 
                     	    if ( input.LA(1)=='\"'||input.LA(1)=='\''||input.LA(1)=='\\'||input.LA(1)=='b'||input.LA(1)=='f'||input.LA(1)=='n'||input.LA(1)=='r'||(input.LA(1)>='t' && input.LA(1)<='u') ) {
@@ -2749,7 +2749,7 @@ public class InternalXActorLexer extends Lexer {
                     	    }
                     	    break;
                     	case 2 :
-                    	    // ../org.ptolemy.xtext.ui/src-gen/org/ptolemy/xtext/ui/contentassist/antlr/internal/InternalXActor.g:34966:137: ~ ( ( '\\\\' | '\\'' ) )
+                    	    // ../org.ptolemy.xtext.ui/src-gen/org/ptolemy/xtext/ui/contentassist/antlr/internal/InternalXActor.g:35114:137: ~ ( ( '\\\\' | '\\'' ) )
                     	    {
                     	    if ( (input.LA(1)>='\u0000' && input.LA(1)<='&')||(input.LA(1)>='(' && input.LA(1)<='[')||(input.LA(1)>=']' && input.LA(1)<='\uFFFF') ) {
                     	        input.consume();
@@ -2792,12 +2792,12 @@ public class InternalXActorLexer extends Lexer {
         try {
             int _type = RULE_ML_COMMENT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.ptolemy.xtext.ui/src-gen/org/ptolemy/xtext/ui/contentassist/antlr/internal/InternalXActor.g:34968:17: ( '/*' ( options {greedy=false; } : . )* '*/' )
-            // ../org.ptolemy.xtext.ui/src-gen/org/ptolemy/xtext/ui/contentassist/antlr/internal/InternalXActor.g:34968:19: '/*' ( options {greedy=false; } : . )* '*/'
+            // ../org.ptolemy.xtext.ui/src-gen/org/ptolemy/xtext/ui/contentassist/antlr/internal/InternalXActor.g:35116:17: ( '/*' ( options {greedy=false; } : . )* '*/' )
+            // ../org.ptolemy.xtext.ui/src-gen/org/ptolemy/xtext/ui/contentassist/antlr/internal/InternalXActor.g:35116:19: '/*' ( options {greedy=false; } : . )* '*/'
             {
             match("/*"); 
 
-            // ../org.ptolemy.xtext.ui/src-gen/org/ptolemy/xtext/ui/contentassist/antlr/internal/InternalXActor.g:34968:24: ( options {greedy=false; } : . )*
+            // ../org.ptolemy.xtext.ui/src-gen/org/ptolemy/xtext/ui/contentassist/antlr/internal/InternalXActor.g:35116:24: ( options {greedy=false; } : . )*
             loop14:
             do {
                 int alt14=2;
@@ -2822,7 +2822,7 @@ public class InternalXActorLexer extends Lexer {
 
                 switch (alt14) {
             	case 1 :
-            	    // ../org.ptolemy.xtext.ui/src-gen/org/ptolemy/xtext/ui/contentassist/antlr/internal/InternalXActor.g:34968:52: .
+            	    // ../org.ptolemy.xtext.ui/src-gen/org/ptolemy/xtext/ui/contentassist/antlr/internal/InternalXActor.g:35116:52: .
             	    {
             	    matchAny(); 
 
@@ -2852,12 +2852,12 @@ public class InternalXActorLexer extends Lexer {
         try {
             int _type = RULE_SL_COMMENT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.ptolemy.xtext.ui/src-gen/org/ptolemy/xtext/ui/contentassist/antlr/internal/InternalXActor.g:34970:17: ( '//' (~ ( ( '\\n' | '\\r' ) ) )* ( ( '\\r' )? '\\n' )? )
-            // ../org.ptolemy.xtext.ui/src-gen/org/ptolemy/xtext/ui/contentassist/antlr/internal/InternalXActor.g:34970:19: '//' (~ ( ( '\\n' | '\\r' ) ) )* ( ( '\\r' )? '\\n' )?
+            // ../org.ptolemy.xtext.ui/src-gen/org/ptolemy/xtext/ui/contentassist/antlr/internal/InternalXActor.g:35118:17: ( '//' (~ ( ( '\\n' | '\\r' ) ) )* ( ( '\\r' )? '\\n' )? )
+            // ../org.ptolemy.xtext.ui/src-gen/org/ptolemy/xtext/ui/contentassist/antlr/internal/InternalXActor.g:35118:19: '//' (~ ( ( '\\n' | '\\r' ) ) )* ( ( '\\r' )? '\\n' )?
             {
             match("//"); 
 
-            // ../org.ptolemy.xtext.ui/src-gen/org/ptolemy/xtext/ui/contentassist/antlr/internal/InternalXActor.g:34970:24: (~ ( ( '\\n' | '\\r' ) ) )*
+            // ../org.ptolemy.xtext.ui/src-gen/org/ptolemy/xtext/ui/contentassist/antlr/internal/InternalXActor.g:35118:24: (~ ( ( '\\n' | '\\r' ) ) )*
             loop15:
             do {
                 int alt15=2;
@@ -2870,7 +2870,7 @@ public class InternalXActorLexer extends Lexer {
 
                 switch (alt15) {
             	case 1 :
-            	    // ../org.ptolemy.xtext.ui/src-gen/org/ptolemy/xtext/ui/contentassist/antlr/internal/InternalXActor.g:34970:24: ~ ( ( '\\n' | '\\r' ) )
+            	    // ../org.ptolemy.xtext.ui/src-gen/org/ptolemy/xtext/ui/contentassist/antlr/internal/InternalXActor.g:35118:24: ~ ( ( '\\n' | '\\r' ) )
             	    {
             	    if ( (input.LA(1)>='\u0000' && input.LA(1)<='\t')||(input.LA(1)>='\u000B' && input.LA(1)<='\f')||(input.LA(1)>='\u000E' && input.LA(1)<='\uFFFF') ) {
             	        input.consume();
@@ -2890,7 +2890,7 @@ public class InternalXActorLexer extends Lexer {
                 }
             } while (true);
 
-            // ../org.ptolemy.xtext.ui/src-gen/org/ptolemy/xtext/ui/contentassist/antlr/internal/InternalXActor.g:34970:40: ( ( '\\r' )? '\\n' )?
+            // ../org.ptolemy.xtext.ui/src-gen/org/ptolemy/xtext/ui/contentassist/antlr/internal/InternalXActor.g:35118:40: ( ( '\\r' )? '\\n' )?
             int alt17=2;
             int LA17_0 = input.LA(1);
 
@@ -2899,9 +2899,9 @@ public class InternalXActorLexer extends Lexer {
             }
             switch (alt17) {
                 case 1 :
-                    // ../org.ptolemy.xtext.ui/src-gen/org/ptolemy/xtext/ui/contentassist/antlr/internal/InternalXActor.g:34970:41: ( '\\r' )? '\\n'
+                    // ../org.ptolemy.xtext.ui/src-gen/org/ptolemy/xtext/ui/contentassist/antlr/internal/InternalXActor.g:35118:41: ( '\\r' )? '\\n'
                     {
-                    // ../org.ptolemy.xtext.ui/src-gen/org/ptolemy/xtext/ui/contentassist/antlr/internal/InternalXActor.g:34970:41: ( '\\r' )?
+                    // ../org.ptolemy.xtext.ui/src-gen/org/ptolemy/xtext/ui/contentassist/antlr/internal/InternalXActor.g:35118:41: ( '\\r' )?
                     int alt16=2;
                     int LA16_0 = input.LA(1);
 
@@ -2910,7 +2910,7 @@ public class InternalXActorLexer extends Lexer {
                     }
                     switch (alt16) {
                         case 1 :
-                            // ../org.ptolemy.xtext.ui/src-gen/org/ptolemy/xtext/ui/contentassist/antlr/internal/InternalXActor.g:34970:41: '\\r'
+                            // ../org.ptolemy.xtext.ui/src-gen/org/ptolemy/xtext/ui/contentassist/antlr/internal/InternalXActor.g:35118:41: '\\r'
                             {
                             match('\r'); 
 
@@ -2942,10 +2942,10 @@ public class InternalXActorLexer extends Lexer {
         try {
             int _type = RULE_WS;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.ptolemy.xtext.ui/src-gen/org/ptolemy/xtext/ui/contentassist/antlr/internal/InternalXActor.g:34972:9: ( ( ' ' | '\\t' | '\\r' | '\\n' )+ )
-            // ../org.ptolemy.xtext.ui/src-gen/org/ptolemy/xtext/ui/contentassist/antlr/internal/InternalXActor.g:34972:11: ( ' ' | '\\t' | '\\r' | '\\n' )+
+            // ../org.ptolemy.xtext.ui/src-gen/org/ptolemy/xtext/ui/contentassist/antlr/internal/InternalXActor.g:35120:9: ( ( ' ' | '\\t' | '\\r' | '\\n' )+ )
+            // ../org.ptolemy.xtext.ui/src-gen/org/ptolemy/xtext/ui/contentassist/antlr/internal/InternalXActor.g:35120:11: ( ' ' | '\\t' | '\\r' | '\\n' )+
             {
-            // ../org.ptolemy.xtext.ui/src-gen/org/ptolemy/xtext/ui/contentassist/antlr/internal/InternalXActor.g:34972:11: ( ' ' | '\\t' | '\\r' | '\\n' )+
+            // ../org.ptolemy.xtext.ui/src-gen/org/ptolemy/xtext/ui/contentassist/antlr/internal/InternalXActor.g:35120:11: ( ' ' | '\\t' | '\\r' | '\\n' )+
             int cnt18=0;
             loop18:
             do {
@@ -2999,8 +2999,8 @@ public class InternalXActorLexer extends Lexer {
         try {
             int _type = RULE_ANY_OTHER;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.ptolemy.xtext.ui/src-gen/org/ptolemy/xtext/ui/contentassist/antlr/internal/InternalXActor.g:34974:16: ( . )
-            // ../org.ptolemy.xtext.ui/src-gen/org/ptolemy/xtext/ui/contentassist/antlr/internal/InternalXActor.g:34974:18: .
+            // ../org.ptolemy.xtext.ui/src-gen/org/ptolemy/xtext/ui/contentassist/antlr/internal/InternalXActor.g:35122:16: ( . )
+            // ../org.ptolemy.xtext.ui/src-gen/org/ptolemy/xtext/ui/contentassist/antlr/internal/InternalXActor.g:35122:18: .
             {
             matchAny(); 
 
@@ -3862,29 +3862,29 @@ public class InternalXActorLexer extends Lexer {
         "\172\2\uffff\1\164\2\172\2\uffff\1\151\2\uffff\1\157\1\156\1\172"+
         "\1\uffff";
     static final String DFA19_acceptS =
-        "\2\uffff\1\2\15\uffff\1\37\6\uffff\1\55\1\56\1\57\1\62\1\66\1\67"+
+        "\2\uffff\1\2\15\uffff\1\37\6\uffff\1\55\1\56\1\57\1\60\1\63\1\67"+
         "\1\70\6\uffff\1\110\1\111\5\uffff\1\147\2\uffff\1\153\1\154\1\uffff"+
         "\1\26\1\3\1\2\1\4\1\73\1\5\1\136\1\uffff\1\147\6\uffff\1\10\1\11"+
         "\1\32\1\12\1\23\1\uffff\1\33\1\17\1\21\1\uffff\1\27\1\22\1\uffff"+
         "\1\40\1\30\1\142\1\135\1\35\1\34\1\151\1\152\1\36\1\37\24\uffff"+
-        "\1\137\1\141\1\53\1\55\1\56\1\57\1\62\1\66\1\67\1\70\7\uffff\1\110"+
+        "\1\137\1\141\1\53\1\55\1\56\1\57\1\60\1\63\1\67\1\70\7\uffff\1\110"+
         "\1\111\4\uffff\1\144\1\uffff\1\145\1\146\1\150\1\153\1\1\1\15\1"+
         "\13\2\uffff\1\140\1\7\3\uffff\1\75\1\16\1\14\1\71\1\72\1\31\1\20"+
-        "\1\24\1\25\13\uffff\1\61\2\uffff\1\116\16\uffff\1\104\12\uffff\1"+
+        "\1\24\1\25\13\uffff\1\62\2\uffff\1\116\16\uffff\1\104\12\uffff\1"+
         "\6\1\41\1\50\1\51\3\uffff\1\54\16\uffff\1\113\1\123\3\uffff\1\125"+
         "\16\uffff\1\132\6\uffff\1\117\16\uffff\1\126\1\74\10\uffff\1\122"+
-        "\3\uffff\1\143\1\60\4\uffff\1\114\2\uffff\1\46\6\uffff\1\47\4\uffff"+
+        "\3\uffff\1\143\1\61\4\uffff\1\114\2\uffff\1\46\6\uffff\1\47\4\uffff"+
         "\1\124\2\uffff\1\103\1\107\3\uffff\1\134\1\uffff\1\130\1\106\3\uffff"+
         "\1\43\2\uffff\1\120\1\44\10\uffff\1\101\1\uffff\1\105\1\131\1\127"+
-        "\1\42\10\uffff\1\133\1\uffff\1\63\1\uffff\1\121\1\uffff\1\64\1\uffff"+
-        "\1\112\3\uffff\1\77\2\uffff\1\45\1\65\3\uffff\1\52\1\100\1\uffff"+
+        "\1\42\10\uffff\1\133\1\uffff\1\64\1\uffff\1\121\1\uffff\1\65\1\uffff"+
+        "\1\112\3\uffff\1\77\2\uffff\1\45\1\66\3\uffff\1\52\1\100\1\uffff"+
         "\1\102\1\115\3\uffff\1\76";
     static final String DFA19_specialS =
         "\1\0\53\uffff\1\1\1\2\u013f\uffff}>";
     static final String[] DFA19_transitionS = {
             "\11\57\2\56\2\57\1\56\22\57\1\56\1\7\1\54\1\2\1\53\1\20\1\4"+
-            "\1\55\1\30\1\31\1\16\1\10\1\27\1\11\1\14\1\17\1\50\11\51\1\26"+
-            "\1\32\1\13\1\1\1\12\1\15\1\33\32\53\1\34\1\57\1\35\1\52\1\53"+
+            "\1\55\1\31\1\32\1\16\1\10\1\30\1\11\1\14\1\17\1\50\11\51\1\26"+
+            "\1\33\1\13\1\1\1\12\1\15\1\27\32\53\1\34\1\57\1\35\1\52\1\53"+
             "\1\57\1\6\1\53\1\46\1\42\1\21\1\24\1\41\1\53\1\23\4\53\1\25"+
             "\1\53\1\37\1\53\1\43\1\22\1\47\1\40\1\5\1\36\3\53\1\44\1\3\1"+
             "\45\uff82\57",
@@ -4395,15 +4395,15 @@ public class InternalXActorLexer extends Lexer {
 
                         else if ( (LA19_0==':') ) {s = 22;}
 
-                        else if ( (LA19_0==',') ) {s = 23;}
+                        else if ( (LA19_0=='@') ) {s = 23;}
 
-                        else if ( (LA19_0=='(') ) {s = 24;}
+                        else if ( (LA19_0==',') ) {s = 24;}
 
-                        else if ( (LA19_0==')') ) {s = 25;}
+                        else if ( (LA19_0=='(') ) {s = 25;}
 
-                        else if ( (LA19_0==';') ) {s = 26;}
+                        else if ( (LA19_0==')') ) {s = 26;}
 
-                        else if ( (LA19_0=='@') ) {s = 27;}
+                        else if ( (LA19_0==';') ) {s = 27;}
 
                         else if ( (LA19_0=='[') ) {s = 28;}
 

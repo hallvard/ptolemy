@@ -1,0 +1,41 @@
+namespace org.ptolemy.xtext.examples.mqtt :
+
+import org.ptolemy.xtext.examples.javafx.scene.control.PTextInput
+import org.ptolemy.xtext.examples.javafx.scene.control.PButtonValve
+import org.ptolemy.xtext.examples.javafx.scene.control.PCollection
+
+import ptolemy.domains.de.kernel.DEDirector
+import org.ptolemy.xtext.launch.javafx.JavafxResource
+import java.util.Arrays
+import java.util.Collection
+
+network test :
+
+	@DEDirector director(stopWhenQueueIsEmpty=false, synchronizeToRealTime=true)
+	@JavafxResource beanResource(resource="src/org/ptolemy/xtext/examples/mqtt/test.fxml")
+
+	entities
+		testText = PTextInput(id="testText")
+		testButtonValve = PButtonValve<String>(id="testButton")
+		stringSplitter = actor String input ==> String output :
+			action [s] ==> [ss] repeat ss.length
+			do
+				val Collection<String> ss = Arrays.asList(s.split(" "))
+				ss
+			end
+		end
+		stringSpitter = actor String input ==> String output :
+			action [s1,s2,s3] 	==> [s] do val String s = s1 + s2 + s3	s end
+			action [s1,s2] 		==> [s] do val String s = s1 + s2		s end
+			action [s1]			==> [s] do val String s = s1			s end
+		end
+		list = PCollection<String>(id="testList")
+
+	structure
+		testText.userInput --> testButtonValve.input
+		testButtonValve.output --> stringSplitter.input
+		stringSplitter.output --> stringSpitter.input
+		stringSpitter.output --> list.append
+end
+
+end

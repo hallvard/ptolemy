@@ -17,6 +17,10 @@ public class StringTokens extends Tokens<String> {
 
 	//
 
+	public static StringToken create(String s) {
+		return new StringToken(s);
+	}
+
 	public static String get(Token token) throws IllegalActionException {
 		return StringToken.convert(token).stringValue();
 	}

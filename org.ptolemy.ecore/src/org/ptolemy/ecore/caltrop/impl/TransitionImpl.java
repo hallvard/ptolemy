@@ -12,8 +12,10 @@ import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.EObjectImpl;
 import org.eclipse.emf.ecore.util.EDataTypeUniqueEList;
+import org.eclipse.emf.ecore.util.EObjectResolvingEList;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.ptolemy.ecore.caltrop.CaltropPackage;
+import org.ptolemy.ecore.caltrop.OutputAction;
 import org.ptolemy.ecore.caltrop.State;
 import org.ptolemy.ecore.caltrop.Transition;
 
@@ -26,7 +28,7 @@ import org.ptolemy.ecore.caltrop.Transition;
  * <ul>
  *   <li>{@link org.ptolemy.ecore.caltrop.impl.TransitionImpl#getSource <em>Source</em>}</li>
  *   <li>{@link org.ptolemy.ecore.caltrop.impl.TransitionImpl#getTarget <em>Target</em>}</li>
- *   <li>{@link org.ptolemy.ecore.caltrop.impl.TransitionImpl#getTags <em>Tags</em>}</li>
+ *   <li>{@link org.ptolemy.ecore.caltrop.impl.TransitionImpl#getActions <em>Actions</em>}</li>
  * </ul>
  * </p>
  *
@@ -44,14 +46,14 @@ public class TransitionImpl extends EObjectImpl implements Transition {
 	protected State target;
 
 	/**
-	 * The cached value of the '{@link #getTags() <em>Tags</em>}' attribute list.
+	 * The cached value of the '{@link #getActions() <em>Actions</em>}' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getTags()
+	 * @see #getActions()
 	 * @generated
 	 * @ordered
 	 */
-	protected EList<String> tags;
+	protected EList<OutputAction> actions;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -156,11 +158,11 @@ public class TransitionImpl extends EObjectImpl implements Transition {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EList<String> getTags() {
-		if (tags == null) {
-			tags = new EDataTypeUniqueEList<String>(String.class, this, CaltropPackage.TRANSITION__TAGS);
+	public EList<OutputAction> getActions() {
+		if (actions == null) {
+			actions = new EObjectResolvingEList<OutputAction>(OutputAction.class, this, CaltropPackage.TRANSITION__ACTIONS);
 		}
-		return tags;
+		return actions;
 	}
 
 	/**
@@ -220,8 +222,8 @@ public class TransitionImpl extends EObjectImpl implements Transition {
 			case CaltropPackage.TRANSITION__TARGET:
 				if (resolve) return getTarget();
 				return basicGetTarget();
-			case CaltropPackage.TRANSITION__TAGS:
-				return getTags();
+			case CaltropPackage.TRANSITION__ACTIONS:
+				return getActions();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -241,9 +243,9 @@ public class TransitionImpl extends EObjectImpl implements Transition {
 			case CaltropPackage.TRANSITION__TARGET:
 				setTarget((State)newValue);
 				return;
-			case CaltropPackage.TRANSITION__TAGS:
-				getTags().clear();
-				getTags().addAll((Collection<? extends String>)newValue);
+			case CaltropPackage.TRANSITION__ACTIONS:
+				getActions().clear();
+				getActions().addAll((Collection<? extends OutputAction>)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -263,8 +265,8 @@ public class TransitionImpl extends EObjectImpl implements Transition {
 			case CaltropPackage.TRANSITION__TARGET:
 				setTarget((State)null);
 				return;
-			case CaltropPackage.TRANSITION__TAGS:
-				getTags().clear();
+			case CaltropPackage.TRANSITION__ACTIONS:
+				getActions().clear();
 				return;
 		}
 		super.eUnset(featureID);
@@ -282,26 +284,10 @@ public class TransitionImpl extends EObjectImpl implements Transition {
 				return getSource() != null;
 			case CaltropPackage.TRANSITION__TARGET:
 				return target != null;
-			case CaltropPackage.TRANSITION__TAGS:
-				return tags != null && !tags.isEmpty();
+			case CaltropPackage.TRANSITION__ACTIONS:
+				return actions != null && !actions.isEmpty();
 		}
 		return super.eIsSet(featureID);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public String toString() {
-		if (eIsProxy()) return super.toString();
-
-		StringBuffer result = new StringBuffer(super.toString());
-		result.append(" (tags: ");
-		result.append(tags);
-		result.append(')');
-		return result.toString();
 	}
 
 } //TransitionImpl

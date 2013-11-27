@@ -11,15 +11,23 @@ import org.eclipse.xtext.resource.IEObjectDescription;
 import org.eclipse.xtext.scoping.IScope;
 import org.eclipse.xtext.scoping.impl.SimpleScope;
 import org.ptolemy.ecore.actor.AbstractIOPort;
+import org.ptolemy.ecore.actor.ActorPackage;
+import org.ptolemy.ecore.actor.Parameter;
+import org.ptolemy.ecore.actor.ParameterBinding;
 import org.ptolemy.ecore.caltrop.CaltropActorImpl;
 import org.ptolemy.ecore.caltrop.CaltropPackage;
 import org.ptolemy.ecore.caltrop.EventPattern;
+import org.ptolemy.ecore.caltrop.OutputAction;
 import org.ptolemy.ecore.caltrop.PortPattern;
 import org.ptolemy.ecore.caltrop.ReAction;
+import org.ptolemy.ecore.caltrop.Schedule;
+import org.ptolemy.ecore.caltrop.State;
 import org.ptolemy.ecore.caltrop.StateVariable;
+import org.ptolemy.ecore.caltrop.Transition;
 import org.ptolemy.ecore.kernel.Attribute;
 import org.ptolemy.ecore.kernel.Entity;
 import org.ptolemy.ecore.kernel.EntityContainer;
+import org.ptolemy.ecore.kernel.EntityRef;
 import org.ptolemy.ecore.kernel.KernelPackage;
 import org.ptolemy.ecore.kernel.Port;
 import org.ptolemy.ecore.kernel.Relation;
@@ -69,6 +77,21 @@ public class XActorDelegatedScopeProvider {
 					}
 				}
 			}
+		} else if (context instanceof ParameterBinding && reference == ActorPackage.eINSTANCE.getParameterBinding_ParameterRef()) {
+			EntityRef<?> superEntityRef = (EntityRef<?>) context.eContainer();
+			Entity<?> superEntity = superEntityRef.getRef();
+			for (Attribute attribute : superEntity.getAttributes()) {
+				if (attribute instanceof Parameter) {
+					descriptions.add(EObjectDescription.create(QualifiedName.create(attribute.getName()), attribute));
+				}
+			}
+//		} else if (context instanceof Transition && reference == CaltropPackage.eINSTANCE.getTransition_Actions()) {
+//			CaltropActorImpl<?> actorImpl = (CaltropActorImpl<?>) ((Schedule) ((State) context.eContainer()).eContainer()).eContainer();
+//			for (OutputAction action : actorImpl.getActions()) {
+//				if (action.getName() != null) {
+//					descriptions.add(EObjectDescription.create(QualifiedName.create(action.getName()), action));
+//				}
+//			}
 		}
 		return (descriptions.isEmpty() ? superScope : new SimpleScope(descriptions));
 	}

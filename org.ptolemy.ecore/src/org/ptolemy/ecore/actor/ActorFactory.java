@@ -35,13 +35,13 @@ public interface ActorFactory extends EFactory {
 	JvmTypedObj createJvmTypedObj();
 
 	/**
-	 * Returns a new object of class '<em>Injectable Attribute</em>'.
+	 * Returns a new object of class '<em>Jvm Typed Attribute</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Injectable Attribute</em>'.
+	 * @return a new object of class '<em>Jvm Typed Attribute</em>'.
 	 * @generated
 	 */
-	InjectableAttribute createInjectableAttribute();
+	JvmTypedAttribute createJvmTypedAttribute();
 
 	/**
 	 * Returns a new object of class '<em>Variable</em>'.

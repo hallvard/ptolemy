@@ -1,8 +1,5 @@
 namespace org.ptolemy.xtext.examples.swing :
 
-import java.util.List
-import java.util.ArrayList
-
 import org.ptolemy.xtext.examples.ui.Variable
 import org.ptolemy.xtext.examples.ui.CollectionVariable
 import org.ptolemy.xtext.examples.ui.Converter

@@ -1,0 +1,22 @@
+namespace org.ptolemy.xtext.examples.mqtt :
+
+import org.ptolemy.xtext.lib.caltrop.tuple.Tuple2
+
+namespace util :
+
+	actor TupleSplitter2p<T1,T2> Tuple2<T1,T2> tuple ==> T1 value1, T2 value2 :
+		action [tuple] ==> [tuple.value1],[tuple.value2]
+		end
+	end
+
+	actor TupleMerger2p<T1,T2> T1 value1, T2 value2 ==> Tuple2<T1,T2> tuple :
+		var T1 currentValue1
+		var T2 currentValue2
+		action value1 : [value] ==> [new Tuple2(currentValue1 = value, currentValue2)]
+		end
+		action value2 : [value] ==> [new Tuple2(currentValue1, currentValue2 = value)]
+		end
+	end
+end
+
+end

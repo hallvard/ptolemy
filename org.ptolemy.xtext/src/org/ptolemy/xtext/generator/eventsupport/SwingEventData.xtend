@@ -8,7 +8,7 @@ import org.ptolemy.xtext.generator.TreeAppendableUtil
 class SwingEventData extends EventData {
 
 	public new(JvmTypeReference typeRef, String name, JvmTypeReference listenerType) {
-		super(typeRef, name, listenerType)
+		super(typeRef, name, listenerType, null, 1)
 	}
 
 	@Inject extension TreeAppendableUtil

@@ -56,9 +56,10 @@ import org.eclipse.xtext.xtype.XImportSection;
 import org.eclipse.xtext.xtype.XtypePackage;
 import org.ptolemy.ecore.actor.ActorPackage;
 import org.ptolemy.ecore.actor.ActorRef;
-import org.ptolemy.ecore.actor.InjectableAttribute;
 import org.ptolemy.ecore.actor.JavaActorImpl;
+import org.ptolemy.ecore.actor.JvmTypedAttribute;
 import org.ptolemy.ecore.actor.JvmTypedObj;
+import org.ptolemy.ecore.actor.Parameter;
 import org.ptolemy.ecore.actor.ParameterBinding;
 import org.ptolemy.ecore.actor.TypeParameter;
 import org.ptolemy.ecore.actor.TypedAtomicActor;
@@ -102,12 +103,6 @@ public abstract class AbstractXActorSemanticSequencer extends XbaseSemanticSeque
 					return; 
 				}
 				else break;
-			case ActorPackage.INJECTABLE_ATTRIBUTE:
-				if(context == grammarAccess.getInjectableAttributeRule()) {
-					sequence_InjectableAttribute(context, (InjectableAttribute) semanticObject); 
-					return; 
-				}
-				else break;
 			case ActorPackage.JAVA_ACTOR_IMPL:
 				if(context == grammarAccess.getAtomicActorImplRule() ||
 				   context == grammarAccess.getJavaActorImplRule()) {
@@ -115,9 +110,21 @@ public abstract class AbstractXActorSemanticSequencer extends XbaseSemanticSeque
 					return; 
 				}
 				else break;
+			case ActorPackage.JVM_TYPED_ATTRIBUTE:
+				if(context == grammarAccess.getInjectableAttributeRule()) {
+					sequence_InjectableAttribute(context, (JvmTypedAttribute) semanticObject); 
+					return; 
+				}
+				else break;
 			case ActorPackage.JVM_TYPED_OBJ:
 				if(context == grammarAccess.getFunctionParameterRule()) {
 					sequence_FunctionParameter(context, (JvmTypedObj) semanticObject); 
+					return; 
+				}
+				else break;
+			case ActorPackage.PARAMETER:
+				if(context == grammarAccess.getInjectableAttributeRule()) {
+					sequence_InjectableAttribute(context, (Parameter) semanticObject); 
 					return; 
 				}
 				else break;
@@ -152,11 +159,7 @@ public abstract class AbstractXActorSemanticSequencer extends XbaseSemanticSeque
 				}
 				else break;
 			case ActorPackage.VARIABLE:
-				if(context == grammarAccess.getAnnotationAttributeRule()) {
-					sequence_AnnotationAttribute(context, (Variable) semanticObject); 
-					return; 
-				}
-				else if(context == grammarAccess.getVariableRule()) {
+				if(context == grammarAccess.getVariableRule()) {
 					sequence_Variable(context, (Variable) semanticObject); 
 					return; 
 				}
@@ -1349,15 +1352,6 @@ public abstract class AbstractXActorSemanticSequencer extends XbaseSemanticSeque
 	
 	/**
 	 * Constraint:
-	 *     (type=JvmParameterizedTypeReference? name=ValidID valueExpression=XInitExpression)
-	 */
-	protected void sequence_AnnotationAttribute(EObject context, Variable semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
-	}
-	
-	
-	/**
-	 * Constraint:
 	 *     (
 	 *         (declarations+=StateVariable | initActions+=InitAction | actions+=ReAction | functions+=FunctionDeclaration | functions+=ProcedureDeclaration)* 
 	 *         schedule=Schedule?
@@ -1500,9 +1494,18 @@ public abstract class AbstractXActorSemanticSequencer extends XbaseSemanticSeque
 	
 	/**
 	 * Constraint:
-	 *     (type=JvmTypeReference name=ValidID displayName=STRING? attributes+=AnnotationAttribute*)
+	 *     (type=JvmTypeReference name=ValidID? (attributes+=InjectableAttribute attributes+=InjectableAttribute*)?)
 	 */
-	protected void sequence_InjectableAttribute(EObject context, InjectableAttribute semanticObject) {
+	protected void sequence_InjectableAttribute(EObject context, JvmTypedAttribute semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     (name=ValidID valueExpression=XInitExpression (attributes+=InjectableAttribute attributes+=InjectableAttribute*)?)
+	 */
+	protected void sequence_InjectableAttribute(EObject context, Parameter semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	
@@ -1610,7 +1613,7 @@ public abstract class AbstractXActorSemanticSequencer extends XbaseSemanticSeque
 	/**
 	 * Constraint:
 	 *     (
-	 *         attributes+=AnnotationAttribute* 
+	 *         attributes+=InjectableAttribute* 
 	 *         constant?='val'? 
 	 *         realm=Realm? 
 	 *         type=JvmTypeReference 
@@ -1634,7 +1637,7 @@ public abstract class AbstractXActorSemanticSequencer extends XbaseSemanticSeque
 	
 	/**
 	 * Constraint:
-	 *     (tags+=QualifiedName tags+=QualifiedName* target=[State|ValidID])
+	 *     (actions+=[OutputAction|ValidID] actions+=[OutputAction|ValidID]* target=[State|ValidID])
 	 */
 	protected void sequence_Transition(EObject context, Transition semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -1691,14 +1694,7 @@ public abstract class AbstractXActorSemanticSequencer extends XbaseSemanticSeque
 	
 	/**
 	 * Constraint:
-	 *     (
-	 *         type=JvmParameterizedTypeReference 
-	 *         rate=INT? 
-	 *         multiport?='*'? 
-	 *         name=ValidID 
-	 *         displayName=STRING? 
-	 *         attributes+=AnnotationAttribute*
-	 *     )
+	 *     (type=JvmParameterizedTypeReference rate=INT? multiport?='*'? name=ValidID displayName=STRING?)
 	 */
 	protected void sequence_TypedInputPort(EObject context, TypedInputPort semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -1707,14 +1703,7 @@ public abstract class AbstractXActorSemanticSequencer extends XbaseSemanticSeque
 	
 	/**
 	 * Constraint:
-	 *     (
-	 *         type=JvmParameterizedTypeReference 
-	 *         rate=INT? 
-	 *         multiport?='*'? 
-	 *         name=ValidID 
-	 *         displayName=STRING? 
-	 *         attributes+=AnnotationAttribute*
-	 *     )
+	 *     (type=JvmParameterizedTypeReference rate=INT? multiport?='*'? name=ValidID displayName=STRING?)
 	 */
 	protected void sequence_TypedOutputPort(EObject context, TypedOutputPort semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -1754,18 +1743,6 @@ public abstract class AbstractXActorSemanticSequencer extends XbaseSemanticSeque
 	 *     (expressions+=XExpressionInsideBlock*)
 	 */
 	protected void sequence_XBodyExpression(EObject context, XBlockExpression semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
-	}
-	
-	
-	/**
-	 * Constraint:
-	 *     (
-	 *         ((declaredFormalParameters+=JvmFormalParameter declaredFormalParameters+=JvmFormalParameter*)? explicitSyntax?='|')? 
-	 *         expression=XExpressionInClosure
-	 *     )
-	 */
-	protected void sequence_XClosure(EObject context, XClosure semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	

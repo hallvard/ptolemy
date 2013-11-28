@@ -54,7 +54,6 @@ class XActorGenerator extends JvmModelGenerator {
 
 	@Inject extension IJvmModelAssociations
 	@Inject extension ILogicalContainerProvider
-    @Inject extension TypeReferences
     @Inject extension JvmTypesBuilder
 	@Inject extension XActorJvmModelInferrer
 	@Inject extension XbaseCompiler
@@ -410,7 +409,7 @@ class XActorGenerator extends JvmModelGenerator {
 				it << '''this.«name» = this.«declaration.previousValueName»;'''
 			}
 		}
-		for (port : impl.container.ports.filter[it instanceof AbstractIOPort && (it as AbstractIOPort).input]) {
+		for (port : impl.container.ports.filter[input]) {
 			it << '''«port.name».rollbackGet();'''
 		}
 		if (impl.schedule != null) {

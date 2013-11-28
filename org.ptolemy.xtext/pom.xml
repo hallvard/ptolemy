@@ -37,7 +37,7 @@
 						</goals>
 						<!-- optionally you can configure a different target folder -->
 						<configuration>
-							<outputDirectory>../org.ptolemy.xtext/xtend-gen</outputDirectory>
+							<outputDirectory>org.ptolemy.xtext/xtend-gen</outputDirectory>
 						</configuration>
 					</execution>
 				</executions>

@@ -20,7 +20,6 @@
       <import feature="org.eclipse.xtext.runtime" version="2.4.3" match="compatible"/>
       <import feature="org.eclipse.xtext.xbase.lib" version="2.4.3" match="compatible"/>
       <import feature="org.eclipse.graphiti.feature" version="0.10.0" match="compatible"/>
-      <import feature="de.cau.cs.kieler.kiml.graphiti.feature" version="0.10.0" match="compatible"/>
    </requires>
 
    <plugin

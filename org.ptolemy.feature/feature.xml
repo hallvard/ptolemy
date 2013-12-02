@@ -17,10 +17,10 @@
    </license>
 
    <requires>
-      <import feature="org.eclipse.xtext.runtime" version="2.4.2.v201306120542"/>
-      <import feature="org.eclipse.xtext.xbase.lib" version="2.4.2.v201306120542"/>
-      <import feature="org.eclipse.graphiti.feature" version="0.10.0.v20130612-0936"/>
-      <import feature="de.cau.cs.kieler.kiml.graphiti.feature" version="0.8.0.201303011228"/>
+      <import feature="org.eclipse.xtext.runtime" version="2.4.3" match="compatible"/>
+      <import feature="org.eclipse.xtext.xbase.lib" version="2.4.3" match="compatible"/>
+      <import feature="org.eclipse.graphiti.feature" version="0.10.0" match="compatible"/>
+      <import feature="de.cau.cs.kieler.kiml.graphiti.feature" version="0.10.0" match="compatible"/>
    </requires>
 
    <plugin
